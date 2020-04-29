@@ -3,6 +3,7 @@
 from flask import (
     Blueprint,
     current_app,
+    g,
     flash,
     redirect,
     render_template,
@@ -19,11 +20,17 @@ from destiny_focus.user.forms import RegisterForm
 from destiny_focus.user.models import User
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
+from destiny_focus.tools.user_login import create_user, update_user
+from destiny_focus.bungie.bungie_api import BungieApi
+
 import requests
 # import datetime
 
 blueprint = Blueprint("auth", __name__, url_prefix="/auth", static_folder="../static")
 
+@blueprint.before_request
+def before_request():
+    g.user = current_user
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -66,23 +73,18 @@ def oauth_callback(provider):
 
     # Get token from Bungie:
     oauth           = OAuthSignin(provider).get_provider(provider)
-    response    = oauth.get_callback_url()
+    token_response  = oauth.get_callback_url()
 
     # Handle CSRF error:
-    if response is False:
+    if token_response is False:
         return render_template("401.html")
 
     auth_headers                    = {}
-    token_json                      = response.json()['access_token']
-    membership_id                   = response.json()["membership_id"]
+    token_json                      = token_response.json()['access_token']
+    membership_id                   = token_response.json()["membership_id"]
     auth_headers["X-API-Key"]       = OAuthSignin(provider).api_key
     auth_headers["Authorization"]   = 'Bearer ' + str(token_json)
     auth_headers["membership_id"]   = str(membership_id)
-
-
-
-
-    membership_id = auth_headers["membership_id"]
 
     # Create and authorized session for making requests:
     auth_session = requests.Session()
@@ -94,16 +96,45 @@ def oauth_callback(provider):
     # Get Bungie Profile:
         #  This gives membership type - which is needed for all subsequent calls. 
     get_user_url = "https://www.bungie.net/Platform/User/" + "GetCurrentBungieAccount/"
-    user_res = auth_session.get(get_user_url)
+    get_account_res = auth_session.get(get_user_url)
+
+    user = User.query.filter_by(bungieMembershipId=membership_id).first()
+    print(user)
+    print(get_account_res.json()['Response'])
+    if user is None:
+        user = create_user(get_account_res.json(), token_response.json())
+    else:
+        user = update_user(user, get_account_res.json(), token_response.json())
+
+    login_user(user)
+
+    flash("You are logged in.", "success")
 
     # Return the raw JSON content:
-    return jsonify(user_res.json())
+    # return jsonify(get_account_res.json())
     return redirect(url_for("auth.home"))
-    # TODO: 
-    # Store data in database
-    # Go to another route:
-    # Make badass application!
-    # return redirect(url_for("auth.home"))    
+
+
+@blueprint.route("/get_activity/")
+@login_required
+def get_activity():
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+    activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=1)
+    # activity = my_api.get_activity_history("x", "4611686018436136301", "2305843009260647150", mode=5)
+
+    return jsonify(activity)
+
+
+@blueprint.route("/get_profile/")
+@login_required
+def get_profile():
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+    activity = my_api.get_profile("2", "4611686018436136301")
+
+    return jsonify(activity)
+
 
 @blueprint.route("/logout/")
 @login_required
