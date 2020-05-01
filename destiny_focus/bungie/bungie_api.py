@@ -32,6 +32,7 @@ class BungieApi(object):
 
     def get_profile(self, membership_type, membership_id):
         """
+        https://bungie-net.github.io/multi/operation_get_Destiny2-GetProfile.html#operation_get_Destiny2-GetProfile
         Get associated Destiny profile information.
         """
         function_name = "GetProfile"
