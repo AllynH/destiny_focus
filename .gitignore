@@ -1,8 +1,11 @@
 *.py[cod]
 
 # Project:
-./venv
+venv/
+migrations/
 ./vscode
+startup*.bat
+bungie_response/*
 
 # C extensions
 *.so

@@ -30,6 +30,40 @@ class BungieApi(object):
         }
         return self.auth_session
 
+    def GetCurrentBungieAccount(self):
+        """
+        http://destinydevs.github.io/BungieNetPlatform/docs/services/User/User-GetCurrentBungieAccount
+        Example:
+            https:/www.bungie.net/Platform/User/GetCurrentBungieAccount/
+        """
+        function_name = "GetCurrentBungieAccount"
+        auth_session = self.make_session()
+
+
+        url_params = {
+            }
+
+        url = self.api_urls['GetCurrentBungieAccount']
+
+        print("making request for:")
+        print(url)
+        print("headers")
+        print(auth_session.headers)
+
+        response = auth_session.get(url)
+
+        print(response.status_code)
+        print(response.text)
+        if not response.status_code == 200:
+            return self.flag_error(function_name, response)
+
+        self.membership_id      = response.json()['Response']['destinyMemberships'][0]['membershipId']
+        self.membership_type    = response.json()['Response']['destinyMemberships'][0]['membershipType']
+        self.bungie_display_name = response.json()['Response']['bungieNetUser']['displayName']
+        self.bungie_profile_pic = response.json()['Response']['bungieNetUser']['profilePicturePath']
+
+        return response.json()
+
     def get_profile(self, membership_type, membership_id):
         """
         https://bungie-net.github.io/multi/operation_get_Destiny2-GetProfile.html#operation_get_Destiny2-GetProfile
@@ -40,7 +74,7 @@ class BungieApi(object):
 
 
         url_params = {
-            'components' : 100,
+            'components' : "100,200"
             }
 
         url = self.api_urls['GetProfile']

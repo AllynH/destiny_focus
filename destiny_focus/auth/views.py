@@ -52,7 +52,7 @@ def home():
             return redirect(redirect_url)
         else:
             flash_errors(form)
-    return render_template("auth/home.html", form=form)
+    return render_template("auth/welcome.html", form=form)
 
 
 @blueprint.route("/authorize/<provider>")
@@ -115,13 +115,23 @@ def oauth_callback(provider):
     return redirect(url_for("auth.home"))
 
 
+@blueprint.route("/get_current_bungie_account/")
+@login_required
+def get_current_bungie_account():
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+    activity = my_api.GetCurrentBungieAccount()
+
+    return jsonify(activity)
+
+
 @blueprint.route("/get_activity/")
 @login_required
 def get_activity():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
+    #TODO: Hardcoded values:
     activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=1)
-    # activity = my_api.get_activity_history("x", "4611686018436136301", "2305843009260647150", mode=5)
 
     return jsonify(activity)
 
@@ -131,6 +141,7 @@ def get_activity():
 def get_profile():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
+    # TODO: Hardcoded values:
     activity = my_api.get_profile("2", "4611686018436136301")
 
     return jsonify(activity)
