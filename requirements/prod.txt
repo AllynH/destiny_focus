@@ -37,3 +37,6 @@ Flask-DebugToolbar==0.11.0
 
 # Environment variable parsing
 environs==7.4.0
+
+# API calls:
+requests==2.23.0

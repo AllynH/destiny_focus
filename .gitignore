@@ -6,6 +6,7 @@ migrations/
 ./vscode
 startup*.bat
 bungie_response/*
+*_pycache_*
 
 # C extensions
 *.so

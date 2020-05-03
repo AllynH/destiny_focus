@@ -16,3 +16,6 @@ flake8-docstrings==1.5.0
 flake8-isort==3.0.0
 isort==4.3.21
 pep8-naming==0.10.0
+
+# API calls:
+requests==2.23.0
