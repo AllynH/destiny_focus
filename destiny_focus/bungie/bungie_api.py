@@ -90,7 +90,7 @@ class BungieApi(object):
         response = auth_session.get(url)
 
         print(response.status_code)
-        print(response.text)
+        # print(response.text)
         if not response.status_code == 200:
             return self.flag_error(function_name, response)
 

@@ -22,6 +22,8 @@ from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
 from destiny_focus.tools.user_login import create_user, update_user
 from destiny_focus.bungie.bungie_api import BungieApi
+from destiny_focus.redis_tools.redis_functions import get_definition
+from destiny_focus.bungie.parse_bungie_response import *
 
 import requests
 # import datetime
@@ -142,9 +144,10 @@ def get_profile():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
     # TODO: Hardcoded values:
-    activity = my_api.get_profile("2", "4611686018436136301")
+    get_profile_res = my_api.get_profile("2", "4611686018436136301")
+    character_details = get_character_details_json(get_profile_res)
 
-    return jsonify(activity)
+    return jsonify(character_details)
 
 
 @blueprint.route("/logout/")
