@@ -1,7 +1,7 @@
 {
   "name": "destiny_focus",
   "version": "1.0.0",
-  "description": "A Destiny the game app, helping you focus on improving your PvP or PvE game.",
+  "description": "A Destiny the game app, helping you focus on improving your PvP or Raid game.",
   "scripts": {
     "build": "run-script-os",
     "build:win32": "SET NODE_ENV=production && webpack --progress --colors -p && npm run flask-static-digest",

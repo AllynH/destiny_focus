@@ -1,6 +1,6 @@
 # Destiny Focus
 
-A Destiny the game app, helping you focus on improving your PvP or PvE game.
+A Destiny the game app, helping you focus on improving your PvP or Raid game.
 
 ## Docker Quickstart
 
