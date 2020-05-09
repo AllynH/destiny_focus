@@ -114,7 +114,16 @@ def oauth_callback(provider):
 
     # Return the raw JSON content:
     # return jsonify(get_account_res.json())
-    return redirect(url_for("auth.home"))
+
+    membershipId    = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"]
+    membershipType  = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"]
+    
+    # TODO: 
+    # Redirect to get_profile - > Get: membershipType destinyMembershipId
+    # Redirect to chose_track/membershipType/destinyMembershipId.
+
+    return redirect(url_for("auth.choose_focus", membershipType=membershipType, membershipId=membershipId))
+    # return redirect(url_for("auth.home"))
 
 
 @blueprint.route("/get_current_bungie_account/")
@@ -133,7 +142,7 @@ def get_activity():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
     #TODO: Hardcoded values:
-    activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=1)
+    activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=3)
 
     return jsonify(activity)
 
@@ -150,16 +159,36 @@ def get_profile():
     return jsonify(character_details)
 
 
-@blueprint.route("/choose_focus/")
+@blueprint.route("/choose_focus/<membershipType>/<membershipId>/")
 @login_required
-def choose_focus():
+def choose_focus(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
-    # TODO: Hardcoded values:
-    get_profile_res = my_api.get_profile("2", "4611686018436136301")
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
     return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/pvp/<membershipType>/<membershipId>/")
+@login_required
+def pvp(membershipType, membershipId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+    # TODO: Hardcoded values:
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    character_details = get_character_details_json(get_profile_res)
+
+    print("\n\nCharacter ID:")
+    print(character_details.keys())
+    charId = list(character_details.keys())[0]
+
+    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=5, count=3)
+
+
+    return jsonify(activity)
+    # return render_template("auth/choose_focus.html")
 
 
 @blueprint.route("/logout/")

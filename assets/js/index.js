@@ -10,6 +10,10 @@ import Character_Plate from './Character_Plate'
 import Card from './Components/Card'
 import MenuAppBar from './Components/Nav/Nav'
 
+import CrucibleImage from '../img/cards/Crucible.png'
+import GambitImage from '../img/cards/Gambit.png'
+import RaidImage from '../img/cards/Raid.png'
+
 console.log('Rendering App')
 const url = window.location.href.toLowerCase();
 
@@ -23,25 +27,24 @@ if (url.endsWith('/auth/')) {
   console.log('Bingpot!')
   ReactDOM.render(<Character_Plate/>, document.getElementById('character_plate'));
 }
-if (url.endsWith('choose_focus/')) {
-
+if (url.includes('choose_focus/')) {
   const focus_details = {
     Crucible: {
       focus: 'Crucible',
       description: 'Hone your skills and win glory in battle against other Guardians.',
-      image: '../../static/build/img/Crucible.png',
+      image: CrucibleImage,
       colour: 'darkred',
     },
     Gambit: {
       focus: 'Gambit',
       description: 'Defeat the enemies of humanity, collect their Motes, and bank them to summon a Primeval. First team to destroy their Primeval wins.',
-      image: '../../static/build/img/Gambit.png',
+      image: GambitImage,
       colour: 'forestgreen',
     },
     Raid: {
       focus: 'Raid',
       description: 'Form a fireteam of six and brave the strange and powerful realms of our enemies.',
-      image: '../../static/build/img/Raid.png',
+      image: RaidImage,
       colour: 'dodgerblue',
     },
   }
