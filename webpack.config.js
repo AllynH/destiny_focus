@@ -1,3 +1,5 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable linebreak-style */
 const path = require('path');
 const webpack = require('webpack');
 

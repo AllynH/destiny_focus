@@ -15,6 +15,13 @@ import './cards.css';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    borderRadius: 20,
+    '&:hover': {
+      transform: 'translateY(-3px)',
+      boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+      transitionDuration: '1.8s',
+      '-webkit-transition': 'transform 1.2s',
+    },
   },
   media: {
     height: 140,
@@ -24,23 +31,25 @@ const useStyles = makeStyles({
   content: {
     minHeight: 100,
   },
+
 });
 
 export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardActionArea>
         <CardMedia
+          style={{ backgroundColor: props.theme }}
           className={classes.media}
-          image="../../static/build/img/Crucible.png"
-          title="Crucible"
+          image={props.image}
+          title={props.title}
         />
         <CardContent>
-          {/* <Typography gutterBottom variant="h5" component="h2">
-            {props.track}
-          </Typography> */}
+          <Typography gutterBottom variant="h5" component="h2">
+            {props.focus}
+          </Typography>
           <Typography className={classes.content} variant="body2" color="textSecondary" component="p">
             {props.description}
           </Typography>
@@ -48,7 +57,7 @@ export default function MediaCard(props) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          {props.track}
+          {props.focus}
         </Button>
       </CardActions>
     </Card>

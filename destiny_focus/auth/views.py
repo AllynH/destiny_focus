@@ -150,16 +150,16 @@ def get_profile():
     return jsonify(character_details)
 
 
-@blueprint.route("/choose_track/")
+@blueprint.route("/choose_focus/")
 @login_required
-def choose_track():
+def choose_focus():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
     # TODO: Hardcoded values:
     get_profile_res = my_api.get_profile("2", "4611686018436136301")
     character_details = get_character_details_json(get_profile_res)
 
-    return render_template("auth/choose_track.html")
+    return render_template("auth/choose_focus.html")
 
 
 @blueprint.route("/logout/")

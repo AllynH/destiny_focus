@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  /* padding-top: 60px; */
 }
 
 section {
@@ -45,6 +45,12 @@ textarea {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+/* header */
+
+.header {
+  margin-bottom: 20px;
 }
 
 /* footer */
