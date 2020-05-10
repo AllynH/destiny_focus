@@ -176,6 +176,18 @@ def choose_focus(membershipType, membershipId):
 def pvp(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    character_details = get_character_details_json(get_profile_res)
+
+    return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/get/pvp/<membershipType>/<membershipId>/")
+@login_required
+def get_pvp(membershipType, membershipId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
     # TODO: Hardcoded values:
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
@@ -184,7 +196,7 @@ def pvp(membershipType, membershipId):
     print(character_details.keys())
     charId = list(character_details.keys())[0]
 
-    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=5, count=3)
+    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=5, count=30)
 
 
     return jsonify(activity)

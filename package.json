@@ -37,7 +37,8 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "victory": "^34.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

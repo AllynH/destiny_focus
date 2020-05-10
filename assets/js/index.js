@@ -9,10 +9,12 @@ import ReactDOM from 'react-dom';
 import Character_Plate from './Character_Plate'
 import Card from './Components/Card'
 import MenuAppBar from './Components/Nav/Nav'
+import PvP from './Components/PvP/Pvp';
 
 import CrucibleImage from '../img/cards/Crucible.png'
 import GambitImage from '../img/cards/Gambit.png'
 import RaidImage from '../img/cards/Raid.png'
+import PvPChart from './Components/PvP/Pvp_chart';
 
 console.log('Rendering App')
 const url = window.location.href.toLowerCase();
@@ -54,4 +56,8 @@ if (url.includes('choose_focus/')) {
   ReactDOM.render(<Card focus='Crucible' description={focus_details.Crucible.description} image={focus_details.Crucible.image} theme={focus_details.Crucible.colour} />, document.getElementById('card-root-1'));
   ReactDOM.render(<Card focus='Gambit' description={focus_details.Gambit.description} image={focus_details.Gambit.image} theme={focus_details.Gambit.colour}/>, document.getElementById('card-root-2'));
   ReactDOM.render(<Card focus='Raid' description={focus_details.Raid.description} image={focus_details.Raid.image} theme={focus_details.Raid.colour}/>, document.getElementById('card-root-3'));
+}
+if (url.includes('/pvp/')) {
+  console.log('PvP focus!')
+  ReactDOM.render(<PvPChart/>, document.getElementById('card-root-1'));
 }
