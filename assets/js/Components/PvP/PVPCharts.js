@@ -10,6 +10,7 @@ import {
   VictoryTooltip,
   VictoryAxis
 } from 'victory';
+import KDRChart from './KDRChart'
 
 class PvPChart extends React.Component {
   constructor() {
@@ -46,24 +47,49 @@ class PvPChart extends React.Component {
     const myArray = jsonResponse.Response.activities
     myArray.forEach((element, index) => {
       const kdr = element.values.killsDeathsRatio.basic.displayValue
+      const deaths = element.values.deaths.basic.displayValue
+      const kills = element.values.kills.basic.displayValue
+      const assists = element.values.assists.basic.displayValue
+      if (kills === '0' && deaths === '0') {
+        return true
+      }
       console.log(`Kill / Death ratio: ${kdr}. For game: ${index}.`)
-      const kdrDetails = { x: index + 1, y: parseFloat(kdr) }
+      const kdrDetails = {
+        x: index + 1,
+        y: parseFloat(kdr),
+        deaths,
+        kills,
+        assists,
+      }
       kdrList.push(kdrDetails)
     })
     return kdrList
   }
 
-  getKills(jsonResponse) {
-    const killsList = []
-    const myArray = jsonResponse.Response.activities
-    myArray.forEach((element, index) => {
-      const kdr = element.values.kills.basic.displayValue
-      console.log(`Kills count: ${kdr}. For game: ${index}.`)
-      const kdrDetails = { kdr, game: index + 1 }
-      killsList.push(kdrDetails)
-    })
-    return killsList
-  }
+  // getKills(jsonResponse) {
+  //   const killsList = []
+  //   const myArray = jsonResponse.Response.activities
+  //   myArray.forEach((element, index) => {
+  //     const kdr = element.values.kills.basic.displayValue
+  //     const deaths = element.values.deaths.basic.displayValue
+  //     console.log(`Kills count: ${kdr}. For game: ${index}.`)
+  //     const kdrDetails = { kdr, game: index + 1, deaths }
+  //     killsList.push(kdrDetails)
+  //   })
+  //   return killsList
+  // }
+
+  // getStat(jsonResponse, stat) {
+  //   const killsList = []
+  //   const myArray = jsonResponse.Response.activities
+  //   myArray.forEach((element, index) => {
+  //     const stats = element.values.stat.basic.displayValue
+  //     console.log(`Kills count: ${kdr}. For game: ${index}.`)
+  //     const kdrDetails = { kdr, game: index + 1 }
+  //     killsList.push(kdrDetails)
+  //   })
+  //   return killsList
+  // }
 
   render() {
     const { error, isLoaded, jsonResponse } = this.state
@@ -77,33 +103,7 @@ class PvPChart extends React.Component {
       const kdr = this.getKdr(jsonResponse)
       console.log(kdr)
       return (
-        <VictoryChart height={400} width={400}
-          domainPadding={{ y: 10 }}
-          containerComponent={
-            <VictoryVoronoiContainer
-              voronoiDimension="x"
-              labels={({ datum }) => `K/D R: ${datum.y}`}
-              labelComponent={
-                <VictoryTooltip
-                  cornerRadius={0}
-                  flyoutStyle={{ fill: 'white' }}
-                />}
-            />}
-        >
-          <VictoryAxis />
-          <VictoryAxis dependentAxis />
-          <VictoryLine
-            data = {kdr}
-
-            style={{
-              data: {
-                stroke: 'tomato',
-                strokeWidth: ({ active }) => active ? 4 : 2,
-              },
-              labels: { fill: 'tomato' },
-            }}
-          />
-        </VictoryChart>
+        <KDRChart data={kdr}/>
       );
     }
   }

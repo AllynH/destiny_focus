@@ -14,7 +14,7 @@ import PvP from './Components/PvP/Pvp';
 import CrucibleImage from '../img/cards/Crucible.png'
 import GambitImage from '../img/cards/Gambit.png'
 import RaidImage from '../img/cards/Raid.png'
-import PvPChart from './Components/PvP/Pvp_chart';
+import PvPChart from './Components/PvP/PVPCharts';
 
 console.log('Rendering App')
 const url = window.location.href.toLowerCase();
