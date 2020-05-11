@@ -8,7 +8,7 @@ import {
   VictoryVoronoiContainer,
   VictoryLine,
   VictoryTooltip,
-  VictoryAxis
+  VictoryAxis,
 } from 'victory';
 import KDRChart from './KDRChart'
 
@@ -24,7 +24,14 @@ class PvPChart extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/auth/get/pvp/2/4611686018436136301/')
+    const url = window.location.href.replace(/.*pvp/).split('/');
+    console.log(`${url[1]} ${url[2]}`);
+
+    const membershipType = url[1];
+    const membershipId = url[2];
+    const apiUrl = `/auth/get/pvp/${membershipType}/${membershipId}`
+
+    fetch(apiUrl)
       .then((res) => res.json())
       .then(
         (result) => {
