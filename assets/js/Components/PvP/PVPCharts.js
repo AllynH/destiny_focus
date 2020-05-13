@@ -11,6 +11,7 @@ import {
   VictoryAxis,
 } from 'victory';
 import KDRChart from './KDRChart'
+import KDAChart from './KDAChart'
 
 class PvPChart extends React.Component {
   constructor() {
@@ -73,6 +74,59 @@ class PvPChart extends React.Component {
     return kdrList
   }
 
+
+  getStats(jsonResponse) {
+    const kdr = []
+    const kills = []
+    const deaths = []
+    const assists = []
+    const myArray = jsonResponse.Response.activities
+    myArray.forEach((element, index) => {
+      const _kdr = element.values.killsDeathsRatio.basic.displayValue
+      const _deaths = element.values.deaths.basic.displayValue
+      const _kills = element.values.kills.basic.displayValue
+      const _assists = element.values.assists.basic.displayValue
+      if (kills === '0' && deaths === '0') {
+        return true
+      }
+      // console.log(`Kill / Death ratio: ${_kdr}. For game: ${index}.`)
+      const kdrDetails = {
+        x: index + 1,
+        y: parseFloat(_kdr),
+        l: 'KDR',
+      }
+      const kDetails = {
+        x: index + 1,
+        y: parseFloat(_kills),
+        l: 'kills',
+        _kills,
+        _deaths,
+        _assists,
+        _kdr,
+      }
+      const dDetails = {
+        x: index + 1,
+        y: parseFloat(_deaths),
+        l: 'deaths',
+      }
+      const assistsDetails = {
+        x: index + 1,
+        y: parseFloat(_assists),
+        l: 'assists',
+      }
+      kdr.push(kdrDetails)
+      kills.push(kDetails)
+      deaths.push(dDetails)
+      assists.push(assistsDetails)
+    })
+    const stats = {
+      kdr, kills, deaths, assists,
+    }
+    console.log('Returning stats:')
+    console.log(stats)
+    return stats
+  }
+
   // getKills(jsonResponse) {
   //   const killsList = []
   //   const myArray = jsonResponse.Response.activities
@@ -108,9 +162,17 @@ class PvPChart extends React.Component {
       console.log('Render')
       console.log(jsonResponse)
       const kdr = this.getKdr(jsonResponse)
+      const stats = this.getStats(jsonResponse)
       console.log(kdr)
       return (
-        <KDRChart data={kdr}/>
+        <div>
+          <div>
+            <KDRChart data={kdr}/>
+          </div>
+          <div>
+            <KDAChart kills={stats.kills} deaths={stats.deaths} assists={stats.assists} />
+          </div>
+        </div>
       );
     }
   }

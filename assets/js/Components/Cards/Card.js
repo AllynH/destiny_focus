@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import './cards.css';
+import './card.css';
 
 const useStyles = makeStyles({
   root: {

@@ -8,7 +8,7 @@ import {
   VictoryVoronoiContainer,
   VictoryLine,
   VictoryTooltip,
-  VictoryAxis
+  VictoryAxis,
 } from 'victory';
 
 class PvPChart extends React.Component {
@@ -21,7 +21,7 @@ class PvPChart extends React.Component {
         containerComponent={
           <VictoryVoronoiContainer
             voronoiDimension="x"
-            labels={({ datum }) => `Kills: ${datum.kills}\nDeaths: ${datum.deaths}\nKDR: ${datum.y}\nAssists: ${datum.assists}`}
+            labels={({ datum }) => `Kills: ${datum.kills}\nDeaths: ${datum.deaths}\nAssists: ${datum.assists}\nKDR: ${datum.y}`}
             labelComponent={
               <VictoryTooltip
                 cornerRadius={0}
