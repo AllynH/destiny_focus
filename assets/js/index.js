@@ -10,7 +10,11 @@ import Character_Plate from './Character_Plate'
 import WrapCards from './Components/Cards/WrapCards'
 import MenuAppBar from './Components/Nav/Nav'
 import PvPChart from './Components/PvP/PVPCharts';
+// import allReducers from './Reducers'
+// import { createStore } from 'redux'
+// import { Provider } from 'react-redux'
 
+// const store = createStore(allReducers)
 
 console.log('Rendering App')
 const url = window.location.href.toLowerCase();
@@ -26,9 +30,9 @@ if (url.endsWith('/auth/')) {
   ReactDOM.render(<Character_Plate/>, document.getElementById('character_plate'));
 }
 if (url.includes('choose_focus/')) {
-  ReactDOM.render(<WrapCards/>, document.getElementById('card-wrapper'));
+  ReactDOM.render(<WrapCards/>, document.getElementById('main-root'));
 }
 if (url.includes('/pvp/')) {
   console.log('PvP focus!')
-  ReactDOM.render(<PvPChart/>, document.getElementById('card-wrapper'));
+  ReactDOM.render(<PvPChart/>, document.getElementById('main-root'));
 }

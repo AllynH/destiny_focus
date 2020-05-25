@@ -24,8 +24,10 @@ class PvPChart extends React.Component {
             labels={({ datum }) => `Kills: ${datum.kills}\nDeaths: ${datum.deaths}\nAssists: ${datum.assists}\nKDR: ${datum.y}`}
             labelComponent={
               <VictoryTooltip
+                constrainToVisibleArea
                 cornerRadius={0}
                 flyoutStyle={{ fill: 'white' }}
+                orientation='right'
               />}
           />}
       >

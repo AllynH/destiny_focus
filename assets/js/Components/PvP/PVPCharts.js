@@ -3,15 +3,9 @@
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
 import React from 'react';
-import {
-  VictoryChart,
-  VictoryVoronoiContainer,
-  VictoryLine,
-  VictoryTooltip,
-  VictoryAxis,
-} from 'victory';
 import KDRChart from './KDRChart'
 import KDAChart from './KDAChart'
+import './style.css'
 
 class PvPChart extends React.Component {
   constructor() {
@@ -165,11 +159,16 @@ class PvPChart extends React.Component {
       const stats = this.getStats(jsonResponse)
       console.log(kdr)
       return (
-        <div>
-          <div>
+        <div className='card-wrapper'>
+          <div className='float-below'>
+          <div className='kdr-chart'>
             <KDRChart data={kdr}/>
           </div>
-          <div>
+          </div>
+          <div className='kda-chart'>
+            <KDAChart kills={stats.kills} deaths={stats.deaths} assists={stats.assists} />
+          </div>
+          <div className='kda-chart-2'>
             <KDAChart kills={stats.kills} deaths={stats.deaths} assists={stats.assists} />
           </div>
         </div>

@@ -4,11 +4,55 @@
 
 /* universal */
 
+:root {
+
+  /* Reference: Grey - 332F46 */
+  --grey-bg:      #F7F7F8ff;
+  --grey-light-4: #E8E8EAff;
+  --grey-light-3: #D2D1D6ff;
+  --grey-light-2: #BBBAC1ff;
+  --grey-light-1: #A4A3ADff;
+  --grey:         #8E8B98ff;
+  --grey-dark-1:  #777484ff;
+  --grey-dark-2:  #605D6Fff;
+  --grey-dark-3:  #4A465Bff;
+  --grey-dark-4:  #332F46ff;
+
+  /* Crucible Red and hightlight */
+  --crucible-light-5: #F6DCDB;
+  --crucible-light-4: #ECB8B8;
+  --crucible-light-3: #E39594;
+  --crucible-light-2: #D97270;
+  --crucible-light-1: #D04E4D;
+  --crucible-red:     #C62B29;
+  --crucible-dark-1:  #A52422;
+  --crucible-dark-2:  #841D1B;
+  --crucible-dark-3:  #631615;
+  --crucible-dark-4:  #420E0E;
+  --crucible-dark-5:  #210707;
+
+  /* --gambit-green: */
+
+  /* Vanguard Blue and highlights: */
+  --vanguard-light-5: #E1EBF6;
+  --vanguard-light-4: #C2D8EE;
+  --vanguard-light-3: #A4C4E5;
+  --vanguard-light-2: #85B0DC;
+  --vanguard-light-1: #679DD4;
+  --vanguard-blue:    #4889CB;
+  --vanguard-dark-1:  #3C72A9;
+  --vanguard-dark-2:  #305B87;
+  --vanguard-dark-3:  #244566;
+  --vanguard-dark-4:  #182E44;
+  --vanguard-dark-5:  #0C1722;
+}
+
 html {
   overflow-y: scroll;
 }
 
 body {
+  background-color: var(--grey-bg);
   /* padding-top: 60px; */
 }
 
