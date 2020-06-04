@@ -3,7 +3,7 @@
 # Project:
 venv/
 migrations/
-./vscode
+.vscode/
 startup*.bat
 bungie_response/*
 *_pycache_*

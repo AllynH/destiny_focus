@@ -15,6 +15,9 @@ import RaidImage from '../../../img/cards/Raid.png'
 
 
 export default function WrapCards(props) {
+  // console.log("Testing props")
+  // console.log(props)
+  // console.log(props.match.params)
   const focus_details = {
     Crucible: {
       focus: 'Crucible',

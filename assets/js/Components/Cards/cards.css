@@ -12,6 +12,7 @@
 }
 
 .card {
+    display: flex;
     justify-self: center;
 }
 

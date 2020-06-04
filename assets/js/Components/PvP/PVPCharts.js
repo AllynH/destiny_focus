@@ -8,8 +8,8 @@ import KDAChart from './KDAChart'
 import './style.css'
 
 class PvPChart extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.getKdr = this.getKdr.bind(this)
     this.state = {
       error: null,
@@ -19,11 +19,9 @@ class PvPChart extends React.Component {
   }
 
   componentDidMount() {
-    const url = window.location.href.replace(/.*pvp/).split('/');
-    console.log(`${url[1]} ${url[2]}`);
-
-    const membershipType = url[1];
-    const membershipId = url[2];
+    const { membershipType, membershipId } = this.props.match.params
+    console.log(membershipType)
+    console.log(membershipId)
     const apiUrl = `/auth/get/pvp/${membershipType}/${membershipId}`
 
     fetch(apiUrl)
