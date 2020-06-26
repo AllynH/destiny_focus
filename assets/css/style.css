@@ -47,6 +47,14 @@
   --vanguard-dark-5:  #0C1722;
 }
 
+h1, h2, h3, h4 {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+body, p, a {
+  font-family: 'Roboto', sans-serif;
+}
+
 html {
   overflow-y: scroll;
 }
@@ -133,4 +141,87 @@ footer .footer-nav {
   float: right;
   margin-right: 25px;
   list-style: none;
+}
+
+/* Welcome wrapper */
+.welcome-content {
+  min-height: 600px;
+  background-image: url('/static/build/img/cards/Crucible.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: right;
+}
+.welcome-wrapper {
+  /* display: flex messes with the animations */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.welcome-wrapper h2{
+  padding: 0;
+  margin: 0;
+  /* text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5); */
+}
+
+.welcome-wrapper h1{
+  font-size: 4em;
+}
+
+.welcome-button {
+  background: var(--crucible-red);
+  padding: 10px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--grey-bg);  
+}
+
+.welcome-text {
+  margin-top: 60px;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.text_rotate::before {
+  color: black;
+  content: 'Crucible';
+  animation: text_rotation linear infinite 8s;
+}
+@keyframes text_rotation {
+  10% {
+    color: white;
+  }   
+  20% {
+    color: black;
+    content: 'Raid';
+  }
+  30% {
+    color: white;
+  }  
+  40% {
+    content: 'K/D R';
+    color: black;
+  }
+  50% {
+    color: white;
+  }  
+  60% {
+    content: 'Headshots';
+    color: black;
+  }
+  70% {
+    color: white;
+  }  
+  80% {
+    content: 'Gambit';
+    color: black;
+  }
+  90% {
+    color: white;
+  }  
 }

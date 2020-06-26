@@ -1,0 +1,19 @@
+.float-below{
+    padding-right: 10px;
+    margin-bottom: -50px;
+    padding-left: 10px;
+    background-color: #ff4386;
+    border-radius: 10px;
+    justify-content: center;
+    display: flex;
+    max-width: 500px;
+}
+
+.kdr-chart {
+    background-color: lightgray;
+    border-radius: 15px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    min-width: 450px;
+    justify-content: center;
+}

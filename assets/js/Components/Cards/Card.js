@@ -9,7 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Redirect, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
+import FormDialog from '../../Forms/customForm'
 
 import './cards.css';
 import './card.css';
@@ -42,6 +43,8 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   // This is the main card body area.
   // Props are provided from WrapCard component.
+  console.log('Card.js')
+  console.log(props.match)
   const classes = useStyles();
   const {
     focus, apiUrl, image, colours, description,
@@ -49,7 +52,6 @@ export default function MediaCard(props) {
 
   return (
     <Card className={classes.root}>
-
       <CardActionArea>
         <Link to={apiUrl} style={{ textDecoration: 'none' }}>
           <CardMedia
@@ -73,11 +75,16 @@ export default function MediaCard(props) {
       </CardActionArea>
 
       <CardActions style={{ backgroundColor: colours.colour_1 }}>
-        <Link to={apiUrl} style={{ textDecoration: 'none', color: 'black' }}>
+        {/* <Link to={apiUrl} style={{ textDecoration: 'none', color: 'black' }}>
           <Typography gutterBottom variant='h5' component='h2'>
             {focus}
           </Typography>
-        </Link>
+        </Link> */}
+        {props.children ? (
+          props.children
+        ) : (
+          <FormDialog focus_details={props.focus_details}></FormDialog>
+        )}
       </CardActions>
     </Card>
   )

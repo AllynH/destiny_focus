@@ -49,7 +49,7 @@ def home():
     if request.method == "POST":
         if form.validate_on_submit():
             login_user(form.user)
-            flash("You are logged in.", "success")
+            # flash("You are logged in.", "success")
             redirect_url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
         else:
@@ -60,7 +60,7 @@ def home():
 @blueprint.route("/authorize/<provider>")
 def oauth_authorize(provider):
     """ Authorize URL for a given provider."""
-    flash("You are in the Authorize URL.", "info")
+    # flash("You are in the Authorize URL.", "info")
     if not current_user.is_anonymous:
         return redirect(url_for('index'))
     print("looking for OAuthSignin", provider)
@@ -71,7 +71,7 @@ def oauth_authorize(provider):
 @blueprint.route("/callback/<provider>")
 def oauth_callback(provider):
     """ Callback URL for a given provider."""
-    flash("You are in the callback URL.", "info")
+    # flash("You are in the callback URL.", "info")
 
     # Get token from Bungie:
     oauth           = OAuthSignin(provider).get_provider(provider)
@@ -110,7 +110,7 @@ def oauth_callback(provider):
 
     login_user(user)
 
-    flash("You are logged in.", "success")
+    # flash("You are logged in.", "success")
 
     # Return the raw JSON content:
     # return jsonify(get_account_res.json())
@@ -201,6 +201,37 @@ def get_pvp(membershipType, membershipId):
 
     return jsonify(activity)
     # return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/get/gambit/<membershipType>/<membershipId>/")
+@login_required
+def get_gambit(membershipType, membershipId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+    # TODO: Hardcoded values:
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    character_details = get_character_details_json(get_profile_res)
+
+    print("\n\nCharacter ID:")
+    print(character_details.keys())
+    charId = list(character_details.keys())[0]
+
+    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=63, count=1)
+
+
+    return jsonify(activity)
+    # return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/get/pgcr/<activityId>/")
+@login_required
+def get_pgcr(activityId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    activity = my_api.get_pgcr(activityId)
+
+    return jsonify(activity)
 
 
 @blueprint.route("/logout/")

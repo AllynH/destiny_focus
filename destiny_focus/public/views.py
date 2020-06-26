@@ -50,7 +50,7 @@ def home():
 @blueprint.route("/authorize/<provider>")
 def oauth_authorize(provider):
     """ Authorize URL for a given provider."""
-    flash("You are in the Authorize URL.", "info")
+    # flash("You are in the Authorize URL.", "info")
     # if not current_user.is_anonymous:
     #     return redirect(url_for('index'))
     print("looking for OAuthSignin", provider)

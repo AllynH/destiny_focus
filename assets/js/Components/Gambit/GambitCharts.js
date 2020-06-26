@@ -10,7 +10,7 @@ import { useFetch } from '../../Utils/useFetch'
 
 import './style.css'
 
-class PvPChart extends React.Component {
+class GambitChart extends React.Component {
   constructor(props) {
     super(props)
     this.getKdr = this.getKdr.bind(this)
@@ -26,7 +26,7 @@ class PvPChart extends React.Component {
     console.log(membershipType)
     console.log(membershipId)
 
-    const apiUrl = `/auth/get/pvp/${membershipType}/${membershipId}`
+    const apiUrl = `/auth/get/gambit/${membershipType}/${membershipId}`
 
     // const { error, loading, data } = useFetch(apiUrl)
     // console.log(error)
@@ -184,4 +184,4 @@ class PvPChart extends React.Component {
   }
 }
 
-export default PvPChart
+export default GambitChart

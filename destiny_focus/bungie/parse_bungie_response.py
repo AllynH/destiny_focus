@@ -26,7 +26,7 @@ def get_character_details_json(GetProfile_res):
         emblem_hash        = GetProfile_res['Response']['characters']['data'][i]['emblemHash']
 
         # This is overwriting itself, needs to append:
-        print("Getting emblem:", emblem_hash)
+        # print("Getting emblem:", emblem_hash)
         emblem = get_emblem(emblem_hash)
         emblem = get_emblem(emblem_hash)
         temp_dict = {
@@ -51,7 +51,7 @@ def get_emblem(emblem_hash):
     """
     emblem_full = get_definition('DestinyInventoryItemDefinition', emblem_hash)
 
-    print(emblem_full)
+    # print(emblem_full)
 
     emblem_data ={
         "icon": emblem_full['secondaryOverlay'],

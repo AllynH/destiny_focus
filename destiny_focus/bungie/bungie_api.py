@@ -45,15 +45,15 @@ class BungieApi(object):
 
         url = self.api_urls['GetCurrentBungieAccount']
 
-        print("making request for:")
-        print(url)
-        print("headers")
-        print(auth_session.headers)
+        # print("making request for:")
+        # print(url)
+        # print("headers")
+        # print(auth_session.headers)
 
         response = auth_session.get(url)
 
-        print(response.status_code)
-        print(response.text)
+        # print(response.status_code)
+        # print(response.text)
         if not response.status_code == 200:
             return self.flag_error(function_name, response)
 
@@ -82,10 +82,10 @@ class BungieApi(object):
         url = re.sub("{destinyMembershipId}", membership_id, url)
         url = url + '?' + parse.urlencode(url_params)
 
-        print("making request for:")
-        print(url)
-        print("headers")
-        print(auth_session.headers)
+        # print("making request for:")
+        # print(url)
+        # print("headers")
+        # print(auth_session.headers)
 
         response = auth_session.get(url)
 
@@ -131,16 +131,53 @@ class BungieApi(object):
 
         url = url + '?' + parse.urlencode(url_params)
 
-        print("making request for:")
-        print(url)
-        print("headers")
-        print(auth_session.headers)
+        # print("making request for:")
+        # print(url)
+        # print("headers")
+        # print(auth_session.headers)
 
         response = auth_session.get(url)
 
-        print(response.status_code)
-        print(type(response.status_code))
-        print(response.text)
+        # print(response.status_code)
+        # print(type(response.status_code))
+        # print(response.text)
+        if not response.status_code == 200:
+            return self.flag_error(function_name, response)
+
+
+        return response.json()
+
+    def flag_error(self, function_name, response):
+        """
+        Return a JSON formatted error.
+        """
+        fail = {
+            'status'    : response.status_code,
+            'request'   : function_name,
+            'message'   : response.json()
+        }
+
+        print('Bungie response error:')
+        print(fail)
+
+        return dict(fail)
+
+    def get_pgcr(self, activityId):
+        """
+        https://bungie-net.github.io/multi/operation_get_Destiny2-GetPostGameCarnageReport.html#operation_get_Destiny2-GetPostGameCarnageReport
+        Path: /Destiny2/Stats/PostGameCarnageReport/{activityId}/
+
+        Gets the available post game carnage report for the activity ID.
+        """
+
+        function_name = "get_pgcr"
+        auth_session = self.make_session()
+
+        url = self.api_urls['GetPostGameCarnageReport']
+        url = re.sub("{activityId}", activityId, url)
+
+        response = auth_session.get(url)
+
         if not response.status_code == 200:
             return self.flag_error(function_name, response)
 
