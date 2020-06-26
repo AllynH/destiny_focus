@@ -152,21 +152,15 @@ footer .footer-nav {
   background-position-x: right;
 }
 .welcome-wrapper {
-  /* display: flex messes with the animations */
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center; */
-  position: absolute;
-  top: 40%;
-  left: 40%;
-  transform: translate(-50%, -50%);
+  align-items: flex-start;
+  padding-left: 30px;
 }
 
 .welcome-wrapper h2{
   padding: 0;
   margin: 0;
-  /* text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5); */
 }
 
 .welcome-wrapper h1{
@@ -178,7 +172,9 @@ footer .footer-nav {
   padding: 10px 25px;
   border-radius: 5px;
   text-decoration: none;
-  color: var(--grey-bg);  
+  color: var(--grey-bg);
+  width: 100px;
+  text-align: center;
 }
 
 .welcome-text {

@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="welcome-content">
+<section class="welcome-content">
   <div class="welcome-wrapper">
   
     <h1 class="welcome">Welcome to Destiny Focus</h1>
@@ -14,7 +14,7 @@
     <p class="welcome-text">Authorise your account with Bungie to continue.</p>
     <a class="welcome-button" href={{ url_for('public.oauth_authorize', provider='bungie') }}>Authorise</a>
   </div>
-</div>
+</section>
 <div id="main-root"></div>
 
 {% endblock %}
