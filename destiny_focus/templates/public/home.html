@@ -2,19 +2,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<section class="welcome-content">
-  <div class="welcome-wrapper">
-  
-    <h1 class="welcome">Welcome to Destiny Focus</h1>
-    <hr>
-
-    <h2>Focus on <span class="text_rotate"></span></h2>
-  
-    <p class="welcome-text">Authorise your account with Bungie to continue.</p>
-    <a class="welcome-button" href={{ url_for('public.oauth_authorize', provider='bungie') }}>Authorise</a>
-  </div>
-</section>
+<!-- HTML moved to main React root: -->
 <div id="main-root"></div>
 
 {% endblock %}

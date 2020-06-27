@@ -1,0 +1,81 @@
+/* Welcome wrapper */
+.welcome-content {
+    min-height: 600px;
+    background-image: url('/static/build/img/cards/Crucible.png');
+    /* background-image: url('/static/build/img/cards/Gambit.svg'); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: right;
+  }
+  .welcome-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 30px;
+  }
+  
+  .welcome-wrapper h2{
+    padding: 0;
+    margin: 0;
+  }
+  
+  .welcome-wrapper h1{
+    font-size: 4em;
+    padding-bottom: 20px;
+    border-bottom: 1px solid black;
+  }
+  
+  .welcome-button {
+    background: var(--crucible-red);
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--grey-bg);
+    width: 100px;
+    text-align: center;
+  }
+  
+  .welcome-text {
+    margin-top: 60px;
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+  
+  .text_rotate::before {
+    color: black;
+    content: 'Crucible';
+    animation: text_rotation linear infinite 8s;
+  }
+  @keyframes text_rotation {
+    10% {
+      color: white;
+    }   
+    20% {
+      color: black;
+      content: 'Raid';
+    }
+    30% {
+      color: white;
+    }  
+    40% {
+      content: 'K/D R';
+      color: black;
+    }
+    50% {
+      color: white;
+    }  
+    60% {
+      content: 'Headshots';
+      color: black;
+    }
+    70% {
+      color: white;
+    }  
+    80% {
+      content: 'Gambit';
+      color: black;
+    }
+    90% {
+      color: white;
+    }  
+  }
