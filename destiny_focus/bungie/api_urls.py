@@ -13,5 +13,6 @@ bungie_api_urls = {
     'GetCurrentBungieAccount'   : user_url + "GetCurrentBungieAccount/",
     'GetActivityHistory'        : base_url + "{membershipType}/Account/{destinyMembershipId}/Character/{characterId}/Stats/Activities/",
     'GetProfile'                : base_url + "{membershipType}/Profile/{destinyMembershipId}/",
-    'GetPostGameCarnageReport'  : base_url + "Stats/PostGameCarnageReport/{activityId}"
+    'GetPostGameCarnageReport'  : base_url + "Stats/PostGameCarnageReport/{activityId}",
+    'GetHistoricalStats'        : base_url + "{membershipType}/Account/{destinyMembershipId}/Character/{characterId}/Stats/",
 }

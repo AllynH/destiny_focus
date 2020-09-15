@@ -24,9 +24,10 @@ from destiny_focus.tools.user_login import create_user, update_user
 from destiny_focus.bungie.bungie_api import BungieApi
 from destiny_focus.redis_tools.redis_functions import get_definition
 from destiny_focus.bungie.parse_bungie_response import *
+from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON, LAST_SEASON
 
 import requests
-# import datetime
+from datetime import datetime, timedelta
 
 blueprint = Blueprint("auth", __name__, url_prefix="/auth", static_folder="../static")
 
@@ -200,6 +201,73 @@ def get_pvp(membershipType, membershipId):
 
 
     return jsonify(activity)
+    # return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/get/historical_stats/<membershipType>/<membershipId>/")
+@login_required
+def get_historical_stats(membershipType, membershipId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    character_details = get_character_details_json(get_profile_res)
+
+    # print("\n\nCharacter ID:")
+    # print(character_details.keys())
+    charId = list(character_details.keys())[0]
+
+    activity_list = []
+    season = 9
+    season_start    = datetime.strptime(SEASONS[season]['START'], "%Y-%m-%d %H:%M:%S")
+    season_end      = datetime.strptime(SEASONS[season]['END'], "%Y-%m-%d %H:%M:%S")
+    month         = 31
+    # month           = 5 # Testing flow:
+    current_date    = datetime.utcnow()
+    if season_end > current_date:
+        day_end         = current_date
+    else:
+        day_end         = season_end
+    day_start       = day_end - timedelta(days=month)
+
+    print("Dates:")
+    print(day_start)
+    print(day_end)
+
+    while True:
+        if day_start < season_start:
+            # Last request:
+            day_start = season_start
+            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end)
+            mode_key = list(activity["Response"])[0]
+            print(mode_key)
+            period_key = list(activity["Response"][mode_key])[0]
+            activity_list.append(activity["Response"][mode_key][period_key])
+            break
+        else:
+            # All requests:
+            print("Making request!")
+            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end)
+            day_end = day_start - timedelta(seconds=1)
+            day_start = day_start - timedelta(days=month)
+            print(activity["Response"])
+            print(day_start)
+            print(day_end)
+            return jsonify(activity)
+            mode_key = list(activity["Response"])[0]
+            print(mode_key)
+            print(activity["Response"][mode_key])
+            period_key = list(activity["Response"][mode_key])[0]
+            activity_list.append(activity["Response"][mode_key][period_key])
+
+
+    # if daystart < new_date:
+    #     print("daystart < new_date")
+    print("Testing time delta:")
+
+
+
+    return jsonify(activity_list)
     # return render_template("auth/choose_focus.html")
 
 

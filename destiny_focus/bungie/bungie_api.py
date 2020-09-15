@@ -3,9 +3,12 @@ import requests
 import json
 from urllib import parse
 import re
+from datetime import datetime
 
 from destiny_focus.user.models import User
 from destiny_focus.bungie.api_urls import bungie_api_urls
+from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON
+
 
 class BungieApi(object):
     def __init__(self, user):
@@ -195,3 +198,77 @@ class BungieApi(object):
         }
 
         return dict(fail)
+
+    def get_historical_stats(self, membership_type, membership_id, character_id, dayend="", daystart="", groups="General", modes=5, periodType="AllTime"):
+        """
+        https://bungie-net.github.io/multi/operation_get_Destiny2-GetHistoricalStats.html#operation_get_Destiny2-GetHistoricalStats
+
+        dayend
+            Last day to return when daily stats are requested. Use the format YYYY-MM-DD. Currently, we cannot allow more than 31 days of daily data to be requested in a single request.
+            Type: date-time
+        daystart
+            First day to return when daily stats are requested. Use the format YYYY-MM-DD. Currently, we cannot allow more than 31 days of daily data to be requested in a single request.
+            Type: date-time
+        groups
+            Group of stats to include, otherwise only general stats are returned. Comma separated list is allowed. Values: General, Weapons, Medals
+            Type: array
+            Array Contents: int32
+        modes
+            Game modes to return. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
+            Type: array
+            Array Contents: int32
+        periodType
+            Indicates a specific period type to return. Optional. May be: Daily, AllTime, or Activity
+            Type: int32
+        """
+
+        function_name = "get_activity_history"
+        auth_session = self.make_session()
+
+        
+        # daystart    = datetime.strptime(SEASONS[CURRENT_SEASON]['START'], "%Y-%m-%d %H:%M:%S")
+        # dayend      = datetime.strptime(SEASONS[CURRENT_SEASON]['END'], "%Y-%m-%d %H:%M:%S")
+
+        print("Day start:", daystart)
+        print("Day end:", dayend)
+
+        print(dayend.year)
+        print(dayend.month)
+        print(dayend.day)
+
+        url_params = {
+            'dayend'    : f"{dayend.year}-{dayend.month}-{dayend.day}",
+            'daystart'  : f"{daystart.year}-{daystart.month}-{daystart.day}",
+            # 'groups'    : groups,
+            'modes'     : 5,
+            'periodType': "Activity",
+            # 'periodType': "Daily",
+            # 'periodType': "AllTime",
+            }
+
+        print(url_params)
+
+
+        url = self.api_urls['GetHistoricalStats']
+        url = re.sub("{membershipType}", membership_type, url)
+        url = re.sub("{destinyMembershipId}", membership_id, url)
+        url = re.sub("{characterId}", character_id, url)
+
+        url = url + '?' + parse.urlencode(url_params)
+
+        print("making request for:")
+        print(url)
+        print("headers")
+        print(auth_session.headers)
+
+        response = auth_session.get(url)
+
+        print(response.status_code)
+        print(type(response.status_code))
+        print(response.text)
+        if not response.status_code == 200:
+            return self.flag_error(function_name, response)
+
+
+        return response.json()
+
