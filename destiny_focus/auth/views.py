@@ -22,7 +22,7 @@ from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
 from destiny_focus.tools.user_login import create_user, update_user
 from destiny_focus.bungie.bungie_api import BungieApi
-from destiny_focus.redis_tools.redis_functions import get_definition
+from destiny_focus.manifest_tools.manifest_functions import get_definition
 from destiny_focus.bungie.parse_bungie_response import *
 from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON, LAST_SEASON
 

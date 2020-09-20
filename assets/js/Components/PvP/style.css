@@ -1,19 +1,20 @@
 .float-below{
-    padding-right: 10px;
-    margin-bottom: -50px;
-    padding-left: 10px;
-    background-color: #ff4386;
+    padding-right: 8px;
+    /* margin-bottom: -50px; */
+    padding-left: 8px;
+    /* background-color: #ff4386; */
+    background-color: var(--crucible-red);
     border-radius: 10px;
     justify-content: center;
     display: flex;
-    max-width: 500px;
+    min-width: 400px;
 }
 
 .kdr-chart {
-    background-color: lightgray;
+    background-color: var(--grey-bg);
     border-radius: 15px;
-    margin-top: -20px;
-    margin-bottom: 20px;
-    min-width: 450px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    min-width: 400px;
     justify-content: center;
 }

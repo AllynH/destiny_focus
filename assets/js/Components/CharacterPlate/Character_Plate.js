@@ -5,6 +5,7 @@
 /* eslint-disable semi */
 /* eslint-disable eol-last */
 import React from 'react'
+import './style.css'
 
 class Character_Plate extends React.Component {
   constructor() {
@@ -37,15 +38,21 @@ class Character_Plate extends React.Component {
 
   _render_object(json_response) {
     return Object.keys(json_response).map((item, i) => {
+      console.log(json_response[item])
       console.log(json_response[item].emblem_hash.icon)
       console.log(json_response[item].emblem_hash.background)
       const style = {
-        width: '100%',
-        height: '140px',
         backgroundImage: `url(${`https://www.bungie.net${json_response[item].emblem_hash.background}`})`,
       }
-      const char_div = <div key={i} style={style} >
-                {json_response[item].race_name} {json_response[item].gender_name} {json_response[item].destiny_class}
+      const icon_style = {
+        backgroundImage: `url(${`https://www.bungie.net${json_response[item].emblem_hash.icon}`})`,
+      }
+      const char_div = <div className="character_plate" key={i} style={style} >
+                <div className="character-plate-icon" style={icon_style}></div>
+                <span className="class-name">{json_response[item].destiny_class}</span> {' '}
+                <span className="race-gender-name">{json_response[item].race_name} {json_response[item].gender_name}</span>
+                <span className="power-level">✧{json_response[item].light}</span> {' '}
+                <span className="base-level">{json_response[item].base_level}</span> {' '}
             </div>
       return (char_div)
     })

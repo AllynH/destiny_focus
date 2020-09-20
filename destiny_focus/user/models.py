@@ -146,3 +146,44 @@ class User(UserMixin, SurrogatePK, Model):
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+class Manifest(SurrogatePK, Model):
+    """
+    A table to store Destiny Manifest data.
+    """
+
+    __tablename__ = "manifest"
+    definition_name     = Column(db.String(128), nullable=False)
+    definition_id       = Column(db.String(128), nullable=False)
+    definition_hash     = Column(db.Text)
+
+    def __init__(self, definition_name, **kwargs):
+        """Create instance."""
+        db.Model.__init__(self, definition_name=definition_name, **kwargs)
+
+    def __repr__(self):
+        """Represent instance as a unique string."""
+        return f"<Manifest: ({self.definition_name} : {self.definition_id})>"
+
+class Manifest_Version(SurrogatePK, Model):
+    """
+    A table to store Destiny Manifest version meta-data.
+    There should only be 1 entry to this table, with values being updated from newer manifest versions.
+    """
+
+    __tablename__ = "manifest_version"
+    current_revision    = Column(db.Integer, nullable=False)
+    current_version     = Column(db.Text, nullable=False)
+    update_date         = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
+    update_type         = Column(db.String(80), nullable=False)
+    update_successful   = Column(db.Boolean(), nullable=False, default=False)
+    json_response       = Column(db.Text, nullable=False)
+
+    def __init__(self, current_revision, **kwargs):
+        """Create instance."""
+        db.Model.__init__(self, current_revision=current_revision, **kwargs)
+
+    def __repr__(self):
+        """Represent instance as a unique string."""
+        return f"<Manifest_Version: ({self.current_revision} : {self.update_date})>"

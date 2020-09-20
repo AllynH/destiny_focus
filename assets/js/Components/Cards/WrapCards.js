@@ -17,6 +17,7 @@ import Route from 'react-router-dom'
 // import DialogContentText from '@material-ui/core/DialogContentText';
 // import CrucibleFormFields from '../../Forms/formFields'
 import { CrucibleFormFields, GambitFormFields, RaidFormFields } from '../../Forms/formFields'
+import Character_Plate from '../CharacterPlate/Character_Plate'
 
 import Card from './Card'
 // import useFetch from '../../Utils/useFetch'
@@ -118,7 +119,10 @@ export default function WrapCards(props) {
   console.log('Crucible Form Data:', CrucibleFormFields)
 
 
+
   return (
+    <div>
+      <div className="focus-header"><h1>Choose a focus:</h1></div>
     <div className='card-wrapper'>
       <div className='card-root-1'>
         <Card focus_details={focus_details.Crucible}>
@@ -143,6 +147,8 @@ export default function WrapCards(props) {
       </div>
       <p>view store</p>
       <ViewStore/>
+    </div>
+      <Character_Plate/>
     </div>
   )
 }

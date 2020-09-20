@@ -1,7 +1,6 @@
 import requests
 import json
-from destiny_focus.redis_tools.redis_functions import get_definition
-
+from destiny_focus.manifest_tools.manifest_functions import get_definition
 def get_character_details_json(GetProfile_res):
     """
     Parse the GetProfile response to get Character information.
@@ -20,21 +19,24 @@ def get_character_details_json(GetProfile_res):
     for x in range(len(charId_list)):            
         i = GetProfile_res['Response']['profile']['data']['characterIds'][x]
         # Populate drop down menu:
-        race_name        = get_definition('DestinyRaceDefinition', (GetProfile_res['Response']['characters']['data'][i]['raceHash']))
-        gender_name        = get_definition('DestinyGenderDefinition', (GetProfile_res['Response']['characters']['data'][i]['genderHash']))
-        destiny_class    = get_definition('DestinyClassDefinition', (GetProfile_res['Response']['characters']['data'][i]['classHash']))
-        emblem_hash        = GetProfile_res['Response']['characters']['data'][i]['emblemHash']
+        race_name       = get_definition('DestinyRaceDefinition', (GetProfile_res['Response']['characters']['data'][i]['raceHash']))
+        gender_name     = get_definition('DestinyGenderDefinition', (GetProfile_res['Response']['characters']['data'][i]['genderHash']))
+        destiny_class   = get_definition('DestinyClassDefinition', (GetProfile_res['Response']['characters']['data'][i]['classHash']))
+        emblem_hash     = GetProfile_res['Response']['characters']['data'][i]['emblemHash']
+        base_level      = GetProfile_res['Response']['characters']['data'][i]['baseCharacterLevel']
+        light           = GetProfile_res['Response']['characters']['data'][i]['light']
 
         # This is overwriting itself, needs to append:
         # print("Getting emblem:", emblem_hash)
         emblem = get_emblem(emblem_hash)
-        emblem = get_emblem(emblem_hash)
         temp_dict = {
             i: {
-                "race_name": race_name['displayProperties']['name'],
-                "gender_name": gender_name['displayProperties']['name'],
-                "destiny_class": destiny_class['displayProperties']['name'],
-                "emblem_hash": emblem
+                "race_name"     : race_name['displayProperties']['name'],
+                "gender_name"   : gender_name['displayProperties']['name'],
+                "destiny_class" : destiny_class['displayProperties']['name'],
+                "emblem_hash"   : emblem,
+                "base_level"    : base_level,
+                "light"         : light
             }
         }
         character_details.update(temp_dict)
@@ -54,7 +56,6 @@ def get_emblem(emblem_hash):
     # print(emblem_full)
 
     emblem_data ={
-        "icon": emblem_full['secondaryOverlay'],
         "icon": emblem_full['secondaryOverlay'],
         "background": emblem_full['secondarySpecial'],
         "description": emblem_full['displayProperties']['description']

@@ -1,0 +1,48 @@
+.character_plate{
+    position: relative;
+    width: 100%;
+    height: 120px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.character-plate-icon{
+    position: absolute;
+    min-width: 96px;
+    min-height: 96px;
+    background-repeat: no-repeat;
+    left: 50px;
+    top: 50px;
+}
+
+.class-name{
+    position: absolute;
+    left: 150px;
+    top: 15px;
+    font-size: 2em;
+}
+
+.race-gender-name{
+    position: absolute;
+    left: 150px;
+    top: 50px;
+    font-size: 1.5em;
+    opacity: 0.5;
+}
+
+.power-level{
+    position: absolute;
+    right: 150px;
+    top: 15px;
+    font-size: 2em;
+    color: #DDCB59;
+}
+
+.base-level{
+    position: absolute;
+    right: 150px;
+    top: 55px;
+    font-size: 1.5em;
+    opacity: 0.5;
+}

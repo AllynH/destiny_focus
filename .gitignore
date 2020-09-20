@@ -8,6 +8,7 @@ startup*.bat
 bungie_response/*
 *_pycache_*
 dump.rdb
+split_json/*
 
 # C extensions
 *.so

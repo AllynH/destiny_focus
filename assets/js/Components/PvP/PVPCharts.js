@@ -9,6 +9,7 @@ import KDAChart from './KDAChart'
 import { useFetch } from '../../Utils/useFetch'
 
 import './style.css'
+import Character_Plate from '../CharacterPlate/Character_Plate';
 
 class PvPChart extends React.Component {
   constructor(props) {
@@ -166,6 +167,7 @@ class PvPChart extends React.Component {
       const stats = this.getStats(jsonResponse)
       console.log(kdr)
       return (
+        <dvi>
         <div className='card-wrapper'>
           <div className='float-below'>
           <div className='kdr-chart'>
@@ -179,6 +181,8 @@ class PvPChart extends React.Component {
             <KDAChart kills={stats.kills} deaths={stats.deaths} assists={stats.assists} />
           </div>
         </div>
+        <Character_Plate/>
+        </dvi>
       );
     }
   }
