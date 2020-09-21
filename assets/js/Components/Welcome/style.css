@@ -48,34 +48,34 @@
   }
   @keyframes text_rotation {
     10% {
-      color: white;
+      color: var(--grey-light-3);
     }   
     20% {
       color: black;
-      content: 'Raid';
+      content: 'Raids';
     }
     30% {
-      color: white;
+      color: var(--grey-light-3);
     }  
     40% {
       content: 'K/D R';
       color: black;
     }
     50% {
-      color: white;
+      color: var(--grey-light-3);
     }  
     60% {
       content: 'Headshots';
       color: black;
     }
     70% {
-      color: white;
+      color: var(--grey-light-3);
     }  
     80% {
       content: 'Gambit';
       color: black;
     }
     90% {
-      color: white;
+      color: var(--grey-light-3);
     }  
   }

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /*
  * Main Javascript file for destiny_focus.
  *
