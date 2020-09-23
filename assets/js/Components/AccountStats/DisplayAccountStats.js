@@ -5,21 +5,51 @@ export default function DisplayAccountStats(props) {
 
     <div>
         <div className="stats-wrapper">
-            <div className="stats life-time-stats">
-                <div className="stats circle-outer">
-                    <div className="stats circle">
-                        <p className="stats stats-title-next-line stats-big"><span className="stats-title-next-line">LIFETIME KILLS</span><span className="stats stats-value-next-line">{props.stats.kills.basic.displayValue}</span></p>
-                        <p className="stats stats-title"><span>DEATHS&nbsp;</span><span className="stats stats-value">{props.stats.deaths.basic.displayValue}</span></p>
-                        <p className="stats stats-title"><span>KDR&nbsp;</span><span className="stats stats-value">{props.stats.killsDeathsRatio.basic.displayValue}</span></p>
+            <div className="stats-individual">
+                <h2>Lifetime stats</h2>
+                <div className="stats life-time-stats">
+                    <div className="stats circle-outer">
+                        <div className="stats circle">
+                            <p className="stats stats-title-next-line stats-big"><span className="stats-title-next-line">LIFETIME KILLS</span><span className="stats stats-value-next-line">{props.stats.kills.basic.displayValue}</span></p>
+                            <p className="stats stats-title"><span>DEATHS&nbsp;</span><span className="stats stats-value">{props.stats.deaths.basic.displayValue}</span></p>
+                            <p className="stats stats-title"><span>KDR&nbsp;</span><span className="stats stats-value">{props.stats.killsDeathsRatio.basic.displayValue}</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="stats life-time-stats">
-                <div className="stats circle-outer">
-                    <div className="stats circle">
-                        <div className="stats stats-title-next-line stats-big"><span className="stats-title-next-line">AVG. GAME KILLS</span><span className="stats stats-value-next-line">{props.stats.kills.pga.displayValue}</span></div>
-                        <div className="stats stats-title"><span>DEATHS&nbsp;</span><span className="stats stats-value">{props.stats.deaths.pga.displayValue}</span></div>
-                        <div className="stats stats-title"><span>KDR&nbsp;</span><span className="stats stats-value">{parseFloat(props.stats.kills.pga.displayValue / props.stats.deaths.pga.displayValue).toFixed(2)}</span></div>
+            <div className="stats-individual">
+                <h2>Average game</h2>
+                <div className="stats life-time-stats">
+                    <div className="stats circle-outer">
+                        <div className="stats circle">
+                            <div className="stats stats-title-next-line stats-big"><span className="stats-title-next-line">AVG. GAME KILLS</span><span className="stats stats-value-next-line">{props.stats.kills.pga.displayValue}</span></div>
+                            <div className="stats stats-title"><span>DEATHS&nbsp;</span><span className="stats stats-value">{props.stats.deaths.pga.displayValue}</span></div>
+                            <div className="stats stats-title"><span>KDR&nbsp;</span><span className="stats stats-value">{parseFloat(props.stats.kills.pga.displayValue / props.stats.deaths.pga.displayValue).toFixed(2)}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="stats-individual">
+                <h2>Favourite weapons</h2>
+                <div className="stats life-time-stats">
+                    <div className="stats circle-outer">
+                        <div className="stats circle">
+                            <div className="stats stats-title-next-line stats-big"><span className="stats-title-next-line">FAVOURITE GUN</span><span className="stats stats-value-next-line">{props.stats.weaponBestType.basic.displayValue}</span></div>
+                            <div className="stats stats-title"><span>MELEE KILLS&nbsp;</span><span className="stats stats-value">{props.stats.weaponKillsMelee.basic.displayValue}</span></div>
+                            <div className="stats stats-title"><span>AVG. MELEE KILLS&nbsp;</span><span className="stats stats-value">{props.stats.weaponKillsMelee.pga.displayValue}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="stats-individual">
+                <h2>High scores</h2>
+                <div className="stats life-time-stats">
+                    <div className="stats circle-outer">
+                        <div className="stats circle">
+                            <div className="stats stats-title-next-line stats-big"><span className="stats-title-next-line">MOST KILLS</span><span className="stats stats-value-next-line">{props.stats.bestSingleGameKills.basic.displayValue}</span></div>
+                            <div className="stats stats-title"><span>KILLING SPREE&nbsp;</span><span className="stats stats-value">{props.stats.longestKillSpree.basic.displayValue}</span></div>
+                            <div className="stats stats-title"><span>PERCISION KILLS&nbsp;</span><span className="stats stats-value">{props.stats.mostPrecisionKills.basic.displayValue}</span></div>
+                        </div>
                     </div>
                 </div>
             </div>

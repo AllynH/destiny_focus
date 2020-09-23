@@ -19,6 +19,8 @@
     min-height: 240px;
     max-height: 240px;
     border: 3px solid darkgrey;
+    border-top: 5px solid darkgrey;
+    border-bottom: 5px solid darkgrey;
     /* display: flex;
     flex-direction: column;
     justify-self: center; */
@@ -36,7 +38,7 @@
 }
 
 .life-time-stats{
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     /* border-top: 3px solid white;
     border-bottom: 3px solid white; */
     border: 2px solid darkgrey;
@@ -51,6 +53,8 @@
     color: darkgrey;
     padding: 0;
     margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
     display: -webkit-inline-box;
 }
 
@@ -78,5 +82,10 @@
 }   
 
 .stats-big {
-    margin-top: 50px
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.stats-individual {
+    text-align: center;
 }
