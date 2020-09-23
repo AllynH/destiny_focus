@@ -25,18 +25,26 @@ def get_character_details_json(GetProfile_res):
         emblem_hash     = GetProfile_res['Response']['characters']['data'][i]['emblemHash']
         base_level      = GetProfile_res['Response']['characters']['data'][i]['baseCharacterLevel']
         light           = GetProfile_res['Response']['characters']['data'][i]['light']
+        dateLastPlayed  = GetProfile_res['Response']['characters']['data'][i]['dateLastPlayed']
+        titleRecordHash = GetProfile_res['Response']['characters']['data'][i].get('titleRecordHash', None)
+        minutesPlayedThisSession    = GetProfile_res['Response']['characters']['data'][i]['minutesPlayedThisSession']
+        minutesPlayedTotal          = GetProfile_res['Response']['characters']['data'][i]['minutesPlayedTotal']
 
-        # This is overwriting itself, needs to append:
-        # print("Getting emblem:", emblem_hash)
         emblem = get_emblem(emblem_hash)
+        title  = get_title(titleRecordHash) if titleRecordHash is not None else None
         temp_dict = {
             i: {
+                "character_id"  : i,
                 "race_name"     : race_name['displayProperties']['name'],
                 "gender_name"   : gender_name['displayProperties']['name'],
                 "destiny_class" : destiny_class['displayProperties']['name'],
                 "emblem_hash"   : emblem,
                 "base_level"    : base_level,
-                "light"         : light
+                "light"         : light,
+                "title"         : title,
+                "dateLastPlayed"            : dateLastPlayed,
+                "minutesPlayedThisSession"  : minutesPlayedThisSession,
+                "minutesPlayedTotal"        : minutesPlayedTotal,
             }
         }
         character_details.update(temp_dict)
@@ -62,4 +70,22 @@ def get_emblem(emblem_hash):
     }
     
     return emblem_data
+
+
+def get_title(title_hash):
+    """
+    Get the higher resolution emblem.
+    """
+    title_full = get_definition('DestinyRecordDefinition', title_hash)
+
+    # print(emblem_full)
+
+    title_data ={
+        "icon"  : title_full['displayProperties']['icon'],
+        "name"  : title_full['displayProperties']['name'],
+        "description": title_full['displayProperties']['description'],
+        "title" : title_full['titleInfo']['titlesByGender']['Female'],
+    }
+    
+    return title_data
 

@@ -27,6 +27,7 @@ module.exports = {
     main_js: './assets/js/main',
     main_css: [
       path.join(__dirname, 'node_modules', 'font-awesome', 'css', 'font-awesome.css'),
+      path.join(__dirname, 'assets', 'js', 'Components', 'AccountStats', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'cards.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'card.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Welcome', 'style.css'),

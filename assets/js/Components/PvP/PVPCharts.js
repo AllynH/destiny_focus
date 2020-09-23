@@ -167,7 +167,7 @@ class PvPChart extends React.Component {
       const stats = this.getStats(jsonResponse)
       console.log(kdr)
       return (
-        <dvi>
+        <div>
         <div className='card-wrapper'>
           <div className='float-below'>
           <div className='kdr-chart'>
@@ -182,7 +182,7 @@ class PvPChart extends React.Component {
           </div>
         </div>
         <Character_Plate/>
-        </dvi>
+        </div>
       );
     }
   }

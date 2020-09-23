@@ -51,7 +51,10 @@ def home():
         if form.validate_on_submit():
             login_user(form.user)
             # flash("You are logged in.", "success")
-            redirect_url = request.args.get("next") or url_for("user.members")
+            
+            
+            
+            _url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
         else:
             flash_errors(form)
@@ -167,6 +170,11 @@ def choose_focus(membershipType, membershipId):
     my_api = BungieApi(user)
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
+    print(get_profile_res)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash("Bungie systems are down :(", "error")
+        return redirect(url_for("public.home"))
+
     character_details = get_character_details_json(get_profile_res)
 
     return render_template("auth/choose_focus.html")
@@ -175,6 +183,17 @@ def choose_focus(membershipType, membershipId):
 @blueprint.route("/pvp/<membershipType>/<membershipId>/")
 @login_required
 def pvp(membershipType, membershipId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    character_details = get_character_details_json(get_profile_res)
+
+    return render_template("auth/choose_focus.html")
+
+@blueprint.route("/account/<membershipType>/<membershipId>/")
+@login_required
+def account(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -268,6 +287,30 @@ def get_historical_stats(membershipType, membershipId):
 
 
     return jsonify(activity_list)
+    # return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/get/historical_stats_alltime/<membershipType>/<membershipId>/")
+@login_required
+def get_historical_stats_alltime(membershipType, membershipId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    character_details = get_character_details_json(get_profile_res)
+
+    # print("\n\nCharacter ID:")
+    # print(character_details.keys())
+    charId = list(character_details.keys())[0]
+
+    activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart="", dayend="")
+
+
+    # if daystart < new_date:
+    #     print("daystart < new_date")
+    print("Testing time delta:")
+
+    return jsonify(activity)
     # return render_template("auth/choose_focus.html")
 
 

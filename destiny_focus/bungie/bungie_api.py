@@ -18,6 +18,12 @@ class BungieApi(object):
         self.access_token   = user.access_token
         self.api_urls       = bungie_api_urls
         self.auth_session   = requests.Session()
+        self.check_for_refresh(user)
+
+    def check_for_refresh(self, user):
+        print(user.refresh_ready)
+        print(user.refresh_expired)
+        return self.auth_session
 
     def make_session(self):
         """
@@ -230,24 +236,27 @@ class BungieApi(object):
         # daystart    = datetime.strptime(SEASONS[CURRENT_SEASON]['START'], "%Y-%m-%d %H:%M:%S")
         # dayend      = datetime.strptime(SEASONS[CURRENT_SEASON]['END'], "%Y-%m-%d %H:%M:%S")
 
-        print("Day start:", daystart)
-        print("Day end:", dayend)
+        if daystart is not "":
+            print("Day start:", daystart)
+            print("Day end:", dayend)
 
-        print(dayend.year)
-        print(dayend.month)
-        print(dayend.day)
+            print(dayend.year)
+            print(dayend.month)
+            print(dayend.day)
+            daystart  = f"{daystart.year}-{daystart.month}-{daystart.day}"
+            dayend    = f"{dayend.year}-{dayend.month}-{dayend.day}"
 
         url_params = {
-            'dayend'    : f"{dayend.year}-{dayend.month}-{dayend.day}",
-            'daystart'  : f"{daystart.year}-{daystart.month}-{daystart.day}",
+            # 'dayend'    : dayend,
+            # 'daystart'  : daystart,
             # 'groups'    : groups,
-            'modes'     : 5,
-            'periodType': "Activity",
+            'modes'     : modes,
+            'periodType': periodType,
             # 'periodType': "Daily",
             # 'periodType': "AllTime",
             }
 
-        print(url_params)
+        # print(url_params)
 
 
         url = self.api_urls['GetHistoricalStats']
@@ -257,16 +266,16 @@ class BungieApi(object):
 
         url = url + '?' + parse.urlencode(url_params)
 
-        print("making request for:")
-        print(url)
-        print("headers")
-        print(auth_session.headers)
+        # print("making request for:")
+        # print(url)
+        # print("headers")
+        # print(auth_session.headers)
 
         response = auth_session.get(url)
 
-        print(response.status_code)
-        print(type(response.status_code))
-        print(response.text)
+        # print(response.status_code)
+        # print(type(response.status_code))
+        # print(response.text)
         if not response.status_code == 200:
             return self.flag_error(function_name, response)
 
