@@ -12,7 +12,7 @@ export default function Welcome() {
         </h2>
 
         <p className='welcome-text'>Authorise your account with Bungie to continue.</p>
-        <a className='welcome-button' href={'/authorize/bungie'}>
+        <a className='welcome-button' tabIndex="0" role="button" aria-pressed="false" href={'/authorize/bungie'}>
           Authorise
         </a>
       </div>

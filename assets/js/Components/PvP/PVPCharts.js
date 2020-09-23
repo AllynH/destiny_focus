@@ -10,6 +10,7 @@ import { useFetch } from '../../Utils/useFetch'
 
 import './style.css'
 import Character_Plate from '../CharacterPlate/Character_Plate';
+import AccountStats from '../AccountStats/AccountStats';
 
 class PvPChart extends React.Component {
   constructor(props) {
@@ -161,11 +162,11 @@ class PvPChart extends React.Component {
     } else if (!isLoaded) {
       return (<div>Loading...</div>)
     } else {
-      console.log('Render')
-      console.log(jsonResponse)
+      // console.log('Render')
+      // console.log(jsonResponse)
       const kdr = this.getKdr(jsonResponse)
       const stats = this.getStats(jsonResponse)
-      console.log(kdr)
+      // console.log(kdr)
       return (
         <div>
         <div className='card-wrapper'>
@@ -174,12 +175,7 @@ class PvPChart extends React.Component {
             <KDRChart data={kdr}/>
           </div>
           </div>
-          <div className='kda-chart'>
-            <KDAChart kills={stats.kills} deaths={stats.deaths} assists={stats.assists} />
-          </div>
-          <div className='kda-chart-2'>
-            <KDAChart kills={stats.kills} deaths={stats.deaths} assists={stats.assists} />
-          </div>
+          <AccountStats {...this.props}/>
         </div>
         <Character_Plate/>
         </div>
