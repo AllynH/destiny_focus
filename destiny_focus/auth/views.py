@@ -170,7 +170,7 @@ def choose_focus(membershipType, membershipId):
     my_api = BungieApi(user)
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
-    print(get_profile_res)
+    # print(get_profile_res)
     if get_profile_res["ErrorStatus"] != "Success":
         flash("Bungie systems are down :(", "error")
         return redirect(url_for("public.home"))

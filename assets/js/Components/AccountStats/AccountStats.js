@@ -14,7 +14,6 @@ import DisplayStats from './DisplayStats'
 class AccountStats extends React.Component {
   constructor(props) {
     super(props)
-    this.getStats = this.getStats.bind(this)
     this.state = {
       error: null,
       isLoaded: false,
@@ -23,12 +22,12 @@ class AccountStats extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Testing props:")
-    console.log(this.props)
-    console.log("Testing props.match:")
-    console.log(this.props.match)
-    console.log("Testing props.match.params:")
-    console.log(this.props.match.params)
+    // console.log('Testing props:')
+    // console.log(this.props)
+    // console.log('Testing props.match:')
+    // console.log(this.props.match)
+    // console.log('Testing props.match.params:')
+    // console.log(this.props.match.params)
     const { membershipType, membershipId } = this.props.match.params
     // console.log(membershipType)
     // console.log(membershipId)
@@ -58,45 +57,6 @@ class AccountStats extends React.Component {
       )
   }
 
-  getStats(jsonResponse) {
-
-
-    // console.log(jsonResponse.Response.allPvP.allTime.activitiesEntered.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.activitiesWon.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.allParticipantsTimePlayed.basic.displayValue)
-
-    // console.log(jsonResponse.Response.allPvP.allTime.assists.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.assists.pga.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.averageKillDistance.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.averageLifespan.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.bestSingleGameKills.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.deaths.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.deaths.pga.displayValue)
-
-    // console.log(jsonResponse.Response.allPvP.allTime.efficiency.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.kills.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.kills.pga.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.killsDeathsAssists.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.killsDeathsRatio.basic.displayValue)
-
-    // console.log(jsonResponse.Response.allPvP.allTime.longestKillDistance.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.longestKillSpree.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.longestSingleLife.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.mostPrecisionKills.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.precisionKills.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.precisionKills.pga.displayValue)
-
-    // console.log(jsonResponse.Response.allPvP.allTime.suicides.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.suicides.pga.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.weaponBestType.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.weaponKillsMelee.basic.displayValue)
-    // console.log(jsonResponse.Response.allPvP.allTime.weaponKillsMelee.pga.displayValue)
-
-    // console.log(jsonResponse.Response.allPvP.allTime.winLossRatio.basic.displayValue)
-
-    return true
-  }
-
 
   render() {
     const { error, isLoaded, jsonResponse } = this.state
@@ -116,21 +76,21 @@ class AccountStats extends React.Component {
           <div className="stats-wrapper">
             <div className="stats-individual">
               <DisplayStats 
-                heading={"LIFETIME STATS"}
-                big_name={"LIFE TIME KILLS"}
+                heading={'LIFETIME STATS'}
+                big_name={'LIFE TIME KILLS'}
                 big_value={stats.kills.basic.displayValue}
-                name_1={"DEATHS"} value_1={stats.deaths.basic.displayValue}
-                name_2={"K/D R"} value_2={stats.killsDeathsRatio.basic.displayValue}
+                name_1={'DEATHS'} value_1={stats.deaths.basic.displayValue}
+                name_2={'K/D R'} value_2={stats.killsDeathsRatio.basic.displayValue}
               />
             </div>
 
             <div className="stats-individual">
               <DisplayStats 
-                heading={"AVG. GAME STATS"}
-                big_name={"AVG. GAME KILLS"}
+                heading={'AVG. GAME STATS'}
+                big_name={'AVG. GAME KILLS'}
                 big_value={stats.kills.pga.displayValue}
-                name_1={"DEATHS"} value_1={stats.deaths.pga.displayValue}
-                name_2={"K/D R"} value_2={parseFloat(stats.kills.pga.displayValue / stats.deaths.pga.displayValue).toFixed(2)}
+                name_1={'DEATHS'} value_1={stats.deaths.pga.displayValue}
+                name_2={'K/D R'} value_2={parseFloat(stats.kills.pga.displayValue / stats.deaths.pga.displayValue).toFixed(2)}
               />
             </div>
           </div>
