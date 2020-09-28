@@ -2,15 +2,15 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
-import React from 'react';
+import React from 'react'
 import KDRChart from './KDRChart'
 import KDAChart from './KDAChart'
 
 import { useFetch } from '../../Utils/useFetch'
 
 import './style.css'
-import Character_Plate from '../CharacterPlate/Character_Plate';
-import AccountStats from '../AccountStats/AccountStats';
+import Character_Plate from '../CharacterPlate/Character_Plate'
+import AccountStats from '../AccountStats/AccountStats'
 
 class PvPChart extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class PvPChart extends React.Component {
             isLoaded: false,
             error,
           })
-        },
+        }
       )
   }
 
@@ -77,58 +77,60 @@ class PvPChart extends React.Component {
     return kdrList
   }
 
-
-  getStats(jsonResponse) {
-    const kdr = []
-    const kills = []
-    const deaths = []
-    const assists = []
-    const myArray = jsonResponse.Response.activities
-    myArray.forEach((element, index) => {
-      const _kdr = element.values.killsDeathsRatio.basic.displayValue
-      const _deaths = element.values.deaths.basic.displayValue
-      const _kills = element.values.kills.basic.displayValue
-      const _assists = element.values.assists.basic.displayValue
-      if (kills === '0' && deaths === '0') {
-        return true
-      }
-      // console.log(`Kill / Death ratio: ${_kdr}. For game: ${index}.`)
-      const kdrDetails = {
-        x: index + 1,
-        y: parseFloat(_kdr),
-        l: 'KDR',
-      }
-      const kDetails = {
-        x: index + 1,
-        y: parseFloat(_kills),
-        l: 'kills',
-        _kills,
-        _deaths,
-        _assists,
-        _kdr,
-      }
-      const dDetails = {
-        x: index + 1,
-        y: parseFloat(_deaths),
-        l: 'deaths',
-      }
-      const assistsDetails = {
-        x: index + 1,
-        y: parseFloat(_assists),
-        l: 'assists',
-      }
-      kdr.push(kdrDetails)
-      kills.push(kDetails)
-      deaths.push(dDetails)
-      assists.push(assistsDetails)
-    })
-    const stats = {
-      kdr, kills, deaths, assists,
-    }
-    console.log('Returning stats:')
-    console.log(stats)
-    return stats
-  }
+  // getStats(jsonResponse) {
+  //   const kdr = []
+  //   const kills = []
+  //   const deaths = []
+  //   const assists = []
+  //   const myArray = jsonResponse.Response.activities
+  //   myArray.forEach((element, index) => {
+  //     const _kdr = element.values.killsDeathsRatio.basic.displayValue
+  //     const _deaths = element.values.deaths.basic.displayValue
+  //     const _kills = element.values.kills.basic.displayValue
+  //     const _assists = element.values.assists.basic.displayValue
+  //     if (kills === '0' && deaths === '0') {
+  //       return true
+  //     }
+  //     // console.log(`Kill / Death ratio: ${_kdr}. For game: ${index}.`)
+  //     const kdrDetails = {
+  //       x: index + 1,
+  //       y: parseFloat(_kdr),
+  //       l: 'KDR',
+  //     }
+  //     const kDetails = {
+  //       x: index + 1,
+  //       y: parseFloat(_kills),
+  //       l: 'kills',
+  //       _kills,
+  //       _deaths,
+  //       _assists,
+  //       _kdr,
+  //     }
+  //     const dDetails = {
+  //       x: index + 1,
+  //       y: parseFloat(_deaths),
+  //       l: 'deaths',
+  //     }
+  //     const assistsDetails = {
+  //       x: index + 1,
+  //       y: parseFloat(_assists),
+  //       l: 'assists',
+  //     }
+  //     kdr.push(kdrDetails)
+  //     kills.push(kDetails)
+  //     deaths.push(dDetails)
+  //     assists.push(assistsDetails)
+  //   })
+  //   const stats = {
+  //     kdr,
+  //     kills,
+  //     deaths,
+  //     assists,
+  //   }
+  //   console.log('Returning stats:')
+  //   console.log(stats)
+  //   return stats
+  // }
 
   // getKills(jsonResponse) {
   //   const killsList = []
@@ -158,28 +160,24 @@ class PvPChart extends React.Component {
   render() {
     const { error, isLoaded, jsonResponse } = this.state
     if (error) {
-      return (<div>Error: {error.message}</div>)
+      return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-      return (<div>Loading...</div>)
+      return <div>Loading...</div>
     } else {
       // console.log('Render')
       // console.log(jsonResponse)
       const kdr = this.getKdr(jsonResponse)
-      const stats = this.getStats(jsonResponse)
+      // const stats = this.getStats(jsonResponse)
       // console.log(kdr)
       return (
         <div>
-        <div className='card-wrapper'>
-          <div className='float-below'>
-          <div className='kdr-chart'>
-            <KDRChart data={kdr}/>
+          <div className='card-wrapper'>
+            <KDRChart title={'K/D Ratio'} data={kdr} {...this.props}/>
+            <AccountStats {...this.props} />
           </div>
-          </div>
-          <AccountStats {...this.props}/>
+          <Character_Plate />
         </div>
-        <Character_Plate/>
-        </div>
-      );
+      )
     }
   }
 }

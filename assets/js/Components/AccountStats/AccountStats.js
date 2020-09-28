@@ -74,8 +74,18 @@ class AccountStats extends React.Component {
 
 
           <div className="stats-wrapper">
+          <div className="stats-individual">
+              <DisplayStats
+                // heading={'LIFETIME STATS'}
+                // big_name={'LIFE TIME KILLS'}
+                // big_value={stats.kills.basic.displayValue}
+                // name_1={'DEATHS'} value_1={stats.deaths.basic.displayValue}
+                // name_2={'K/D R'} value_2={stats.killsDeathsRatio.basic.displayValue}
+              />
+            </div>
+
             <div className="stats-individual">
-              <DisplayStats 
+              <DisplayStats
                 heading={'LIFETIME STATS'}
                 big_name={'LIFE TIME KILLS'}
                 big_value={stats.kills.basic.displayValue}
@@ -85,7 +95,7 @@ class AccountStats extends React.Component {
             </div>
 
             <div className="stats-individual">
-              <DisplayStats 
+              <DisplayStats
                 heading={'AVG. GAME STATS'}
                 big_name={'AVG. GAME KILLS'}
                 big_value={stats.kills.pga.displayValue}
