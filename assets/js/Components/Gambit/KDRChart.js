@@ -13,8 +13,8 @@ import {
 
 class PvPChart extends React.Component {
   render() {
-    console.log('Render')
-    console.log(this.props.data)
+    // console.log('Render')
+    // console.log(this.props.data)
     return (
       <VictoryChart height={400} width={400}
         domainPadding={{ y: 10 }}

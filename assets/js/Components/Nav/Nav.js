@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme, props) => ({
 
 export default function MenuAppBar(props) {
   const classes = useStyles(props);
-  console.log("theme:" + props)
-  console.log("theme:" + props.background)
-  console.log(`url('${props.background}')`)
+  // console.log("theme:" + props)
+  // console.log("theme:" + props.background)
+  // console.log(`url('${props.background}')`)
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

@@ -79,6 +79,17 @@ export default function WrapCards(props) {
         colour_2: 'var(--crucible-dark-1)',
         colour_3: 'var(--crucible-dark-2)',
       },
+      stats: {
+        kdr: {
+          apiUrl: `/auth/get/pvp/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+        },
+        allTime: {
+          apiUrl: `/auth/get/historical_stats_alltime/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+        },
+        season: {
+          apiUrl: `/auth/get/historical_stats_alltime/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+        },
+      },
     },
     Gambit: {
       focus: 'Gambit',
@@ -117,7 +128,6 @@ export default function WrapCards(props) {
   // console.log(error)
   // console.log(loading)
   console.log('Crucible Form Data:', CrucibleFormFields)
-
 
 
   return (

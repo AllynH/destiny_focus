@@ -2,12 +2,12 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
-import React from 'react';
+import React from 'react'
 
 import { useFetch } from '../../Utils/useFetch'
 
 import './style.css'
-import Character_Plate from '../CharacterPlate/Character_Plate';
+import Character_Plate from '../CharacterPlate/Character_Plate'
 import DisplayAccountStats from './DisplayAccountStats'
 import DisplayStats from './DisplayStats'
 
@@ -31,8 +31,10 @@ class AccountStats extends React.Component {
     const { membershipType, membershipId } = this.props.match.params
     // console.log(membershipType)
     // console.log(membershipId)
+    const { apiUrl } = this.props
+    // console.log(`AccountStats: apiUrl: ${apiUrl}`)
 
-    const apiUrl = `/auth/get/historical_stats_alltime/${membershipType}/${membershipId}`
+    // const apiUrl = `/auth/get/historical_stats_alltime/${membershipType}/${membershipId}`
 
     // const { error, loading, data } = useFetch(apiUrl)
     // console.log(error)
@@ -57,55 +59,53 @@ class AccountStats extends React.Component {
       )
   }
 
-
   render() {
     const { error, isLoaded, jsonResponse } = this.state
     if (error) {
-      return (<div>Error: {error.message}</div>)
+      return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-      return (<div>Loading...</div>)
+      return <div>Loading...</div>
     } else {
-      console.log('Render')
-      console.log(jsonResponse)
-      const stats = jsonResponse.Response.allPvP.allTime
-      console.log(stats)
+      const { scope } = this.props
+      const { props } = this
+      const stats = jsonResponse.Response.allPvP[scope]
+      // console.log('Render AccountStats')
+      // console.log(jsonResponse)
+      // console.log(scope)
+      // console.log(stats)
       return (
         <div>
-
-
-          <div className="stats-wrapper">
-          <div className="stats-individual">
+          <div className='stats-wrapper'>
+            <div className='stats-individual'>
               <DisplayStats
-                // heading={'LIFETIME STATS'}
-                // big_name={'LIFE TIME KILLS'}
-                // big_value={stats.kills.basic.displayValue}
-                // name_1={'DEATHS'} value_1={stats.deaths.basic.displayValue}
-                // name_2={'K/D R'} value_2={stats.killsDeathsRatio.basic.displayValue}
-              />
-            </div>
-
-            <div className="stats-individual">
-              <DisplayStats
-                heading={'LIFETIME STATS'}
-                big_name={'LIFE TIME KILLS'}
+                heading={props.heading}
+                subHeading={props.subHeading}
+                big_name={'TOTAL KILLS'}
                 big_value={stats.kills.basic.displayValue}
-                name_1={'DEATHS'} value_1={stats.deaths.basic.displayValue}
-                name_2={'K/D R'} value_2={stats.killsDeathsRatio.basic.displayValue}
+                name_1={'DEATHS'}
+                value_1={stats.deaths.basic.displayValue}
+                name_2={'K/D R'}
+                value_2={stats.killsDeathsRatio.basic.displayValue}
               />
             </div>
 
-            <div className="stats-individual">
+            <div className='stats-individual'>
               <DisplayStats
-                heading={'AVG. GAME STATS'}
+                // heading={''}
+                subHeading={'AVG. GAME STATS'}
                 big_name={'AVG. GAME KILLS'}
                 big_value={stats.kills.pga.displayValue}
-                name_1={'DEATHS'} value_1={stats.deaths.pga.displayValue}
-                name_2={'K/D R'} value_2={parseFloat(stats.kills.pga.displayValue / stats.deaths.pga.displayValue).toFixed(2)}
+                name_1={'DEATHS'}
+                value_1={stats.deaths.pga.displayValue}
+                name_2={'K/D R'}
+                value_2={parseFloat(
+                  stats.kills.pga.displayValue / stats.deaths.pga.displayValue,
+                ).toFixed(2)}
               />
             </div>
           </div>
         </div>
-      );
+      )
     }
   }
 }

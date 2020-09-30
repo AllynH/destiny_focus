@@ -34,7 +34,7 @@ class App extends React.Component {
         <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/' component={GambitChart} />
         <Route path='/' exact={true} component={Welcome} />
         <Route component={Error} />
-        </Switch>
+      </Switch>
     )
   }
 }

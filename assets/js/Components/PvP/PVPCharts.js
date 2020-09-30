@@ -11,6 +11,7 @@ import { useFetch } from '../../Utils/useFetch'
 import './style.css'
 import Character_Plate from '../CharacterPlate/Character_Plate'
 import AccountStats from '../AccountStats/AccountStats'
+// import focus_details from '../Cards/WrapCards/'
 
 class PvPChart extends React.Component {
   constructor(props) {
@@ -25,8 +26,14 @@ class PvPChart extends React.Component {
 
   componentDidMount() {
     const { membershipType, membershipId } = this.props.match.params
-    console.log(membershipType)
-    console.log(membershipId)
+
+    // console.log('PVPCharts componentDidMount:')
+    // console.log(this.props)
+    // console.log(membershipType)
+    // console.log(membershipId)
+    // // console.log(focus_details)
+    // // console.log(focus_details.Crucible)
+    // console.log('PVPCharts componentDidMount:')
 
     const apiUrl = `/auth/get/pvp/${membershipType}/${membershipId}`
 
@@ -49,7 +56,7 @@ class PvPChart extends React.Component {
             isLoaded: false,
             error,
           })
-        }
+        },
       )
   }
 
@@ -169,11 +176,39 @@ class PvPChart extends React.Component {
       const kdr = this.getKdr(jsonResponse)
       // const stats = this.getStats(jsonResponse)
       // console.log(kdr)
+
+
+      const { membershipType, membershipId } = this.props.match.params
+      // const allTimeApiUrl = `/auth/get/historical_stats_alltime/${membershipType}/${membershipId}`
+      // const lastSeasonApiUrl = `/auth/get/historical_stats/${membershipType}/${membershipId}`
+      // const allTimeScope = 'allTime'
+      // const seasonScope = 'daily'
+      // const allTimeHEading = 'LIFETIME STATS'
+      // const seasonHEading = 'LAST MONTH STATS'
+
+      const statsData = {
+        allTime: {
+          apiUrl: `/auth/get/historical_stats_alltime/${membershipType}/${membershipId}`,
+          scope: 'allTime',
+          heading: 'LIFETIME STATS',
+          subHeading: 'LIFETIME',
+        },
+        season: {
+          apiUrl: `/auth/get/historical_stats/${membershipType}/${membershipId}`,
+          scope: 'daily',
+          heading: 'LAST MONTH STATS',
+          subHeading: 'LAST MONTH',
+        },
+      }
+
+      const { allTime, season } = statsData
+
       return (
         <div>
           <div className='card-wrapper'>
             <KDRChart title={'K/D Ratio'} data={kdr} {...this.props}/>
-            <AccountStats {...this.props} />
+            <AccountStats {...this.props} subHeading={allTime.subHeading} heading={allTime.heading} scope={allTime.scope} apiUrl={allTime.apiUrl} />
+            <AccountStats {...this.props} subHeading={season.subHeading} heading={season.heading} scope={season.scope} apiUrl={season.apiUrl} />
           </div>
           <Character_Plate />
         </div>

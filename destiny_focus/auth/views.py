@@ -212,8 +212,6 @@ def get_pvp(membershipType, membershipId):
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    print("\n\nCharacter ID:")
-    print(character_details.keys())
     charId = list(character_details.keys())[0]
 
     activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=5, count=30)
@@ -232,12 +230,10 @@ def get_historical_stats(membershipType, membershipId):
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    # print("\n\nCharacter ID:")
-    # print(character_details.keys())
     charId = list(character_details.keys())[0]
 
     activity_list = []
-    season = 9
+    season = CURRENT_SEASON
     season_start    = datetime.strptime(SEASONS[season]['START'], "%Y-%m-%d %H:%M:%S")
     season_end      = datetime.strptime(SEASONS[season]['END'], "%Y-%m-%d %H:%M:%S")
     month         = 31
@@ -249,35 +245,59 @@ def get_historical_stats(membershipType, membershipId):
         day_end         = season_end
     day_start       = day_end - timedelta(days=month)
 
-    print("Dates:")
-    print(day_start)
-    print(day_end)
+    # print("Dates:")
+    # print(day_start)
+    # print(day_end)
 
     while True:
         if day_start < season_start:
+            print("Day start < season start")
             # Last request:
             day_start = season_start
-            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end)
+            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end, periodType='Daily')
+            new_activity = {
+                "Response": {
+                    'allPvP': {
+                        'daily': activity['Response']['allPvP']['daily'][0]
+                    }
+                }
+                }
+            print("\n\nreturning new activity")
+            return jsonify(new_activity)
             mode_key = list(activity["Response"])[0]
             print(mode_key)
             period_key = list(activity["Response"][mode_key])[0]
             activity_list.append(activity["Response"][mode_key][period_key])
             break
         else:
+            print("Day start > season start")
             # All requests:
             print("Making request!")
-            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end)
+            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end, periodType='Daily')
+
+            new_activity = {
+                "Response": {
+                    'allPvP': {
+                        'daily': activity['Response']['allPvP']['daily'][0]['values']
+                    }
+                }
+                }
+            print("\n\nreturning new activity")
+            return jsonify(new_activity)
+
+
+            return jsonify(activity)
             day_end = day_start - timedelta(seconds=1)
             day_start = day_start - timedelta(days=month)
-            print(activity["Response"])
+            # print(activity["Response"])
             print(day_start)
             print(day_end)
-            return jsonify(activity)
             mode_key = list(activity["Response"])[0]
             print(mode_key)
-            print(activity["Response"][mode_key])
+            # print(activity["Response"][mode_key])
             period_key = list(activity["Response"][mode_key])[0]
             activity_list.append(activity["Response"][mode_key][period_key])
+            # return jsonify(activity)
 
 
     # if daystart < new_date:
@@ -299,8 +319,6 @@ def get_historical_stats_alltime(membershipType, membershipId):
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    # print("\n\nCharacter ID:")
-    # print(character_details.keys())
     charId = list(character_details.keys())[0]
 
     activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart="", dayend="")
@@ -323,8 +341,6 @@ def get_gambit(membershipType, membershipId):
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    print("\n\nCharacter ID:")
-    print(character_details.keys())
     charId = list(character_details.keys())[0]
 
     activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=63, count=1)

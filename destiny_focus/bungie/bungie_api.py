@@ -236,19 +236,17 @@ class BungieApi(object):
         # daystart    = datetime.strptime(SEASONS[CURRENT_SEASON]['START'], "%Y-%m-%d %H:%M:%S")
         # dayend      = datetime.strptime(SEASONS[CURRENT_SEASON]['END'], "%Y-%m-%d %H:%M:%S")
 
-        if daystart is not "":
-            print("Day start:", daystart)
-            print("Day end:", dayend)
+        if daystart is not "" or not periodType == "AllTime":
+            # print("Day start:", daystart)
+            # print("Day end:", dayend)
 
-            print(dayend.year)
-            print(dayend.month)
-            print(dayend.day)
+            # print(dayend.year)
+            # print(dayend.month)
+            # print(dayend.day)
             daystart  = f"{daystart.year}-{daystart.month}-{daystart.day}"
             dayend    = f"{dayend.year}-{dayend.month}-{dayend.day}"
 
         url_params = {
-            # 'dayend'    : dayend,
-            # 'daystart'  : daystart,
             # 'groups'    : groups,
             'modes'     : modes,
             'periodType': periodType,
@@ -256,6 +254,11 @@ class BungieApi(object):
             # 'periodType': "AllTime",
             }
 
+
+        if daystart is not "" or not periodType == "AllTime":
+            url_params['dayend']    = dayend
+            url_params['daystart']  = daystart
+            
         # print(url_params)
 
 

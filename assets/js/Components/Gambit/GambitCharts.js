@@ -23,8 +23,6 @@ class GambitChart extends React.Component {
 
   componentDidMount() {
     const { membershipType, membershipId } = this.props.match.params
-    console.log(membershipType)
-    console.log(membershipId)
 
     const apiUrl = `/auth/get/gambit/${membershipType}/${membershipId}`
 
@@ -62,7 +60,7 @@ class GambitChart extends React.Component {
       if (kills === '0' && deaths === '0') {
         return true
       }
-      console.log(`Kill / Death ratio: ${kdr}. For game: ${index}.`)
+      // console.log(`Kill / Death ratio: ${kdr}. For game: ${index}.`)
       const kdrDetails = {
         x: index + 1,
         y: parseFloat(kdr),
@@ -123,8 +121,8 @@ class GambitChart extends React.Component {
     const stats = {
       kdr, kills, deaths, assists,
     }
-    console.log('Returning stats:')
-    console.log(stats)
+    // console.log('Returning stats:')
+    // console.log(stats)
     return stats
   }
 
@@ -160,11 +158,11 @@ class GambitChart extends React.Component {
     } else if (!isLoaded) {
       return (<div>Loading...</div>)
     } else {
-      console.log('Render')
-      console.log(jsonResponse)
+      // console.log('Render')
+      // console.log(jsonResponse)
       const kdr = this.getKdr(jsonResponse)
       const stats = this.getStats(jsonResponse)
-      console.log(kdr)
+      // console.log(kdr)
       return (
         <div className='card-wrapper'>
           <div className='float-below'>

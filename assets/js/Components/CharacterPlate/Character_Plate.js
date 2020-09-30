@@ -38,9 +38,9 @@ class Character_Plate extends React.Component {
 
   _render_object(json_response) {
     return Object.keys(json_response).map((item, i) => {
-      console.log(json_response[item])
-      console.log(json_response[item].emblem_hash.icon)
-      console.log(json_response[item].emblem_hash.background)
+      // console.log(json_response[item])
+      // console.log(json_response[item].emblem_hash.icon)
+      // console.log(json_response[item].emblem_hash.background)
       const style = {
         backgroundImage: `url(${`https://www.bungie.net${json_response[item].emblem_hash.background}`})`,
       }
@@ -65,8 +65,8 @@ class Character_Plate extends React.Component {
     } else if (!is_loaded) {
       return (<div>Loading...</div>)
     } else {
-      console.log('Render')
-      console.log(json_response)
+      // console.log('Render')
+      // console.log(json_response)
       const contents = this._render_object(json_response)
       return (
             <div>

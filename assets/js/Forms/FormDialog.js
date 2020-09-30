@@ -12,8 +12,8 @@ export default function FormDialog(props) {
   const {
     focus, apiUrl, image, colours, description,
   } = props.focus_details
-  console.log('Inside form:')
-  console.log(apiUrl)
+  // console.log('Inside form:')
+  // console.log(apiUrl)
 
   const handleClickOpen = () => {
     setOpen(true);

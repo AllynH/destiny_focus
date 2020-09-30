@@ -48,7 +48,7 @@ class PvP extends React.Component {
     const myArray = jsonResponse.Response.activities
     myArray.forEach((element, index) => {
       const kdr = element.values.killsDeathsRatio.basic.displayValue
-      console.log(`Kill / Death ratio: ${kdr}. For game: ${index}.`)
+      // console.log(`Kill / Death ratio: ${kdr}. For game: ${index}.`)
       const kdrDetails = { kdr, game: index + 1 }
       kdrList.push(kdrDetails)
     })
@@ -60,7 +60,7 @@ class PvP extends React.Component {
     const myArray = jsonResponse.Response.activities
     myArray.forEach((element, index) => {
       const kdr = element.values.kills.basic.displayValue
-      console.log(`Kills count: ${kdr}. For game: ${index}.`)
+      // console.log(`Kills count: ${kdr}. For game: ${index}.`)
       const kdrDetails = { kdr, game: index + 1 }
       killsList.push(kdrDetails)
     })
@@ -74,14 +74,14 @@ class PvP extends React.Component {
     } else if (!isLoaded) {
       return (<div>Loading...</div>)
     } else {
-      console.log('Render')
-      console.log(jsonResponse)
+      // console.log('Render')
+      // console.log(jsonResponse)
       const kdr = this.getKdr(jsonResponse)
       const kills = this.getKills(jsonResponse)
-      console.log("List of KDR details.")
-      console.log(kdr)
-      console.log("List of kills details.")
-      console.log(kills)
+      // console.log("List of KDR details.")
+      // console.log(kdr)
+      // console.log("List of kills details.")
+      // console.log(kills)
       return (
             <div>
                 "Success"
