@@ -8,9 +8,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 // import { React, useState, useEffect } from 'react'
 
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 import Route from 'react-router-dom'
-
 
 // import TextField from '@material-ui/core/TextField';
 // import DialogContent from '@material-ui/core/DialogContent';
@@ -28,49 +27,50 @@ import CrucibleImage from '../../../img/cards/Crucible.png'
 import GambitImage from '../../../img/cards/Gambit.png'
 import RaidImage from '../../../img/cards/Raid.png'
 
-
 export default function WrapCards(props) {
   const getFocus = useSelector((state) => state.focus)
   console.log('State focus', getFocus)
 
   function CrucibleText() {
     return (
-    <DialogContent>
-      <DialogContentText>
-        What would you like to focus on today? Customize your focus goals.
-      </DialogContentText>
-      <TextField
-        autoFocus
-        margin='dense'
-        id='kdr'
-        placeholder='1.5'
-        label='Kill Death Ratio'
-        type='int'
-        fullWidth
-      />
-      <TextField
-        margin='dense'
-        id='wlr'
-        placeholder='75'
-        label='Win Loss Ratio (percent)'
-        type='email'
-        fullWidth
-      />
-      <TextField
-        margin='dense'
-        id='psl'
-        placeholder='50'
-        label='Precision Shots Landed (count)'
-        type='email'
-        fullWidth
-      />
-    </DialogContent>)
+      <DialogContent>
+        <DialogContentText>
+          What would you like to focus on today? Customize your focus goals.
+        </DialogContentText>
+        <TextField
+          autoFocus
+          margin='dense'
+          id='kdr'
+          placeholder='1.5'
+          label='Kill Death Ratio'
+          type='int'
+          fullWidth
+        />
+        <TextField
+          margin='dense'
+          id='wlr'
+          placeholder='75'
+          label='Win Loss Ratio (percent)'
+          type='email'
+          fullWidth
+        />
+        <TextField
+          margin='dense'
+          id='psl'
+          placeholder='50'
+          label='Precision Shots Landed (count)'
+          type='email'
+          fullWidth
+        />
+      </DialogContent>
+    )
   }
 
   const focus_details = {
     Crucible: {
       form: CrucibleText,
-      focus: 'Crucible',
+      focusName: 'Crucible',
+      focus: 'pvp',
       description: 'Hone your skills and win glory in battle against other Guardians.',
       image: CrucibleImage,
       apiUrl: `/auth/pvp/${props.match.params.membershipType}/${props.match.params.membershipId}`,
@@ -92,8 +92,10 @@ export default function WrapCards(props) {
       },
     },
     Gambit: {
-      focus: 'Gambit',
-      description: 'Defeat the enemies of humanity, collect their Motes, and bank them to summon a Primeval. First team to destroy their Primeval wins.',
+      focus: 'gambit',
+      focusName: 'Gambit',
+      description:
+        'Defeat the enemies of humanity, collect their Motes, and bank them to summon a Primeval. First team to destroy their Primeval wins.',
       image: GambitImage,
       apiUrl: `/auth/gambit/${props.match.params.membershipType}/${props.match.params.membershipId}`,
       colours: {
@@ -103,8 +105,10 @@ export default function WrapCards(props) {
       },
     },
     Raid: {
-      focus: 'Raid',
-      description: 'Form a fireteam of six and brave the strange and powerful realms of our enemies.',
+      focus: 'raid',
+      focusName: 'Raid',
+      description:
+        'Form a fireteam of six and brave the strange and powerful realms of our enemies.',
       image: RaidImage,
       apiUrl: `/auth/raid/${props.match.params.membershipType}/${props.match.params.membershipId}`,
       colours: {
@@ -129,36 +133,39 @@ export default function WrapCards(props) {
   // console.log(loading)
   console.log('Crucible Form Data:', CrucibleFormFields)
 
-
   return (
     <div>
-      <div className="focus-header"><h1>Choose a focus:</h1></div>
-    <div className='card-wrapper'>
-      <div className='card-root-1'>
-        <Card focus_details={focus_details.Crucible}>
-          <FormDialog focus_details={focus_details.Crucible}>
-            <CrucibleFormFields />
-          </FormDialog>
-        </Card>
+      <div className='focus-header'>
+        <h1>Choose a focus:</h1>
       </div>
-      <div className='card-root-2'>
-        <Card focus_details={focus_details.Gambit}>
-          <FormDialog focus_details={focus_details.Gambit}>
-            <GambitFormFields />
-          </FormDialog>
-        </Card>
+      <div className='card-wrapper'>
+        <div className='card-root-1'>
+          <Card focus_details={focus_details.Crucible}>
+            <FormDialog focus_details={focus_details.Crucible}>
+              <CrucibleFormFields />
+            </FormDialog>
+          </Card>
+        </div>
+        <div className='card-root-2'>
+          <Card focus_details={focus_details.Gambit}>
+            <FormDialog focus_details={focus_details.Gambit}>
+              <GambitFormFields />
+            </FormDialog>
+          </Card>
+        </div>
+        <div className='card-root-3'>
+          <Card focus_details={focus_details.Raid}>
+            <FormDialog focus_details={focus_details.Raid}>
+              <RaidFormFields />
+            </FormDialog>
+          </Card>
+        </div>
+        <div className='card-root-3'>
+          <p>view store</p>
+          <ViewStore {...props} />
+        </div>
       </div>
-      <div className='card-root-3'>
-        <Card focus_details={focus_details.Raid}>
-          <FormDialog focus_details={focus_details.Raid}>
-            <RaidFormFields />
-          </FormDialog>
-        </Card>
-      </div>
-      <p>view store</p>
-      <ViewStore/>
-    </div>
-      <Character_Plate/>
+      <Character_Plate />
     </div>
   )
 }

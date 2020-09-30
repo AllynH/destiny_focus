@@ -15,6 +15,6 @@ export const setGambit = (data) => ({
   payload: data,
 })
 export const setRaid = (data) => ({
-  type: 'gambit',
+  type: 'raid',
   payload: data,
 })

@@ -6,9 +6,9 @@ const focusReducer = (state = 'pvp', action) => {
       console.log('Setting focus state')
       console.log(action)
       state = {
-        // ...state,
         focus: action.type,
         payload: action.payload,
+        // ...state,
       }
       console.log(state)
       console.log('Returned state')
