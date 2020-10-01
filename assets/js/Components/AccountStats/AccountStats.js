@@ -10,6 +10,7 @@ import './style.css'
 import Character_Plate from '../CharacterPlate/Character_Plate'
 import DisplayAccountStats from './DisplayAccountStats'
 import DisplayStats from './DisplayStats'
+import Shimmer from '../../Utils/Loading/Shimmer'
 
 class AccountStats extends React.Component {
   constructor(props) {
@@ -55,8 +56,29 @@ class AccountStats extends React.Component {
             isLoaded: false,
             error,
           })
-        },
+        }
       )
+    console.log(this.state)
+    this._checkResponse(this.state)
+    this.setState({ isLoaded: false })
+  }
+
+  _checkResponse(state) {
+    const { jsonResponse, isLoaded } = state
+    if (isLoaded && jsonResponse.ErrorCode > 1) {
+      console.log('Caught error!')
+      console.log(jsonResponse)
+      this.setState({
+        error: true,
+        message: jsonResponse.message,
+      })
+    } else if (jsonResponse !== 'undefined') {
+      console.log('No error found.')
+      console.log(jsonResponse.ErrorCode)
+      console.log(jsonResponse.message)
+    } else {
+      console.log(jsonResponse)
+    }
   }
 
   render() {
@@ -64,8 +86,9 @@ class AccountStats extends React.Component {
     if (error) {
       return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-      return <div>Loading...</div>
+      return <Shimmer />
     } else {
+      console.log(this.state)
       const { scope } = this.props
       const { props } = this
       const stats = jsonResponse.Response.allPvP[scope]
@@ -99,7 +122,7 @@ class AccountStats extends React.Component {
                 value_1={stats.deaths.pga.displayValue}
                 name_2={'K/D R'}
                 value_2={parseFloat(
-                  stats.kills.pga.displayValue / stats.deaths.pga.displayValue,
+                  stats.kills.pga.displayValue / stats.deaths.pga.displayValue
                 ).toFixed(2)}
               />
             </div>

@@ -274,6 +274,7 @@ def get_historical_stats(membershipType, membershipId):
             # All requests:
             print("Making request!")
             activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end, periodType='Daily')
+            print(activity)
 
             new_activity = {
                 "Response": {

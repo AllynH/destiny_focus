@@ -11,6 +11,9 @@ import { useFetch } from '../../Utils/useFetch'
 import './style.css'
 import Character_Plate from '../CharacterPlate/Character_Plate'
 import AccountStats from '../AccountStats/AccountStats'
+import { ViewStore } from '../../Utils/ViewStore'
+import Spinner from '../../Utils/Loading/Spinner'
+
 // import focus_details from '../Cards/WrapCards/'
 
 class PvPChart extends React.Component {
@@ -21,6 +24,7 @@ class PvPChart extends React.Component {
       error: null,
       isLoaded: false,
       jsonResponse: [],
+      ...this.state,
     }
   }
 
@@ -71,7 +75,7 @@ class PvPChart extends React.Component {
       if (kills === '0' && deaths === '0') {
         return true
       }
-      console.log(`Kill / Death ratio: ${kdr}. For game: ${index}.`)
+      // console.log(`Kill / Death ratio: ${kdr}. For game: ${index}.`)
       const kdrDetails = {
         x: index + 1,
         y: parseFloat(kdr),
@@ -169,22 +173,15 @@ class PvPChart extends React.Component {
     if (error) {
       return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-      return <div>Loading...</div>
+      return <Spinner />
     } else {
-      // console.log('Render')
-      // console.log(jsonResponse)
       const kdr = this.getKdr(jsonResponse)
-      // const stats = this.getStats(jsonResponse)
-      // console.log(kdr)
-
-
       const { membershipType, membershipId } = this.props.match.params
-      // const allTimeApiUrl = `/auth/get/historical_stats_alltime/${membershipType}/${membershipId}`
-      // const lastSeasonApiUrl = `/auth/get/historical_stats/${membershipType}/${membershipId}`
-      // const allTimeScope = 'allTime'
-      // const seasonScope = 'daily'
-      // const allTimeHEading = 'LIFETIME STATS'
-      // const seasonHEading = 'LAST MONTH STATS'
+
+      console.log('PvPChart: FocusReducer')
+      const { focusReducer } = this.state || {}
+      console.log(focusReducer)
+      console.log('PvPChart: FocusReducer')
 
       const statsData = {
         allTime: {
@@ -206,9 +203,22 @@ class PvPChart extends React.Component {
       return (
         <div>
           <div className='card-wrapper'>
-            <KDRChart title={'K/D Ratio'} data={kdr} {...this.props}/>
-            <AccountStats {...this.props} subHeading={allTime.subHeading} heading={allTime.heading} scope={allTime.scope} apiUrl={allTime.apiUrl} />
-            <AccountStats {...this.props} subHeading={season.subHeading} heading={season.heading} scope={season.scope} apiUrl={season.apiUrl} />
+            <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
+            <AccountStats
+              {...this.props}
+              subHeading={allTime.subHeading}
+              heading={allTime.heading}
+              scope={allTime.scope}
+              apiUrl={allTime.apiUrl}
+            />
+            <AccountStats
+              {...this.props}
+              subHeading={season.subHeading}
+              heading={season.heading}
+              scope={season.scope}
+              apiUrl={season.apiUrl}
+            />
+            <ViewStore />
           </div>
           <Character_Plate />
         </div>

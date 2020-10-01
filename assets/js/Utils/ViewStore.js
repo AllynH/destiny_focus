@@ -6,28 +6,20 @@ export const ViewStore = (props) => {
   const state = useSelector((state) => state)
   const { focus } = useSelector((state) => state.focusReducer)
   const { kdr, wlr, psl } = state.focusReducer.payload || {}
-  // const { wlr } = state.focusReducer.payload || {}
-  // const { kdr } = state.focusReducer.payload || {}
 
-  // if (state.focusReducer.payload) {
-  //   console.log('Setting kdr & wlr from state:')
-  //   const { kdr, wlr } = state.focusReducer.payload
-  // }
-  // else {
-  //   console.log('Defaulting kdr & wlr:')
-  //   const kdr = ''
-  //   const wlr = ''
-  // }
-  console.log('Inside ViewStore:')
-  console.log(props)
-  console.log(state)
-  console.log(focus)
+  // console.log('Inside ViewStore:')
+  // console.log(props)
+  // console.log(state)
+  // console.log(state.focusReducer)
+  // console.log(focus)
   return (
     <div>
-      <p>
-        Focus: {focus} K/D R: {kdr || ''} W/L R: {wlr || ''} Shots landed: {psl}
-      </p>
-      {/* <p>Focus from state.focusReducer: {focus}</p> */}
+      <ul>
+        <li>Focus: {focus}</li>
+        <li>K/D R: {kdr || ''}</li>
+        <li>W/L R: {wlr || ''}</li>
+        <li>Presion shots: {psl}</li>
+      </ul>
     </div>
   )
 }
