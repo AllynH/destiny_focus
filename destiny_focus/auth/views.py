@@ -263,6 +263,7 @@ def get_historical_stats(membershipType, membershipId):
                 }
                 }
             print("\n\nreturning new activity")
+            return jsonify(activity)
             return jsonify(new_activity)
             mode_key = list(activity["Response"])[0]
             print(mode_key)
@@ -276,10 +277,13 @@ def get_historical_stats(membershipType, membershipId):
             activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end, periodType='Daily')
             print(activity)
 
+            activity_len = len(activity['Response']['allPvP']['daily'][0])
+
+            # return jsonify(activity)
             new_activity = {
                 "Response": {
                     'allPvP': {
-                        'daily': activity['Response']['allPvP']['daily'][0]['values']
+                        'daily': activity['Response']['allPvP']['daily'][activity_len - 1]['values']
                     }
                 }
                 }
@@ -287,7 +291,6 @@ def get_historical_stats(membershipType, membershipId):
             return jsonify(new_activity)
 
 
-            return jsonify(activity)
             day_end = day_start - timedelta(seconds=1)
             day_start = day_start - timedelta(days=month)
             # print(activity["Response"])

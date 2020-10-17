@@ -1,0 +1,90 @@
+.pgcr-item {
+    border: 1xp solid var(--crucible-dark-3);
+    background-color: var(--grey-dark-3);
+    color: var(--vanguard-light-5);
+    padding: 20px;
+    padding: 10px 20px 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.pgcr-dropdown{
+    border: 1xp solid var(--crucible-dark-4);
+    background-color: var(--grey-dark-4);
+    color: var(--vanguard-light-5);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.pgcr-game-wrapper{
+    width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+}
+
+.pgcr-char-wrap{
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+    border-bottom: 1px solid var(--vanguard-light-2);
+}
+
+.pgcr{
+
+}
+
+.player-icon{
+    min-height: 25px;
+    min-width: 25px;
+    margin-right: 10px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.player-name-icon{
+    min-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pgcr-player-stats{
+    margin-top: auto;
+}
+
+.pgcr-wrapper{
+    display: flex;
+    flex-direction: row;
+    /* border: solid 1px red; */
+}
+
+
+.pgcr{
+    font-size: 0.95em;
+}
+
+.pgcr-item{
+    list-style: none;
+    padding: 5px;
+}
+
+.pgcr-ul{
+    padding-left: unset;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.pgcr-list{
+    width: 600px;
+    border: 1xp solid var(--crucible-dark-2);
+    background-color: var(--grey-dark-2);
+    color: var(--vanguard-light-5);
+    padding: 20px;
+    padding: 10px 20px 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+}

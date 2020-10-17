@@ -11,6 +11,7 @@ import Character_Plate from '../CharacterPlate/Character_Plate'
 import DisplayAccountStats from './DisplayAccountStats'
 import DisplayStats from './DisplayStats'
 import Shimmer from '../../Utils/Loading/Shimmer'
+import { GetStatsData, GetStatsAllTime } from '../../Utils/API/API_Requests'
 
 class AccountStats extends React.Component {
   constructor(props) {
@@ -23,44 +24,26 @@ class AccountStats extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('Testing props:')
-    // console.log(this.props)
-    // console.log('Testing props.match:')
-    // console.log(this.props.match)
-    // console.log('Testing props.match.params:')
-    // console.log(this.props.match.params)
+    this.fetchStatsData()
+  }
+
+  fetchStatsData = async () => {
     const { membershipType, membershipId } = this.props.match.params
-    // console.log(membershipType)
-    // console.log(membershipId)
-    const { apiUrl } = this.props
-    // console.log(`AccountStats: apiUrl: ${apiUrl}`)
+    const { scope } = this.props
 
-    // const apiUrl = `/auth/get/historical_stats_alltime/${membershipType}/${membershipId}`
-
-    // const { error, loading, data } = useFetch(apiUrl)
-    // console.log(error)
-    // console.log(loading)
-    // console.log(data)
-
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            jsonResponse: result,
-          })
-        },
-        (error) => {
-          this.setState({
-            isLoaded: false,
-            error,
-          })
-        }
-      )
-    console.log(this.state)
-    this._checkResponse(this.state)
-    this.setState({ isLoaded: false })
+    if (scope === 'allTime') {
+      const response = await GetStatsAllTime({ params: { membershipType, membershipId } })
+      this.setState({
+        isLoaded: true,
+        jsonResponse: response,
+      })
+    } else {
+      const response = await GetStatsData({ params: { membershipType, membershipId } })
+      this.setState({
+        isLoaded: true,
+        jsonResponse: response,
+      })
+    }
   }
 
   _checkResponse(state) {
@@ -88,7 +71,7 @@ class AccountStats extends React.Component {
     } else if (!isLoaded) {
       return <Shimmer />
     } else {
-      console.log(this.state)
+      // console.log(this.state)
       const { scope } = this.props
       const { props } = this
       const stats = jsonResponse.Response.allPvP[scope]
@@ -103,6 +86,8 @@ class AccountStats extends React.Component {
               <DisplayStats
                 heading={props.heading}
                 subHeading={props.subHeading}
+                games_played={stats.activitiesEntered.basic.displayValue}
+                games_won={stats.activitiesWon.basic.displayValue}
                 big_name={'TOTAL KILLS'}
                 big_value={stats.kills.basic.displayValue}
                 name_1={'DEATHS'}
@@ -116,6 +101,8 @@ class AccountStats extends React.Component {
               <DisplayStats
                 // heading={''}
                 subHeading={'AVG. GAME STATS'}
+                games_played={stats.activitiesEntered.basic.displayValue}
+                games_won={stats.activitiesWon.basic.displayValue}
                 big_name={'AVG. GAME KILLS'}
                 big_value={stats.kills.pga.displayValue}
                 name_1={'DEATHS'}

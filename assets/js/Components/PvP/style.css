@@ -1,5 +1,27 @@
 .chart-wrap{
-    max-width: 440px
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 90%;
+    margin: 0 auto;}
+
+.chart-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, auto));
+    /* grid-template-columns: repeat(auto-fill, minmax(186px, auto)); */
+    
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.kdr-chart {
+    background-color: var(--grey-bg);
+    border-radius: 15px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    width: 500px;
+    margin: 0 auto;
+    justify-content: center;
 }
 .float-below{
     padding-right: 8px;
@@ -11,13 +33,4 @@
     justify-content: center;
     /* display: flex; */
     /* min-width: 400px; */
-}
-
-.kdr-chart {
-    background-color: var(--grey-bg);
-    border-radius: 15px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    min-width: 300px;
-    justify-content: center;
 }

@@ -6,14 +6,14 @@ import React from 'react'
 import KDRChart from './KDRChart'
 import KDAChart from './KDAChart'
 
-import { useFetch } from '../../Utils/useFetch'
-
 import './style.css'
 import Character_Plate from '../CharacterPlate/Character_Plate'
 import AccountStats from '../AccountStats/AccountStats'
+import PGCR from '../PGCR/PGCR'
 import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
-
+import { GetPVPData } from '../../Utils/API/API_Requests'
+import { statsData } from '../../Data/statsData'
 // import focus_details from '../Cards/WrapCards/'
 
 class PvPChart extends React.Component {
@@ -29,39 +29,17 @@ class PvPChart extends React.Component {
   }
 
   componentDidMount() {
+    this.fetchPVPData()
+  }
+
+  fetchPVPData = async () => {
     const { membershipType, membershipId } = this.props.match.params
+    const response = await GetPVPData({ params: { membershipType, membershipId } })
 
-    // console.log('PVPCharts componentDidMount:')
-    // console.log(this.props)
-    // console.log(membershipType)
-    // console.log(membershipId)
-    // // console.log(focus_details)
-    // // console.log(focus_details.Crucible)
-    // console.log('PVPCharts componentDidMount:')
-
-    const apiUrl = `/auth/get/pvp/${membershipType}/${membershipId}`
-
-    // const { error, loading, data } = useFetch(apiUrl)
-    // console.log(error)
-    // console.log(loading)
-    // console.log(data)
-
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            jsonResponse: result,
-          })
-        },
-        (error) => {
-          this.setState({
-            isLoaded: false,
-            error,
-          })
-        },
-      )
+    this.setState({
+      isLoaded: true,
+      jsonResponse: response,
+    })
   }
 
   getKdr(jsonResponse) {
@@ -88,85 +66,20 @@ class PvPChart extends React.Component {
     return kdrList
   }
 
-  // getStats(jsonResponse) {
-  //   const kdr = []
-  //   const kills = []
-  //   const deaths = []
-  //   const assists = []
-  //   const myArray = jsonResponse.Response.activities
-  //   myArray.forEach((element, index) => {
-  //     const _kdr = element.values.killsDeathsRatio.basic.displayValue
-  //     const _deaths = element.values.deaths.basic.displayValue
-  //     const _kills = element.values.kills.basic.displayValue
-  //     const _assists = element.values.assists.basic.displayValue
-  //     if (kills === '0' && deaths === '0') {
-  //       return true
-  //     }
-  //     // console.log(`Kill / Death ratio: ${_kdr}. For game: ${index}.`)
-  //     const kdrDetails = {
-  //       x: index + 1,
-  //       y: parseFloat(_kdr),
-  //       l: 'KDR',
-  //     }
-  //     const kDetails = {
-  //       x: index + 1,
-  //       y: parseFloat(_kills),
-  //       l: 'kills',
-  //       _kills,
-  //       _deaths,
-  //       _assists,
-  //       _kdr,
-  //     }
-  //     const dDetails = {
-  //       x: index + 1,
-  //       y: parseFloat(_deaths),
-  //       l: 'deaths',
-  //     }
-  //     const assistsDetails = {
-  //       x: index + 1,
-  //       y: parseFloat(_assists),
-  //       l: 'assists',
-  //     }
-  //     kdr.push(kdrDetails)
-  //     kills.push(kDetails)
-  //     deaths.push(dDetails)
-  //     assists.push(assistsDetails)
-  //   })
-  //   const stats = {
-  //     kdr,
-  //     kills,
-  //     deaths,
-  //     assists,
-  //   }
-  //   console.log('Returning stats:')
-  //   console.log(stats)
-  //   return stats
-  // }
+  makePGCR(jsonResponse) {
+    const pgcrList = []
+    const myArray = jsonResponse.Response.activities
+    console.log('PGCRs:')
+    console.log(myArray[1])
+    // const myPgcr = <PGCR props={myArray[1]} />
 
-  // getKills(jsonResponse) {
-  //   const killsList = []
-  //   const myArray = jsonResponse.Response.activities
-  //   myArray.forEach((element, index) => {
-  //     const kdr = element.values.kills.basic.displayValue
-  //     const deaths = element.values.deaths.basic.displayValue
-  //     console.log(`Kills count: ${kdr}. For game: ${index}.`)
-  //     const kdrDetails = { kdr, game: index + 1, deaths }
-  //     killsList.push(kdrDetails)
-  //   })
-  //   return killsList
-  // }
-
-  // getStat(jsonResponse, stat) {
-  //   const killsList = []
-  //   const myArray = jsonResponse.Response.activities
-  //   myArray.forEach((element, index) => {
-  //     const stats = element.values.stat.basic.displayValue
-  //     console.log(`Kills count: ${kdr}. For game: ${index}.`)
-  //     const kdrDetails = { kdr, game: index + 1 }
-  //     killsList.push(kdrDetails)
-  //   })
-  //   return killsList
-  // }
+    const pgcr_list = myArray.map((p, index) => (
+      <li className={'pgcr pgcr-item'} key={index}>
+        <PGCR {...p} />
+      </li>
+    ))
+    return pgcr_list
+  }
 
   render() {
     const { error, isLoaded, jsonResponse } = this.state
@@ -176,6 +89,8 @@ class PvPChart extends React.Component {
       return <Spinner />
     } else {
       const kdr = this.getKdr(jsonResponse)
+      const myPgcr = this.makePGCR(jsonResponse)
+      console.log('myPgcr', myPgcr)
       const { membershipType, membershipId } = this.props.match.params
 
       console.log('PvPChart: FocusReducer')
@@ -183,26 +98,11 @@ class PvPChart extends React.Component {
       console.log(focusReducer)
       console.log('PvPChart: FocusReducer')
 
-      const statsData = {
-        allTime: {
-          apiUrl: `/auth/get/historical_stats_alltime/${membershipType}/${membershipId}`,
-          scope: 'allTime',
-          heading: 'LIFETIME STATS',
-          subHeading: 'LIFETIME',
-        },
-        season: {
-          apiUrl: `/auth/get/historical_stats/${membershipType}/${membershipId}`,
-          scope: 'daily',
-          heading: 'LAST MONTH STATS',
-          subHeading: 'LAST MONTH',
-        },
-      }
-
       const { allTime, season } = statsData
 
       return (
         <div>
-          <div className='card-wrapper'>
+          <div className='chart-wrapper'>
             <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
             <AccountStats
               {...this.props}
@@ -218,8 +118,10 @@ class PvPChart extends React.Component {
               scope={season.scope}
               apiUrl={season.apiUrl}
             />
-            <ViewStore />
+
+            {/* <ViewStore /> */}
           </div>
+          <ul className={'pgcr pgcr-list'}>{myPgcr}</ul>
           <Character_Plate />
         </div>
       )

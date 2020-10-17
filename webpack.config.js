@@ -32,6 +32,7 @@ module.exports = {
       path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'card.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Welcome', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'PvP', 'style.css'),
+      path.join(__dirname, 'assets', 'js', 'Components', 'PGCR', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'CharacterPlate', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Utils', 'Loading', 'style.css'),
       path.join(__dirname, 'assets', 'css', 'style.css'),
@@ -92,7 +93,14 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: { presets: ['@babel/preset-env', '@babel/preset-react'], cacheDirectory: true },
+        query: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          plugins: [
+            '@babel/plugin-transform-runtime',
+            '@babel/plugin-proposal-class-properties',
+          ],
+          cacheDirectory: true
+        },
       },
     ],
   },

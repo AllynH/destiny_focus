@@ -23,6 +23,8 @@ class BungieApi(object):
     def check_for_refresh(self, user):
         print(user.refresh_ready)
         print(user.refresh_expired)
+        if user.refresh_ready < datetime.utcnow():
+            print("\n\nRefresh ready!\n\n")
         return self.auth_session
 
     def make_session(self):
@@ -256,9 +258,10 @@ class BungieApi(object):
 
 
         if daystart is not "" or not periodType == "AllTime":
+            # if not periodType == "Activity":
             url_params['dayend']    = dayend
             url_params['daystart']  = daystart
-            
+                
         # print(url_params)
 
 
@@ -269,8 +272,8 @@ class BungieApi(object):
 
         url = url + '?' + parse.urlencode(url_params)
 
-        # print("making request for:")
-        # print(url)
+        print("making request for:")
+        print(url)
         # print("headers")
         # print(auth_session.headers)
 

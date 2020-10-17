@@ -30,8 +30,9 @@ class PvPChart extends React.Component {
 
           <div className='chart kdr-chart'>
             <VictoryChart
-              height={300}
-              width={300}
+              // height={300}
+              // width={300}
+              adding={100}
               domainPadding={{ y: 10 }}
               containerComponent={
                 <VictoryVoronoiContainer
@@ -44,7 +45,7 @@ class PvPChart extends React.Component {
                       constrainToVisibleArea
                       cornerRadius={0}
                       flyoutStyle={{ fill: 'white' }}
-                      orientation='right'
+                      // orientation='right'
                     />
                   }
                 />
