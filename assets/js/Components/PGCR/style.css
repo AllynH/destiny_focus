@@ -1,11 +1,20 @@
+.activity-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
 .pgcr-item {
     border: 1xp solid var(--crucible-dark-3);
     background-color: var(--grey-dark-3);
-    color: var(--vanguard-light-5);
     padding: 20px;
     padding: 10px 20px 10px 20px;
     margin: 5px;
     border-radius: 5px;
+    list-style: none;
+    /* padding: unset; */
+    min-height: 40px;
+    margin-top: 20px;
+    box-shadow: 1px 3px 15px black;
 }
 
 .pgcr-dropdown{
@@ -30,9 +39,11 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 15px;
     border-bottom: 1px solid var(--vanguard-light-2);
+    text-align: left;
 }
 
-.pgcr{
+.pgcr-game-wrapper{
+    /* Passed as JS */
 
 }
 
@@ -59,7 +70,7 @@
 .pgcr-wrapper{
     display: flex;
     flex-direction: row;
-    /* border: solid 1px red; */
+    text-align: center;
 }
 
 
@@ -67,9 +78,8 @@
     font-size: 0.95em;
 }
 
-.pgcr-item{
-    list-style: none;
-    padding: 5px;
+.pgcr-pointer{
+    cursor: pointer;
 }
 
 .pgcr-ul{
@@ -78,13 +88,62 @@
     padding-bottom: 10px;
 }
 
-.pgcr-list{
+.activity-list{
     width: 600px;
     border: 1xp solid var(--crucible-dark-2);
     background-color: var(--grey-dark-2);
     color: var(--vanguard-light-5);
-    padding: 20px;
-    padding: 10px 20px 10px 20px;
     margin: 5px;
     border-radius: 5px;
+    padding: 20px;
+    list-style: none;
+}
+
+.activity-icon{
+    min-height: 50%;
+    min-width: 50%;
+    margin-right: 10px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.activity-name::before{
+    display:inline-block;
+    content:'';
+}
+.activity-name{
+    font-size: 1.2em;;
+    text-transform: uppercase;
+}
+
+.activity-icon-name-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 110px;
+    justify-content: space-around;
+    margin-left: 10px;
+}
+
+.activity-results-wrapper{
+    padding-top: 20px;
+}
+
+.activity-results{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    font-size: 1.1em;
+    margin-top: 100px;
+}
+
+.activity-results-wrapper.h3{
+    padding-top: 20px;
+    font-size: 1.3em;
+}
+
+h2.activity-map-name{
+    text-transform: uppercase;
+    font-size: 1.9em;
 }

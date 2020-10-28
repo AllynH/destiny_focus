@@ -73,7 +73,7 @@ class BungieApi(object):
         self.bungie_display_name = response.json()['Response']['bungieNetUser']['displayName']
         self.bungie_profile_pic = response.json()['Response']['bungieNetUser']['profilePicturePath']
 
-        return response.json()
+        return response
 
     def get_profile(self, membership_type, membership_id):
         """
@@ -103,6 +103,7 @@ class BungieApi(object):
         print(response.status_code)
         # print(response.text)
         if not response.status_code == 200:
+            print("Found an error!")
             print(response.text)
             return self.flag_error(function_name, response)
 
@@ -163,16 +164,21 @@ class BungieApi(object):
         """
         Return a JSON formatted error.
         """
+        # print("Inside Flagged error")
+        # print(type(response.json()))
         fail = {
-            'status'    : response.status_code,
-            'request'   : function_name,
-            'message'   : response.json()
+            'status'        : "Error",
+            'ErrorStatus'   : response.json()["ErrorStatus"],
+            'status_code'   : response.status_code,
+            'request'       : function_name,
+            'message'       : response.json()
         }
 
         print('Bungie response error:')
         print(fail)
 
-        return dict(fail)
+        return response.json()
+        # return jsonify(fail)
 
     def get_pgcr(self, activityId):
         """
@@ -195,18 +201,6 @@ class BungieApi(object):
 
 
         return response.json()
-
-    def flag_error(self, function_name, response):
-        """
-        Return a JSON formatted error.
-        """
-        fail = {
-            'status'    : response.status_code,
-            'request'   : function_name,
-            'message'   : response.json()
-        }
-
-        return dict(fail)
 
     def get_historical_stats(self, membership_type, membership_id, character_id, dayend="", daystart="", groups="General", modes=5, periodType="AllTime"):
         """

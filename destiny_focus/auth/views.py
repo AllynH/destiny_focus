@@ -17,7 +17,7 @@ from flask_login import login_required, login_user, logout_user, current_user
 from destiny_focus.extensions import login_manager
 from destiny_focus.auth.forms import LoginForm
 from destiny_focus.user.forms import RegisterForm
-from destiny_focus.user.models import User
+from destiny_focus.user.models import User, Manifest
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
 from destiny_focus.tools.user_login import create_user, update_user
@@ -51,9 +51,6 @@ def home():
         if form.validate_on_submit():
             login_user(form.user)
             # flash("You are logged in.", "success")
-            
-            
-            
             _url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
         else:
@@ -100,7 +97,7 @@ def oauth_callback(provider):
     }
 
     # Get Bungie Profile:
-        #  This gives membership type - which is needed for all subsequent calls. 
+        #  This gives membership type - which is needed for all subsequent calls.
     get_user_url = "https://www.bungie.net/Platform/User/" + "GetCurrentBungieAccount/"
     get_account_res = auth_session.get(get_user_url)
 
@@ -121,8 +118,8 @@ def oauth_callback(provider):
 
     membershipId    = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"]
     membershipType  = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"]
-    
-    # TODO: 
+
+    # TODO:
     # Redirect to get_profile - > Get: membershipType destinyMembershipId
     # Redirect to chose_track/membershipType/destinyMembershipId.
 
@@ -145,8 +142,11 @@ def get_current_bungie_account():
 def get_activity():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
-    #TODO: Hardcoded values:
-    activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=3)
+    # TODO: Hardcoded values:
+    # Take values from here: GetCurrentBungieAccount
+    activity = my_api.GetCurrentBungieAccount()
+    get_profile_res = my_api.get_activity_history(membershipType, membershipId)
+    # activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=3)
 
     return jsonify(activity)
 
@@ -157,7 +157,14 @@ def get_profile():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
     # TODO: Hardcoded values:
-    get_profile_res = my_api.get_profile("2", "4611686018436136301")
+    # Take values from here: GetCurrentBungieAccount
+    get_account_res = my_api.GetCurrentBungieAccount()
+    print(type(get_account_res))
+    print(get_account_res.json())
+    membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
+    membershipType  = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"])
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    # get_profile_res = my_api.get_profile("2", "4611686018436136301")
     character_details = get_character_details_json(get_profile_res)
 
     return jsonify(character_details)
@@ -187,6 +194,10 @@ def pvp(membershipType, membershipId):
     my_api = BungieApi(user)
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash("Bungie systems are down :(", "error")
+        return redirect(url_for("public.home"))
+
     character_details = get_character_details_json(get_profile_res)
 
     return render_template("auth/choose_focus.html")
@@ -288,6 +299,7 @@ def get_historical_stats(membershipType, membershipId):
                 }
                 }
             print("\n\nreturning new activity")
+            # return jsonify(activity)
             return jsonify(new_activity)
 
 
@@ -363,6 +375,83 @@ def get_pgcr(activityId):
     activity = my_api.get_pgcr(activityId)
 
     return jsonify(activity)
+
+@blueprint.route("/get/manifest/<string:definition>/<int:def_hash>/")
+@login_required
+def get_manifest(definition, def_hash):
+
+    def_list = []
+
+    definitions = Manifest.query.all()
+    [def_list.append(d.definition_name) for d in definitions if not d.definition_name in def_list]
+
+
+    def_hash_manifest_item = Manifest.query.filter_by(definition_id=str(def_hash)).all()
+
+
+    # print(def_hash)
+    # print(definition)
+    # print(def_list)
+    # print(type(def_hash))
+    # print(def_hash_manifest_item)
+
+    if definition in def_list and isinstance(def_hash, int):
+        response = get_definition(str(definition), str(def_hash))
+    else:
+        response = {"Response": "Error"}
+
+    return jsonify(response)
+
+@blueprint.route("/get/pgcr_list/<membershipType>/<membershipId>/")
+@login_required
+def pgcr_list(membershipType, membershipId):
+
+    game_count = 10
+
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    character_details = get_character_details_json(get_profile_res)
+
+    charId = list(character_details.keys())[0]
+
+    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=5, count=game_count)
+
+    pgcr_list = []
+    stat_list = []
+    for a in activity["Response"]["activities"]:
+        pgcr_list.append(a["activityDetails"]["instanceId"])
+    pgcr_res_list = []
+
+    for index, instanceId in enumerate(pgcr_list):
+        pgcr_res = my_api.get_pgcr(instanceId)
+        pgcr_res_list.append(pgcr_res["Response"])
+
+        for entry in pgcr_res["Response"]["entries"]:
+            if entry["player"]["destinyUserInfo"]["membershipId"] == membershipId:
+                try:
+                    avg_life = int(entry["values"]["activityDurationSeconds"]["basic"]["value"] / entry["values"]["deaths"]["basic"]["value"])
+                except ZeroDivisionError:
+                    avg_life = int(666)
+                stats = {
+                    "count"                     : index,
+                    "instanceId"                : pgcr_res["Response"]["activityDetails"]["instanceId"],
+                    "PGCR"                      : pgcr_res["Response"]["activityDetails"]["instanceId"],
+                    "period"                    : pgcr_res["Response"]["period"],
+                    "standing"                  : entry["standing"],
+                    "activityDurationSeconds"   : entry["values"]["activityDurationSeconds"]["basic"]["displayValue"],
+                    "averageLifeTime"           : avg_life,
+                    "precisionKills"            : entry["extended"]["values"]["precisionKills"]["basic"]["displayValue"],
+                }
+                stat_list.append(stats)
+
+    pgcr_list_res = {
+        "Response"      : stat_list,
+        "statusCode"    : 200,
+        "ErrorStatus"   : "Success",
+    }
+
+    return jsonify(pgcr_list_res)
 
 
 @blueprint.route("/logout/")

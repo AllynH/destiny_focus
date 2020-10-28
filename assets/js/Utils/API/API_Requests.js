@@ -25,9 +25,16 @@ export const GetStatsAllTime = async (options) => apiRequest(
   },
 )
 
-export const GetPGCR = async (options) => apiRequest(
-  
-  `/auth/get/pgcr/${options.params.activityId}`,
+export const GetPGCR = async (options) => apiRequest(`/auth/get/pgcr/${options.params.activityId}`, {
+  ...options,
+})
+
+export const GetActivityDefinition = async (options) => apiRequest(`/auth/get/manifest/${options.params.definition}/${options.params.defHash}`, {
+  ...options,
+})
+
+export const GetPGCRList = async (options) => apiRequest(
+  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}`,
   {
     ...options,
   },

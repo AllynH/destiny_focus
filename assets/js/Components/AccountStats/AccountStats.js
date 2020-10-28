@@ -80,7 +80,7 @@ class AccountStats extends React.Component {
       // console.log(scope)
       // console.log(stats)
       return (
-        <div>
+        <>
           <div className='stats-wrapper'>
             <div className='stats-individual'>
               <DisplayStats
@@ -114,7 +114,7 @@ class AccountStats extends React.Component {
               />
             </div>
           </div>
-        </div>
+        </>
       )
     }
   }

@@ -18,7 +18,9 @@ class Character_Plate extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/auth/get_profile')
+    // const { membershipType, membershipId } = this.props.match.params
+    // fetch(`/auth/get_profile/${membershipType}/${membershipId}`)
+    fetch(`/auth/get_profile/`)
       .then((res) => res.json())
       .then(
         (result) => {

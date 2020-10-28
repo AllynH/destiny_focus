@@ -44,7 +44,7 @@ def home():
             return redirect(redirect_url)
         else:
             flash_errors(form)
-    return render_template("public/home.html", form=form)
+    return render_template("public/home.html", form=form,)
 
 
 @blueprint.route("/authorize/<provider>")
