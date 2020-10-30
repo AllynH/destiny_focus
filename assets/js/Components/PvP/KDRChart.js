@@ -22,8 +22,20 @@ function ChartBody(props) {
 }
 
 class PvPChart extends React.Component {
+  getAverage = (data) => {
+    const avg = []
+    data.map((d, index) => {
+      avg.push(d.y)
+    })
+
+    const sum = avg.reduce((a, b) => a + b, 0)
+    const average = sum / avg.length || 0
+    return average
+  }
+
   render() {
     const kdr = 1.2
+    const average = this.getAverage(this.props.data)
     console.log('Render PvPChart')
     console.log(this.props)
     console.log(this.state?.focusReducer)
@@ -74,6 +86,16 @@ class PvPChart extends React.Component {
               data={[
                 { x: 0, y: kdr },
                 { x: 30, y: kdr },
+              ]}
+            />
+            {/* Add a  KDR avg line: */}
+            <VictoryLine
+              style={{
+                data: { stroke: '#32a852', opacity: 0.7 },
+              }}
+              data={[
+                { x: 0, y: average },
+                { x: 30, y: average },
               ]}
             />
           </VictoryChart>
