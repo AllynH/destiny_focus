@@ -1,0 +1,15 @@
+.h2-weapon-precision{
+    color: var(--crucible-dark-4);
+    margin-left: 20px;
+    text-transform: uppercase;
+}
+
+.dropdown-button{
+    background: var(--crucible-red);
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--grey-bg);
+    width: 100px;
+    text-align: center;    
+}

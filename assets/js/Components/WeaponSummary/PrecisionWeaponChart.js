@@ -7,157 +7,123 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import {
-  VictoryChart,
-  VictoryBar,
-  VictoryStack,
-  VictoryAxis, // VictoryTheme, VictoryLine,
+  VictoryChart, VictoryBar, VictoryStack, VictoryAxis, VictoryLine,
 } from 'victory'
 import './style.css'
 
 export default function PrecisionWeaponChart(props) {
-  //   const getFocus = useSelector((state) => state.focus)
-  //   console.log('getFocus')
-  //   console.log(getFocus)
-  //   console.log('PrecisionChart')
-  //   console.log(props)
-
-  //   if (props.chartName === 'averageLifeTime') {
-  //     var dataType = 'life time (seconds)'
-  //     var goal = 100
-  //   } else {
-  //     var dataType = 'precision kills'
-  //     var goal = 5
-  //   }
-
   const parseData = (props) => {
     console.log(props)
     const dataPre = []
     const dataKills = []
-
-    // props.Response.map((entity, pgcrIndex) => {
-    //   entity.data.extended.weapons.map((game) => {
-    //     try {
-    //       if (game.definition.displayProperties.name === props.weaponName) {
-    //         dataPre.push({
-    //           x: pgcrIndex + 1,
-    //           y: game.values.uniqueWeaponPrecisionKills.basic.value,
-    //         })
-    //       }
-    //     } catch {
-    //       if (game.definition.displayProperties.name === props.weaponName) {
-    //         console.log('caught a precision value!!!')
-    //         dataPre.push({
-    //           x: pgcrIndex + 1,
-    //           y: 0,
-    //         })
-    //       }
-    //     }
-    //   })
-    // })
+    let equipCount = 0
 
     props.Response.map((entity, pgcrIndex) => {
       let flag = false
-      if (!('weapons' in entity.data.extended)) {
-        console.log('Didnt find weapons  key!')
-        dataPre.push({
-          x: pgcrIndex + 1,
-          y: 666,
-        })
-      }
-      entity.data.extended.weapons.map((game) => {
+      entity.data.extended.weapons.map((game, weaponIndex) => {
         // try {
         if (game.definition.displayProperties.name === props.weaponName) {
           dataPre.push({
             x: pgcrIndex + 1,
             y: game.values.uniqueWeaponPrecisionKills.basic.value,
+            total: game.values.uniqueWeaponPrecisionKills.basic.value,
           })
-          flag = true
-        }
-      })
-    })
-
-    props.Response.map((entity, pgcrIndex) => {
-      let flag = false
-      if (!('weapons' in entity.data.extended)) {
-        console.log('Didnt find weapons  key!')
-        dataKills.push({
-          x: pgcrIndex + 1,
-          y: 666,
-        })
-      }
-      entity.data.extended.weapons.map((game) => {
-        // try {
-        if (game.definition.displayProperties.name === props.weaponName) {
           dataKills.push({
             x: pgcrIndex + 1,
-            y: game.values.uniqueWeaponKills.basic.value,
+            y: game.values.uniqueWeaponKills.basic.value - game.values.uniqueWeaponPrecisionKills.basic.value,
+            total: game.values.uniqueWeaponKills.basic.value,
+          })
+          equipCount += 1
+          flag = true
+        }
+        if (weaponIndex + 1 === entity.data.extended.weapons.length && flag === false) {
+          dataPre.push({
+            x: pgcrIndex + 1,
+            y: 0,
+          })
+          dataKills.push({
+            x: pgcrIndex + 1,
+            y: 0,
           })
           flag = true
         }
-        // } catch {
-        //   console.log('caught a kill value!!!')
-        //   dataKills.push({
-        //     x: pgcrIndex + 1,
-        //     y: 0,
-        //   })
-        // }
       })
     })
 
-    const outterArray = []
-    outterArray.push(dataPre)
-    outterArray.push(dataKills)
+    const WeaponData = []
+    WeaponData.push(dataPre)
+    WeaponData.push(dataKills)
     console.log('data')
     console.log(dataPre)
     console.log(dataKills)
-    console.log('outterArray')
-    console.log(outterArray)
-    return outterArray
+    console.log('WeaponData')
+    console.log(WeaponData)
+    return { WeaponData, equipCount }
   }
 
-  //   const getAverage = (data) => {
-  //     const avg = []
-  //     data.map((d, index) => {
-  //       avg.push(d.y)
-  //     })
+  const getAverage = (data, count) => {
+    console.log('data')
+    console.log(data)
+    console.log(data[0].total)
+    console.log('END - data')
+    const avg = []
+    data.map((d) => avg.push(d.total))
 
-  //     const sum = avg.reduce((a, b) => a + b, 0)
-  //     const average = sum / avg.length || 0
-  //     return average
-  //   }
+    const sum = avg.reduce((a, b) => a + b, 0)
+    const average = sum / count || 0
+    return average
+  }
 
-  console.log('PrecisionWeaponChart')
-  console.log(props)
-  console.log(props.weaponName)
-  const WeaponData = parseData(props)
-  console.log('WeaponData')
+  const { WeaponData, equipCount } = parseData(props)
+  console.log(parseData(props))
   console.log(WeaponData)
+  console.log(equipCount)
+  const { weaponName } = props
+  const precisionAvg = getAverage(WeaponData[0], equipCount)
+  const killsAvg = getAverage(WeaponData[1], equipCount)
 
-  //   const Summary = (dataType, average, goal) => (
-  //     <div className={'precision-chart-summary'}>
-  //       <p>
-  //         Avg. {dataType} / game: {average}
-  //       </p>
-  //       <p>
-  //         Goal {dataType} / game: {goal}
-  //       </p>
-  //     </div>
-  //   )
+  console.log(precisionAvg)
+  console.log(killsAvg)
 
   return (
     <>
       <div className='chart kdr-chart'>
-        <h2>{props.weaponName || ''}</h2>
+        <h2 className='h2-weapon-precision'>{weaponName || ''}</h2>
         <VictoryChart height={400} width={400} domainPadding={{ x: 30, y: 20 }}>
           <VictoryStack colorScale={['blue', 'tomato']}>
             {WeaponData.map((d, i) => (
               <VictoryBar data={d} key={i} />
             ))}
           </VictoryStack>
-          <VictoryAxis tickFormat={(x) => x} label={'Kills'} dependentAxis />
-          <VictoryAxis tickFormat={(y) => parseInt(y)} label={'Games (left is newer)'} />
+
+          <VictoryAxis tickFormat={(x) => parseInt(x, 10)} label={'Kills'} dependentAxis />
+          <VictoryAxis tickFormat={(y) => parseInt(y, 10)} label={'Games (left is newer)'} />
+
+          {/* Removing average lines:
+                Need to figure out how to identify games where the weapon is used and average against that number.
+                Currently being averagd against 10 games - whether the weapon was used or not.
+          */}
+
+          <VictoryLine
+              style={{
+                data: { fill: 'greyscale', opacity: 0.7 },
+              }}
+              data={[
+                { x: 0, y: precisionAvg },
+                { x: 10, y: precisionAvg },
+              ]}
+            />
+            <VictoryLine
+              style={{
+                data: { stroke: '#32a852', opacity: 0.7 },
+              }}
+              data={[
+                { x: 0, y: killsAvg },
+                { x: 10, y: killsAvg },
+              ]}
+            />
         </VictoryChart>
-        <p>{props.weaponName}</p>
+        <p>{weaponName}</p>
       </div>
     </>
   )

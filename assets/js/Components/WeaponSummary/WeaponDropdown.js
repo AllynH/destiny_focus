@@ -24,7 +24,7 @@ export default function SimpleMenu(props) {
 
   return (
     <div>
-      <Button aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
+      <Button className={'dropdown-button'} aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
         {selectedWeapon || 'Select a weapon'}
       </Button>
       <Menu
