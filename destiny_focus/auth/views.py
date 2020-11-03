@@ -389,11 +389,11 @@ def get_manifest(definition, def_hash):
     def_hash_manifest_item = Manifest.query.filter_by(definition_id=str(def_hash)).all()
 
 
-    # print(def_hash)
-    # print(definition)
-    # print(def_list)
-    # print(type(def_hash))
-    # print(def_hash_manifest_item)
+    print(def_hash)
+    print(definition)
+    print(def_list)
+    print(type(def_hash))
+    print(def_hash_manifest_item)
 
     if definition in def_list and isinstance(def_hash, int):
         response = get_definition(str(definition), str(def_hash))
@@ -442,7 +442,16 @@ def pgcr_list(membershipType, membershipId):
                     "activityDurationSeconds"   : entry["values"]["activityDurationSeconds"]["basic"]["displayValue"],
                     "averageLifeTime"           : avg_life,
                     "precisionKills"            : entry["extended"]["values"]["precisionKills"]["basic"]["displayValue"],
+                    "data"                      : entry,
                 }
+
+                # Add weapon definition to responses:
+                try:
+                    for index, weapons in enumerate(entry["extended"].get("weapons")):
+                        definition = get_definition("DestinyInventoryItemLiteDefinition", str(weapons["referenceId"]))
+                        stats["data"]["extended"]["weapons"][index]["definition"] = definition
+                except:
+                    continue
                 stat_list.append(stats)
 
     pgcr_list_res = {

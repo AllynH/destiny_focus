@@ -12,6 +12,8 @@ export default function PrecisionChart(props) {
   const getFocus = useSelector((state) => state.focus)
   console.log('getFocus')
   console.log(getFocus)
+  console.log('PrecisionChart')
+  console.log(props)
 
   if (props.chartName === 'averageLifeTime') {
     var dataType = 'life time (seconds)'

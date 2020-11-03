@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react'
 import { GetPGCRList } from '../../Utils/API/API_Requests'
 import Shimmer from '../../Utils/Loading/Shimmer'
 import PrecisionChart from './PrecisionChart'
+import PrecisionWeaponKills from '../WeaponSummary/PrecisionWeaponKills'
+
 import './style.css'
 
 export function PcgrStats(props) {
@@ -36,7 +38,7 @@ export default function PgcrSummary(props) {
         <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} />
       </div>
       <div className='small-chart-wrapper'>
-        <p>Precision kills / game</p>
+        <PrecisionWeaponKills {...pgcrSummary} />
         <p>Avg. life span (seconds)</p>
       </div>
     </>
