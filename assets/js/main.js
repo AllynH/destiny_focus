@@ -17,6 +17,12 @@ require.context(
   /.*/, // RegExp
 );
 
+require.context(
+  '../favicon', // context folder
+  true, // include subdirectories
+  /.*/, // RegExp
+);
+
 // Your own code
 require('./plugins.js');
 require('./script.js');
