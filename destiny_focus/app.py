@@ -74,7 +74,7 @@ def register_shellcontext(app):
 
     def shell_context():
         """Shell context objects."""
-        return {"db": db, "User": user.models.User}
+        return {"db": db, "User": user.models.User, "Manifest_Version":  user.models.Manifest_Version, "Manifest":  user.models.Manifest}
 
     app.shell_context_processor(shell_context)
 
