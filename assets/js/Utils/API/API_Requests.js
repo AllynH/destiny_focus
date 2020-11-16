@@ -11,6 +11,14 @@ export const GetPVPData = async (options) => apiRequest(`/auth/get/pvp/${options
   ...options,
 })
 
+export const GetGambitData = async (options) => apiRequest(`/auth/get/gambit/${options.params.membershipType}/${options.params.membershipId}`, {
+  ...options,
+})
+
+export const GetRaidData = async (options) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}`, {
+  ...options,
+})
+
 export const GetStatsData = async (options) => apiRequest(
   `/auth/get/historical_stats/${options.params.membershipType}/${options.params.membershipId}`,
   {
@@ -34,7 +42,7 @@ export const GetActivityDefinition = async (options) => apiRequest(`/auth/get/ma
 })
 
 export const GetPGCRList = async (options) => apiRequest(
-  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}`,
+  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/?game_mode=${options.params.gameMode}`,
   {
     ...options,
   },

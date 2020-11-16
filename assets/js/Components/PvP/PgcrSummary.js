@@ -18,14 +18,27 @@ export function PcgrStats(props) {
   )
 }
 
+export function Loading() {
+  return (
+    <>
+    <h3>Hold on, I'm pulling a lot of data...</h3>
+    <Shimmer />
+    </>
+  )
+}
+
 export default function PgcrSummary(props) {
   const [pgcrSummary, setPgcrSummary] = useState()
   const { membershipType, membershipId } = props.match.params
+  const { gameMode } = props
+
+  console.log("pgcrSummary")
+  console.log(pgcrSummary)
 
   // Fetch the Activity definition - Map icon, name :
   useEffect(() => {
     const fetchPgcrSummary = async (activityId) => {
-      const result = await GetPGCRList({ params: { membershipType, membershipId } })
+      const result = await GetPGCRList({ params: { membershipType, membershipId, gameMode } })
       setPgcrSummary(result)
     }
     fetchPgcrSummary()
@@ -44,5 +57,5 @@ export default function PgcrSummary(props) {
     </>
   )
 
-  return <>{pgcrSummary ? Charts : <Shimmer />}</>
+  return <>{pgcrSummary ? Charts : <Loading />}</>
 }

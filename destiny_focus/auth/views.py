@@ -359,7 +359,7 @@ def get_gambit(membershipType, membershipId):
 
     charId = list(character_details.keys())[0]
 
-    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=63, count=1)
+    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=63, count=30)
 
 
     return jsonify(activity)
@@ -406,6 +406,14 @@ def get_manifest(definition, def_hash):
 @login_required
 def pgcr_list(membershipType, membershipId):
 
+    mode_arg = request.args.get('game_mode', 'pvp')
+
+    game_mode_switch = {
+        'pvp'   : 5,
+        'gambit': 63,
+    }
+    game_mode = game_mode_switch[mode_arg]
+
     game_count = 10
 
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
@@ -415,7 +423,7 @@ def pgcr_list(membershipType, membershipId):
 
     charId = list(character_details.keys())[0]
 
-    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=5, count=game_count)
+    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=game_mode, count=game_count)
 
     pgcr_list = []
     stat_list = []

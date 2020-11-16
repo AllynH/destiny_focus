@@ -13,12 +13,14 @@ import PGCR from '../PGCR/PGCR'
 import PgcrSummary from './PgcrSummary'
 import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
-import { GetPVPData } from '../../Utils/API/API_Requests'
+import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { statsData } from '../../Data/statsData'
 // import focus_details from '../Cards/WrapCards/'
 
 class PvPChart extends React.Component {
   constructor(props) {
+    console.log('PvPChart')
+    console.log(props)
     super(props)
     this.getKdr = this.getKdr.bind(this)
     this.state = {
@@ -29,18 +31,51 @@ class PvPChart extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount(props) {
     this.fetchPVPData()
   }
 
   fetchPVPData = async () => {
     const { membershipType, membershipId } = this.props.match.params
-    const response = await GetPVPData({ params: { membershipType, membershipId } })
+    const { gameMode } = this.props
 
-    this.setState({
-      isLoaded: true,
-      jsonResponse: response,
-    })
+    console.log(this.props.match.path)
+
+    switch (gameMode) {
+      case 'gambit':
+        {
+          const response = await GetGambitData({ params: { membershipType, membershipId } })
+          this.setState({
+            isLoaded: true,
+            jsonResponse: response,
+          })
+        }
+        break
+      case 'raid':
+        {
+          const response = await GetRaidData({ params: { membershipType, membershipId } })
+          this.setState({
+            isLoaded: true,
+            jsonResponse: response,
+          })
+        }
+        break
+      case 'pvp': {
+        const response = await GetPVPData({ params: { membershipType, membershipId } })
+        this.setState({
+          isLoaded: true,
+          jsonResponse: response,
+        })
+        break
+      }
+      default: {
+        const response = await GetPVPData({ params: { membershipType, membershipId } })
+        this.setState({
+          isLoaded: true,
+          jsonResponse: response,
+        })
+      }
+    }
   }
 
   getKdr(jsonResponse) {
@@ -104,6 +139,11 @@ class PvPChart extends React.Component {
 
   render() {
     const { error, isLoaded, jsonResponse } = this.state
+    const { gameMode } = this.props
+
+    console.log('PvP JSON response:')
+    console.log(jsonResponse)
+
     if (error) {
       return <div>Error: {error.message}</div>
     } else if (!isLoaded) {

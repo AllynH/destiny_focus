@@ -6,9 +6,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import {
-  VictoryChart, VictoryBar, VictoryStack, VictoryAxis, VictoryLine,
-} from 'victory'
+import { VictoryChart, VictoryBar, VictoryStack, VictoryAxis, VictoryLine } from 'victory'
 import './style.css'
 
 export default function PrecisionWeaponChart(props) {
@@ -24,13 +22,17 @@ export default function PrecisionWeaponChart(props) {
         // try {
         if (game.definition.displayProperties.name === props.weaponName) {
           dataPre.push({
+            type: 'precisionKills',
             x: pgcrIndex + 1,
             y: game.values.uniqueWeaponPrecisionKills.basic.value,
             total: game.values.uniqueWeaponPrecisionKills.basic.value,
           })
           dataKills.push({
+            type: 'kills',
             x: pgcrIndex + 1,
-            y: game.values.uniqueWeaponKills.basic.value - game.values.uniqueWeaponPrecisionKills.basic.value,
+            y:
+              game.values.uniqueWeaponKills.basic.value -
+              game.values.uniqueWeaponPrecisionKills.basic.value,
             total: game.values.uniqueWeaponKills.basic.value,
           })
           equipCount += 1
@@ -38,12 +40,16 @@ export default function PrecisionWeaponChart(props) {
         }
         if (weaponIndex + 1 === entity.data.extended.weapons.length && flag === false) {
           dataPre.push({
+            type: 'precisionKills',
             x: pgcrIndex + 1,
             y: 0,
+            total: 0,
           })
           dataKills.push({
+            type: 'kills',
             x: pgcrIndex + 1,
             y: 0,
+            total: 0,
           })
           flag = true
         }
@@ -67,11 +73,25 @@ export default function PrecisionWeaponChart(props) {
     console.log(data[0].total)
     console.log('END - data')
     const avg = []
-    data.map((d) => avg.push(d.total))
+    data.map((d) => avg.push(d.total || 0))
+    console.log(avg)
 
     const sum = avg.reduce((a, b) => a + b, 0)
-    const average = sum / count || 0
+    const average = (sum / count || 0).toFixed(2)
+    console.log(sum)
+    console.log(average)
     return average
+  }
+
+  const getMax = (data, key) => {
+    console.log('getMax')
+    console.log(data)
+    const arr = []
+    data.map((d) => arr.push(d[key]) || 0)
+    console.log(arr)
+    const max = Math.max(...arr)
+    console.log(max)
+    return max
   }
 
   const { WeaponData, equipCount } = parseData(props)
@@ -81,6 +101,8 @@ export default function PrecisionWeaponChart(props) {
   const { weaponName } = props
   const precisionAvg = getAverage(WeaponData[0], equipCount)
   const killsAvg = getAverage(WeaponData[1], equipCount)
+  const maxPrecisionKills = getMax(WeaponData[0], 'y')
+  const maxKills = getMax(WeaponData[1], 'total')
 
   console.log(precisionAvg)
   console.log(killsAvg)
@@ -96,35 +118,37 @@ export default function PrecisionWeaponChart(props) {
             ))}
           </VictoryStack>
 
-          <VictoryAxis tickFormat={(x) => parseInt(x, 10)} label={'Kills'} dependentAxis />
-          <VictoryAxis tickFormat={(y) => parseInt(y, 10)} label={'Games (left is newer)'} />
-
-          {/* Removing average lines:
-                Need to figure out how to identify games where the weapon is used and average against that number.
-                Currently being averagd against 10 games - whether the weapon was used or not.
-          */}
-
+          {/* <VictoryLine
+            style={{
+              data: { fill: 'greyscale', opacity: 0.7 },
+            }}
+            data={[
+              { x: 0, y: precisionAvg },
+              { x: 10, y: precisionAvg },
+            ]}
+          />
           <VictoryLine
-              style={{
-                data: { fill: 'greyscale', opacity: 0.7 },
-              }}
-              data={[
-                { x: 0, y: precisionAvg },
-                { x: 10, y: precisionAvg },
-              ]}
-            />
-            <VictoryLine
-              style={{
-                data: { stroke: '#32a852', opacity: 0.7 },
-              }}
-              data={[
-                { x: 0, y: killsAvg },
-                { x: 10, y: killsAvg },
-              ]}
-            />
+            style={{
+              data: { stroke: '#32a852', opacity: 0.7 },
+            }}
+            data={[
+              { x: 0, y: killsAvg },
+              { x: 10, y: killsAvg },
+            ]}
+          /> */}
+
+          <VictoryAxis label={'Kills'} dependentAxis />
+          <VictoryAxis label={'Games (left is newer)'} />
         </VictoryChart>
-        <p>{weaponName}</p>
       </div>
+      <h3>Weapon stats: {weaponName || ''}</h3>
+      <p>
+        {weaponName}: was equied for: {equipCount} games.
+      </p>
+      <p>Max kills: {maxKills}</p>
+      <p>Max precision kills: {maxPrecisionKills}</p>
+      <p>Avg kills: {killsAvg}</p>
+      <p>Avg precision kills: {precisionAvg}</p>
     </>
   )
 }
