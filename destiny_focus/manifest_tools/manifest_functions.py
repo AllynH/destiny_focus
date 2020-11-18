@@ -66,6 +66,16 @@ def store_definition(def_name, def_id, def_hash):
 
     return True
 
+def delete_selected_definitions(def_name):
+    """
+    Delete aselected set of old definitions in preperation for new data.
+    """
+    del_count = Manifest.query.filter_by(definition_name=def_name).delete()
+
+    db.session.commit()
+
+    return del_count
+
 def delete_all_definitions():
     """
     Delete all old definitions in preperation for new data.
@@ -81,7 +91,7 @@ def get_definition(def_name, def_id):
     Function to find a given definition, return the JSON response: 
     The Last Word: 1364093401
     """
-    manifest_item = Manifest.query.filter_by(definition_name=def_name, definition_id=def_id).first()
+    manifest_item = Manifest.query.filter_by(definition_name=str(def_name), definition_id=str(def_id)).first()
 
     if manifest_item is None:
         return {}

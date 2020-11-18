@@ -25,6 +25,7 @@ from destiny_focus.bungie.bungie_api import BungieApi
 from destiny_focus.manifest_tools.manifest_functions import get_definition
 from destiny_focus.bungie.parse_bungie_response import *
 from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON, LAST_SEASON
+from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS
 
 import requests
 from datetime import datetime, timedelta
@@ -102,11 +103,12 @@ def oauth_callback(provider):
     get_account_res = auth_session.get(get_user_url)
 
     user = User.query.filter_by(bungieMembershipId=membership_id).first()
-    print(user)
-    print(get_account_res.json()['Response'])
+    # print(user)
+    # print(get_account_res.json()['Response'])
     if user is None:
         user = create_user(get_account_res.json(), token_response.json())
     else:
+        print("Welcome back user.")
         user = update_user(user, get_account_res.json(), token_response.json())
 
     login_user(user)
@@ -159,8 +161,8 @@ def get_profile():
     # TODO: Hardcoded values:
     # Take values from here: GetCurrentBungieAccount
     get_account_res = my_api.GetCurrentBungieAccount()
-    print(type(get_account_res))
-    print(get_account_res.json())
+    # print(type(get_account_res))
+    # print(get_account_res.json())
     membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
     membershipType  = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"])
     get_profile_res = my_api.get_profile(membershipType, membershipId)
@@ -274,7 +276,7 @@ def get_historical_stats(membershipType, membershipId):
                 }
                 }
             print("\n\nreturning new activity")
-            return jsonify(activity)
+            # return jsonify(activity)
             return jsonify(new_activity)
             mode_key = list(activity["Response"])[0]
             print(mode_key)
@@ -286,7 +288,7 @@ def get_historical_stats(membershipType, membershipId):
             # All requests:
             print("Making request!")
             activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end, periodType='Daily')
-            print(activity)
+            # print(activity)
 
             activity_len = len(activity['Response']['allPvP']['daily'][0])
 
@@ -380,24 +382,17 @@ def get_pgcr(activityId):
 @login_required
 def get_manifest(definition, def_hash):
 
-    def_list = []
-
-    definitions = Manifest.query.all()
-    [def_list.append(d.definition_name) for d in definitions if not d.definition_name in def_list]
-
-
-    def_hash_manifest_item = Manifest.query.filter_by(definition_id=str(def_hash)).all()
-
-
-    print(def_hash)
-    print(definition)
-    print(def_list)
-    print(type(def_hash))
-    print(def_hash_manifest_item)
+    def_list = MANIFEST_DEFINITIONS
 
     if definition in def_list and isinstance(def_hash, int):
         response = get_definition(str(definition), str(def_hash))
     else:
+        def_hash_manifest_item = Manifest.query.filter_by(definition_id=str(def_hash)).all()
+        print("Definition not found!")
+        print(def_hash)
+        print(definition)
+        print(type(def_hash))
+        print(def_hash_manifest_item)
         response = {"Response": "Error"}
 
     return jsonify(response)

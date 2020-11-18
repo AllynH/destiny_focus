@@ -12,7 +12,9 @@ from destiny_focus.extensions import db
 from destiny_focus.user.models import Manifest, Manifest_Version
 from destiny_focus.settings import OAUTH_CREDENTIALS
 from destiny_focus.manifest_tools.manifest_functions import create_database_version, store_definition, get_definition, \
-	delete_all_definitions, update_database_version, update_database_success
+	delete_selected_definitions, update_database_version, update_database_success
+
+from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS
 
 if os.getenv('FLASK_CONFIG') == "production":
 	# Create app:
@@ -56,12 +58,13 @@ def get_manifest_version():
 	if not manifest_info.status_code == 200 or manifest_info.json()["ErrorCode"] == 2101:
 		print("\t-E- Bungie returned an error")
 		print(manifest_info.status_code)
-		print(manifest_info.text)
+		# print(manifest_info.text)
 		return "Error"
 	else:
 		print("\t-I- Successfully recieved the Manifest version information!")
 		# Convert text to JSON as it can be displayed very neatly:
 		manifest_info_json = json.loads(manifest_info.text)
+		write_json_file(FILE_LIST['MANIFEST_VERSION'], manifest_info.json())
 
 	# Print the info to a file:
 	#write_json_file(FILE_LIST['MANIFEST_VERSION'], manifest_info_json)
@@ -85,10 +88,11 @@ def check_manifest_version(manifest_version, db_revision):
 
 	return True
 
-def get_json_manifest(manifest_url):
+def get_json_manifest(def_name, def_url):
 	""" 
 	Make the HTTP request to Bungie for the JSON Manifest.
 	"""
+	manifest_url = URL_LIST['BUNGIE_BASE_URL'] + def_url
 	print("\t-I- Requesting JSON Manifest.")
 	manifest_response = requests.get(manifest_url, headers=HEADERS)
 	
@@ -103,38 +107,40 @@ def get_json_manifest(manifest_url):
 	if not manifest_response.status_code == 200:
 		print("\t-E- Bungie returned an error")
 		print(manifest_response.status_code)
-		print(manifest_response.text)
+		# print(manifest_response.text)
 		return "Error"
 
 	# Print the info to a file - disabled as it causes memory errors:
 	# print("\t-I- Wrting Manifest file.")
 	# write_json_file(FILE_LIST['MANIFEST'], manifest_response.json())
 
-	print("\t-I- Writing separate manifest files to SQL DB.")
-	split_manifest(manifest_response.json())
+	print(f"\t-I- Writing {def_name} to DB.")
+	split_manifest(manifest_response.json(), def_name)
 
-	return manifest_response.json()
+	return True
 
-def split_manifest(manifest_json):
+def split_manifest(manifest_json, def_name):
 	""" Take the JSON Manifest file and writes a new JSON file for each key """
 
 	key_list = manifest_json.keys()
+	key_list = [def_name]
 
 	# Write files to disk:
-	# for current_key in key_list:		
+	# for current_key in key_list:
+	# 	print(current_key)
 	# 	file_name = os.path.join(FILE_LIST['SPLIT_DIR'], current_key + ".json")
 	# 	write_json_file(file_name, manifest_json[current_key])
 	
 	print("\t-I- Dropping database.")
-	del_count = delete_all_definitions()
+	del_count = delete_selected_definitions(def_name)
 	print("\t\t-I- Deleted:", del_count, "items.")
 
 	for key in key_list:
-		print("\t\t-I-", key)
-		for definition_key, definition_value in manifest_json[key].items():
+		# print("\t\t-I-", key)
+		for definition_key, definition_value in manifest_json.items():
 			store_definition(def_name=str(key), def_id=str(definition_key), def_hash=json.dumps(definition_value))
 
-	print("\t-I- Found", len(key_list), "definitions.")
+	print("\t-I- Found", len(manifest_json.items()), "definitions.")
 	db.session.commit()
 
 	return True
@@ -142,7 +148,7 @@ def split_manifest(manifest_json):
 def make_sure_path_exists(path):
 	""" Check to see if a path exists """
 	try:
-		print("\t-I- Creating: ", path)
+		# print("\t-I- Creating: ", path)
 		os.makedirs(path)
 	except OSError as exception:
 		if exception.errno != errno.EEXIST:
@@ -153,7 +159,7 @@ def make_sure_path_exists(path):
 def write_json_file(file_name, write_json):
 	""" Write JSON to a file: """
 
-	#print("\t-I- Writing file for:", str(file_name))
+	print("\t-I- Writing file for:", str(file_name))
 	
 	with open(file_name, 'w') as json_file:
 		json_file.write(json.dumps(write_json, sort_keys=True, indent=4))
@@ -208,7 +214,11 @@ def run_get_json_manifest_full(force=False):
 		# Create the directory if it doesn't exist:
 		make_sure_path_exists(FILE_LIST['SPLIT_DIR'])
 		# Stores the Manifest in the json_manifest object, so you can use it:
-		json_manifest = get_json_manifest(manifest_url)
+		definition_dict = manifest_version["Response"]["jsonWorldComponentContentPaths"]["en"]
+
+		for def_name, def_url in definition_dict.items():
+			get_json_manifest(def_name, def_url)
+		# get_json_manifest(manifest_url)
 		db_version = update_database_success()
 	else:
 		status = "No change"
@@ -227,8 +237,8 @@ def run_get_json_manifest_full(force=False):
 
 if __name__ == "__main__":
 	print("\t-I- This is the main function.")
-	run_get_json_manifest_full()
-	my_def = get_definition("DestinyInventoryItemDefinition", "1364093401")
+	run_get_json_manifest_full(force=True)
+	my_def = get_definition("DestinyInventoryItemLiteDefinition", "1409726986")
 	print(my_def.get('displayProperties', None))
 
 	my_def = get_definition("DestinyInventoryItemDefinition", "347366834")
