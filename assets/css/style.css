@@ -61,7 +61,10 @@ html {
 
 body {
   background-color: var(--grey-light-3);
-  /* padding-top: 60px; */
+  background: radial-gradient(circle at 50% 70px, var(--vanguard-blue) 0%, var(--crucible-dark-5) 100%);
+  color: white;
+  background-position: center top;
+  background-repeat: no-repeat;
 }
 
 section {

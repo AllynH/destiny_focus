@@ -6,7 +6,8 @@ import { GetPGCR } from '../../Utils/API/API_Requests'
 import './style.css'
 
 export function PgcrDetails({ pgcr }) {
-  // console.log(pgcr)
+  console.log('pgcr')
+  console.log(pgcr)
   const entriesList = pgcr.Response.entries
 
   return (
@@ -82,12 +83,13 @@ export default function Pgcr(props) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const { instanceId } = props.activityDetails
-  // console.log('In PGCR.js - instanceId:')
-  // console.log(instanceId)
+  console.log('In PGCR.js - instanceId:')
+  console.log(instanceId)
 
   const fetchPgcr = async (activityId) => {
     console.log('Fetching fetchPgcr:')
     const result = await GetPGCR({ params: { activityId } })
+    console.log('Getting PGCR response:')
     console.log(result)
     setPgcr(result)
   }
@@ -111,7 +113,7 @@ export default function Pgcr(props) {
             handleClick(instanceId)
           }}
         >
-          <Activity {...props} isExpanded={isExpanded} />
+          {/* <Activity {...props} isExpanded={isExpanded} /> */}
           {pgcr && <PgcrDetails pgcr={pgcr} />}
         </a>
       </div>

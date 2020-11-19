@@ -40,6 +40,8 @@ export default function PgcrSummary(props) {
     const fetchPgcrSummary = async (activityId) => {
       const result = await GetPGCRList({ params: { membershipType, membershipId, gameMode } })
       setPgcrSummary(result)
+      console.log('fetchPgcrSummary')
+      console.log(result)
     }
     fetchPgcrSummary()
   }, [props])
