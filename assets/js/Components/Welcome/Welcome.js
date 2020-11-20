@@ -5,8 +5,9 @@ export default function Welcome() {
   return (
     <section className='welcome-content'>
       <div className='welcome-wrapper'>
-        <h1 className='welcome'>Welcome to Destiny Focus</h1>
-
+        <div className='blur-wrap' >
+          <h1 className='welcome'>Welcome to Destiny Focus</h1>
+        </div>
         <h2>
           Focus on <span className='text_rotate'></span>
         </h2>
