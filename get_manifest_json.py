@@ -64,7 +64,7 @@ def get_manifest_version():
 		print("\t-I- Successfully recieved the Manifest version information!")
 		# Convert text to JSON as it can be displayed very neatly:
 		manifest_info_json = json.loads(manifest_info.text)
-		write_json_file(FILE_LIST['MANIFEST_VERSION'], manifest_info.json())
+		# write_json_file(FILE_LIST['MANIFEST_VERSION'], manifest_info.json())
 
 	# Print the info to a file:
 	#write_json_file(FILE_LIST['MANIFEST_VERSION'], manifest_info_json)

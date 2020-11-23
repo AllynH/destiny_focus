@@ -80,7 +80,8 @@ body::before {
   position: fixed;
   will-change: transform;
   z-index: -1;
-  margin: 125%
+  margin-left: -125px;
+  margin-left: -125px;
 }
 
 /* Template for any mobile specific items: */
