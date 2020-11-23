@@ -78,6 +78,7 @@ def oauth_callback(provider):
     # Get token from Bungie:
     oauth           = OAuthSignin(provider).get_provider(provider)
     token_response  = oauth.get_callback_url()
+    print(token_response)
 
     # Handle CSRF error:
     if token_response is False:

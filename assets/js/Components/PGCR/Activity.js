@@ -10,12 +10,12 @@ export default function Activity(
     activityIcon = '',
     player = '',
     clan = '',
-    standing = props.values.standing.basic.displayValue || '',
-    kills = props.values.kills.basic.displayValue || 0,
-    deaths = props.values.deaths.basic.displayValue || 0,
-    assists = props.values.assists.basic.displayValue || 0,
-    kda = props.values.killsDeathsAssists.basic.displayValue || 0,
-    kdr = props.values.killsDeathsRatio.basic.displayValue || 0,
+    standing = props.values?.standing?.basic?.displayValue || '',
+    kills = props.values?.kills?.basic?.displayValue || 0,
+    deaths = props.values?.deaths?.basic?.displayValue || 0,
+    assists = props.values?.assists?.basic?.displayValue || 0,
+    kda = props.values?.killsDeathsAssists?.basic?.displayValue || 0,
+    kdr = props.values?.killsDeathsRatio?.basic?.displayValue || 0,
   }
 ) {
   const [activityDef, setActivityDef] = useState('')

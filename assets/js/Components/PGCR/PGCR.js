@@ -113,7 +113,7 @@ export default function Pgcr(props) {
             handleClick(instanceId)
           }}
         >
-          {/* <Activity {...props} isExpanded={isExpanded} /> */}
+          <Activity {...props} isExpanded={isExpanded} />
           {pgcr && <PgcrDetails pgcr={pgcr} />}
         </a>
       </div>

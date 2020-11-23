@@ -21,7 +21,7 @@ export function PcgrStats(props) {
 export function Loading() {
   return (
     <>
-    <h3>Hold on, I'm pulling a lot of data...</h3>
+    <h3 className="loading-text">Hold on, I'm pulling a lot of data...</h3>
     <Shimmer />
     </>
   )
@@ -54,7 +54,6 @@ export default function PgcrSummary(props) {
       </div>
       <div className='small-chart-wrapper'>
         <PrecisionWeaponKills {...pgcrSummary} />
-        <p>Avg. life span (seconds)</p>
       </div>
     </>
   )

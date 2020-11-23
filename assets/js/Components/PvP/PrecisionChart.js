@@ -16,7 +16,7 @@ export default function PrecisionChart(props) {
   console.log(props)
 
   if (props.chartName === 'averageLifeTime') {
-    var dataType = 'life time (seconds)'
+    var dataType = 'life time (secs)'
     var goal = 100
   } else {
     var dataType = 'precision kills'
@@ -42,7 +42,7 @@ export default function PrecisionChart(props) {
     })
 
     const sum = avg.reduce((a, b) => a + b, 0)
-    const average = sum / avg.length || 0
+    const average = (sum / avg.length) || 0
     return average
   }
 
@@ -54,7 +54,7 @@ export default function PrecisionChart(props) {
   const Summary = (dataType, average, goal) => (
     <div className={'precision-chart-summary'}>
       <p>
-        Avg. {dataType} / game: {average}
+        Avg. {dataType} / game: {average.toFixed(2)}
       </p>
       <p>
         Goal {dataType} / game: {goal}
