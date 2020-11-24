@@ -6,12 +6,9 @@
 .pgcr-item {
     border: 1xp solid var(--crucible-dark-3);
     background-color: var(--grey-dark-3);
-    padding: 20px;
-    padding: 10px 20px 10px 20px;
     margin: 5px;
     border-radius: 5px;
     list-style: none;
-    /* padding: unset; */
     min-height: 40px;
     margin-top: 20px;
     box-shadow: 1px 1px 8px black;
