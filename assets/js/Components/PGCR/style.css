@@ -14,7 +14,10 @@
     /* padding: unset; */
     min-height: 40px;
     margin-top: 20px;
-    box-shadow: 1px 3px 15px black;
+    box-shadow: 1px 1px 8px black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .pgcr-dropdown{
@@ -34,12 +37,16 @@
 }
 
 .pgcr-char-wrap{
-    margin-top: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 15px;
-    border-bottom: 1px solid var(--vanguard-light-2);
+    /* border-bottom: 1px solid var(--vanguard-light-2); */
+    background: var(--grey-dark-2);
     text-align: left;
+    margin: 2px;
+    padding: 2px;
+    align-items: flex-end;
+    cursor: default;
 }
 
 .pgcr-game-wrapper{
@@ -75,7 +82,7 @@
 
 
 .pgcr{
-    font-size: 0.95em;
+    font-size: 14px;
 }
 
 .pgcr-pointer{

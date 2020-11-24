@@ -36,7 +36,7 @@ class PvPChart extends React.Component {
   }
 
   fetchPVPData = async () => {
-    const { membershipType, membershipId } = this.props.match.params
+    const { membershipType, membershipId, characterId } = this.props.match.params
     const { gameMode } = this.props
 
     console.log(this.props.match.path)
@@ -53,7 +53,7 @@ class PvPChart extends React.Component {
         break
       case 'raid':
         {
-          const response = await GetRaidData({ params: { membershipType, membershipId } })
+          const response = await GetRaidData({ params: { membershipType, membershipId, characterId } })
           this.setState({
             isLoaded: true,
             jsonResponse: response,
@@ -61,7 +61,7 @@ class PvPChart extends React.Component {
         }
         break
       case 'pvp': {
-        const response = await GetPVPData({ params: { membershipType, membershipId } })
+        const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
         this.setState({
           isLoaded: true,
           jsonResponse: response,
@@ -69,7 +69,7 @@ class PvPChart extends React.Component {
         break
       }
       default: {
-        const response = await GetPVPData({ params: { membershipType, membershipId } })
+        const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
         this.setState({
           isLoaded: true,
           jsonResponse: response,

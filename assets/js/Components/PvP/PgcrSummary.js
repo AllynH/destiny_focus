@@ -29,7 +29,7 @@ export function Loading() {
 
 export default function PgcrSummary(props) {
   const [pgcrSummary, setPgcrSummary] = useState()
-  const { membershipType, membershipId } = props.match.params
+  const { membershipType, membershipId, characterId } = props.match.params
   const { gameMode } = props
 
   console.log("pgcrSummary")
@@ -38,7 +38,7 @@ export default function PgcrSummary(props) {
   // Fetch the Activity definition - Map icon, name :
   useEffect(() => {
     const fetchPgcrSummary = async (activityId) => {
-      const result = await GetPGCRList({ params: { membershipType, membershipId, gameMode } })
+      const result = await GetPGCRList({ params: { membershipType, membershipId, characterId, gameMode } })
       setPgcrSummary(result)
       console.log('fetchPgcrSummary')
       console.log(result)

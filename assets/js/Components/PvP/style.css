@@ -38,7 +38,7 @@
     width: 500px;
     margin: 0 auto;
     justify-content: center;
-    filter: drop-shadow(3px 3px 15px black);
+    filter: drop-shadow(1px 1px 8px black);
 
 }
 .float-below{
@@ -57,7 +57,7 @@
     background-color: var(--grey-bg);
     border-radius: 15px;
     justify-content: center;
-    filter: drop-shadow(3px 3px 15px black);   
+    filter: drop-shadow(1px 1px 8px black);
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;

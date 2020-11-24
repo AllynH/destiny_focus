@@ -81,8 +81,8 @@ export default function Activity(
     const result = await GetActivityDefinition({
       params: { definition: 'DestinyActivityDefinition', defHash: activityId },
     })
-    // console.log('fetchDirectorActivityDefinition')
-    // console.log(result)
+    console.log('fetchDirectorActivityDefinition')
+    console.log(result)
     setActivityDef(result)
   }
 

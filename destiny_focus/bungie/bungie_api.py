@@ -65,6 +65,7 @@ class BungieApi(object):
 
         # print(response.status_code)
         # print(response.text)
+        print(response.json())
         if not response.status_code == 200:
             return self.flag_error(function_name, response)
 

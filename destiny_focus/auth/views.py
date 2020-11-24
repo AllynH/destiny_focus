@@ -122,11 +122,15 @@ def oauth_callback(provider):
     membershipId    = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"]
     membershipType  = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"]
 
+    my_api = BungieApi(user)
+    get_profile_res = my_api.get_profile(str(membershipType), str(membershipId))
+    characterId = get_profile_res["Response"]["profile"]["data"]["characterIds"][0]
+
     # TODO:
     # Redirect to get_profile - > Get: membershipType destinyMembershipId
     # Redirect to chose_track/membershipType/destinyMembershipId.
 
-    return redirect(url_for("auth.choose_focus", membershipType=membershipType, membershipId=membershipId))
+    return redirect(url_for("auth.choose_focus", membershipType=membershipType, membershipId=membershipId, characterId=characterId))
     # return redirect(url_for("auth.home"))
 
 
@@ -173,9 +177,29 @@ def get_profile():
     return jsonify(character_details)
 
 
-@blueprint.route("/choose_focus/<membershipType>/<membershipId>/")
+@blueprint.route("/select_account/")
 @login_required
-def choose_focus(membershipType, membershipId):
+def select_account():
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_account_res = my_api.GetCurrentBungieAccount()
+    # print(type(get_account_res))
+    # print(get_account_res.json())
+    membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
+    membershipType  = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"])
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    # get_profile_res = my_api.select_account("2", "4611686018436136301")
+    character_details = get_character_details_json(get_profile_res)
+
+    return(jsonify(get_profile_res))
+
+    return render_template("auth/choose_account.html")
+
+
+@blueprint.route("/choose_focus/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def choose_focus(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -185,14 +209,12 @@ def choose_focus(membershipType, membershipId):
         flash("Bungie systems are down :(", "error")
         return redirect(url_for("public.home"))
 
-    character_details = get_character_details_json(get_profile_res)
-
     return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/pvp/<membershipType>/<membershipId>/")
+@blueprint.route("/pvp/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def pvp(membershipType, membershipId):
+def pvp(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -217,34 +239,30 @@ def account(membershipType, membershipId):
     return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/get/pvp/<membershipType>/<membershipId>/")
+@blueprint.route("/get/pvp/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def get_pvp(membershipType, membershipId):
+def get_pvp(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
     # TODO: Hardcoded values:
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    charId = list(character_details.keys())[0]
-
-    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=5, count=30)
+    activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=5, count=30)
 
 
     return jsonify(activity)
-    # return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/get/historical_stats/<membershipType>/<membershipId>/")
+@blueprint.route("/get/historical_stats/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def get_historical_stats(membershipType, membershipId):
+def get_historical_stats(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    charId = list(character_details.keys())[0]
 
     activity_list = []
     season = CURRENT_SEASON
@@ -268,7 +286,7 @@ def get_historical_stats(membershipType, membershipId):
             print("Day start < season start")
             # Last request:
             day_start = season_start
-            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end, periodType='Daily')
+            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
             new_activity = {
                 "Response": {
                     'allPvP': {
@@ -288,7 +306,7 @@ def get_historical_stats(membershipType, membershipId):
             print("Day start > season start")
             # All requests:
             print("Making request!")
-            activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart=day_start, dayend=day_end, periodType='Daily')
+            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
             # print(activity)
 
             activity_len = len(activity['Response']['allPvP']['daily'][0])
@@ -329,18 +347,16 @@ def get_historical_stats(membershipType, membershipId):
     # return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/get/historical_stats_alltime/<membershipType>/<membershipId>/")
+@blueprint.route("/get/historical_stats_alltime/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def get_historical_stats_alltime(membershipType, membershipId):
+def get_historical_stats_alltime(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    charId = list(character_details.keys())[0]
-
-    activity = my_api.get_historical_stats(membershipType, membershipId, charId, daystart="", dayend="")
+    activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart="", dayend="")
 
 
     # if daystart < new_date:
@@ -351,18 +367,16 @@ def get_historical_stats_alltime(membershipType, membershipId):
     # return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/get/gambit/<membershipType>/<membershipId>/")
+@blueprint.route("/get/gambit/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def get_gambit(membershipType, membershipId):
+def get_gambit(membershipType, membershipId,characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
     # TODO: Hardcoded values:
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
-    charId = list(character_details.keys())[0]
-
-    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=63, count=30)
+    activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=63, count=30)
 
 
     return jsonify(activity)
@@ -398,9 +412,9 @@ def get_manifest(definition, def_hash):
 
     return jsonify(response)
 
-@blueprint.route("/get/pgcr_list/<membershipType>/<membershipId>/")
+@blueprint.route("/get/pgcr_list/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def pgcr_list(membershipType, membershipId):
+def pgcr_list(membershipType, membershipId, characterId):
 
     mode_arg = request.args.get('game_mode', 'pvp')
 
@@ -414,12 +428,8 @@ def pgcr_list(membershipType, membershipId):
 
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
-    character_details = get_character_details_json(get_profile_res)
 
-    charId = list(character_details.keys())[0]
-
-    activity = my_api.get_activity_history(membershipType, membershipId, charId, mode=game_mode, count=game_count)
+    activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=game_mode, count=game_count)
 
     pgcr_list = []
     stat_list = []

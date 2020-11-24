@@ -28,17 +28,17 @@ class AccountStats extends React.Component {
   }
 
   fetchStatsData = async () => {
-    const { membershipType, membershipId } = this.props.match.params
+    const { membershipType, membershipId, characterId } = this.props.match.params
     const { scope } = this.props
 
     if (scope === 'allTime') {
-      const response = await GetStatsAllTime({ params: { membershipType, membershipId } })
+      const response = await GetStatsAllTime({ params: { membershipType, membershipId, characterId } })
       this.setState({
         isLoaded: true,
         jsonResponse: response,
       })
     } else {
-      const response = await GetStatsData({ params: { membershipType, membershipId } })
+      const response = await GetStatsData({ params: { membershipType, membershipId, characterId } })
       this.setState({
         isLoaded: true,
         jsonResponse: response,

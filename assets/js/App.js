@@ -28,11 +28,11 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/' component={WrapCards} />
-        <Route path='/auth/pvp/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'pvp'} />)} />
+        <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={WrapCards} />
+        <Route path='/auth/pvp/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'pvp'} />)} />
         {/* <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/' render={(props) => (<GambitChart {...props} />)} /> */}
-        <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'gambit'} />)} />
-        <Route path='/auth/account/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/' component={AccountStats} />
+        <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'gambit'} />)} />
+        <Route path='/auth/account/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={AccountStats} />
         <Route path='/' exact={true} component={Welcome} />
         <Route component={Error} />
       </Switch>

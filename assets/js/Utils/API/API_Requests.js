@@ -7,27 +7,27 @@ async function apiRequest(url, options = {}) {
   return fetch(url, options).then((res) => res.json())
 }
 
-export const GetPVPData = async (options) => apiRequest(`/auth/get/pvp/${options.params.membershipType}/${options.params.membershipId}`, {
+export const GetPVPData = async (options) => apiRequest(`/auth/get/pvp/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
   ...options,
 })
 
-export const GetGambitData = async (options) => apiRequest(`/auth/get/gambit/${options.params.membershipType}/${options.params.membershipId}`, {
+export const GetGambitData = async (options) => apiRequest(`/auth/get/gambit/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
   ...options,
 })
 
-export const GetRaidData = async (options) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}`, {
+export const GetRaidData = async (options) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
   ...options,
 })
 
 export const GetStatsData = async (options) => apiRequest(
-  `/auth/get/historical_stats/${options.params.membershipType}/${options.params.membershipId}`,
+  `/auth/get/historical_stats/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`,
   {
     ...options,
   },
 )
 
 export const GetStatsAllTime = async (options) => apiRequest(
-  `/auth/get/historical_stats_alltime/${options.params.membershipType}/${options.params.membershipId}`,
+  `/auth/get/historical_stats_alltime/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`,
   {
     ...options,
   },
@@ -42,7 +42,7 @@ export const GetActivityDefinition = async (options) => apiRequest(`/auth/get/ma
 })
 
 export const GetPGCRList = async (options) => apiRequest(
-  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/?game_mode=${options.params.gameMode}`,
+  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`,
   {
     ...options,
   },

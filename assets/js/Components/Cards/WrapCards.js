@@ -73,7 +73,7 @@ export default function WrapCards(props) {
       focus: 'pvp',
       description: 'Hone your skills and win glory in battle against other Guardians.',
       image: CrucibleImage,
-      apiUrl: `/auth/pvp/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+      apiUrl: `/auth/pvp/${props.match.params.membershipType}/${props.match.params.membershipId}/${props.match.params.characterId}`,
       colours: {
         colour_1: 'var(--crucible-red)',
         colour_2: 'var(--crucible-dark-1)',
@@ -81,13 +81,13 @@ export default function WrapCards(props) {
       },
       stats: {
         kdr: {
-          apiUrl: `/auth/get/pvp/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+          apiUrl: `/auth/get/pvp/${props.match.params.membershipType}/${props.match.params.membershipId}/${props.match.params.characterId}`,
         },
         allTime: {
-          apiUrl: `/auth/get/historical_stats_alltime/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+          apiUrl: `/auth/get/historical_stats_alltime/${props.match.params.membershipType}/${props.match.params.membershipId}/${props.match.params.characterId}`,
         },
         season: {
-          apiUrl: `/auth/get/historical_stats_alltime/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+          apiUrl: `/auth/get/historical_stats_alltime/${props.match.params.membershipType}/${props.match.params.membershipId}/${props.match.params.characterId}`,
         },
       },
     },
@@ -97,7 +97,7 @@ export default function WrapCards(props) {
       description:
         'Defeat the enemies of humanity, collect their Motes, and bank them to summon a Primeval. First team to destroy their Primeval wins.',
       image: GambitImage,
-      apiUrl: `/auth/gambit/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+      apiUrl: `/auth/gambit/${props.match.params.membershipType}/${props.match.params.membershipId}/${props.match.params.characterId}`,
       colours: {
         colour_1: 'forestgreen',
         colour_2: 'forestgreen',
@@ -110,7 +110,7 @@ export default function WrapCards(props) {
       description:
         'Form a fireteam of six and brave the strange and powerful realms of our enemies.',
       image: RaidImage,
-      apiUrl: `/auth/raid/${props.match.params.membershipType}/${props.match.params.membershipId}`,
+      apiUrl: `/auth/raid/${props.match.params.membershipType}/${props.match.params.membershipId}/${props.match.params.characterId}`,
       colours: {
         colour_1: 'var(--vanguard-blue)',
         colour_2: 'var(--vanguard-dark-1)',

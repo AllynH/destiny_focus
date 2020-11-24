@@ -115,11 +115,11 @@ def get_json_manifest(def_name, def_url):
 	# write_json_file(FILE_LIST['MANIFEST'], manifest_response.json())
 
 	print(f"\t-I- Writing {def_name} to DB.")
-	split_manifest(manifest_response.json(), def_name)
+	split_and_store_manifest(manifest_response.json(), def_name)
 
 	return True
 
-def split_manifest(manifest_json, def_name):
+def split_and_store_manifest(manifest_json, def_name):
 	""" Take the JSON Manifest file and writes a new JSON file for each key """
 
 	key_list = manifest_json.keys()
@@ -131,9 +131,8 @@ def split_manifest(manifest_json, def_name):
 	# 	file_name = os.path.join(FILE_LIST['SPLIT_DIR'], current_key + ".json")
 	# 	write_json_file(file_name, manifest_json[current_key])
 	
-	print("\t-I- Dropping database.")
 	del_count = delete_selected_definitions(def_name)
-	print("\t\t-I- Deleted:", del_count, "items.")
+	print(f"\t\t-I- Deleted: {del_count} items from {def_name}.")
 
 	for key in key_list:
 		# print("\t\t-I-", key)
