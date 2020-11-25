@@ -53,7 +53,9 @@ class PvPChart extends React.Component {
         break
       case 'raid':
         {
-          const response = await GetRaidData({ params: { membershipType, membershipId, characterId } })
+          const response = await GetRaidData({
+            params: { membershipType, membershipId, characterId },
+          })
           this.setState({
             isLoaded: true,
             jsonResponse: response,
@@ -137,6 +139,18 @@ class PvPChart extends React.Component {
     return pgcr_list
   }
 
+  Headings() {
+    const kdrHeading = 'K/D R data'
+    const pgcrHeading = 'Post Game Carnage Reports'
+    const heading = (
+      <section className='chart-wrapper'>
+        <h2>{kdrHeading}</h2>
+        <h2>{pgcrHeading}</h2>
+      </section>
+    )
+    return heading
+  }
+
   render() {
     const { error, isLoaded, jsonResponse } = this.state
     const { gameMode } = this.props
@@ -157,17 +171,20 @@ class PvPChart extends React.Component {
 
       return (
         <div>
+          <this.Headings />
           <div className='chart-wrapper'>
             <div className='chart chart-heading-wrap'>
-              <h2>K/D R data</h2>
               <div className='chart chart-wrap'>
+                <h3>Recent matches - K/D R data</h3>
                 <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
                 <PgcrSummary {...this.props} />
               </div>
             </div>
             <div className='pgcr activity-wrapper'>
-              <h2>Post Game Carnage Reports</h2>
+              <div className='activity-list-wrapper'>
+                <h3>Recent matches - PGCR's</h3>
               <ul className={'pgcr activity-list'}>{myPgcr}</ul>
+            </div>
             </div>
             {/* <ViewStore /> */}
           </div>

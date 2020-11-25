@@ -54,21 +54,22 @@ export default function PrecisionChart(props) {
   const Summary = (dataType, average, goal) => (
     <div className={'precision-chart-summary'}>
       <p>
-        Avg. {dataType} / game: {average.toFixed(2)}
+        Avg.: {average.toFixed(2)}
       </p>
       <p>
-        Goal {dataType} / game: {goal}
+        Goal: {goal}
       </p>
     </div>
   )
 
   return (
     <div className='summary-chart-wrapper'>
+      <h3>{dataType}:</h3>
       <div className='chart precision-chart'>
         <VictoryChart
           /* theme={VictoryTheme.material} */ domainPadding={10}
-          height={200}
-          width={200}
+          height={230}
+          width={250}
         >
           <VictoryBar style={{ data: { fill: '#c43a31' } }} data={chartData} />
           <VictoryLine

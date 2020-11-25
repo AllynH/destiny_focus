@@ -7,7 +7,7 @@
 
     width: 600px;
     border: 1xp solid var(--crucible-dark-2);
-    background-color: var(--grey-dark-2);
+    background-color: var(--grey-dark-4);
     color: var(--vanguard-light-5);
     /* margin: 5px; */
     border-radius: 5px;
@@ -61,13 +61,15 @@
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    width: 220px;
+    width: 280px;
 }
 
 .small-chart-wrapper{
     display: flex;
     flex-direction: row;
     margin: 0 auto;
+    width: 100%;
+    justify-content: space-evenly;
 }
 
 .loading-text{
