@@ -44,7 +44,7 @@ class PvPChart extends React.Component {
     switch (gameMode) {
       case 'gambit':
         {
-          const response = await GetGambitData({ params: { membershipType, membershipId } })
+          const response = await GetGambitData({ params: { membershipType, membershipId, characterId } })
           this.setState({
             isLoaded: true,
             jsonResponse: response,
