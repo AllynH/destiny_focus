@@ -1,41 +1,30 @@
 /* eslint-disable class-methods-use-this */
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
-import WrapCards from './Components/Cards/WrapCards'
+import NavBar from './Components/Nav/Nav'
+
+import ChooseFocus from './Components/Cards/ChooseFocus'
 import PvPChart from './Components/PvP/PVPCharts'
 import AccountStats from './Components/AccountStats/AccountStats'
+import Account from './Components/AccountStats/Account'
 import GambitChart from './Components/Gambit/GambitCharts'
 import Welcome from './Components/Welcome/Welcome'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  // componentDidMount() {
-  //   this.mounted = true
-  //   this.init()
-  // }
-
-  // init() {
-  //   const { match } = this.props.match.params
-  //   console.log('Logging parameters.')
-  //   console.log(match)
-  // }
-
   render() {
     return (
-      <Switch>
-        <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={WrapCards} />
-        <Route path='/auth/pvp/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'pvp'} />)} />
-        {/* <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/' render={(props) => (<GambitChart {...props} />)} /> */}
-        <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'gambit'} />)} />
-        <Route path='/auth/account/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={AccountStats} />
-        <Route path='/' exact={true} component={Welcome} />
-        <Route component={Error} />
-      </Switch>
+      <>
+        <NavBar {...this.props} />
+        <Switch>
+          <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={ChooseFocus} />
+          <Route path='/auth/pvp/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'pvp'} />)} />
+          <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' render={(props) => (<PvPChart {...props} gameMode={'gambit'} />)} />
+          <Route path='/auth/account/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={Account} />
+          <Route path='/' exact={true} component={Welcome} />
+          <Route component={Error} />
+        </Switch>
+      </>
     )
   }
 }

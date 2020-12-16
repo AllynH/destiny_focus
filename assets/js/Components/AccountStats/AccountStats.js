@@ -84,7 +84,7 @@ class AccountStats extends React.Component {
           <div className='stats-wrapper'>
             <div className='stats-individual'>
               <DisplayStats
-                heading={props.heading}
+                // heading={props.heading}
                 subHeading={props.subHeading}
                 games_played={stats.activitiesEntered.basic.displayValue}
                 games_won={stats.activitiesWon.basic.displayValue}

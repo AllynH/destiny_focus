@@ -15,7 +15,6 @@ import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { statsData } from '../../Data/statsData'
-// import focus_details from '../Cards/WrapCards/'
 
 class PvPChart extends React.Component {
   constructor(props) {
@@ -188,6 +187,7 @@ class PvPChart extends React.Component {
             </div>
             {/* <ViewStore /> */}
           </div>
+          <h2>{allTime.heading}</h2>
           <AccountStats
             {...this.props}
             subHeading={allTime.subHeading}
@@ -195,6 +195,7 @@ class PvPChart extends React.Component {
             scope={allTime.scope}
             apiUrl={allTime.apiUrl}
           />
+          <h2>{season.heading}</h2>
           <AccountStats
             {...this.props}
             subHeading={season.subHeading}

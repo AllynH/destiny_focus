@@ -223,18 +223,18 @@ def pvp(membershipType, membershipId, characterId):
         flash("Bungie systems are down :(", "error")
         return redirect(url_for("public.home"))
 
-    character_details = get_character_details_json(get_profile_res)
+    # character_details = get_character_details_json(get_profile_res)
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/account/<membershipType>/<membershipId>/")
+@blueprint.route("/account/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def account(membershipType, membershipId):
+def account(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
-    character_details = get_character_details_json(get_profile_res)
+    # get_profile_res = my_api.get_profile(membershipType, membershipId)
+    # character_details = get_character_details_json(get_profile_res)
 
     return render_template("auth/choose_focus.html")
 

@@ -27,7 +27,7 @@ import CrucibleImage from '../../../img/cards/Crucible.png'
 import GambitImage from '../../../img/cards/Gambit.png'
 import RaidImage from '../../../img/cards/Raid.png'
 
-export default function WrapCards(props) {
+export default function ChooseFocus(props) {
   const getFocus = useSelector((state) => state.focus)
   console.log('State focus', getFocus)
 

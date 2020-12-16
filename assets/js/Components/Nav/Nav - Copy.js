@@ -1,43 +1,25 @@
 /* eslint-disable linebreak-style */
-// import React from 'react'
+import React from 'react'
 
-// import { makeStyles } from '@material-ui/core/styles'
-// import AccountCircle from '@material-ui/icons/AccountCircle'
+import { NavLink, withRouter } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 
 import {
-//   AppBar,
-//   // Drawer,
-//   // FormControlLabel,
-//   // FormGroup,
-//   Toolbar,
-//   Typography,
-//   IconButton,
+  AppBar,
+  // Drawer,
+  // FormControlLabel,
+  // FormGroup,
+  Toolbar,
+  Typography,
+  IconButton,
   ListItemText,
-  //   Menu,
-  //   MenuIcon,
-  //   MenuItem,
+  Menu,
+  MenuIcon,
   MenuList,
-//   Switch,
+  MenuItem,
+  Switch,
 } from '@material-ui/core';
-
-
-import React from 'react';
-import {
-  NavLink, withRouter, useRouteMatch, useParams, useHistory, useLocation,
-} from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-
 
 import Routes from '../Routes'
 
@@ -64,46 +46,14 @@ const useStyles = makeStyles((theme, props) => ({
   },
 }))
 
-function NavBar(props) {
+export default function MenuAppBar(props) {
   const classes = useStyles(props)
-  const { slug } = useParams();
-  const { history } = useHistory();
-  const { location } = useLocation();
-
-
-  console.log('slug')
-  console.log(slug)
-
-  console.log('history')
-  console.log(history)
-
-  console.log('location')
-  console.log(location)
-
-  // const { membershipType, membershipId, characterId } = this.props.match.params
-
-  // console.log(membershipType, membershipId, characterId)
-
   // console.log("theme:" + props)
   // console.log("theme:" + props.background)
   // console.log(`url('${props.background}')`)
-  const [loaded, setLoaded] = React.useState(false)
-
+  const [auth, setAuth] = React.useState(true)
   const [anchorEl, setAnchorEl] = React.useState(null)
-  const [auth, setAuth] = React.useState(false)
-  const [anchorElProfile, setAnchorElProfile] = React.useState(null)
   const open = Boolean(anchorEl)
-  const openProfile = Boolean(anchorElProfile)
-
-  if (window.location.href.includes('/auth/') && !loaded) {
-    setAuth(true)
-    setLoaded(true)
-    const { url } = useRouteMatch('/auth/:focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/');
-    const { membershipType, membershipId, characterId } = url
-    console.log('url')
-    console.log(url)
-    console.log(membershipType, membershipId, characterId)
-  }
 
   const handleChange = (event) => {
     setAuth(event.target.checked)
@@ -113,14 +63,8 @@ function NavBar(props) {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleProfile = (event) => {
-    console.log('Profile clicked')
-    setAnchorElProfile(event.currentTarget)
-  }
-
   const handleClose = () => {
     setAnchorEl(null)
-    setAnchorElProfile(null)
   }
 
   const activeRoute = (routeName) => props.location.pathname === routeName
@@ -141,7 +85,7 @@ function NavBar(props) {
             <MenuIcon />
             <Menu
               id='menu-appbar'
-              anchorEl={anchorElProfile}
+              anchorEl={anchorEl}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
@@ -154,16 +98,20 @@ function NavBar(props) {
               open={open}
               onClose={handleClose}
             >
-              <MenuList>
-                {Routes.map((prop, key) => (
+              {/* <MenuList>
+                {Routes.map((prop, key) => {
+                  return (
                     <NavLink to={prop.path} style={{ textDecoration: 'none' }} key={key}>
                       <MenuItem selected={activeRoute(prop.path)}>
                         <ListItemText primary={prop.sidebarName} />
                       </MenuItem>
                     </NavLink>
-                ))}
-              </MenuList>
+                  )
+                })}
+              </MenuList> */}
 
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
             </Menu>
           </IconButton>
 
@@ -176,14 +124,13 @@ function NavBar(props) {
                 aria-label='account of current user'
                 aria-controls='menu-appbar'
                 aria-haspopup='true'
-                onClick={handleProfile}
+                onClick={handleMenu}
                 color='inherit'
-                onClose={handleClose}
               >
                 <AccountCircle />
               </IconButton>
               <Menu
-                id='menu-profile'
+                id='menu-appbar'
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
@@ -194,7 +141,8 @@ function NavBar(props) {
                   vertical: 'top',
                   horizontal: 'left',
                 }}
-                open={openProfile}
+                open={open}
+                onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
@@ -206,4 +154,3 @@ function NavBar(props) {
     </div>
   )
 }
-export default withRouter(NavBar)
