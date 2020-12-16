@@ -87,14 +87,18 @@ module.exports = {
         options: { limit: 10000, mimetype: 'application/font-woff' },
       },
       {
-        test: /\.(ttf|eot|svg|png|jpe?g|gif|ico|json)(\?.*)?$/i,
-        loader: `file-loader?context=${rootAssetPath}&name=[path][name].[ext]`,
+        test: /\.(ttf|eot|svg|png|jpe?g|gif|ico|json|xml|webmanifest)(\?.*)?$/i,
+        use: [
+          {
+            loader: `file-loader?context=${rootAssetPath}&name=[path][name].[ext]`,
+          },
+        ],
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
+        options: {
           presets: ['@babel/preset-env', '@babel/preset-react'],
           plugins: [
             '@babel/plugin-transform-runtime',

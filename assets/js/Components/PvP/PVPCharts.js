@@ -187,23 +187,7 @@ class PvPChart extends React.Component {
             </div>
             {/* <ViewStore /> */}
           </div>
-          <h2>{allTime.heading}</h2>
-          <AccountStats
-            {...this.props}
-            subHeading={allTime.subHeading}
-            heading={allTime.heading}
-            scope={allTime.scope}
-            apiUrl={allTime.apiUrl}
-          />
-          <h2>{season.heading}</h2>
-          <AccountStats
-            {...this.props}
-            subHeading={season.subHeading}
-            heading={season.heading}
-            scope={season.scope}
-            apiUrl={season.apiUrl}
-          />
-          <Character_Plate />
+          {/* <Character_Plate /> */}
         </div>
       )
     }

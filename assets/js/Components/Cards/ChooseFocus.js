@@ -58,7 +58,7 @@ export default function ChooseFocus(props) {
           margin='dense'
           id='psl'
           placeholder='50'
-          label='Precision Shots Landed (count)'
+          label='Precision Kills per game'
           type='email'
           fullWidth
         />
