@@ -87,7 +87,7 @@ module.exports = {
         options: { limit: 10000, mimetype: 'application/font-woff' },
       },
       {
-        test: /\.(ttf|eot|svg|png|jpe?g|gif|ico)(\?.*)?$/i,
+        test: /\.(ttf|eot|svg|png|jpe?g|gif|ico|json)(\?.*)?$/i,
         loader: `file-loader?context=${rootAssetPath}&name=[path][name].[ext]`,
       },
       {
