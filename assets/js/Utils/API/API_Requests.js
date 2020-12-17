@@ -20,7 +20,7 @@ export const GetRaidData = async (options) => apiRequest(`/auth/get/raid/${optio
 })
 
 export const GetStatsData = async (options) => apiRequest(
-  `/auth/get/historical_stats/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`,
+  `/auth/get/historical_stats/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}&season=${options.params.season}`,
   {
     ...options,
   },

@@ -23,9 +23,9 @@ from destiny_focus.oauth import OAuthSignin
 from destiny_focus.tools.user_login import create_user, update_user
 from destiny_focus.bungie.bungie_api import BungieApi
 from destiny_focus.manifest_tools.manifest_functions import get_definition
-from destiny_focus.bungie.parse_bungie_response import *
+from destiny_focus.bungie.parse_bungie_response import get_character_details_json, summarize_historical_stats
 from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON, LAST_SEASON
-from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS
+from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS, ACTIVITY_MODES
 
 import requests
 from datetime import datetime, timedelta
@@ -263,12 +263,16 @@ def get_historical_stats(membershipType, membershipId, characterId):
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     character_details = get_character_details_json(get_profile_res)
 
+    # TODO: Hardcoded AllPvP mode
+    # TODO: HArdcoded Season
+    # season = 1
+    mode    = int(request.args.get('game_mode', 5))
+    season  = int(request.args.get('season', CURRENT_SEASON))
 
     activity_list = []
-    season = CURRENT_SEASON
     season_start    = datetime.strptime(SEASONS[season]['START'], "%Y-%m-%d %H:%M:%S")
     season_end      = datetime.strptime(SEASONS[season]['END'], "%Y-%m-%d %H:%M:%S")
-    month         = 31
+    month         = 30
     # month           = 5 # Testing flow:
     current_date    = datetime.utcnow()
     if season_end > current_date:
@@ -281,69 +285,58 @@ def get_historical_stats(membershipType, membershipId, characterId):
     # print(day_start)
     # print(day_end)
 
+    activity_list = []
+
     while True:
         if day_start < season_start:
             print("Day start < season start")
             # Last request:
             day_start = season_start
-            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
-            new_activity = {
-                "Response": {
-                    'allPvP': {
-                        'daily': activity['Response']['allPvP']['daily'][0]
-                    }
-                }
-                }
-            print("\n\nreturning new activity")
-            # return jsonify(activity)
-            return jsonify(new_activity)
-            mode_key = list(activity["Response"])[0]
-            print(mode_key)
-            period_key = list(activity["Response"][mode_key])[0]
-            activity_list.append(activity["Response"][mode_key][period_key])
+            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, modes=5, daystart=day_start, dayend=day_end, periodType='Daily')
+
+            print("Making final request!")
+            found_activities = activity.get('Response', {}).get('allPvP', {}).get('daily', False)
+            if found_activities:
+                for a in activity['Response']['allPvP']['daily']:
+                    activity_list.append(a)
+                    print("Activities - final:", len(activity_list))
+
             break
         else:
             print("Day start > season start")
             # All requests:
-            print("Making request!")
+            print("Making request, yo!")
             activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
-            # print(activity)
 
-            activity_len = len(activity['Response']['allPvP']['daily'][0])
+            found_activities = activity['Response']['allPvP'].get('daily', False)
 
-            # return jsonify(activity)
-            new_activity = {
-                "Response": {
-                    'allPvP': {
-                        'daily': activity['Response']['allPvP']['daily'][activity_len - 1]['values']
-                    }
-                }
-                }
-            print("\n\nreturning new activity")
-            # return jsonify(activity)
-            return jsonify(new_activity)
-
+            if found_activities:
+                for a in activity['Response']['allPvP']['daily']:
+                    activity_list.append(a)
+                    print("Activities - main:", len(activity_list))
 
             day_end = day_start - timedelta(seconds=1)
             day_start = day_start - timedelta(days=month)
             # print(activity["Response"])
             print(day_start)
             print(day_end)
-            mode_key = list(activity["Response"])[0]
-            print(mode_key)
-            # print(activity["Response"][mode_key])
-            period_key = list(activity["Response"][mode_key])[0]
-            activity_list.append(activity["Response"][mode_key][period_key])
             # return jsonify(activity)
 
 
-    # if daystart < new_date:
-    #     print("daystart < new_date")
-    print("Testing time delta:")
+    summarised_activity = summarize_historical_stats(activity_list)
+    # return jsonify(activity_list)
 
-
-
-    return jsonify(activity_list)
+    new_activity = {
+        "Response": {
+            'season': season,
+            'mode'  : ACTIVITY_MODES[mode],
+            'allPvP': {
+                'daily': summarised_activity
+            }
+        }
+    }
+    print("\n\nReturning new activity")
+    return jsonify(new_activity)
     # return render_template("auth/choose_focus.html")
 
 

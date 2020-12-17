@@ -30,6 +30,9 @@ class AccountStats extends React.Component {
   fetchStatsData = async () => {
     const { membershipType, membershipId, characterId } = this.props.match.params
     const { scope } = this.props
+    const season = 12
+    const gameMode = 5
+
 
     if (scope === 'allTime') {
       const response = await GetStatsAllTime({ params: { membershipType, membershipId, characterId } })
@@ -38,7 +41,7 @@ class AccountStats extends React.Component {
         jsonResponse: response,
       })
     } else {
-      const response = await GetStatsData({ params: { membershipType, membershipId, characterId } })
+      const response = await GetStatsData({ params: { membershipType, membershipId, characterId, season, gameMode } })
       this.setState({
         isLoaded: true,
         jsonResponse: response,
@@ -75,10 +78,10 @@ class AccountStats extends React.Component {
       const { scope } = this.props
       const { props } = this
       const stats = jsonResponse.Response.allPvP[scope]
-      // console.log('Render AccountStats')
-      // console.log(jsonResponse)
-      // console.log(scope)
-      // console.log(stats)
+      console.log('Render AccountStats')
+      console.log(jsonResponse)
+      console.log(scope)
+      console.log(stats)
       return (
         <>
           <div className='stats-wrapper'>

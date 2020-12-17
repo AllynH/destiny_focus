@@ -1,6 +1,3 @@
-CURRENT_SEASON = 11
-LAST_SEASON = CURRENT_SEASON - 1
-
 SEASONS = {
     1: {
         "TITLE"     : "Destiny 2",
@@ -84,18 +81,21 @@ SEASONS = {
     },
     11: {
         "TITLE" 	: "Season of Arrivals",
-        "ACTIVE"    : True,
+        "ACTIVE"    : False,
         "EXPANSION" : "Shadowkeep",
         "YEAR"  	: "3",
         "START" 	: '2020-06-09 00:00:01',
         "END"   	: '2020-10-10 00:00:00',
     },
     12: {
-        "TITLE" 	: "TBD",
-        "ACTIVE"    : False,
+        "TITLE" 	: "Season of the Hunt",
+        "ACTIVE"    : True,
         "EXPANSION" : "Beyond Light",
         "YEAR"  	: "4",
         "START" 	: '2020-10-10 00:00:01',
         "END"   	: '2021-10-10 00:00:00',
     },
 }
+
+CURRENT_SEASON = list(SEASONS)[-1]
+LAST_SEASON = CURRENT_SEASON - 1
