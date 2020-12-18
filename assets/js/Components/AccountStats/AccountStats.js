@@ -27,21 +27,38 @@ class AccountStats extends React.Component {
     this.fetchStatsData()
   }
 
+  componentDidUpdate(pp) {
+    if (this.props.season !== pp.season) {
+      this.fetchStatsData()
+    }
+  }
+
   fetchStatsData = async () => {
     const { membershipType, membershipId, characterId } = this.props.match.params
     const { scope } = this.props
-    const season = 12
+    const { season } = this.props
     const gameMode = 5
-
+    console.log('AccountStats - season test.')
+    console.log(season)
 
     if (scope === 'allTime') {
-      const response = await GetStatsAllTime({ params: { membershipType, membershipId, characterId } })
+      const response = await GetStatsAllTime({
+        params: { membershipType, membershipId, characterId },
+      })
       this.setState({
         isLoaded: true,
         jsonResponse: response,
       })
     } else {
-      const response = await GetStatsData({ params: { membershipType, membershipId, characterId, season, gameMode } })
+      const response = await GetStatsData({
+        params: {
+          membershipType,
+          membershipId,
+          characterId,
+          season,
+          gameMode,
+        },
+      })
       this.setState({
         isLoaded: true,
         jsonResponse: response,
@@ -78,10 +95,10 @@ class AccountStats extends React.Component {
       const { scope } = this.props
       const { props } = this
       const stats = jsonResponse.Response.allPvP[scope]
-      console.log('Render AccountStats')
-      console.log(jsonResponse)
-      console.log(scope)
-      console.log(stats)
+      // console.log('Render AccountStats')
+      // console.log(jsonResponse)
+      // console.log(scope)
+      // console.log(stats)
       return (
         <>
           <div className='stats-wrapper'>
@@ -112,8 +129,8 @@ class AccountStats extends React.Component {
                 value_1={stats.deaths.pga.displayValue}
                 name_2={'K/D R'}
                 value_2={parseFloat(
-                  stats.kills.pga.displayValue / stats.deaths.pga.displayValue
-                ).toFixed(2)}
+                  stats.kills.pga.displayValue / stats.deaths.pga.displayValue,
+                ).toFixed(2) && 0}
               />
             </div>
           </div>

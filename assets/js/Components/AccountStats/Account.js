@@ -6,7 +6,8 @@ import React from 'react'
 
 import './style.css'
 import Character_Plate from '../CharacterPlate/Character_Plate'
-import AccountStats from '../AccountStats/AccountStats'
+import AccountStats from './AccountStats'
+import SeasonMenu from './SeasonDropdown'
 import PGCR from '../PGCR/PGCR'
 import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
@@ -74,7 +75,6 @@ class Account extends React.Component {
     }
   }
 
-
   render() {
     const { error, isLoaded, jsonResponse } = this.state
     const { gameMode } = this.props
@@ -87,7 +87,6 @@ class Account extends React.Component {
     } else if (!isLoaded) {
       return <Spinner />
     } else {
-
       const { allTime, season } = statsData
 
       return (
@@ -101,13 +100,14 @@ class Account extends React.Component {
             apiUrl={allTime.apiUrl}
           />
           <h2>{season.heading}</h2>
-          <AccountStats
+          <SeasonMenu {...this.props} {...statsData} />
+          {/* <AccountStats
             {...this.props}
             subHeading={season.subHeading}
             heading={season.heading}
             scope={season.scope}
             apiUrl={season.apiUrl}
-          />
+          /> */}
           <Character_Plate />
         </div>
       )

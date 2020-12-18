@@ -9,6 +9,7 @@ bungie_response/*
 *_pycache_*
 dump.rdb
 split_json/*
+destiny_focus/static/
 
 # C extensions
 *.so

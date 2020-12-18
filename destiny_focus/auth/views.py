@@ -260,25 +260,25 @@ def get_historical_stats(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
-    character_details = get_character_details_json(get_profile_res)
+    # get_profile_res = my_api.get_profile(membershipType, membershipId)
+    # character_details = get_character_details_json(get_profile_res)
 
     # TODO: Hardcoded AllPvP mode
-    # TODO: HArdcoded Season
     # season = 1
     mode    = int(request.args.get('game_mode', 5))
     season  = int(request.args.get('season', CURRENT_SEASON))
 
-    activity_list = []
+    activity_list   = []
     season_start    = datetime.strptime(SEASONS[season]['START'], "%Y-%m-%d %H:%M:%S")
     season_end      = datetime.strptime(SEASONS[season]['END'], "%Y-%m-%d %H:%M:%S")
-    month         = 30
+    month           = 30
     # month           = 5 # Testing flow:
     current_date    = datetime.utcnow()
+
     if season_end > current_date:
-        day_end         = current_date
+        day_end     = current_date
     else:
-        day_end         = season_end
+        day_end     = season_end
     day_start       = day_end - timedelta(days=month)
 
     # print("Dates:")
@@ -289,23 +289,17 @@ def get_historical_stats(membershipType, membershipId, characterId):
 
     while True:
         if day_start < season_start:
-            print("Day start < season start")
             # Last request:
             day_start = season_start
             activity = my_api.get_historical_stats(membershipType, membershipId, characterId, modes=5, daystart=day_start, dayend=day_end, periodType='Daily')
 
-            print("Making final request!")
             found_activities = activity.get('Response', {}).get('allPvP', {}).get('daily', False)
             if found_activities:
                 for a in activity['Response']['allPvP']['daily']:
                     activity_list.append(a)
-                    print("Activities - final:", len(activity_list))
 
             break
         else:
-            print("Day start > season start")
-            # All requests:
-            print("Making request, yo!")
             activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
 
             found_activities = activity['Response']['allPvP'].get('daily', False)
@@ -313,18 +307,11 @@ def get_historical_stats(membershipType, membershipId, characterId):
             if found_activities:
                 for a in activity['Response']['allPvP']['daily']:
                     activity_list.append(a)
-                    print("Activities - main:", len(activity_list))
 
             day_end = day_start - timedelta(seconds=1)
             day_start = day_start - timedelta(days=month)
-            # print(activity["Response"])
-            print(day_start)
-            print(day_end)
-            # return jsonify(activity)
-
 
     summarised_activity = summarize_historical_stats(activity_list)
-    # return jsonify(activity_list)
 
     new_activity = {
         "Response": {
@@ -335,9 +322,8 @@ def get_historical_stats(membershipType, membershipId, characterId):
             }
         }
     }
-    print("\n\nReturning new activity")
+
     return jsonify(new_activity)
-    # return render_template("auth/choose_focus.html")
 
 
 @blueprint.route("/get/historical_stats_alltime/<membershipType>/<membershipId>/<characterId>/")
