@@ -128,9 +128,9 @@ class AccountStats extends React.Component {
                 name_1={'DEATHS'}
                 value_1={stats.deaths.pga.displayValue}
                 name_2={'K/D R'}
-                value_2={parseFloat(
+                value_2={stats.kills.pga.displayValue ? parseFloat(
                   stats.kills.pga.displayValue / stats.deaths.pga.displayValue,
-                ).toFixed(2) && 0}
+                ).toFixed(2) : 0}
               />
             </div>
           </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 import { SEASONS } from '../../Data/statsData'
 import AccountStats from './AccountStats'
@@ -15,7 +15,9 @@ export default function SeasonMenu(props) {
   const { season } = props
   const seasonList = [...Object.keys(SEASONS)]
   const [anchorEl, setAnchorEl] = React.useState(null)
-  const [selectedSeason, setselectedSeason] = React.useState(seasonList[seasonList.length - 1] || '')
+  const [selectedSeason, setselectedSeason] = React.useState(
+    seasonList[seasonList.length - 1] || '',
+  )
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -32,19 +34,22 @@ export default function SeasonMenu(props) {
       borderRadius: 5,
       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
       color: 'var(--grey-bg)',
-      width: 150,
+      width: 200,
       textAlign: 'center',
     },
-  });
-  const classes = useStyles();
-
-  console.log('selectedSeason')
-  console.log(selectedSeason)
+  })
+  const classes = useStyles()
 
   return (
     <div>
-      <Button className={'dropdown-button'} className={classes.button} aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
-        {selectedSeason || 'Select a weapon'}
+      <Button
+        className={'dropdown-button'}
+        className={classes.button}
+        aria-controls='simple-menu'
+        aria-haspopup='true'
+        onClick={handleClick}
+      >
+        { SEASONS[selectedSeason].TITLE || 'Select a season'}
       </Button>
       <Menu
         id='simple-menu'
@@ -53,21 +58,21 @@ export default function SeasonMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {seasonList.map((p, index) => (
+        {Object.keys(SEASONS).map((p, index) => (
           <MenuItem key={index} value={p} onClick={handleClose}>
-            {p}
+            {`${p}: ${SEASONS[p].TITLE}`}
           </MenuItem>
         ))}
       </Menu>
       {selectedSeason ? (
-          <AccountStats
-            {...props}
-            season={selectedSeason}
-            subHeading={season.subHeading}
-            heading={season.heading}
-            scope={season.scope}
-            apiUrl={season.apiUrl}
-          />
+        <AccountStats
+          {...props}
+          season={selectedSeason}
+          subHeading={season.subHeading}
+          heading={season.heading}
+          scope={season.scope}
+          apiUrl={season.apiUrl}
+        />
       ) : (
         ''
       )}
