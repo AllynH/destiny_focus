@@ -151,6 +151,30 @@ def summarize_historical_stats(stats_list):
         "highestSandboxLevel"           : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
         "maximumPowerLevel"             : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
 
+        # Highest values
+        "hs_assists"                       : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_deaths"                        : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_kills"                         : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_opponentsDefeated"             : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_precisionKills"                : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_secondsPlayed"                 : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_suicides"                      : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_resurrectionsPerformed"        : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_resurrectionsReceived"         : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_score"                         : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_teamScore"                     : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_totalActivityDurationSeconds"  : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_totalDeathDistance"            : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_totalKillDistance"             : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_totalMedalsEarned"             : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_combatRating"                  : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_averageDeathDistance"          : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_averageKillDistance"           : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_averageLifespan"               : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_averageScorePerKill"           : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_averageScorePerLife"           : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+        "hs_remainingTimeAfterQuitSeconds" : {"basic": { "displayValue": 0.0 }, "pga": { "displayValue": 0.0 }},
+
     }
 
     for s in stats_list:
@@ -200,6 +224,29 @@ def summarize_historical_stats(stats_list):
         summary["highestSandboxLevel"]["basic"]["displayValue"]            += s["values"]["highestSandboxLevel"]["basic"]["value"]
         summary["maximumPowerLevel"]["basic"]["displayValue"]              += s["values"]["maximumPowerLevel"]["basic"]["value"]
 
+        # Highest values
+        summary["hs_assists"]["pga"]["displayValue"]                    = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_assists"]["pga"]["displayValue"], s["values"]["assists"]["basic"]["value"])
+        summary["hs_deaths"]["pga"]["displayValue"]                     = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_deaths"]["pga"]["displayValue"], s["values"]["deaths"]["basic"]["value"])
+        summary["hs_kills"]["pga"]["displayValue"]                      = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_kills"]["pga"]["displayValue"], s["values"]["kills"]["basic"]["value"])
+        summary["hs_opponentsDefeated"]["pga"]["displayValue"]          = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_opponentsDefeated"]["pga"]["displayValue"], s["values"]["opponentsDefeated"]["basic"]["value"])
+        summary["hs_precisionKills"]["pga"]["displayValue"]             = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_precisionKills"]["pga"]["displayValue"], s["values"]["precisionKills"]["basic"]["value"])
+        summary["hs_secondsPlayed"]["pga"]["displayValue"]              = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_secondsPlayed"]["pga"]["displayValue"], s["values"]["secondsPlayed"]["basic"]["value"])
+        summary["hs_suicides"]["pga"]["displayValue"]                   = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_suicides"]["pga"]["displayValue"], s["values"]["suicides"]["basic"]["value"])
+        summary["hs_resurrectionsPerformed"]["pga"]["displayValue"]     = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_resurrectionsPerformed"]["pga"]["displayValue"], s["values"]["resurrectionsPerformed"]["basic"]["value"])
+        summary["hs_resurrectionsReceived"]["pga"]["displayValue"]      = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_resurrectionsReceived"]["pga"]["displayValue"], s["values"]["resurrectionsReceived"]["basic"]["value"])
+        summary["hs_score"]["pga"]["displayValue"]                      = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_score"]["pga"]["displayValue"], s["values"]["score"]["basic"]["value"])
+        summary["hs_teamScore"]["pga"]["displayValue"]                  = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_teamScore"]["pga"]["displayValue"], s["values"]["teamScore"]["basic"]["value"])
+        summary["hs_totalActivityDurationSeconds"]["pga"]["displayValue"] = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_totalActivityDurationSeconds"]["pga"]["displayValue"], s["values"]["totalActivityDurationSeconds"]["basic"]["value"])
+        summary["hs_totalDeathDistance"]["pga"]["displayValue"]         = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_totalDeathDistance"]["pga"]["displayValue"], s["values"]["totalDeathDistance"]["basic"]["value"])
+        summary["hs_totalKillDistance"]["pga"]["displayValue"]          = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_totalKillDistance"]["pga"]["displayValue"], s["values"]["totalKillDistance"]["basic"]["value"])
+        summary["hs_totalMedalsEarned"]["pga"]["displayValue"]          = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_totalMedalsEarned"]["pga"]["displayValue"], s["values"]["dailyMedalsEarned"]["basic"]["value"])
+        summary["hs_combatRating"]["pga"]["displayValue"]               = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_combatRating"]["pga"]["displayValue"], s["values"]["combatRating"]["basic"]["value"])
+        summary["hs_averageDeathDistance"]["pga"]["displayValue"]       = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageDeathDistance"]["pga"]["displayValue"], s["values"]["averageDeathDistance"]["basic"]["value"])
+        summary["hs_averageKillDistance"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageKillDistance"]["pga"]["displayValue"], s["values"]["averageKillDistance"]["basic"]["value"])
+        summary["hs_averageLifespan"]["pga"]["displayValue"]            = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageLifespan"]["pga"]["displayValue"], s["values"]["averageLifespan"]["basic"]["value"])
+        summary["hs_averageScorePerKill"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerKill"]["pga"]["displayValue"], s["values"]["averageScorePerKill"]["basic"]["value"])
+        summary["hs_averageScorePerLife"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerLife"]["pga"]["displayValue"], s["values"]["averageScorePerLife"]["basic"]["value"])
+        summary["hs_remainingTimeAfterQuitSeconds"]["pga"]["displayValue"] = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_remainingTimeAfterQuitSeconds"]["pga"]["displayValue"], s["values"]["remainingTimeAfterQuitSeconds"]["basic"]["value"])
 
     # Generate new ratios:
     summary["killsDeathsAssists"]["basic"]["displayValue"]                 = calculate_kill_death_assists_ratio(summary["kills"]["basic"]["displayValue"], summary["deaths"]["basic"]["displayValue"], summary["assists"]["basic"]["displayValue"])
@@ -297,3 +344,14 @@ def calculate_per_activity_average(total_value, total_activities):
     activity_average = total_value / total_activities
 
     return round(activity_average, 2)
+
+def calculate_per_activity_hs(daily_activities, old_value, new_value):
+    """
+    Returns the highest value.
+    """
+    avg_new = new_value / daily_activities
+
+    if old_value > avg_new:
+        return round(old_value, 2)
+    else:
+        return round(new_value, 2)

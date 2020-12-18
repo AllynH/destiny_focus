@@ -143,7 +143,7 @@ export default function FormDialog(props) {
             margin='dense'
             id='psl'
             placeholder='50'
-            label='Precision Shots Landed (count)'
+            label='Precision Kills per game (count)'
             type='email'
             fullWidth
             onInput={(psl) => setPsl(psl.target.value)}

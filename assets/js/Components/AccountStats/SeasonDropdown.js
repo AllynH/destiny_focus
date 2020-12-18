@@ -8,9 +8,9 @@ import { SEASONS } from '../../Data/statsData'
 import AccountStats from './AccountStats'
 
 export default function SeasonMenu(props) {
-  console.log('SeasonMenu')
-  console.log(props)
-  console.log(props.season)
+  // console.log('SeasonMenu')
+  // console.log(props)
+  // console.log(props.season)
   // console.log(props)
   const { season } = props
   const seasonList = [...Object.keys(SEASONS)]
