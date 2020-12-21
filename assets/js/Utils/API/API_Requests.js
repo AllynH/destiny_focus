@@ -15,7 +15,7 @@ export const GetGambitData = async (options) => apiRequest(`/auth/get/gambit/${o
   ...options,
 })
 
-export const GetRaidData = async (options) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
+export const GetRaidData = async (options) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`, {
   ...options,
 })
 
@@ -42,7 +42,7 @@ export const GetActivityDefinition = async (options) => apiRequest(`/auth/get/ma
 })
 
 export const GetPGCRList = async (options) => apiRequest(
-  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`,
+  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`,
   {
     ...options,
   },

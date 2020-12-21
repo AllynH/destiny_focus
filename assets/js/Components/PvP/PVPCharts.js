@@ -15,6 +15,7 @@ import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { statsData } from '../../Data/statsData'
+import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 class PvPChart extends React.Component {
   constructor(props) {
@@ -35,10 +36,9 @@ class PvPChart extends React.Component {
   }
 
   fetchPVPData = async () => {
-    const { membershipType, membershipId, characterId } = this.props.match.params
-    const { gameMode } = this.props
-
-    console.log(this.props.match.path)
+    const {
+      membershipType, membershipId, characterId, gameMode,
+    } = getUrlDetails()
 
     switch (gameMode) {
       case 'gambit':
@@ -52,9 +52,8 @@ class PvPChart extends React.Component {
         break
       case 'raid':
         {
-          const response = await GetRaidData({
-            params: { membershipType, membershipId, characterId },
-          })
+          const gameMode = 4
+          const response = await GetRaidData({params: { membershipType, membershipId, characterId, gameMode } })
           this.setState({
             isLoaded: true,
             jsonResponse: response,

@@ -114,9 +114,9 @@ class BungieSignIn(OAuthSignin):
         # print(response.json())
 
         # Get refresh token:
-        token_json              = response.json()['refresh_token']
-        post_data = f'grant_type=refresh_token&refresh_token={token_json}&client_id={self.service["client_id"]}&client_secret={self.service["client_secret"]}'
-        response = requests.post(self.service['access_token_url'], data=post_data, headers=headers)
+        # token_json              = response.json()['refresh_token']
+        # post_data = f'grant_type=refresh_token&refresh_token={token_json}&client_id={self.service["client_id"]}&client_secret={self.service["client_secret"]}'
+        # response = requests.post(self.service['access_token_url'], data=post_data, headers=headers)
         # Useful debug print statements:
         # print(response.status_code)
         # print(response.text)

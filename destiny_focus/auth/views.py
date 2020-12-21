@@ -35,6 +35,13 @@ blueprint = Blueprint("auth", __name__, url_prefix="/auth", static_folder="../st
 @blueprint.before_request
 def before_request():
     g.user = current_user
+    print(g.user)
+    if g.user.is_authenticated:
+        if g.user.refresh_ready < datetime.utcnow():
+            print("\n\nRefresh ready - before_request!\n\n")
+            # Put refresh code in here!
+            # oauth = OAuthSignin(provider).get_provider(provider)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -83,6 +90,13 @@ def oauth_callback(provider):
     # Handle CSRF error:
     if token_response is False:
         return render_template("401.html")
+
+    if 'access_token'not in token_response.json():
+        # print(token_response)
+        # print(token_response.content)
+        # print(token_response.json())
+        return render_template("401.html")
+
 
     auth_headers                    = {}
     token_json                      = token_response.json()['access_token']
@@ -242,13 +256,59 @@ def account(membershipType, membershipId, characterId):
 @blueprint.route("/get/pvp/<membershipType>/<membershipId>/<characterId>/")
 @login_required
 def get_pvp(membershipType, membershipId, characterId):
+    """
+    Endpoint to get PvP data from Bungie.net.
+        Modes:
+        10 :	"Control",
+        12 :	"Clash",
+        15 :	"CrimsonDoubles",
+        19 :	"IronBanner",
+        25 :	"AllMayhem",
+        31 :	"Supremacy",
+        37 :	"Survival",
+        38 :	"Countdown",
+        39 :	"TrialsOfTheNine",
+        48 :	"Rumble",
+        50 :	"Doubles",
+        59 :	"Showdown",
+        60 :	"Lockdown",
+        61 :	"Scorched", #???
+        65 :	"Breakthrough",
+        67 :	"Salvage",
+        80 :	"Elimination",
+        84 :	"TrialsOfOsiris",
+    """
+
+    mode    = int(request.args.get('gameMode', 5))
+    season  = int(request.args.get('season', CURRENT_SEASON))
+
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
-    # TODO: Hardcoded values:
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
-    character_details = get_character_details_json(get_profile_res)
 
-    activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=5, count=30)
+    # get_profile_res = my_api.get_profile(membershipType, membershipId)
+    # character_details = get_character_details_json(get_profile_res)
+
+    activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=mode, count=30)
+
+
+    return jsonify(activity)
+
+
+@blueprint.route("/get/raid/<membershipType>/<membershipId>/<characterId>/")
+@login_required
+def get_raid(membershipType, membershipId, characterId):
+    """
+    Endpoint to get raid data from Bungie.net.
+        Modes:
+        Raid: 4
+    """
+
+    mode    = int(request.args.get('gameMode', 4))
+
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=mode, count=30)
 
 
     return jsonify(activity)
@@ -462,7 +522,7 @@ def logout():
     """Logout."""
     logout_user()
     flash("You are logged out.", "info")
-    return redirect(url_for("auth.home"))
+    return redirect(url_for("public.home"))
 
 
 @blueprint.route("/register/", methods=["GET", "POST"])

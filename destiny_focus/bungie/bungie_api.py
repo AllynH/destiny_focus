@@ -13,6 +13,7 @@ from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON
 class BungieApi(object):
     def __init__(self, user):
         super().__init__()
+        self.user           = user
         credentials         = current_app.config['OAUTH_CREDENTIALS']['bungie']
         self.api_key        = credentials['api_key']
         self.access_token   = user.access_token
@@ -83,6 +84,7 @@ class BungieApi(object):
         """
         function_name = "GetProfile"
         auth_session = self.make_session()
+        refresh_status = self.check_for_refresh(self.user)
 
 
         url_params = {
