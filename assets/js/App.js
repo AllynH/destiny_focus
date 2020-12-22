@@ -10,6 +10,7 @@ import AccountStats from './Components/AccountStats/AccountStats'
 import Account from './Components/AccountStats/Account'
 import GambitChart from './Components/Gambit/GambitCharts'
 import Welcome from './Components/Welcome/Welcome'
+import CharacterSelect from './Components/CharacterSelect'
 
 class App extends React.Component {
   render() {
@@ -17,11 +18,13 @@ class App extends React.Component {
       <>
         <NavBar {...this.props} />
         <Switch>
+          <Route path='/auth/character_select/'exact={true} component={CharacterSelect} />
           <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={ChooseFocus} />
           <Route path='/auth/pvp/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
           <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
           <Route path='/auth/raid/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
           <Route path='/auth/account/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={Account} />
+          <Route path='/logout' exact={true} component={Welcome} />
           <Route path='/' exact={true} component={Welcome} />
           <Route component={Error} />
         </Switch>

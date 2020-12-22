@@ -22,15 +22,7 @@ import {
 
 import React, { useEffect, useState } from 'react'
 
-import {
-  Link,
-  NavLink,
-  withRouter,
-  useRouteMatch,
-  useParams,
-  useHistory,
-  useLocation,
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -38,28 +30,47 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import Switch from '@material-ui/core/Switch'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormGroup from '@material-ui/core/FormGroup'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 
-import Routes from '../Routes'
+import { GetProfile } from '../../Utils/API/API_Requests'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 // import './nav.css';
 
-const useStyles = makeStyles((theme, props) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // backgroundImage: `url('https://www.bungie.net/common/destiny2_content/icons/f89f81b46cdbb7d07f7bddad12eebf35.jpg')`,
-    // backgroundImage: (props) => props.background,
-    // backgroundImage: `url(${props.background})`,
+    maxHeight: 100,
+    width: '100%',
+    backgroundPosition: '-52px bottom',
+    backgroundSize: 'cover',
+    '& .MuiAppBar-colorPrimary': {},
+    '& .MuiPaper-root': {
+      maxHeight: 100,
+    },
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}))
+
+const useBGStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    maxHeight: 100,
     width: '100%',
     backgroundPosition: '-52px bottom',
     backgroundSize: 'cover',
     '& .MuiAppBar-colorPrimary': {
-      // backgroundImage: `url(${props.background})`,
+      backgroundColor: 'transparent',
+    },
+    '& .MuiPaper-root': {
+      maxHeight: 100,
+      backgroundColor: 'transparent',
     },
   },
   menuButton: {
@@ -71,31 +82,38 @@ const useStyles = makeStyles((theme, props) => ({
 }))
 
 export default function NavBar() {
-  const classes = useStyles()
-
   const [loaded, setLoaded] = useState(false)
 
   const [authFlag, setAuthFlag] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
+  // const [anchorEl, setAnchorEl] = useState(null)
   const [anchorElProfile, setAnchorElProfile] = useState(null)
-  // const [open, setOpen] = useState(false)
-  const open = Boolean(anchorEl)
+  const [profile, setProfile] = useState(null)
+  const classes = useStyles()
+  const bgClasses = useBGStyles()
   const openProfile = Boolean(anchorElProfile)
+
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
 
   const { auth, membershipType, membershipId, characterId, gameMode } = getUrlDetails()
 
   useEffect(() => {
-    console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
+    // console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
 
     if (auth === 'auth') {
       setAuthFlag(true)
-      setLoaded(true)
     }
-  })
 
-  const handleChange = (event) => {
-    setAuthFlag(event.target.checked)
-  }
+    const fetchProfile = async (activityId) => {
+      const result = await GetProfile({
+        params: {},
+      })
+      setProfile(result[characterId])
+      // console.log('setProfile')
+      // console.log(result[characterId])
+    }
+    fetchProfile()
+  }, [membershipId])
 
   const handleMenu = (event) => {
     console.log('Menu clicked')
@@ -110,12 +128,23 @@ export default function NavBar() {
   const handleClose = () => {
     setAnchorEl(null)
     setAnchorElProfile(null)
+    console.log('Closing menues.', anchorEl, open)
+    console.log('Profile.', anchorElProfile, open)
   }
 
-  // const activeRoute = (routeName) => props.location.pathname === routeName
-
   return (
-    <div className={classes.root}>
+    <div
+      className={profile ? bgClasses.root : classes.root}
+      style={
+        profile
+          ? {
+              position: 'relative,',
+              backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
+              backgroundColor: 'transparent',
+            }
+          : {}
+      }
+    >
       <AppBar position='static'>
         <Toolbar>
           <IconButton
@@ -127,7 +156,25 @@ export default function NavBar() {
             aria-haspopup='true'
             onClick={handleMenu}
           >
-            <MenuIcon />
+            {profile ? (
+              <div
+                style={
+                  profile
+                    ? {
+                        position: 'relative',
+                        top: 30,
+                        minHeight: 90,
+                        minWidth: 90,
+                        backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
+                        backgroundColor: 'transparent',
+                      }
+                    : {}
+                }
+              ></div>
+            ) : (
+              <MenuIcon />
+            )}
+
             {authFlag && (
               <Menu
                 id='menu-appbar'
@@ -138,7 +185,7 @@ export default function NavBar() {
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
+                  vertical: 'bottom',
                   horizontal: 'left',
                 }}
                 open={open}
@@ -160,25 +207,17 @@ export default function NavBar() {
                   >
                     Choose Focus
                   </MenuItem>
-                  {/* Don't select items that depend on props: */}
-                  {/* <MenuItem
-                  component={Link}
-                  to={`/auth/pvp/${membershipType}/${membershipId}/${characterId}`}
-                >
-                  Focus PvP
-                </MenuItem>
-                <MenuItem
-                  component={Link}
-                  to={`/auth/gambit/${membershipType}/${membershipId}/${characterId}`}
-                >
-                  Focus Gambit
-                </MenuItem>
-                <MenuItem
-                  component={Link}
-                  to={`/auth/raid/${membershipType}/${membershipId}/${characterId}`}
-                >
-                  Focus Raid
-                </MenuItem> */}
+                </MenuList>
+                <hr />
+                <MenuList>
+                  <MenuItem
+                    onClick={handleClose}
+                    open={open}
+                    component={Link}
+                    to={'/auth/character_select/'}
+                  >
+                    Character select
+                  </MenuItem>
                 </MenuList>
               </Menu>
             )}
@@ -213,14 +252,11 @@ export default function NavBar() {
                 open={openProfile}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  // component={Link}
-                  // to={'/auth/logout/'}
-                >
-                  <a href="/auth/logout/">Logout</a>
+                {/* <MenuItem onClick={handleClose} component={Link} to={'/logout'}>
+                  Logout */}
+                  {/* React router needs an API call to /logout */}
+                <MenuItem onClick={handleClose}>
+                  <a href='/auth/logout/'>Logout</a>
                 </MenuItem>
               </Menu>
             </div>

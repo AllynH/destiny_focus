@@ -160,10 +160,10 @@ export default function ChooseFocus(props) {
             </FormDialog>
           </Card>
         </div>
-        <div className='card-root-3'>
+        {/* <div className='card-root-3'>
           <p>view store</p>
           <ViewStore {...props} />
-        </div>
+        </div> */}
       </div>
       <Character_Plate />
     </div>

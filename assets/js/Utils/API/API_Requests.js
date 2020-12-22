@@ -47,3 +47,8 @@ export const GetPGCRList = async (options) => apiRequest(
     ...options,
   },
 )
+
+export const GetProfile = async (options) => apiRequest('/auth/get_profile/', {
+  ...options,
+})
+
