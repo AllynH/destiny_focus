@@ -33,7 +33,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 
-import { GetProfile } from '../../Utils/API/API_Requests'
+import { GetCharacters } from '../../Utils/API/API_Requests'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 // import './nav.css';
@@ -105,7 +105,7 @@ export default function NavBar() {
     }
 
     const fetchProfile = async (activityId) => {
-      const result = await GetProfile({
+      const result = await GetCharacters({
         params: {},
       })
       setProfile(result[characterId])
@@ -192,7 +192,7 @@ export default function NavBar() {
                 onClose={handleClose}
               >
                 <MenuList>
-                  <MenuItem
+                  {/* <MenuItem
                     onClick={handleClose}
                     open={open}
                     component={Link}
@@ -217,7 +217,7 @@ export default function NavBar() {
                     to={'/auth/character_select/'}
                   >
                     Character select
-                  </MenuItem>
+                  </MenuItem> */}
                 </MenuList>
               </Menu>
             )}
@@ -252,9 +252,38 @@ export default function NavBar() {
                 open={openProfile}
                 onClose={handleClose}
               >
+                <MenuList>
+                  <MenuItem
+                    onClick={handleClose}
+                    open={open}
+                    component={Link}
+                    to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
+                  >
+                    Account stats
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}`}
+                  >
+                    Choose Focus
+                  </MenuItem>
+                </MenuList>
+                <hr />
+                <MenuList>
+                  <MenuItem
+                    onClick={handleClose}
+                    open={open}
+                    component={Link}
+                    to={'/auth/character_select/'}
+                  >
+                    Character select
+                  </MenuItem>
+                </MenuList>
+
                 {/* <MenuItem onClick={handleClose} component={Link} to={'/logout'}>
                   Logout */}
-                  {/* React router needs an API call to /logout */}
+                {/* React router needs an API call to /logout */}
                 <MenuItem onClick={handleClose}>
                   <a href='/auth/logout/'>Logout</a>
                 </MenuItem>

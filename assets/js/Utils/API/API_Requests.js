@@ -48,6 +48,10 @@ export const GetPGCRList = async (options) => apiRequest(
   },
 )
 
+export const GetCharacters = async (options) => apiRequest('/auth/get_characters/', {
+  ...options,
+})
+
 export const GetProfile = async (options) => apiRequest('/auth/get_profile/', {
   ...options,
 })
