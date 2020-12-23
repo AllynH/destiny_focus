@@ -165,7 +165,7 @@ export default function ChooseFocus(props) {
           <ViewStore {...props} />
         </div> */}
       </div>
-      <Character_Plate />
+      {/* <Character_Plate /> */}
     </div>
   )
 }

@@ -113,7 +113,7 @@ export default function NavBar() {
       // console.log(result[characterId])
     }
     fetchProfile()
-  }, [membershipId])
+  }, [auth, membershipType, membershipId, characterId])
 
   const handleMenu = (event) => {
     console.log('Menu clicked')

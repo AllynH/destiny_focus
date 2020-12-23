@@ -1,0 +1,9 @@
+.account-button{
+    background: var(--crucible-red);
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--grey-bg);
+    width: 100px;
+    text-align: center;    
+}

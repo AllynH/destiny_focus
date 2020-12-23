@@ -48,11 +48,23 @@ export const GetPGCRList = async (options) => apiRequest(
   },
 )
 
-export const GetCharacters = async (options) => apiRequest('/auth/get_characters/', {
+export const GetCharacters = async (options) => apiRequest('/auth/get/get_characters/', {
   ...options,
 })
 
-export const GetProfile = async (options) => apiRequest('/auth/get_profile/', {
+export const GetProfile = async (options) => apiRequest('/auth/get/get_profile', {
+  ...options,
+})
+
+export const GetProfileWithArgs = async (options) => apiRequest(`/auth/get/get_profile/?membershipType=${options.params.membershipType}&membershipId=${options.params.membershipId}`, {
+  ...options,
+})
+
+export const GetCharactersWithArgs = async (options) => apiRequest(`/auth/get/get_characters/?membershipType=${options.params.membershipType}&membershipId=${options.params.membershipId}`, {
+  ...options,
+})
+
+export const GetCurrentBungieAccount = async (options) => apiRequest('/auth/get/get_current_bungie_account/', {
   ...options,
 })
 

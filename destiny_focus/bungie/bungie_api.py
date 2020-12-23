@@ -66,16 +66,18 @@ class BungieApi(object):
 
         # print(response.status_code)
         # print(response.text)
-        print(response.json())
+        # print(response.json())
         if not response.status_code == 200:
+            # print("Flagging error for some reason")
             return self.flag_error(function_name, response)
+        # print("No error")
 
         self.membership_id      = response.json()['Response']['destinyMemberships'][0]['membershipId']
         self.membership_type    = response.json()['Response']['destinyMemberships'][0]['membershipType']
         self.bungie_display_name = response.json()['Response']['bungieNetUser']['displayName']
         self.bungie_profile_pic = response.json()['Response']['bungieNetUser']['profilePicturePath']
 
-        return response
+        return response.json()
 
     def get_profile(self, membership_type, membership_id):
         """

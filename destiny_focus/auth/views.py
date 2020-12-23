@@ -148,10 +148,12 @@ def oauth_callback(provider):
     # return redirect(url_for("auth.home"))
 
 
-@blueprint.route("/get_current_bungie_account/")
+@blueprint.route("/get/get_current_bungie_account/")
 @login_required
 def get_current_bungie_account():
+    print("get_current_bungie_account")
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+
     my_api = BungieApi(user)
     activity = my_api.GetCurrentBungieAccount()
 
@@ -172,23 +174,29 @@ def get_activity():
     return jsonify(activity)
 
 
-@blueprint.route("/get_profile/")
+@blueprint.route("/get/get_profile/")
 @login_required
 def get_profile():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
+
+
     # TODO: Hardcoded values:
     # Take values from here: GetCurrentBungieAccount
     get_account_res = my_api.GetCurrentBungieAccount()
+
+    membershipId    = int(request.args.get('membershipId', str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])))
+    membershipType  = int(request.args.get('membershipType', str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])))
+
     # print(type(get_account_res))
     # print(get_account_res.json())
-    membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
-    membershipType  = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"])
+    membershipId    = str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])
+    membershipType  = str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])
     get_profile_res = my_api.get_profile(membershipType, membershipId)
 
-    return jsonify(character_details)
+    return jsonify(get_profile_res)
 
-@blueprint.route("/get_characters/")
+@blueprint.route("/get/get_characters/")
 @login_required
 def get_characters():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
@@ -196,8 +204,11 @@ def get_characters():
 
     get_account_res = my_api.GetCurrentBungieAccount()
 
-    membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
-    membershipType  = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"])
+    membershipId    = int(request.args.get('membershipId', str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])))
+    membershipType  = int(request.args.get('membershipType', str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])))
+
+    membershipId    = str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])
+    membershipType  = str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])
     get_characters_res = my_api.get_profile(membershipType, membershipId)
     
     character_details = get_character_details_json(get_characters_res)
@@ -214,15 +225,16 @@ def character_select():
     get_account_res = my_api.GetCurrentBungieAccount()
     # print(type(get_account_res))
     # print(get_account_res.json())
-    membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
-    membershipType  = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"])
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
-    # get_profile_res = my_api.character_select("2", "4611686018436136301")
-    character_details = get_character_details_json(get_profile_res)
+    # membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
+    # membershipType  = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"])
+    # get_profile_res = my_api.get_profile(membershipType, membershipId)
+    # # get_profile_res = my_api.character_select("2", "4611686018436136301")
+    # character_details = get_character_details_json(get_profile_res)
 
-    return(jsonify(get_profile_res))
+    # return(jsonify(get_profile_res))
 
-    return render_template("auth/choose_account.html")
+    # return render_template("auth/choose_account.html")
+    return render_template("auth/choose_focus.html")
 
 
 @blueprint.route("/choose_focus/<membershipType>/<membershipId>/<characterId>")
@@ -265,6 +277,18 @@ def account(membershipType, membershipId, characterId):
     # character_details = get_character_details_json(get_profile_res)
 
     return render_template("auth/choose_focus.html")
+
+
+# @blueprint.route("/character_select/")
+# @login_required
+# def account():
+#     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+#     my_api = BungieApi(user)
+
+#     # get_profile_res = my_api.get_profile(membershipType, membershipId)
+#     # character_details = get_character_details_json(get_profile_res)
+
+#     return render_template("auth/choose_focus.html")
 
 
 @blueprint.route("/get/pvp/<membershipType>/<membershipId>/<characterId>/")
