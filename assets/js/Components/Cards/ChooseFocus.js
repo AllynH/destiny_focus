@@ -19,6 +19,7 @@ import { CrucibleFormFields, GambitFormFields, RaidFormFields } from '../../Form
 import Character_Plate from '../CharacterPlate/Character_Plate'
 
 import Card from './Card'
+import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 // import useFetch from '../../Utils/useFetch'
 import FormDialog from '../../Forms/customForm'
 import { ViewStore } from '../../Utils/ViewStore'
@@ -165,6 +166,7 @@ export default function ChooseFocus(props) {
           <ViewStore {...props} />
         </div> */}
       </div>
+      <ClickableCharacterList memberships={{ membershipId, membershipType }} />
       {/* <Character_Plate /> */}
     </div>
   )

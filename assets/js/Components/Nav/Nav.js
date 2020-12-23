@@ -95,7 +95,9 @@ export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  const { auth, membershipType, membershipId, characterId, gameMode } = getUrlDetails()
+  const {
+    auth, membershipType, membershipId, characterId, gameMode,
+  } = getUrlDetails()
 
   useEffect(() => {
     // console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
@@ -138,10 +140,10 @@ export default function NavBar() {
       style={
         profile
           ? {
-              position: 'relative,',
-              backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
-              backgroundColor: 'transparent',
-            }
+            position: 'relative,',
+            backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
+            backgroundColor: 'transparent',
+          }
           : {}
       }
     >
@@ -154,20 +156,20 @@ export default function NavBar() {
             aria-label='menu'
             aria-controls='menu-appbar'
             aria-haspopup='true'
-            onClick={handleMenu}
+            // onClick={handleMenu}
           >
             {profile ? (
               <div
                 style={
                   profile
                     ? {
-                        position: 'relative',
-                        top: 30,
-                        minHeight: 90,
-                        minWidth: 90,
-                        backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
-                        backgroundColor: 'transparent',
-                      }
+                      position: 'relative',
+                      top: 30,
+                      minHeight: 90,
+                      minWidth: 90,
+                      backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
+                      backgroundColor: 'transparent',
+                    }
                     : {}
                 }
               ></div>

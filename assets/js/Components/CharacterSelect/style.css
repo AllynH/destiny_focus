@@ -7,3 +7,14 @@
     width: 100px;
     text-align: center;    
 }
+
+.character-select-class-power{
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.character-select-power-level{
+    color: #DDCB59;
+    margin-left: auto;
+}

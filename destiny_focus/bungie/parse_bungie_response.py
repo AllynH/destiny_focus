@@ -62,11 +62,12 @@ def get_emblem(emblem_hash):
     """
     emblem_full = get_definition('DestinyInventoryItemDefinition', emblem_hash)
 
-    # print(emblem_full)
+    print(emblem_full)
 
     emblem_data ={
         "icon": emblem_full['secondaryOverlay'],
         "background": emblem_full['secondarySpecial'],
+        "secondaryIcon": emblem_full['secondaryIcon'],
         "description": emblem_full['displayProperties']['description']
     }
     
@@ -79,7 +80,7 @@ def get_title(title_hash):
     """
     title_full = get_definition('DestinyRecordDefinition', title_hash)
 
-    # print(emblem_full)
+    print(emblem_full)
 
     title_data ={
         "icon"  : title_full['displayProperties']['icon'],
