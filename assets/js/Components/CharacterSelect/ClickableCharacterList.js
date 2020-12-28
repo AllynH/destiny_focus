@@ -24,13 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClickableCharacterList(props) {
   const [profile, setProfile] = useState()
-  // const [account, setAccount] = useState()
-  // const [platform, setPlatform] = useState()
-  // const [membershipId, setMembershipId] = useState()
-  // const [character, setCharacter] = useState()
   const classes = useStyles()
-  console.log('ClickableCharacterList')
-  console.log(props)
   const { membershipId, membershipType } = props.memberships
 
   useEffect(() => {
@@ -39,15 +33,9 @@ export default function ClickableCharacterList(props) {
         params: { membershipId, membershipType },
       })
       setProfile(result)
-      console.log(result)
     }
     fetchProfile()
   }, [props])
-
-  const handleSetPlatform = (event) => {
-    setPlatform(event.currentTarget.getAttribute('valuetype'))
-    setMembershipId(event.currentTarget.getAttribute('valueid'))
-  }
 
   return (
     <div className='card-wrapper'>
@@ -59,7 +47,6 @@ export default function ClickableCharacterList(props) {
         ))
       ) : (
         <Shimmer />
-        // 'Loading...'
       )}
     </div>
   )

@@ -166,6 +166,7 @@ export default function ChooseFocus(props) {
           <ViewStore {...props} />
         </div> */}
       </div>
+      <h2>Choose a character:</h2>
       <ClickableCharacterList memberships={{ membershipId, membershipType }} />
       {/* <Character_Plate /> */}
     </div>

@@ -26,12 +26,7 @@ const useStyles = makeStyles({
 
 export default function CharacterCard(props) {
   const classes = useStyles()
-  //   console.log('CharacterCard')
-  //   console.log(props)
   const { character, linkUrl } = props
-  //   console.log('destructured props', character, linkUrl)
-  //   console.log('linkUrl', linkUrl)
-  //   console.log(typeof linkUrl)
 
   return (
     <Card className={classes.root}>

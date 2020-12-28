@@ -1,28 +1,12 @@
 /* eslint-disable linebreak-style */
-// import React from 'react'
-
-// import { makeStyles } from '@material-ui/core/styles'
-// import AccountCircle from '@material-ui/icons/AccountCircle'
-
-import {
-  //   AppBar,
-  //   // Drawer,
-  //   // FormControlLabel,
-  //   // FormGroup,
-  //   Toolbar,
-  //   Typography,
-  //   IconButton,
-  ListItemText,
-  //   Menu,
-  //   MenuIcon,
-  //   MenuItem,
-  MenuList,
-  //   Switch,
-} from '@material-ui/core'
-
 import React, { useEffect, useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import {
+  ListItemText,
+  MenuList,
+} from '@material-ui/core'
+
+import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -82,6 +66,11 @@ const useBGStyles = makeStyles((theme) => ({
 }))
 
 export default function NavBar() {
+
+  const {
+    auth, membershipType, membershipId, characterId, gameMode,
+  } = useParams()
+
   const [loaded, setLoaded] = useState(false)
 
   const [authFlag, setAuthFlag] = useState(false)
@@ -95,9 +84,7 @@ export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  const {
-    auth, membershipType, membershipId, characterId, gameMode,
-  } = getUrlDetails()
+
 
   useEffect(() => {
     // console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
@@ -130,8 +117,8 @@ export default function NavBar() {
   const handleClose = () => {
     setAnchorEl(null)
     setAnchorElProfile(null)
-    console.log('Closing menues.', anchorEl, open)
-    console.log('Profile.', anchorElProfile, open)
+    // console.log('Closing menues.', anchorEl, open)
+    // console.log('Profile.', anchorElProfile, open)
   }
 
   return (
@@ -279,7 +266,7 @@ export default function NavBar() {
                     component={Link}
                     to={'/auth/character_select/'}
                   >
-                    Character select
+                    Change platform
                   </MenuItem>
                 </MenuList>
 

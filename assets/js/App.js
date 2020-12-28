@@ -16,7 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <NavBar {...this.props} />
+        <Route path='/:auth/:gameMode/:membershipType([1|2|3|4|5])?/:membershipId([0-9]+)?/:characterId([0-9]+)?/' {...this.props} component={NavBar}/>
         <Switch>
           <Route path='/auth/character_select/'exact={true} component={CharacterSelect} />
           <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={ChooseFocus} />
