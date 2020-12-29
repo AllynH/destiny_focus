@@ -105,7 +105,7 @@ class BungieApi(object):
 
         response = auth_session.get(url)
 
-        print(response.status_code)
+        # print(response.status_code)
         # print(response.text)
         if not response.status_code == 200:
             print("Found an error!")

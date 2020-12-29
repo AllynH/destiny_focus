@@ -20,6 +20,7 @@ const ProductionPlugins = [
 const debug = process.env.NODE_ENV !== 'production'
 const rootAssetPath = path.join(__dirname, 'assets')
 
+
 module.exports = {
   // configuration
   context: __dirname,
@@ -54,6 +55,9 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].bundle.css' }),
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
+    new webpack.DefinePlugin({
+      'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID || '')
+  }),
   ].concat(debug ? [] : ProductionPlugins),
   module: {
     rules: [

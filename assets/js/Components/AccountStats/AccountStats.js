@@ -8,7 +8,7 @@ import { useFetch } from '../../Utils/useFetch'
 
 import './style.css'
 import Character_Plate from '../CharacterPlate/Character_Plate'
-import DisplayAccountStats from './DisplayAccountStats'
+import DisplayAdditionalStats from './DisplayAdditionalStats'
 import DisplayStats from './DisplayStats'
 import Shimmer from '../../Utils/Loading/Shimmer'
 import { GetStatsData, GetStatsAllTime } from '../../Utils/API/API_Requests'
@@ -38,8 +38,8 @@ class AccountStats extends React.Component {
     const { scope } = this.props
     const { season } = this.props
     const gameMode = 5
-    console.log('AccountStats - season test.')
-    console.log(season)
+    // console.log('AccountStats - season test.')
+    // console.log(season)
 
     if (scope === 'allTime') {
       const response = await GetStatsAllTime({
@@ -95,14 +95,24 @@ class AccountStats extends React.Component {
       const { scope } = this.props
       const { props } = this
       const stats = jsonResponse.Response.allPvP[scope]
-      // console.log('Render AccountStats')
-      // console.log(jsonResponse)
-      // console.log(scope)
-      // console.log(stats)
+      console.log('Render AccountStats')
+      console.log(jsonResponse)
+      console.log(scope)
+      console.log(stats)
       return (
         <>
           <div className='stats-wrapper'>
+
             <div className='stats-individual'>
+              <div className="stats-additional-wrap">
+            <DisplayAdditionalStats
+                games_played={stats.activitiesEntered.basic.displayValue}
+                games_won={stats.activitiesWon.basic.displayValue}
+                kill_spree={stats.longestKillSpree?.basic?.displayValue}
+                longest_life={stats.longestSingleLife?.basic?.displayValue}
+                precision_kills={stats.mostPrecisionKills?.basic?.displayValue}
+                super_kills={stats.weaponKillsSuper?.basic?.displayValue}
+              />
               <DisplayStats
                 // heading={props.heading}
                 subHeading={props.subHeading}
@@ -115,6 +125,7 @@ class AccountStats extends React.Component {
                 name_2={'K/D R'}
                 value_2={stats.killsDeathsRatio.basic.displayValue}
               />
+              </div>
             </div>
 
             <div className='stats-individual'>

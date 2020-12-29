@@ -168,7 +168,7 @@ def get_activity():
     # TODO: Hardcoded values:
     # Take values from here: GetCurrentBungieAccount
     activity = my_api.GetCurrentBungieAccount()
-    get_profile_res = my_api.get_activity_history(membershipType, membershipId)
+    # get_profile_res = my_api.get_activity_history(membershipType, membershipId)
     # activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=3)
 
     return jsonify(activity)

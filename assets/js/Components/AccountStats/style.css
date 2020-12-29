@@ -24,9 +24,9 @@ h2.stats-h2{
 
 .circle{
     border-radius: 50%;
-    min-width: 240px;
-    min-height: 240px;
-    max-height: 240px;
+    min-width: 180px;
+    min-height: 180px;
+    max-height: 180px;
     border: 3px solid darkgrey;
     border-top: 5px solid darkgrey;
     border-bottom: 5px solid darkgrey;
@@ -39,9 +39,9 @@ h2.stats-h2{
 
 .circle-outer{
     border-radius: 50%;
-    min-width: 260px;
-    min-height: 260px;
-    max-height: 260px;
+    min-width: 200px;
+    min-height: 200px;
+    max-height: 200px;
     border: 1px solid darkgrey;
 
 }
@@ -51,10 +51,10 @@ h2.stats-h2{
     /* border-top: 3px solid white;
     border-bottom: 3px solid white; */
     border: 2px solid darkgrey;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
     /* padding-top: 50px; */
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     border-radius: 5px;
     display: inline-block;
 }
@@ -63,8 +63,8 @@ h2.stats-h2{
     color: darkgrey;
     padding: 0;
     margin: auto;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     display: -webkit-inline-box;
 }
 
@@ -72,7 +72,7 @@ h2.stats-h2{
     color: darkgrey;
     padding: 0;
     margin: auto;
-    font-size: 1.15em;
+    font-size: 1em;
 }
 
 .stats-value-next-line{
@@ -92,10 +92,20 @@ h2.stats-h2{
 }   
 
 .stats-big {
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .stats-individual {
     text-align: center;
+}
+
+.stats-additional-wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.additional-stats{
+    font-size: 0.8em;
 }

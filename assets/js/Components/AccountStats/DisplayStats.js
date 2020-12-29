@@ -14,8 +14,7 @@ export default function DisplayStats({
   name_2 = 'name_2',
   value_2 = '0',
 }) {
-  const GameStats = function () {
-    return (
+  const GameStats = () => (
     <div className='stats games-played'>
       <p className='stats stats-title'>
         <span>GAMES PLAYED&nbsp;</span>
@@ -26,8 +25,7 @@ export default function DisplayStats({
         <span className='stats stats-value'>{games_won}</span>
       </p>
     </div>
-    )
-  }
+  )
   return (
     <div>
       {heading !== 'heading' ? <h2 className='stats stats-h2-main'>{heading}</h2> : ''}
