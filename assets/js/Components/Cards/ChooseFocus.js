@@ -30,7 +30,7 @@ import RaidImage from '../../../img/cards/Raid.png'
 
 export default function ChooseFocus(props) {
   const getFocus = useSelector((state) => state.focus)
-  console.log('State focus', getFocus)
+  // console.log('State focus', getFocus)
 
   function CrucibleText() {
     return (
@@ -132,7 +132,7 @@ export default function ChooseFocus(props) {
   // console.log('Finished useFetch:')
   // console.log(error)
   // console.log(loading)
-  console.log('Crucible Form Data:', CrucibleFormFields)
+  // console.log('Crucible Form Data:', CrucibleFormFields)
 
   return (
     <div>

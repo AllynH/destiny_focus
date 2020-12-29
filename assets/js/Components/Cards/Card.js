@@ -43,8 +43,8 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   // This is the main card body area.
   // Props are provided from WrapCard component.
-  console.log('Card.js')
-  console.log(props.match)
+  // console.log('Card.js')
+  // console.log(props.match)
   const classes = useStyles();
   const {
     focus, apiUrl, image, colours, description,

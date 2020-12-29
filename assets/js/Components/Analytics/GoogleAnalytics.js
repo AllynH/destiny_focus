@@ -5,13 +5,16 @@ import ReactGA from 'react-ga'
 
 function removeUserDetailsFromPath(location) {
   const [dummy, auth, mode, membershipType, membershipId, characterId] = location.pathname.split('/')
-  const newPath = `${auth}/${mode}/${location.search}`
+  const newPath = `/${auth}/${mode}/${location.search}`
 
   return newPath
 }
 
 function logPageView(location) {
   const page = location.pathname + location.search
+  // console.log('ReactGA.set')
+  // console.log(page)
+  // console.log(`${window.location.origin}${page}`)
   ReactGA.set({
     page,
     location: `${window.location.origin}${page}`,
@@ -26,8 +29,10 @@ export default function GoogleAnalytics() {
 
   useEffect(() => {
     const debugFlag = process.env.NODE_ENV === 'development'
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID, { debugFlag })
-  }, [location.pathname, location.search])
+    // console.log(process.env.GOOGLE_ANALYTICS_ID)
+    // console.log(debugFlag)
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID, { debug: debugFlag })
+  }, [])
 
   useEffect(() => {
     logPageView(location)
