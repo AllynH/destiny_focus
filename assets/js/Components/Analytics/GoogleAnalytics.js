@@ -1,12 +1,20 @@
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
 import React, { useEffect } from 'react'
 
 import { useLocation } from 'react-router-dom'
 import ReactGA from 'react-ga'
 
 function removeUserDetailsFromPath(location) {
-  const [dummy, auth, mode, membershipType, membershipId, characterId] = location.pathname.split('/')
-  const newPath = `/${auth}/${mode}/${location.search}`
-
+  var newPath = '/Unknown'
+  if (location.pathname === '/') {
+    // Home page '/'
+    var newPath = location.pathname
+  } else {
+    // Case for /about
+    const [dummy, auth, mode, membershipType, membershipId, characterId] = location.pathname.split('/')
+    var newPath = mode ? `/${auth}/${mode}/${location.search}` : `/${auth}/${location.search}`
+  }
   return newPath
 }
 
