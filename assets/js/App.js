@@ -11,11 +11,13 @@ import Account from './Components/AccountStats/Account'
 import GambitChart from './Components/Gambit/GambitCharts'
 import Welcome from './Components/Welcome/Welcome'
 import CharacterSelect from './Components/CharacterSelect'
+import GoogleAnalytics from './Components/Analytics/GoogleAnalytics'
 
 class App extends React.Component {
   render() {
     return (
       <>
+        <Route component={GoogleAnalytics}/>
         <Route path='/:auth/:gameMode/:membershipType([1|2|3|4|5])?/:membershipId([0-9]+)?/:characterId([0-9]+)?/' {...this.props} component={NavBar}/>
         <Switch>
           <Route path='/auth/character_select/'exact={true} component={CharacterSelect} />

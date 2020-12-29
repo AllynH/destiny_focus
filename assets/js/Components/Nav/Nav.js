@@ -67,10 +67,6 @@ const useBGStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
 
-  console.log('Env test:')
-  console.log(process.env.NODE_ENV)
-  console.log(process.env.GOOGLE_ANALYTICS_ID)
-
   const {
     auth, membershipType, membershipId, characterId, gameMode,
   } = useParams()
