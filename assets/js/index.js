@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
 import React from 'react'

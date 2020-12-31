@@ -20,6 +20,7 @@ class AccountStats extends React.Component {
       error: null,
       isLoaded: false,
       jsonResponse: [],
+      dataStructure: {},
     }
   }
 
@@ -48,6 +49,7 @@ class AccountStats extends React.Component {
       this.setState({
         isLoaded: true,
         jsonResponse: response,
+        dataStructure: this._createDataStructure(response.Response.allPvP[scope]),
       })
     } else {
       const response = await GetStatsData({
@@ -62,6 +64,7 @@ class AccountStats extends React.Component {
       this.setState({
         isLoaded: true,
         jsonResponse: response,
+        dataStructure: this._createDataStructure(response.Response.allPvP[scope]),
       })
     }
   }
@@ -84,6 +87,128 @@ class AccountStats extends React.Component {
     }
   }
 
+  _createDataStructure(stats) {
+    const { scope } = this.props
+    const { props } = this
+
+    console.log('structure:')
+    console.log(scope, props)
+
+    if (scope === 'allTime') {
+      const structure = {
+        ChartType: scope,
+        allTime: {
+          headerData: {
+            heading: 'ALL TIME',
+            title_1: 'GAMES PLAYED',
+            value_1: stats.activitiesEntered.basic.displayValue || '',
+            title_2: 'GAMES WON',
+            value_2: stats.activitiesWon.basic.displayValue || '',
+            title_3: 'TIME PLAYED',
+            value_3: stats.totalActivityDurationSeconds.basic.displayValue || '',
+          },
+          mainData: {
+            subHeading: props.subHeading,
+            big_name: 'TOTAL KILLS',
+            big_value: stats.kills.basic.displayValue || '',
+            name_1: 'DEATHS',
+            value_1: stats.deaths.basic.displayValue || '',
+            name_2: 'K/D R',
+            value_2: stats.killsDeathsRatio.basic.displayValue || '',
+          },
+          footerData: {
+            title_1: 'Highest kills',
+            value_1: stats.longestKillSpree?.basic?.displayValue || '',
+            title_2: 'Highest precision kills',
+            value_2: stats.mostPrecisionKills?.basic?.displayValue || '',
+            title_3: 'Longest life',
+            value_3: stats.longestSingleLife?.basic?.displayValue || '',
+          },
+        },
+        average: {
+          mainData: {
+            subHeading: 'AVG. GAME STATS',
+            big_name: 'AVG. GAME KILLS',
+            big_value: stats.kills.pga.displayValue || '',
+            name_1: 'DEATHS',
+            value_1: stats.deaths.pga.displayValue || '',
+            name_2: 'K/D R',
+            value_2: stats.kills.pga.displayValue
+              ? parseFloat(stats.kills.pga.displayValue / stats.deaths.pga.displayValue).toFixed(2)
+              : 0,
+          },
+          footerData: {
+            title_1: 'Total melee kills',
+            value_1: stats.weaponKillsMelee?.basic?.displayValue || '',
+            title_2: 'Total grenade kills',
+            value_2: stats.weaponKillsGrenade?.basic?.displayValue || '',
+            title_3: 'Total super kills',
+            value_3: stats.weaponKillsSuper?.basic?.displayValue || '',
+          },
+        },
+      }
+      console.log('structure')
+      console.log(structure)
+      return structure
+    } else {
+      const structure = {
+        ChartType: scope,
+        allTime: {
+          headerData: {
+            heading: 'SEASON',
+            title_1: 'GAMES PLAYED',
+            value_1: stats.activitiesEntered.basic.displayValue || '',
+            title_2: 'GAMES WON',
+            value_2: stats.activitiesWon.basic.displayValue || '',
+            title_3: 'TIME PLAYED',
+            value_3: stats.totalActivityDurationSeconds.basic.displayValue || '',
+          },
+          mainData: {
+            subHeading: props.subHeading,
+            big_name: 'TOTAL KILLS',
+            big_value: stats.kills.basic.displayValue || '',
+            name_1: 'DEATHS',
+            value_1: stats.deaths.basic.displayValue || '',
+            name_2: 'K/D R',
+            value_2: stats.killsDeathsRatio.basic.displayValue || '',
+          },
+          footerData: {
+            title_1: 'Highest kills',
+            value_1: stats.longestKillSpree?.basic?.displayValue || '',
+            title_2: 'Highest precision kills',
+            value_2: stats.mostPrecisionKills?.basic?.displayValue || '',
+            title_3: 'Longest life',
+            value_3: stats.longestSingleLife?.basic?.displayValue || '',
+          },
+        },
+        average: {
+          mainData: {
+            subHeading: 'AVG. GAME STATS',
+            big_name: 'AVG. GAME KILLS',
+            big_value: stats.kills.pga.displayValue || '',
+            name_1: 'DEATHS',
+            value_1: stats.deaths.pga.displayValue || '',
+            name_2: 'K/D R',
+            value_2: stats.kills.pga.displayValue
+              ? parseFloat(stats.kills.pga.displayValue / stats.deaths.pga.displayValue).toFixed(2)
+              : 0,
+          },
+          footerData: {
+            title_1: 'Total melee kills',
+            value_1: stats.weaponKillsMelee?.basic?.displayValue || '',
+            title_2: 'Total grenade kills',
+            value_2: stats.weaponKillsGrenade?.basic?.displayValue || '',
+            title_3: 'Total super kills',
+            value_3: stats.weaponKillsSuper?.basic?.displayValue || '',
+          },
+        },
+      }
+      console.log('structure')
+      console.log(structure)
+      return structure
+    }
+  }
+
   render() {
     const { error, isLoaded, jsonResponse } = this.state
     if (error) {
@@ -95,54 +220,82 @@ class AccountStats extends React.Component {
       const { scope } = this.props
       const { props } = this
       const stats = jsonResponse.Response.allPvP[scope]
+      const dataStruct = this.state.dataStructure
+      console.log(dataStruct)
+
+      const DisplayHeader = (data) => (
+        <>
+          <div className='stats-heading'>
+            <h2>{data.heading}</h2>
+          </div>
+          <div className='stats-header'>
+            <div className='stats-header-section'>
+              <p className='header-title'>
+                <span>{data.title_1}&nbsp;</span>
+                <span className='stats-value'>{data.value_1}</span>
+              </p>
+            </div>
+            <div className='stats-header-section'>
+              <p className='header-title'>
+                <span>{data.title_2}&nbsp;</span>
+                <span className='stats-value'>{data.value_2}</span>
+              </p>
+            </div>
+            <div className='stats-header-section'>
+              <p className='header-title'>
+                <span>{data.title_3}&nbsp;</span>
+                <span className='stats-value'>{data.value_3}</span>
+              </p>
+            </div>
+          </div>
+        </>
+      )
+
+      const DisplayFooter = (data) => (
+        <div className='stats-footer'>
+          <div className='stats-footer-section'>
+            <p className='footer-title'>
+              <span>{data.title_1}&nbsp;</span>
+              <span className='footer-value'>{data.value_1}</span>
+            </p>
+          </div>
+          <div className='stats-footer-section'>
+            <p className='footer-title'>
+              <span>{data.title_2}&nbsp;</span>
+              <span className='footer-value'>{data.value_2}</span>
+            </p>
+          </div>
+          <div className='stats-footer-section'>
+            <p className='footer-title'>
+              <span>{data.title_3}&nbsp;</span>
+              <span className='footer-value'>{data.value_3}</span>
+            </p>
+          </div>
+        </div>
+      )
+
       console.log('Render AccountStats')
       console.log(jsonResponse)
       console.log(scope)
       console.log(stats)
+      console.log(dataStruct)
       return (
         <>
-          <div className='stats-wrapper'>
-
-            <div className='stats-individual'>
-              <div className="stats-additional-wrap">
-            <DisplayAdditionalStats
-                games_played={stats.activitiesEntered.basic.displayValue}
-                games_won={stats.activitiesWon.basic.displayValue}
-                kill_spree={stats.longestKillSpree?.basic?.displayValue}
-                longest_life={stats.longestSingleLife?.basic?.displayValue}
-                precision_kills={stats.mostPrecisionKills?.basic?.displayValue}
-                super_kills={stats.weaponKillsSuper?.basic?.displayValue}
-              />
-              <DisplayStats
-                // heading={props.heading}
-                subHeading={props.subHeading}
-                games_played={stats.activitiesEntered.basic.displayValue}
-                games_won={stats.activitiesWon.basic.displayValue}
-                big_name={'TOTAL KILLS'}
-                big_value={stats.kills.basic.displayValue}
-                name_1={'DEATHS'}
-                value_1={stats.deaths.basic.displayValue}
-                name_2={'K/D R'}
-                value_2={stats.killsDeathsRatio.basic.displayValue}
-              />
+          <div className='stats-background'>
+            <div className='stats-full-wrapper'>
+              <div className='stats-header-wrapper'>
+                <DisplayHeader {...dataStruct.allTime.headerData} />
+                <div className='stats-wrapper'>
+                  <div className='stats life-time-stats'>
+                    <DisplayStats {...dataStruct.allTime.mainData} />
+                    <DisplayFooter {...dataStruct.allTime.footerData} />
+                  </div>
+                  <div className='stats life-time-stats'>
+                    <DisplayStats {...dataStruct.average.mainData} />
+                    <DisplayFooter {...dataStruct.average.footerData} />
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div className='stats-individual'>
-              <DisplayStats
-                // heading={''}
-                subHeading={'AVG. GAME STATS'}
-                games_played={stats.activitiesEntered.basic.displayValue}
-                games_won={stats.activitiesWon.basic.displayValue}
-                big_name={'AVG. GAME KILLS'}
-                big_value={stats.kills.pga.displayValue}
-                name_1={'DEATHS'}
-                value_1={stats.deaths.pga.displayValue}
-                name_2={'K/D R'}
-                value_2={stats.kills.pga.displayValue ? parseFloat(
-                  stats.kills.pga.displayValue / stats.deaths.pga.displayValue,
-                ).toFixed(2) : 0}
-              />
             </div>
           </div>
         </>

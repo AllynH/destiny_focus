@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import React from 'react'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
