@@ -79,8 +79,8 @@ class Account extends React.Component {
     const { error, isLoaded, jsonResponse } = this.state
     const { gameMode } = this.props
 
-    console.log('PvP JSON response:')
-    console.log(jsonResponse)
+    // console.log('PvP JSON response:')
+    // console.log(jsonResponse)
 
     if (error) {
       return <div>Error: {error.message}</div>

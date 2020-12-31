@@ -91,8 +91,8 @@ class AccountStats extends React.Component {
     const { scope } = this.props
     const { props } = this
 
-    console.log('structure:')
-    console.log(scope, props)
+    // console.log('structure:')
+    // console.log(scope, props)
 
     if (scope === 'allTime') {
       const structure = {
@@ -147,8 +147,8 @@ class AccountStats extends React.Component {
           },
         },
       }
-      console.log('structure')
-      console.log(structure)
+      // console.log('structure')
+      // console.log(structure)
       return structure
     } else {
       const structure = {
@@ -203,8 +203,8 @@ class AccountStats extends React.Component {
           },
         },
       }
-      console.log('structure')
-      console.log(structure)
+      // console.log('structure')
+      // console.log(structure)
       return structure
     }
   }
@@ -221,7 +221,7 @@ class AccountStats extends React.Component {
       const { props } = this
       const stats = jsonResponse.Response.allPvP[scope]
       const dataStruct = this.state.dataStructure
-      console.log(dataStruct)
+      // console.log(dataStruct)
 
       const DisplayHeader = (data) => (
         <>
@@ -274,11 +274,11 @@ class AccountStats extends React.Component {
         </div>
       )
 
-      console.log('Render AccountStats')
-      console.log(jsonResponse)
-      console.log(scope)
-      console.log(stats)
-      console.log(dataStruct)
+      // console.log('Render AccountStats')
+      // console.log(jsonResponse)
+      // console.log(scope)
+      // console.log(stats)
+      // console.log(dataStruct)
       return (
         <>
           <div className='stats-background'>
