@@ -90,6 +90,10 @@ class AccountStats extends React.Component {
   _createDataStructure(stats) {
     const { scope } = this.props
     const { props } = this
+    const { season, seasonDescription } = this.props
+    console.log(props)
+    console.log(seasonDescription)
+    console.log(typeof seasonDescription)
 
     // console.log('structure:')
     // console.log(scope, props)
@@ -99,7 +103,7 @@ class AccountStats extends React.Component {
         ChartType: scope,
         allTime: {
           headerData: {
-            heading: 'ALL TIME',
+            heading: 'ALL TIME: PvP',
             title_1: 'GAMES PLAYED',
             value_1: stats.activitiesEntered.basic.displayValue || '',
             title_2: 'GAMES WON',
@@ -155,7 +159,7 @@ class AccountStats extends React.Component {
         ChartType: scope,
         allTime: {
           headerData: {
-            heading: 'SEASON',
+            heading: `Season ${season}: PvP`,
             title_1: 'GAMES PLAYED',
             value_1: stats.activitiesEntered.basic.displayValue || '',
             title_2: 'GAMES WON',
@@ -229,13 +233,13 @@ class AccountStats extends React.Component {
             <h2>{data.heading}</h2>
           </div>
           <div className='stats-header'>
-            <div className='stats-header-section'>
+            <div className='stats-header-section header-light-right-border'>
               <p className='header-title'>
                 <span>{data.title_1}&nbsp;</span>
                 <span className='stats-value'>{data.value_1}</span>
               </p>
             </div>
-            <div className='stats-header-section'>
+            <div className='stats-header-section header-light-right-border'>
               <p className='header-title'>
                 <span>{data.title_2}&nbsp;</span>
                 <span className='stats-value'>{data.value_2}</span>
@@ -281,21 +285,20 @@ class AccountStats extends React.Component {
       // console.log(dataStruct)
       return (
         <>
-          <div className='stats-background'>
-            <div className='stats-full-wrapper'>
-              <div className='stats-header-wrapper'>
-                <DisplayHeader {...dataStruct.allTime.headerData} />
-                <div className='stats-wrapper'>
-                  <div className='stats life-time-stats'>
-                    <DisplayStats {...dataStruct.allTime.mainData} />
-                    <DisplayFooter {...dataStruct.allTime.footerData} />
-                  </div>
-                  <div className='stats life-time-stats'>
-                    <DisplayStats {...dataStruct.average.mainData} />
-                    <DisplayFooter {...dataStruct.average.footerData} />
-                  </div>
+          <div className='stats-full-wrapper'>
+            <div className='stats-header-wrapper'>
+              <DisplayHeader {...dataStruct.allTime.headerData} />
+              <div className='stats-wrapper'>
+                <div className='stats life-time-stats'>
+                  <DisplayStats {...dataStruct.allTime.mainData} />
+                  <DisplayFooter {...dataStruct.allTime.footerData} />
+                </div>
+                <div className='stats life-time-stats'>
+                  <DisplayStats {...dataStruct.average.mainData} />
+                  <DisplayFooter {...dataStruct.average.footerData} />
                 </div>
               </div>
+              <div className='site-reference'>Destiny-Focus.me</div>
             </div>
           </div>
         </>

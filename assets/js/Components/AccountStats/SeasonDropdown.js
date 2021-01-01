@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import SaveIcon from '@material-ui/icons/Save'
 import { makeStyles } from '@material-ui/core/styles'
+import { exportComponentAsJPEG } from 'react-component-export-image'
 
 import { SEASONS } from '../../Data/statsData'
 import AccountStats from './AccountStats'
@@ -18,13 +20,14 @@ export default function SeasonMenu(props) {
   const [selectedSeason, setselectedSeason] = React.useState(
     seasonList[seasonList.length - 1] || '',
   )
+  const componentRef = useRef()
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleClose = (event) => {
-    setselectedSeason(event.currentTarget.getAttribute('value'))
+    setselectedSeason(event.currentTarget.getAttribute('value') || selectedSeason)
     setAnchorEl(null)
   }
 
@@ -49,7 +52,7 @@ export default function SeasonMenu(props) {
         aria-haspopup='true'
         onClick={handleClick}
       >
-        { SEASONS[selectedSeason].TITLE || 'Select a season'}
+        {SEASONS[selectedSeason].TITLE || 'Select a season'}
       </Button>
       <Menu
         id='simple-menu'
@@ -65,14 +68,28 @@ export default function SeasonMenu(props) {
         ))}
       </Menu>
       {selectedSeason ? (
-        <AccountStats
-          {...props}
-          season={selectedSeason}
-          subHeading={season.subHeading}
-          heading={season.heading}
-          scope={season.scope}
-          apiUrl={season.apiUrl}
-        />
+        <div className='button-wrapper'>
+          <AccountStats
+            {...props}
+            ref={componentRef}
+            seasonDescription={`${selectedSeason}: ${SEASONS[selectedSeason].TITLE}`}
+            season={selectedSeason}
+            subHeading={season.subHeading}
+            heading={season.heading}
+            scope={season.scope}
+            apiUrl={season.apiUrl}
+          />
+          <Button
+            variant='contained'
+            color='primary'
+            size='small'
+            // className={classes.button}
+            startIcon={<SaveIcon />}
+            onClick={() => exportComponentAsJPEG(componentRef)}
+          >
+            Share
+          </Button>
+        </div>
       ) : (
         ''
       )}

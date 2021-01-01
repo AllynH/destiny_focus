@@ -161,7 +161,13 @@ h2.stats-h2{
     margin-top: 0;
     margin-bottom: 0;
     float: right;
-}   
+}
+
+.site-reference{
+    float: right;
+    margin-right: 12px;
+    margin-bottom: 5px;
+}
 
 /* Header style: */
 .stats-header{
@@ -205,4 +211,9 @@ h2.stats-h2{
     flex-direction: row;
     width: 450px;
     justify-content: center;
+    height: 50px;
+}
+
+.header-light-right-border{
+    border-right: 1px var(--vanguard-dark-3) solid;
 }

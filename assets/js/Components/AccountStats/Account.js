@@ -2,10 +2,14 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
-import React from 'react'
+import React, { useRef } from 'react'
+
+import { exportComponentAsJPEG } from 'react-component-export-image'
+import Button from '@material-ui/core/Button'
+import SaveIcon from '@material-ui/icons/Save'
 
 import './style.css'
-import Character_Plate from '../CharacterPlate/Character_Plate'
+import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import AccountStats from './AccountStats'
 import SeasonMenu from './SeasonDropdown'
 import PGCR from '../PGCR/PGCR'
@@ -18,6 +22,7 @@ class Account extends React.Component {
     console.log('Account')
     console.log(props)
     super(props)
+    this.componentRef = React.createRef()
     this.state = {
       error: null,
       isLoaded: false,
@@ -39,7 +44,9 @@ class Account extends React.Component {
     switch (gameMode) {
       case 'gambit':
         {
-          const response = await GetGambitData({ params: { membershipType, membershipId, characterId } })
+          const response = await GetGambitData({
+            params: { membershipType, membershipId, characterId },
+          })
           this.setState({
             isLoaded: true,
             jsonResponse: response,
@@ -76,6 +83,7 @@ class Account extends React.Component {
   }
 
   render() {
+    const { membershipType, membershipId, characterId } = this.props.match.params
     const { error, isLoaded, jsonResponse } = this.state
     const { gameMode } = this.props
 
@@ -92,23 +100,34 @@ class Account extends React.Component {
       return (
         <div>
           <h2>{allTime.heading}</h2>
-          <AccountStats
-            {...this.props}
-            subHeading={allTime.subHeading}
-            heading={allTime.heading}
-            scope={allTime.scope}
-            apiUrl={allTime.apiUrl}
-          />
+          <div className='stats-background'>
+            <div className='button-wrapper'>
+              <AccountStats
+                {...this.props}
+                ref={this.componentRef}
+                subHeading={allTime.subHeading}
+                heading={allTime.heading}
+                scope={allTime.scope}
+                apiUrl={allTime.apiUrl}
+              />
+              <Button
+                variant='contained'
+                color='primary'
+                size='small'
+                // className={classes.button}
+                startIcon={<SaveIcon />}
+                onClick={() => exportComponentAsJPEG(this.componentRef)}
+              >
+                Share
+              </Button>
+            </div>
+          </div>
+
           <h2>{season.heading}</h2>
-          <SeasonMenu {...this.props} {...statsData} />
-          {/* <AccountStats
-            {...this.props}
-            subHeading={season.subHeading}
-            heading={season.heading}
-            scope={season.scope}
-            apiUrl={season.apiUrl}
-          /> */}
-          <Character_Plate />
+          <div className='stats-background'>
+            <SeasonMenu {...this.props} {...statsData} />
+          </div>
+          <ClickableCharacterList memberships={{ membershipId, membershipType }} />
         </div>
       )
     }
