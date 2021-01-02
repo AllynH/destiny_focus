@@ -1,10 +1,9 @@
+/* eslint-disable linebreak-style */
 import React, { useRef } from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import SaveIcon from '@material-ui/icons/Save'
 import { makeStyles } from '@material-ui/core/styles'
-import { exportComponentAsJPEG } from 'react-component-export-image'
 
 import { SEASONS } from '../../Data/statsData'
 import AccountStats from './AccountStats'
@@ -18,9 +17,8 @@ export default function SeasonMenu(props) {
   const seasonList = [...Object.keys(SEASONS)]
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [selectedSeason, setselectedSeason] = React.useState(
-    seasonList[seasonList.length - 1] || '',
+    seasonList[seasonList.length - 1] || ''
   )
-  const componentRef = useRef()
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -45,15 +43,17 @@ export default function SeasonMenu(props) {
 
   return (
     <div>
-      <Button
-        className={'dropdown-button'}
-        className={classes.button}
-        aria-controls='simple-menu'
-        aria-haspopup='true'
-        onClick={handleClick}
-      >
-        {SEASONS[selectedSeason].TITLE || 'Select a season'}
-      </Button>
+      <div className='season-dropdown-button'>
+        <Button
+          className={'dropdown-button'}
+          className={classes.button}
+          aria-controls='simple-menu'
+          aria-haspopup='true'
+          onClick={handleClick}
+        >
+          {SEASONS[selectedSeason].TITLE || 'Select a season'}
+        </Button>
+      </div>
       <Menu
         id='simple-menu'
         anchorEl={anchorEl}
@@ -68,28 +68,15 @@ export default function SeasonMenu(props) {
         ))}
       </Menu>
       {selectedSeason ? (
-        <div className='button-wrapper'>
-          <AccountStats
-            {...props}
-            ref={componentRef}
-            seasonDescription={`${selectedSeason}: ${SEASONS[selectedSeason].TITLE}`}
-            season={selectedSeason}
-            subHeading={season.subHeading}
-            heading={season.heading}
-            scope={season.scope}
-            apiUrl={season.apiUrl}
-          />
-          <Button
-            variant='contained'
-            color='primary'
-            size='small'
-            // className={classes.button}
-            startIcon={<SaveIcon />}
-            onClick={() => exportComponentAsJPEG(componentRef)}
-          >
-            Share
-          </Button>
-        </div>
+        <AccountStats
+          {...props}
+          seasonDescription={`${selectedSeason}: ${SEASONS[selectedSeason].TITLE}`}
+          season={selectedSeason}
+          subHeading={season.subHeading}
+          heading={season.heading}
+          scope={season.scope}
+          apiUrl={season.apiUrl}
+        />
       ) : (
         ''
       )}

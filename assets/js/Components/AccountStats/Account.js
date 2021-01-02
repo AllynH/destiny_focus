@@ -2,17 +2,12 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
-import React, { useRef } from 'react'
-
-import { exportComponentAsJPEG } from 'react-component-export-image'
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
+import React from 'react'
 
 import './style.css'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import AccountStats from './AccountStats'
 import SeasonMenu from './SeasonDropdown'
-import PGCR from '../PGCR/PGCR'
 import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { statsData } from '../../Data/statsData'
@@ -104,22 +99,11 @@ class Account extends React.Component {
             <div className='button-wrapper'>
               <AccountStats
                 {...this.props}
-                ref={this.componentRef}
                 subHeading={allTime.subHeading}
                 heading={allTime.heading}
                 scope={allTime.scope}
                 apiUrl={allTime.apiUrl}
               />
-              <Button
-                variant='contained'
-                color='primary'
-                size='small'
-                // className={classes.button}
-                startIcon={<SaveIcon />}
-                onClick={() => exportComponentAsJPEG(this.componentRef)}
-              >
-                Share
-              </Button>
             </div>
           </div>
 

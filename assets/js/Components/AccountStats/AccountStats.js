@@ -2,12 +2,15 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
-import React from 'react'
+import React, {useRef} from 'react'
 
-import { useFetch } from '../../Utils/useFetch'
+// import { useFetch } from '../../Utils/useFetch'
+
+import { exportComponentAsJPEG } from 'react-component-export-image'
+import Button from '@material-ui/core/Button'
+import SaveIcon from '@material-ui/icons/Save'
 
 import './style.css'
-import Character_Plate from '../CharacterPlate/Character_Plate'
 import DisplayAdditionalStats from './DisplayAdditionalStats'
 import DisplayStats from './DisplayStats'
 import Shimmer from '../../Utils/Loading/Shimmer'
@@ -16,6 +19,7 @@ import { GetStatsData, GetStatsAllTime } from '../../Utils/API/API_Requests'
 class AccountStats extends React.Component {
   constructor(props) {
     super(props)
+    this.componentRef = React.createRef()
     this.state = {
       error: null,
       isLoaded: false,
@@ -230,7 +234,7 @@ class AccountStats extends React.Component {
       const DisplayHeader = (data) => (
         <>
           <div className='stats-heading'>
-            <h2>{data.heading}</h2>
+            <h2 className='stats-h2'>{data.heading}</h2>
           </div>
           <div className='stats-header'>
             <div className='stats-header-section header-light-right-border'>
@@ -284,8 +288,8 @@ class AccountStats extends React.Component {
       // console.log(stats)
       // console.log(dataStruct)
       return (
-        <>
-          <div className='stats-full-wrapper'>
+        <div className='button-wrapper'>
+          <div className='stats-full-wrapper' ref={this.componentRef}>
             <div className='stats-header-wrapper'>
               <DisplayHeader {...dataStruct.allTime.headerData} />
               <div className='stats-wrapper'>
@@ -301,7 +305,17 @@ class AccountStats extends React.Component {
               <div className='site-reference'>Destiny-Focus.me</div>
             </div>
           </div>
-        </>
+          <Button
+            variant='contained'
+            color='primary'
+            size='small'
+            // className={classes.button}
+            startIcon={<SaveIcon />}
+            onClick={() => exportComponentAsJPEG(this.componentRef)}
+          >
+            Share .jpg
+          </Button>
+        </div>
       )
     }
   }
