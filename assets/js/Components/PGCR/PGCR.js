@@ -27,10 +27,10 @@ export function PgcrDetails({ pgcr }) {
           <span>ASSISTS</span>
         </span>
         <span className={'pgcr player-stats'}>
-          <span>K/D R</span>
+          <span>K/D A</span>
         </span>
         <span className={'pgcr player-stats'}>
-          <span>K/D A</span>
+          <span>K/D R</span>
         </span>
       </li>
 
@@ -65,10 +65,10 @@ export function PgcrDetails({ pgcr }) {
                 <span>{pgcr_assists}</span>
               </span>
               <span className={'pgcr player-stats'}>
-                <span>{pgcr_kdr}</span>
+                <span>{pgcr_kda}</span>
               </span>
               <span className={'pgcr player-stats'}>
-                <span>{pgcr_kda}</span>
+                <span>{pgcr_kdr}</span>
               </span>
             </li>
           )
