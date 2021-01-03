@@ -5,6 +5,7 @@ import { GetPGCRList } from '../../Utils/API/API_Requests'
 import Shimmer from '../../Utils/Loading/Shimmer'
 import PrecisionChart from './PrecisionChart'
 import PrecisionWeaponKills from '../WeaponSummary/PrecisionWeaponKills'
+import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import './style.css'
 
@@ -30,7 +31,7 @@ export function Loading() {
 export default function PgcrSummary(props) {
   const [pgcrSummary, setPgcrSummary] = useState()
   const { membershipType, membershipId, characterId } = props.match.params
-  const { gameMode } = props
+  const { gameMode } = getUrlDetails()
 
   console.log('pgcrSummary')
   console.log(pgcrSummary)

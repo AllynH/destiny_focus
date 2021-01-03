@@ -498,6 +498,7 @@ def pgcr_list(membershipType, membershipId, characterId):
     game_mode_switch = {
         'pvp'   : 5,
         'gambit': 63,
+        'raid'  : 4,
     }
     game_mode = game_mode_switch[mode_arg]
 
