@@ -267,6 +267,34 @@ def pvp(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
+
+@blueprint.route("/gambit/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def gambit(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash("Bungie systems are down :(", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/raid/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def raid(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash("Bungie systems are down :(", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
+
 @blueprint.route("/account/<membershipType>/<membershipId>/<characterId>")
 @login_required
 def account(membershipType, membershipId, characterId):
@@ -449,15 +477,11 @@ def get_historical_stats_alltime(membershipType, membershipId, characterId):
 def get_gambit(membershipType, membershipId,characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
-    # TODO: Hardcoded values:
     get_profile_res = my_api.get_profile(membershipType, membershipId)
-    character_details = get_character_details_json(get_profile_res)
 
     activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=63, count=30)
 
-
     return jsonify(activity)
-    # return render_template("auth/choose_focus.html")
 
 
 @blueprint.route("/get/pgcr/<activityId>/")
