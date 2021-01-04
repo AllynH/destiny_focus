@@ -1,6 +1,10 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react'
 
+import CheckIcon from '@material-ui/icons/Check'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
+import { makeStyles } from '@material-ui/core/styles'
+
 import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
 import Activity from './Activity'
 import { GetPGCR } from '../../Utils/API/API_Requests'
@@ -82,6 +86,25 @@ export function PgcrDetailsPvP({ pgcr }) {
 export function PgcrDetailsRaid({ pgcr }) {
   // console.log('pgcr')
   // console.log(pgcr)
+  const useStyles = makeStyles({
+    pass: {
+      color: 'green',
+      // color: 'var(--gambit-green)',
+      filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))'
+    },
+    fail: {
+      color: 'var(--crucible-red)',
+      filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))'
+    },
+  })
+
+  const classes = useStyles()
+  const completionIcon = (standing) => {
+    if (standing) {
+      return <CheckIcon className={classes.pass} />
+    }
+    return <HighlightOffIcon className={classes.fail} />
+  }
   const entriesList = pgcr.Response.entries
 
   return (
@@ -109,7 +132,8 @@ export function PgcrDetailsRaid({ pgcr }) {
       </li>
 
       {entriesList.map((element, index) => {
-        const pgcr_standing = element.values.completed.basic.displayValue === 'Yes' ?  'Completed' :  'Incomplete'         
+        const pgcr_standing = element.values.completed.basic.displayValue === 'Yes' ? true : false
+        const pcgr_standing_icon = completionIcon(pgcr_standing)
         const pgcr_icon = element.player.destinyUserInfo.iconPath
         const pgcr_userName = element.player.destinyUserInfo.displayName
         const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
@@ -130,7 +154,7 @@ export function PgcrDetailsRaid({ pgcr }) {
               {pgcr_userName}
             </span>
             <span className={'pgcr player-stats'}>
-              <span>{pgcr_standing}</span>
+              <span>{pcgr_standing_icon}</span>
             </span>
             <span className={'pgcr player-stats'}>
               <span>{pgcr_kills}</span>
@@ -146,7 +170,6 @@ export function PgcrDetailsRaid({ pgcr }) {
             </span>
           </li>
         )
-
       })}
     </ul>
   )
