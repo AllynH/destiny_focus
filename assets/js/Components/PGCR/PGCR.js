@@ -218,7 +218,7 @@ export default function Pgcr(props) {
       case 'gambit':
         return <PgcrDetailsGambit pgcr={pgcr} />
       default:
-        return <PgcrDetailsPvP />
+        return <PgcrDetailsPvP pgcr={pgcr} />
     }
   }
 
