@@ -90,11 +90,13 @@ export function PgcrDetailsRaid({ pgcr }) {
     pass: {
       color: 'green',
       // color: 'var(--gambit-green)',
-      filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))'
+      filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))',
+      fontSize: 14,
     },
     fail: {
       color: 'var(--crucible-red)',
-      filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))'
+      filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))',
+      fontSize: 14,
     },
   })
 
@@ -115,19 +117,19 @@ export function PgcrDetailsRaid({ pgcr }) {
           GUARDIAN
         </span>
         <span className={'pgcr player-stats'}>
-          <span>STATUS</span>
-        </span>
-        <span className={'pgcr player-stats'}>
           <span>KILLS</span>
         </span>
         <span className={'pgcr player-stats'}>
           <span>DEATHS</span>
         </span>
         <span className={'pgcr player-stats'}>
-          <span>ASSISTS</span>
+          <span>KD/R</span>
         </span>
         <span className={'pgcr player-stats'}>
-          <span>K/D R</span>
+          <span>SUPER KILLS</span>
+        </span>
+        <span className={'pgcr player-stats'}>
+          <span>TIME</span>
         </span>
       </li>
 
@@ -141,7 +143,8 @@ export function PgcrDetailsRaid({ pgcr }) {
         const pgcr_deaths = element.values.deaths.basic.displayValue
         const pgcr_kills = element.values.kills.basic.displayValue
         const pgcr_assists = element.values.assists.basic.displayValue
-        const pgcr_team = element.values.assists.basic.displayValue
+        const pgcr_completion_time = element.values.activityDurationSeconds.basic.displayValue
+        const pgcr_super_kills = element.extended.values.weaponKillsSuper.basic.value
         const iconStyle = {
           backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
           maxHeight: 30,
@@ -151,10 +154,7 @@ export function PgcrDetailsRaid({ pgcr }) {
           <li className={'pgcr-char-wrap'} key={index}>
             <span className={'pgcr pgcr-player-stats player-name-icon'}>
               <span className={'pgcr player-icon'} style={iconStyle}></span>
-              {pgcr_userName}
-            </span>
-            <span className={'pgcr player-stats'}>
-              <span>{pcgr_standing_icon}</span>
+              {pgcr_userName}{pcgr_standing_icon}
             </span>
             <span className={'pgcr player-stats'}>
               <span>{pgcr_kills}</span>
@@ -163,10 +163,13 @@ export function PgcrDetailsRaid({ pgcr }) {
               <span>{pgcr_deaths}</span>
             </span>
             <span className={'pgcr player-stats'}>
-              <span>{pgcr_assists}</span>
+              <span>{pgcr_kdr}</span>
             </span>
             <span className={'pgcr player-stats'}>
-              <span>{pgcr_kdr}</span>
+              <span>{pgcr_super_kills}</span>
+            </span>
+            <span className={'pgcr player-stats'}>
+              <span>{pgcr_completion_time}</span>
             </span>
           </li>
         )
