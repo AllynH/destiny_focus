@@ -1,5 +1,5 @@
 export function getUrlDetails() {
-  const pathArray = window.location.pathname.split('/');
+  const pathArray = window.location.pathname.split('/')
   const url = {
     auth: pathArray[1],
     gameMode: pathArray[2],
@@ -23,4 +23,11 @@ export const ACCOUNTTYPES = {
   10: 'TigerDeamon',
   254: 'BungieNext',
   all: 'All',
+}
+
+export function calculateKillDeathRatio(kills, deaths) {
+  if (deaths === 0) {
+    return (kills).toFixed(2)
+  }
+  return (kills / deaths).toFixed(2)
 }
