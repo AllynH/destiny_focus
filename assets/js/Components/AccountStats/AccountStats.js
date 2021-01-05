@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
-import React, {useRef} from 'react'
+import React, { useRef } from 'react'
 
 // import { useFetch } from '../../Utils/useFetch'
 
@@ -11,10 +11,11 @@ import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
 
 import './style.css'
-import DisplayAdditionalStats from './DisplayAdditionalStats'
+// import DisplayAdditionalStats from './DisplayAdditionalStats'
 import DisplayStats from './DisplayStats'
 import Shimmer from '../../Utils/Loading/Shimmer'
 import { GetStatsData, GetStatsAllTime } from '../../Utils/API/API_Requests'
+import { iOS } from '../../Utils/HelperFunctions'
 
 class AccountStats extends React.Component {
   constructor(props) {
@@ -281,6 +282,18 @@ class AccountStats extends React.Component {
           </div>
         </div>
       )
+      const takePicture = () => {
+        if (iOS()) {
+          window.scrollTo(0, 0)
+        }
+        window.scrollTo(0, 0)
+        const html2CanvasOpts = {
+          fileName: 'Destiny-Focus',
+          html2CanvasOptions: { scrollX: 0, scrollY: -0 },
+          // html2CanvasOptions: { scrollX: 0, scrollY: -window.scrollY },
+        }
+        exportComponentAsJPEG(this.componentRef, { ...html2CanvasOpts })
+      }
 
       // console.log('Render AccountStats')
       // console.log(jsonResponse)
@@ -311,7 +324,7 @@ class AccountStats extends React.Component {
             size='small'
             // className={classes.button}
             startIcon={<SaveIcon />}
-            onClick={() => exportComponentAsJPEG(this.componentRef)}
+            onClick={() => takePicture()}
           >
             Share .jpg
           </Button>

@@ -64,7 +64,7 @@ export default function PrecisionChart(props) {
 
   return (
     <div className='summary-chart-wrapper'>
-      <h3>{dataType}:</h3>
+      <h3 className='heading-capitalize'>{dataType}:</h3>
       <div className='chart precision-chart'>
         <VictoryChart
           /* theme={VictoryTheme.material} */ domainPadding={10}

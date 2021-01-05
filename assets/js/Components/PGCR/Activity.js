@@ -51,13 +51,13 @@ export default function Activity(
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0.6)
     ),url(https://www.bungie.net${referenceDef.pgcrImage})`,
-    height: 300,
-    width: '100%',
+    // height: 300,
+    // width: 600,
+    // width: '100%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    display: 'flex',
-    flexDirection: 'row',
-    borderRadius: 5,
+    // display: 'flex',
+    // flexDirection: 'row',
   })
 
   const gameIcon = () => {
