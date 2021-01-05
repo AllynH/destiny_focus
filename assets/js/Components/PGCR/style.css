@@ -60,6 +60,10 @@
     background-size: contain;
 }
 
+.player-stats-completed{
+    float: right;
+}
+
 .player-name-icon{
     min-width: 200px;
     white-space: nowrap;
@@ -79,7 +83,7 @@
 
 
 .pgcr{
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .pgcr-pointer{
@@ -145,7 +149,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 5px;
     font-size: 1.1em;
-    margin-top: 100px;
+    margin-top: 92px;
 }
 
 .activity-results-wrapper.h3{
@@ -156,4 +160,17 @@
 h2.activity-map-name{
     text-transform: uppercase;
     font-size: 1.9em;
+}
+
+
+/* Team styles: */
+.team-alpha{
+    background-color: var(--crucible-dark-1);
+    color: white;
+}
+
+/* Team styles: */
+.team-bravo{
+    background-color: var(--vanguard-dark-1);
+    color: white;
 }

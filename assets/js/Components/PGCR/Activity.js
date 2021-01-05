@@ -41,7 +41,11 @@ export default function Activity(
     //   rgba(0, 0, 0, 0.6),
     //   rgba(0, 0, 0, 0.6)
     // ),url(https://www.bungie.net${referenceDef.pgcrImage})`,
-    backgroundImage: `url(https://www.bungie.net${referenceDef.pgcrImage})`,
+    background: `linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.6)
+    ),url(https://www.bungie.net${referenceDef.pgcrImage})`,
     height: 200,
     width: '100%',
     backgroundRepeat: 'no-repeat',
