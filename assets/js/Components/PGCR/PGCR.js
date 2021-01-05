@@ -40,7 +40,10 @@ export function PgcrDetailsPvP({ pgcr }) {
       </li>
 
       {entriesList.map((element, index) => {
-        if (element.values.team.basic.displayValue === '18' || element.values.team.basic.displayValue === 'Alpha') {
+        if (
+          element.values.team.basic.displayValue === '18' ||
+          element.values.team.basic.displayValue === 'Alpha'
+        ) {
           if (element.values.completed.basic.displayValue === 'Yes') {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
             const pgcr_userName = element.player.destinyUserInfo.displayName
@@ -99,27 +102,27 @@ export function PgcrDetailsPvP({ pgcr }) {
             }
 
             return (
-            <li className={'pgcr-char-wrap team-bravo'} key={index}>
-              <span className={'pgcr pgcr-player-stats player-name-icon'}>
-                <span className={'pgcr player-icon'} style={iconStyle}></span>
-                {pgcr_userName}
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_kills}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_deaths}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_assists}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_kda}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_kdr}</span>
-              </span>
-            </li>
+              <li className={'pgcr-char-wrap team-bravo'} key={index}>
+                <span className={'pgcr pgcr-player-stats player-name-icon'}>
+                  <span className={'pgcr player-icon'} style={iconStyle}></span>
+                  {pgcr_userName}
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_kills}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_deaths}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_assists}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_kda}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_kdr}</span>
+                </span>
+              </li>
             )
           }
         }
@@ -266,52 +269,58 @@ export function PgcrDetailsGambit({ pgcr }) {
       </li>
 
       {entriesList.map((element, index) => {
-        if (element.values.completed.basic.displayValue === 'Yes') {
-          const pgcr_icon = element.player.destinyUserInfo.iconPath
-          const pgcr_userName = element.player.destinyUserInfo.displayName
-          const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
-          const pgcr_deaths = element.values.deaths.basic.displayValue
-          const pgcr_kills = element.values.kills.basic.displayValue
-          const pgcr_guardian_deaths = element.extended.values.invaderDeaths.basic.value
-            + element.extended.values.invasionDeaths.basic.value
-          const pgcr_guardian_kills = element.extended.values.invaderKills.basic.value
-            + element.extended.values.invasionKills.basic.value
+        if (
+          element.values.team.basic.displayValue === '18' ||
+          element.values.team.basic.displayValue === 'Alpha'
+        ) {
+          if (element.values.completed.basic.displayValue === 'Yes') {
+            const pgcr_icon = element.player.destinyUserInfo.iconPath
+            const pgcr_userName = element.player.destinyUserInfo.displayName
+            const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
+            const pgcr_deaths = element.values.deaths.basic.displayValue
+            const pgcr_kills = element.values.kills.basic.displayValue
+            const pgcr_guardian_deaths =
+              element.extended.values.invaderDeaths.basic.value +
+              element.extended.values.invasionDeaths.basic.value
+            const pgcr_guardian_kills =
+              element.extended.values.invaderKills.basic.value +
+              element.extended.values.invasionKills.basic.value
 
-          const pgcr_motes_banked = element.extended.values.motesDeposited.basic.value
-          const pgcr_motes_lost = element.extended.values.motesLost.basic.value
-          const pgcr_motes_denied = element.extended.values.motesDenied.basic.value
+            const pgcr_motes_banked = element.extended.values.motesDeposited.basic.value
+            const pgcr_motes_lost = element.extended.values.motesLost.basic.value
+            const pgcr_motes_denied = element.extended.values.motesDenied.basic.value
 
-          const pgcr_kdr = calculateKillDeathRatio(pgcr_guardian_kills, pgcr_guardian_deaths)
-          const pgcr_assists = element.values.assists.basic.displayValue
-          const pgcr_team = element.values.assists.basic.displayValue
-          const iconStyle = {
-            backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
-            maxHeight: 30,
-          }
+            const pgcr_kdr = calculateKillDeathRatio(pgcr_guardian_kills, pgcr_guardian_deaths)
+            const pgcr_assists = element.values.assists.basic.displayValue
+            const pgcr_team = element.values.assists.basic.displayValue
+            const iconStyle = {
+              backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
+              maxHeight: 30,
+            }
 
-          return (
-            <li className={'pgcr-char-wrap'} key={index}>
-              <span className={'pgcr pgcr-player-stats player-name-icon'}>
-                <span className={'pgcr player-icon'} style={iconStyle}></span>
-                {pgcr_userName}
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_kills}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_guardian_kills}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_deaths}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_guardian_deaths}</span>
-              </span>
-              <span className={'pgcr player-stats'}>
-                <span>{pgcr_kdr}</span>
-              </span>
+            return (
+              <li className={'pgcr-char-wrap team-alpha'} key={index}>
+                <span className={'pgcr pgcr-player-stats player-name-icon'}>
+                  <span className={'pgcr player-icon'} style={iconStyle}></span>
+                  {pgcr_userName}
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_kills}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_guardian_kills}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_deaths}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_guardian_deaths}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_kdr}</span>
+                </span>
 
-              {/* <span className={'pgcr player-stats'}>
+                {/* <span className={'pgcr player-stats'}>
                 <span>{pgcr_motes_banked}</span>
               </span>
               <span className={'pgcr player-stats'}>
@@ -320,8 +329,73 @@ export function PgcrDetailsGambit({ pgcr }) {
               <span className={'pgcr player-stats'}>
                 <span>{pgcr_motes_denied}</span>
               </span> */}
-            </li>
-          )
+              </li>
+            )
+          }
+        }
+      })}
+
+      {entriesList.map((element, index) => {
+        if (element.values.team.basic.displayValue !== '18') {
+          if (element.values.completed.basic.displayValue === 'Yes') {
+            const pgcr_icon = element.player.destinyUserInfo.iconPath
+            const pgcr_userName = element.player.destinyUserInfo.displayName
+            const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
+            const pgcr_deaths = element.values.deaths.basic.displayValue
+            const pgcr_kills = element.values.kills.basic.displayValue
+            const pgcr_guardian_deaths =
+              element.extended.values.invaderDeaths.basic.value +
+              element.extended.values.invasionDeaths.basic.value
+            const pgcr_guardian_kills =
+              element.extended.values.invaderKills.basic.value +
+              element.extended.values.invasionKills.basic.value
+
+            const pgcr_motes_banked = element.extended.values.motesDeposited.basic.value
+            const pgcr_motes_lost = element.extended.values.motesLost.basic.value
+            const pgcr_motes_denied = element.extended.values.motesDenied.basic.value
+
+            const pgcr_kdr = calculateKillDeathRatio(pgcr_guardian_kills, pgcr_guardian_deaths)
+            const pgcr_assists = element.values.assists.basic.displayValue
+            const pgcr_team = element.values.assists.basic.displayValue
+            const iconStyle = {
+              backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
+              maxHeight: 30,
+            }
+
+            return (
+              <li className={'pgcr-char-wrap team-bravo'} key={index}>
+                <span className={'pgcr pgcr-player-stats player-name-icon'}>
+                  <span className={'pgcr player-icon'} style={iconStyle}></span>
+                  {pgcr_userName}
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_kills}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_guardian_kills}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_deaths}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_guardian_deaths}</span>
+                </span>
+                <span className={'pgcr player-stats'}>
+                  <span>{pgcr_kdr}</span>
+                </span>
+
+                {/* <span className={'pgcr player-stats'}>
+                <span>{pgcr_motes_banked}</span>
+              </span>
+              <span className={'pgcr player-stats'}>
+                <span>{pgcr_motes_lost}</span>
+              </span>
+              <span className={'pgcr player-stats'}>
+                <span>{pgcr_motes_denied}</span>
+              </span> */}
+              </li>
+            )
+          }
         }
       })}
     </ul>

@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 
+import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
 import { GetActivityDefinition } from '../../Utils/API/API_Requests'
 import './style.css'
+
+import CrucibleImage from '../../../img/cards/Crucible.png'
+import GambitImage from '../../../img/cards/Gambit.png'
+import RaidImage from '../../../img/cards/Raid.png'
 
 export default function Activity(
   props,
@@ -31,7 +36,7 @@ export default function Activity(
       <div>Kills:&nbsp;{kills}</div>
       <div>Deaths:&nbsp;{deaths}</div>
       <div>Assists:&nbsp;{assists}</div>
-      <div>KDA:&nbsp;{kda}</div>
+      {/* <div>KDA:&nbsp;{kda}</div> */}
       <div>KDR:&nbsp;{kdr}</div>
     </div>
   )
@@ -46,7 +51,7 @@ export default function Activity(
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0.6)
     ),url(https://www.bungie.net${referenceDef.pgcrImage})`,
-    height: 200,
+    height: 300,
     width: '100%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -55,13 +60,35 @@ export default function Activity(
     borderRadius: 5,
   })
 
-  const styles = () => ({
-    backgroundImage: `url(https://www.bungie.net${activityDef.displayProperties.icon})`,
+  const gameIcon = () => {
+    const { gameMode } = getUrlDetails()
+    switch (gameMode) {
+      case 'gambit':
+        return GambitImage
+      case 'raid':
+        return RaidImage
+      default:
+        return CrucibleImage
+    }
+  }
+
+  const returnIcon = (icon) => {
+    const iconPath = icon.includes('missing_icon_d2.png')
+      ? gameIcon()
+      : `https://www.bungie.net${activityDef.displayProperties.icon}`
+    return iconPath
+  }
+
+  const styles = (iconPath) => ({
+    backgroundImage: `url(${iconPath})`,
   })
   const HeaderExpanded = () => (
     <div className='pgcr pgcr-game-wrapper' style={mapStyle()}>
       <div className='pgcr activity-icon-name-wrapper'>
-        <span className={'pgcr activity-icon'} style={styles()}></span>
+        <span
+          className={'pgcr activity-icon'}
+          style={styles(returnIcon(activityDef.displayProperties.icon))}
+        ></span>
         <span className={'pgcr activity-name'}>{activityDef.displayProperties.name}</span>
       </div>
       <div className='pgcr activity-results-wrapper'>
@@ -73,7 +100,7 @@ export default function Activity(
           <span>Kills:&nbsp;{kills}</span>
           <span>Deaths:&nbsp;{deaths}</span>
           <span>Assists:&nbsp;{assists}</span>
-          <span>KDA:&nbsp;{kda}</span>
+          {/* <span>KDA:&nbsp;{kda}</span> */}
           <span>KDR:&nbsp;{kdr}</span>
         </div>
       </div>

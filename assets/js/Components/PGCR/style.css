@@ -29,7 +29,7 @@
 .pgcr-game-wrapper{
     width: 600px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 15px;
 }
 
@@ -62,6 +62,7 @@
 
 .player-stats-completed{
     float: right;
+    padding-right: 4px;
 }
 
 .player-name-icon{
@@ -114,8 +115,8 @@
 }
 
 .activity-icon{
-    min-height: 50%;
-    min-width: 50%;
+    min-height: 150px;
+    min-width: 150px;
     margin-right: 10px;
     display: inline-block;
     background-repeat: no-repeat;
@@ -136,20 +137,24 @@
     flex-direction: column;
     height: 100%;
     width: 110px;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-left: 10px;
 }
 
 .activity-results-wrapper{
     /* padding-top: 20px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .activity-results{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 5px;
     font-size: 1.1em;
-    margin-top: 92px;
+    /* margin-top: 10px; */
+    margin-bottom: 20px;
 }
 
 .activity-results-wrapper.h3{

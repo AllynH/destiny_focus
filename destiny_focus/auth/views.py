@@ -502,6 +502,7 @@ def get_manifest(definition, def_hash):
 
     if definition in def_list and isinstance(def_hash, int):
         response = get_definition(str(definition), str(def_hash))
+        # print(response)
     else:
         def_hash_manifest_item = Manifest.query.filter_by(definition_id=str(def_hash)).all()
         print("Definition not found!")
