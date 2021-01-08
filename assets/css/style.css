@@ -6,6 +6,9 @@
 
 :root {
 
+  /* Bungie specific values: */
+  --bungie-power: #DDCB59;
+
   /* Reference: Grey - 332F46 */
   --grey-bg:      #F7F7F8ff;
   --grey-light-4: #E8E8EAff;

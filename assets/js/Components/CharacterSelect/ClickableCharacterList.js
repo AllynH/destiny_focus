@@ -41,7 +41,7 @@ export default function ClickableCharacterList(props) {
     <div className='card-wrapper'>
       {profile ? (
         Object.keys(profile).map((p, index) => (
-          <div key={index} className='card-root-1'>
+          <div key={index} className='card-list'>
             <CharacterCard linkUrl={`/auth/choose_focus/${membershipType}/${membershipId}/${p}` } key={index} character={profile[p]} />
           </div>
         ))

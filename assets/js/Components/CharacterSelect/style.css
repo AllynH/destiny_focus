@@ -15,6 +15,11 @@
 }
 
 .character-select-power-level{
-    color: #DDCB59;
+    color: var(--bungie-power);
     margin-left: auto;
+}
+
+.card-list{
+    margin: 0;
+    padding: 10;
 }

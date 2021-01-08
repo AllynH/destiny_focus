@@ -7,7 +7,8 @@ import KDRChart from './KDRChart'
 import KDAChart from './KDAChart'
 
 import './style.css'
-import Character_Plate from '../CharacterPlate/Character_Plate'
+import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
+// import { getUrlDetails } from '../../Utils/HelperFunctions'
 import AccountStats from '../AccountStats/AccountStats'
 import PGCR from '../PGCR/PGCR'
 import PgcrSummary from './PgcrSummary'
@@ -36,14 +37,14 @@ class PvPChart extends React.Component {
   }
 
   fetchPVPData = async () => {
-    const {
-      membershipType, membershipId, characterId, gameMode,
-    } = getUrlDetails()
+    const { membershipType, membershipId, characterId, gameMode } = getUrlDetails()
 
     switch (gameMode) {
       case 'gambit':
         {
-          const response = await GetGambitData({ params: { membershipType, membershipId, characterId } })
+          const response = await GetGambitData({
+            params: { membershipType, membershipId, characterId },
+          })
           this.setState({
             isLoaded: true,
             jsonResponse: response,
@@ -53,7 +54,9 @@ class PvPChart extends React.Component {
       case 'raid':
         {
           const gameMode = 4
-          const response = await GetRaidData({params: { membershipType, membershipId, characterId, gameMode } })
+          const response = await GetRaidData({
+            params: { membershipType, membershipId, characterId, gameMode },
+          })
           this.setState({
             isLoaded: true,
             jsonResponse: response,
@@ -168,26 +171,29 @@ class PvPChart extends React.Component {
       const { allTime, season } = statsData
 
       return (
-        <div>
-          <this.Headings />
-          <div className='chart-wrapper'>
-            <div className='chart chart-heading-wrap'>
-              <div className='chart chart-wrap'>
-                <h3>Recent matches - K/D R data</h3>
-                <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
-                <PgcrSummary {...this.props} />
+        <>
+          {/* Put character lict on top? */}
+          {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
+          <div>
+            <this.Headings />
+            <div className='chart-wrapper'>
+              <div className='chart chart-heading-wrap'>
+                <div className='chart chart-wrap'>
+                  <h3>Recent matches - K/D R data</h3>
+                  <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
+                  <PgcrSummary {...this.props} />
+                </div>
               </div>
+              <div className='pgcr activity-wrapper'>
+                <div className='activity-list-wrapper'>
+                  <h3>Recent matches - PGCR's</h3>
+                  <ul className={'pgcr activity-list'}>{myPgcr}</ul>
+                </div>
+              </div>
+              {/* <ViewStore /> */}
             </div>
-            <div className='pgcr activity-wrapper'>
-              <div className='activity-list-wrapper'>
-                <h3>Recent matches - PGCR's</h3>
-              <ul className={'pgcr activity-list'}>{myPgcr}</ul>
-            </div>
-            </div>
-            {/* <ViewStore /> */}
           </div>
-          {/* <Character_Plate /> */}
-        </div>
+        </>
       )
     }
   }
