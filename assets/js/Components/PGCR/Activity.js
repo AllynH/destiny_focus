@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
+import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { GetActivityDefinition } from '../../Utils/API/API_Requests'
 import './style.css'
 
@@ -21,43 +22,41 @@ export default function Activity(
     assists = props.values?.assists?.basic?.displayValue || 0,
     kda = props.values?.killsDeathsAssists?.basic?.displayValue || 0,
     kdr = props.values?.killsDeathsRatio?.basic?.displayValue || 0,
+    completionDate = getDatePlayedFromTimestamp(props.period),
+    completionTime = props.values?.activityDurationSeconds?.basic?.displayValue || '666 hours',
   }
 ) {
   const [activityDef, setActivityDef] = useState('')
   const [referenceDef, setReferenceDef] = useState('')
   const [isLoaded, setLoaded] = useState(false)
 
-  // console.log('Activity:')
-  // console.log(props)
+  console.log('Activity:')
+  console.log(props)
+
+  const standingClassName = (s) => {
+    // eslint-disable-next-line no-nested-ternary
+    const style = (s === '') ? '' : (s === 'Victory') ? 'standing-victory' : 'standing-defeat'
+    return style
+  }
 
   const HeaderCollapsed = () => (
-    <div className='pgcr-game-wrapper'>
-      <div>{standing}</div>
+    <div className={`pgcr-game-wrapper ${standingClassName(standing)}`}>
+      <div>{ standing || 'Raid'}</div>
       <div>Kills:&nbsp;{kills}</div>
-      <div>Deaths:&nbsp;{deaths}</div>
-      <div>Assists:&nbsp;{assists}</div>
-      {/* <div>KDA:&nbsp;{kda}</div> */}
       <div>KDR:&nbsp;{kdr}</div>
+      <div>{completionDate}</div>
     </div>
   )
 
   const mapStyle = () => ({
-    // background: `linear-gradient(
-    //   rgba(0, 0, 0, 0.6),
-    //   rgba(0, 0, 0, 0.6)
-    // ),url(https://www.bungie.net${referenceDef.pgcrImage})`,
     background: `linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0.6)
     ),url(https://www.bungie.net${referenceDef.pgcrImage})`,
-    // height: 300,
-    // width: 600,
-    // width: '100%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    // display: 'flex',
-    // flexDirection: 'row',
+    height: 300,
   })
 
   const gameIcon = () => {
@@ -83,7 +82,7 @@ export default function Activity(
     backgroundImage: `url(${iconPath})`,
   })
   const HeaderExpanded = () => (
-    <div className='pgcr pgcr-game-wrapper' style={mapStyle()}>
+    <div className='pgcr pgcr-game-wrapper-expanded' style={mapStyle()}>
       <div className='pgcr activity-icon-name-wrapper'>
         <span
           className={'pgcr activity-icon'}
@@ -95,13 +94,17 @@ export default function Activity(
         <h2 className='pgcr activity-map-name'>
           {referenceDef ? referenceDef.displayProperties.name : ''}
         </h2>
+        <div className='stats header-completion-time'>
+          <p className='stats completion-time-value'>{completionDate}</p>
+          <p className='stats completion-time-value'>{completionTime}</p>
+          <p className='stats completion-time-value standing'>{standing}</p>
+        </div>
         <div className='pgcr activity-results'>
-          <span>{standing}</span>
-          <span>Kills:&nbsp;{kills}</span>
-          <span>Deaths:&nbsp;{deaths}</span>
-          <span>Assists:&nbsp;{assists}</span>
-          {/* <span>KDA:&nbsp;{kda}</span> */}
-          <span>KDR:&nbsp;{kdr}</span>
+          {/* <span>{standing}</span> */}
+          {/* <span>K:&nbsp;{kills}</span>
+          <span>D:&nbsp;{deaths}</span>
+          <span>A:&nbsp;{assists}</span>
+          <span>KDR:&nbsp;{kdr}</span> */}
         </div>
       </div>
     </div>

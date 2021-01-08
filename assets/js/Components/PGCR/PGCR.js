@@ -6,6 +6,8 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
+import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
+
 import Activity from './Activity'
 import { GetPGCR } from '../../Utils/API/API_Requests'
 import './style.css'
@@ -179,10 +181,14 @@ export function PgcrDetailsRaid({ pgcr }) {
         <span className={'pgcr player-stats'}>
           <span>TIME</span>
         </span>
+        <span className={'pgcr player-stats'}>
+          <span>STARTED</span>
+        </span>
       </li>
 
       {entriesList.map((element, index) => {
         const pgcr_standing = element.values.completed.basic.displayValue === 'Yes'
+        const pgcr_time_started = getDatePlayedFromTimestamp(pgcr.Response.period)
         const pcgr_standing_icon = completionIcon(pgcr_standing)
         const pgcr_icon = element.player.destinyUserInfo.iconPath
         const pgcr_userName = element.player.destinyUserInfo.displayName
@@ -191,7 +197,7 @@ export function PgcrDetailsRaid({ pgcr }) {
         const pgcr_deaths = element.values.deaths.basic.displayValue
         const pgcr_kills = element.values.kills.basic.displayValue
         const pgcr_assists = element.values.assists.basic.displayValue
-        const pgcr_completion_time = element.values.activityDurationSeconds.basic.displayValue
+        const pgcr_completion_time = element.values.timePlayedSeconds.basic.displayValue
         const pgcr_super_kills = element.extended.values.weaponKillsSuper.basic.value
         const iconStyle = {
           backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
@@ -220,6 +226,9 @@ export function PgcrDetailsRaid({ pgcr }) {
             <span className={'pgcr player-stats'}>
               <span>{pgcr_completion_time}</span>
             </span>
+            {/* <span className={'pgcr player-stats'}>
+              <span>{pgcr_time_started}</span>
+            </span> */}
           </li>
         )
       })}
