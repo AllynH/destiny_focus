@@ -47,7 +47,7 @@
 
 .pgcr-char-wrap{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 15px;
     /* border-bottom: 1px solid var(--vanguard-light-2); */
     background: var(--grey-dark-2);
@@ -78,7 +78,7 @@
 }
 
 .player-name-icon{
-    min-width: 200px;
+    /* min-width: 200px; */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
