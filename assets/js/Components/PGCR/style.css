@@ -113,8 +113,8 @@
 .activity-list-wrapper{
     display: flex;
     flex-direction: column;
-    align-self: center;
-    width: 600px;
+    justify-content: center;
+    width: 100%;
     border: 1xp solid var(--crucible-dark-2);
     background-color: var(--grey-dark-4);
     color: var(--vanguard-light-5);
