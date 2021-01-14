@@ -24,14 +24,14 @@ export default function Activity(
     kdr = props.values?.killsDeathsRatio?.basic?.displayValue || 0,
     completionDate = getDatePlayedFromTimestamp(props.period),
     completionTime = props.values?.activityDurationSeconds?.basic?.displayValue || '666 hours',
-  }
+  },
 ) {
   const [activityDef, setActivityDef] = useState('')
   const [referenceDef, setReferenceDef] = useState('')
   const [isLoaded, setLoaded] = useState(false)
 
-  console.log('Activity:')
-  console.log(props)
+  // console.log('Activity:')
+  // console.log(props)
 
   const standingClassName = (s) => {
     // eslint-disable-next-line no-nested-ternary

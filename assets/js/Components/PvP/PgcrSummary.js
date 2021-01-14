@@ -5,6 +5,7 @@ import { GetPGCRList } from '../../Utils/API/API_Requests'
 import Shimmer from '../../Utils/Loading/Shimmer'
 import PrecisionChart from './PrecisionChart'
 import PrecisionWeaponKills from '../WeaponSummary/PrecisionWeaponKills'
+import AbilityChart from './AbilityChart'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import './style.css'
@@ -43,20 +44,26 @@ export default function PgcrSummary(props) {
         params: { membershipType, membershipId, characterId, gameMode },
       })
       setPgcrSummary(result)
-      // console.log('fetchPgcrSummary')
-      // console.log(result)
+      console.log('fetchPgcrSummary')
+      console.log(result)
     }
     fetchPgcrSummary()
   }, [props])
 
   const Charts = (
     <>
+      <h2 className='heading-capitalize'>PRECISION KILLS:</h2>
       <div className='small-chart-wrapper'>
         <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} />
         <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} />
       </div>
+      <h2 className='heading-capitalize'>WEAPON DATA:</h2>
       <div className='small-chart-wrapper'>
         <PrecisionWeaponKills {...pgcrSummary} />
+      </div>
+      <h2 className='heading-capitalize'>ABILITY KILLS:</h2>
+      <div className='small-chart-wrapper'>
+        <AbilityChart {...pgcrSummary} />
       </div>
     </>
   )

@@ -82,6 +82,8 @@ class PvPChart extends React.Component {
   }
 
   getKdr(jsonResponse) {
+    console.log('PvPChart - data:')
+    console.log(jsonResponse)
     const kdrList = []
     const myArray = jsonResponse.Response.activities
     myArray.forEach((element, index) => {
@@ -181,6 +183,7 @@ class PvPChart extends React.Component {
                 <div className='chart chart-wrap'>
                   <h3>Recent matches - K/D R data</h3>
                   <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
+                  <h1>DETAILED STATS FOR LAST 10 GAMES:</h1>
                   <PgcrSummary {...this.props} />
                 </div>
               </div>
