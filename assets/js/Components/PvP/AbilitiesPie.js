@@ -5,18 +5,15 @@
 
 import React, { useState, useEffect } from 'react'
 
-import { VictoryChart, VictoryPie, VictoryTooltip, VictoryTheme } from 'victory'
+import { VictoryPie, VictoryTooltip } from 'victory'
 
 import './style.css'
-import { FormatBold } from '@material-ui/icons'
-import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 
 import Spinner from '../../Utils/Loading/Spinner'
-import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 export default function AbilitiesPie(props) {
-  console.log('AbilitiesPie')
-  console.log(props)
+  // console.log('AbilitiesPie')
+  // console.log(props)
   const { data } = props
 
   const [formattedData, setFormattedData] = useState(false)
@@ -39,15 +36,14 @@ export default function AbilitiesPie(props) {
   ]
 
   useEffect(() => {
-    console.log('Inside useEffect: AbilitiesPie')
-    console.log(data)
+    // console.log('Inside useEffect: AbilitiesPie')
+    // console.log(data)
     const makeChartData = () => {
       const count = 0
 
       const formatted = []
 
       for (const [key, value] of Object.entries(data)) {
-        console.log(key, value)
         const accountForZero = value > 0 ? value : 0.1
         const vals = {
           x: count,
@@ -59,7 +55,7 @@ export default function AbilitiesPie(props) {
         formatted.push(vals)
       }
 
-      console.log(formatted)
+      // console.log(formatted)
       setFormattedData(formatted)
       // setFormattedData(junk)
       return formatted
@@ -67,8 +63,8 @@ export default function AbilitiesPie(props) {
     makeChartData()
   }, [props])
 
-  console.log('Checking state:')
-  console.log(formattedData)
+  // console.log('Checking state:')
+  // console.log(formattedData)
   return (
     <>
       {formattedData ? (

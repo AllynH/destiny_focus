@@ -5,7 +5,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import PolarChart from './Polar'
 import AbilitiesPie from './AbilitiesPie'
 
 import './style.css'
