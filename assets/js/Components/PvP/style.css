@@ -4,6 +4,7 @@
     align-content: center;
     /* width: 90%; */
     margin: 0 auto;
+    margin-bottom: 20px;
 
     width: 600px;
     border: 1xp solid var(--crucible-dark-2);
@@ -68,6 +69,7 @@
     margin-left: auto;
     margin-right: auto;
     width: 280px;
+    overflow: visible;
 }
 
 .small-chart-wrapper{

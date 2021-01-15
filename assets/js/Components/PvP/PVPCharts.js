@@ -181,15 +181,17 @@ class PvPChart extends React.Component {
             <div className='chart-wrapper'>
               <div className='chart chart-heading-wrap'>
                 <div className='chart chart-wrap'>
-                  <h3>Recent matches - K/D R data</h3>
+                  <h1>Recent matches - K/D R data</h1>
                   <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
+                </div>
+                <div className='chart chart-wrap'>
                   <h1>DETAILED STATS FOR LAST 10 GAMES:</h1>
                   <PgcrSummary {...this.props} />
                 </div>
               </div>
               <div className='pgcr activity-wrapper'>
                 <div className='activity-list-wrapper'>
-                  <h3>Recent matches - PGCR's</h3>
+                  <h1>Recent matches - PGCR's</h1>
                   <ul className={'pgcr activity-list'}>{myPgcr}</ul>
                 </div>
               </div>
