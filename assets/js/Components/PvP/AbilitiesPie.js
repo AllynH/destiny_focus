@@ -68,9 +68,8 @@ export default function AbilitiesPie(props) {
   return (
     <>
       {formattedData ? (
-        <div>
+        <>
           <p className='chart-body-heading'>Hover for details...</p>
-          {/* <h2 className='chart-body-heading'>Ability kills:</h2> */}
           <svg style={{ height: 0, width: 0 }}>
             <defs>
               <linearGradient id='gradient1' x1='0%' y1='0%' x2='0%' y2='100%'>
@@ -114,7 +113,7 @@ export default function AbilitiesPie(props) {
               'url(#gradient4)',
             ]}
           />
-        </div>
+        </>
       ) : (
         <Spinner />
       )}

@@ -89,6 +89,9 @@
     text-transform: capitalize;
 }
 
+.summary-chart-wrapper{
+    overflow: visible;
+}
 
 /* Ability chart: */
 .ability-chart-wrap{
