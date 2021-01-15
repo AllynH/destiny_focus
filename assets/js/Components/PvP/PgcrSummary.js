@@ -61,7 +61,7 @@ export default function PgcrSummary(props) {
       <div className='small-chart-wrapper'>
         <PrecisionWeaponKills {...pgcrSummary} />
       </div>
-      <h2 className='heading-capitalize'>ABILITY KILLS:</h2>
+      <h2 className='heading-capitalize'>KILLS BREAKDOWN:</h2>
       <div className='small-chart-wrapper'>
         <AbilityChart {...pgcrSummary} />
       </div>

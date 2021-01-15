@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 /* eslint-disable class-methods-use-this */
@@ -74,19 +75,19 @@ export default function AbilitiesPie(props) {
             <defs>
               <linearGradient id='gradient1' x1='0%' y1='0%' x2='0%' y2='100%'>
                 <stop offset='0%' stopColor='var(--crucible-red)' />
-                <stop offset='100%' stopColor='var(--crucible-dark-1)' />
+                <stop offset='100%' stopColor='var(--crucible-dark-2)' />
               </linearGradient>
               <linearGradient id='gradient2' x1='0%' y1='0%' x2='0%' y2='100%'>
                 <stop offset='0%' stopColor='var(--vanguard-blue)' />
-                <stop offset='100%' stopColor='var(--vanguard-dark-1)' />
+                <stop offset='100%' stopColor='var(--vanguard-dark-2)' />
               </linearGradient>
               <linearGradient id='gradient3' x1='0%' y1='0%' x2='0%' y2='100%'>
                 <stop offset='0%' stopColor='var(--gambit-green)' />
                 <stop offset='100%' stopColor='darkGreen' />
               </linearGradient>
               <linearGradient id='gradient4' x1='0%' y1='0%' x2='0%' y2='100%'>
-                <stop offset='0%' stopColor='yellowGreen' />
-                <stop offset='100%' stopColor='green' />
+                <stop offset='0%' stopColor='purple' />
+                <stop offset='100%' stopColor='blue' />
               </linearGradient>
             </defs>
           </svg>
