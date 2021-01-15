@@ -14,7 +14,7 @@
     border-radius: 5px;
     padding: 20px;
     list-style: none;   
-
+    filter: drop-shadow(1px 1px 8px black);
 }
 
 .chart-heading-wrap{

@@ -49,17 +49,6 @@ export default function AbilitiesChart(props) {
     return avg
   }
 
-  const getAverage = (data) => {
-    const avg = []
-    data.map((d, index) => {
-      avg.push(d.y)
-    })
-
-    const sum = avg.reduce((a, b) => a + b, 0)
-    const average = sum / avg.length || 0
-    return average
-  }
-
   const chartData = parseData(props)
 
   return (

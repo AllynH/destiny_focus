@@ -124,6 +124,7 @@
     list-style: none;
     margin-left: auto;
     margin-right: auto;
+    filter: drop-shadow(1px 1px 8px black);
 }
 
 .activity-list{
