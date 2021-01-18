@@ -1,10 +1,7 @@
 /* eslint-disable linebreak-style */
 import React, { useEffect, useState } from 'react'
 
-import {
-  ListItemText,
-  MenuList,
-} from '@material-ui/core'
+import { MenuList } from '@material-ui/core'
 
 import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,15 +10,12 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 
 import { GetCharacters } from '../../Utils/API/API_Requests'
-import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 // import './nav.css';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -66,33 +60,32 @@ const useBGStyles = makeStyles((theme) => ({
 }))
 
 export default function NavBar() {
-
   const {
     auth, membershipType, membershipId, characterId, gameMode,
   } = useParams()
 
-  const [loaded, setLoaded] = useState(false)
-
   const [authFlag, setAuthFlag] = useState(false)
-  // const [anchorEl, setAnchorEl] = useState(null)
   const [anchorElProfile, setAnchorElProfile] = useState(null)
   const [profile, setProfile] = useState(null)
   const classes = useStyles()
   const bgClasses = useBGStyles()
   const openProfile = Boolean(anchorElProfile)
 
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
+  const handleProfile = (event) => {
+    console.log('Profile clicked')
+    setAnchorElProfile(event.currentTarget)
+  }
 
-
+  const handleClose = () => {
+    console.log('handleClick')
+    setAnchorElProfile(null)
+  }
 
   useEffect(() => {
-    // console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
-
+    console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
     if (auth === 'auth') {
       setAuthFlag(true)
     }
-
     const fetchProfile = async (activityId) => {
       const result = await GetCharacters({
         params: {},
@@ -102,24 +95,7 @@ export default function NavBar() {
       // console.log(result[characterId])
     }
     fetchProfile()
-  }, [auth, membershipType, membershipId, characterId])
-
-  const handleMenu = (event) => {
-    console.log('Menu clicked')
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleProfile = (event) => {
-    console.log('Profile clicked')
-    setAnchorElProfile(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-    setAnchorElProfile(null)
-    // console.log('Closing menues.', anchorEl, open)
-    // console.log('Profile.', anchorElProfile, open)
-  }
+  }, [auth, membershipType, membershipId, characterId, gameMode])
 
   return (
     <div
@@ -140,22 +116,25 @@ export default function NavBar() {
             edge='start'
             className={classes.menuButton}
             color='inherit'
-            aria-label='menu'
+            aria-label='Destiny focus: menu'
             aria-controls='menu-appbar'
             aria-haspopup='true'
-            // onClick={handleMenu}
+            onClick={handleProfile}
           >
             {profile ? (
               <div
-                style={
+              onClose={handleClose}
+              open={openProfile}
+              style={
                   profile
                     ? {
                       position: 'relative',
-                      top: 30,
-                      minHeight: 90,
-                      minWidth: 90,
+                      top: 50,
+                      minHeight: 96,
+                      minWidth: 96,
                       backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
                       backgroundColor: 'transparent',
+                      backgroundSize: 'contain',
                     }
                     : {}
                 }
@@ -167,23 +146,22 @@ export default function NavBar() {
             {authFlag && (
               <Menu
                 id='menu-appbar'
-                anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
                   horizontal: 'left',
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'bottom',
+                  vertical: 'top',
                   horizontal: 'left',
                 }}
-                open={open}
+                anchorEl={anchorElProfile}
                 onClose={handleClose}
+                open={openProfile}
               >
                 <MenuList>
-                  {/* <MenuItem
+                  <MenuItem
                     onClick={handleClose}
-                    open={open}
                     component={Link}
                     to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
                   >
@@ -199,15 +177,13 @@ export default function NavBar() {
                 </MenuList>
                 <hr />
                 <MenuList>
-                  <MenuItem
-                    onClick={handleClose}
-                    open={open}
-                    component={Link}
-                    to={'/auth/character_select/'}
-                  >
-                    Character select
-                  </MenuItem> */}
+                  <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
+                    Change platform
+                  </MenuItem>
                 </MenuList>
+                <MenuItem onClick={handleClose}>
+                  <a href='/auth/logout/'>Logout</a>
+                </MenuItem>
               </Menu>
             )}
           </IconButton>
@@ -215,70 +191,6 @@ export default function NavBar() {
           <Typography variant='h6' className={classes.title}>
             Destiny Focus
           </Typography>
-          {authFlag && (
-            <div>
-              <IconButton
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
-                onClick={handleProfile}
-                color='inherit'
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id='menu-profile'
-                anchorEl={anchorElProfile}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={openProfile}
-                onClose={handleClose}
-              >
-                <MenuList>
-                  <MenuItem
-                    onClick={handleClose}
-                    open={open}
-                    component={Link}
-                    to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
-                  >
-                    Account stats
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}`}
-                  >
-                    Choose Focus
-                  </MenuItem>
-                </MenuList>
-                <hr />
-                <MenuList>
-                  <MenuItem
-                    onClick={handleClose}
-                    open={open}
-                    component={Link}
-                    to={'/auth/character_select/'}
-                  >
-                    Change platform
-                  </MenuItem>
-                </MenuList>
-
-                {/* <MenuItem onClick={handleClose} component={Link} to={'/logout'}>
-                  Logout */}
-                {/* React router needs an API call to /logout */}
-                <MenuItem onClick={handleClose}>
-                  <a href='/auth/logout/'>Logout</a>
-                </MenuItem>
-              </Menu>
-            </div>
-          )}
         </Toolbar>
       </AppBar>
     </div>
