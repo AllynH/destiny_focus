@@ -123,9 +123,9 @@ export default function NavBar() {
           >
             {profile ? (
               <div
-              onClose={handleClose}
-              open={openProfile}
-              style={
+                onClose={handleClose}
+                open={openProfile}
+                style={
                   profile
                     ? {
                       position: 'relative',
@@ -142,51 +142,50 @@ export default function NavBar() {
             ) : (
               <MenuIcon />
             )}
-
-            {authFlag && (
-              <Menu
-                id='menu-appbar'
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                anchorEl={anchorElProfile}
-                onClose={handleClose}
-                open={openProfile}
-              >
-                <MenuList>
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
-                  >
-                    Account stats
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleClose}
-                    component={Link}
-                    to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}`}
-                  >
-                    Choose Focus
-                  </MenuItem>
-                </MenuList>
-                <hr />
-                <MenuList>
-                  <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
-                    Change platform
-                  </MenuItem>
-                </MenuList>
-                <MenuItem onClick={handleClose}>
-                  <a href='/auth/logout/'>Logout</a>
-                </MenuItem>
-              </Menu>
-            )}
           </IconButton>
+          {authFlag && (
+            <Menu
+              id='menu-appbar'
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              anchorEl={anchorElProfile}
+              onClose={handleClose}
+              open={openProfile}
+            >
+              <MenuList>
+                <MenuItem
+                  onClick={handleClose}
+                  component={Link}
+                  to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
+                >
+                  Account stats
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  component={Link}
+                  to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}`}
+                >
+                  Choose Focus
+                </MenuItem>
+              </MenuList>
+              <hr />
+              <MenuList>
+                <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
+                  Change platform
+                </MenuItem>
+              </MenuList>
+              <MenuItem onClick={handleClose}>
+                <a href='/auth/logout/'>Logout</a>
+              </MenuItem>
+            </Menu>
+          )}
 
           <Typography variant='h6' className={classes.title}>
             Destiny Focus
