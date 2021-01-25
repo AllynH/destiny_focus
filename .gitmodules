@@ -1,0 +1,3 @@
+[submodule "assets/destiny-icons"]
+	path = assets/destiny-icons
+	url = https://github.com/justrealmilk/destiny-icons.git
