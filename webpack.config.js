@@ -20,7 +20,6 @@ const ProductionPlugins = [
 const debug = process.env.NODE_ENV !== 'production'
 const rootAssetPath = path.join(__dirname, 'assets')
 
-
 module.exports = {
   // configuration
   context: __dirname,
@@ -38,6 +37,7 @@ module.exports = {
       path.join(__dirname, 'assets', 'js', 'Components', 'CharacterPlate', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'CharacterSelect', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Utils', 'Loading', 'style.css'),
+      path.join(__dirname, 'assets', 'css', 'icons.css'),
       path.join(__dirname, 'assets', 'css', 'style.css'),
     ],
   },
@@ -57,7 +57,7 @@ module.exports = {
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
     new webpack.DefinePlugin({
       'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID || '')
-  }),
+    }),
   ].concat(debug ? [] : ProductionPlugins),
   module: {
     rules: [
@@ -92,12 +92,16 @@ module.exports = {
         options: { limit: 10000, mimetype: 'application/font-woff' },
       },
       {
-        test: /\.(ttf|eot|svg|png|jpe?g|gif|ico|json|xml|webmanifest)(\?.*)?$/i,
+        test: /\.(ttf|eot|png|jpe?g|gif|ico|json|xml|webmanifest)(\?.*)?$/i,
         use: [
           {
             loader: `file-loader?context=${rootAssetPath}&name=[path][name].[ext]`,
           },
         ],
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
       },
       {
         test: /\.js$/,

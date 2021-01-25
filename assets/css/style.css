@@ -120,6 +120,11 @@ h1{
   border-bottom: 1px solid var(--grey-light-4);
 }
 
+.sub-heading{
+  color: var(--grey-light-2);
+  padding: 0;
+  margin: 0;
+}
 
 /* Forms */
 

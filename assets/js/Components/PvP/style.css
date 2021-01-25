@@ -81,6 +81,10 @@
     justify-content: space-evenly;
 }
 
+.wider-chart{
+    width: 360px;
+}
+
 .loading-text{
     margin-top: 40px;
     margin-bottom: -40px;
@@ -104,7 +108,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 280px;
+    width: 200px;
     text-align: left;
 }
 
@@ -116,4 +120,32 @@
 
 .ability-list-li{
     padding: 4px;
+    display: grid;
+    align-items: center;
+    justify-content: flex-start;
+    grid-template-columns: 1fr 2fr 1fr;
+    column-gap: 5px;
 }
+
+.ability-detail-title{
+    color: var(--grey-light-2);
+    display: flex;
+    flex-direction: row;
+    padding-right: 4px;
+    align-content: center;
+    align-items: center;
+}
+
+.ability-detail-value{
+    color: white;
+}
+
+/* Weapon icons: */
+.weapon_icon{
+    fill: var(--grey-light-4);
+    stroke: var(--grey-light-4);
+    height: 32px;
+    width: 32px;
+    padding-right: 5px;
+}
+
