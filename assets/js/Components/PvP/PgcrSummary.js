@@ -54,8 +54,8 @@ export default function PgcrSummary(props) {
     <>
       <h2 className='heading-capitalize'>PRECISION KILLS:</h2>
       <div className='small-chart-wrapper'>
-        <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} />
-        <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} />
+        <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} {...props} />
+        <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} {...props} />
       </div>
       <h2 className='heading-capitalize'>WEAPON DATA:</h2>
       <div className='small-chart-wrapper'>

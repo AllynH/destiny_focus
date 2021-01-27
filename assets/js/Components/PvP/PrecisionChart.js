@@ -15,12 +15,16 @@ export default function PrecisionChart(props) {
   console.log('PrecisionChart')
   console.log(props)
 
+  const { focusReducer } = props
+  focusReducer?.payload ? console.log('PrecisionChart using focus goals') : console.log('PrecisionChart using default goals')
+  const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
+
   if (props.chartName === 'averageLifeTime') {
     var dataType = 'life time (secs)'
-    var goal = 100
+    var goal = focusReducer?.payload ? parseFloat(focusReducer.payload.avgLifeTime) : 100
   } else {
     var dataType = 'precision kills'
-    var goal = 5
+    var goal = focusReducer?.payload ? parseFloat(focusReducer.payload.precisionShotsLanded) : 5
   }
 
   const parseData = (props) => {
@@ -75,7 +79,7 @@ export default function PrecisionChart(props) {
           <VictoryLine
             name='Goal'
             style={{
-              data: { fill: 'greyscale', opacity: 0.7 },
+              data: { stroke: 'var(--gambit-green)', opacity: 0.7 },
             }}
             data={[
               { x: 0, y: goal },
@@ -85,7 +89,7 @@ export default function PrecisionChart(props) {
           <VictoryLine
             name='Average'
             style={{
-              data: { stroke: '#32a852', opacity: 0.7 },
+              data: { stroke: 'black', opacity: 0.7 },
             }}
             data={[
               { x: 0, y: average },

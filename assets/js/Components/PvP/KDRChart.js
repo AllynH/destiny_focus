@@ -87,7 +87,7 @@ class PvPChart extends React.Component {
             {/* Add a  KDR goal line: */}
             <VictoryLine
               style={{
-                data: { fill: 'greyscale', opacity: 0.7 },
+                data: { stroke: 'var(--gambit-green)', opacity: 0.7 },
               }}
               data={[
                 { x: 0, y: kdrGoal },
@@ -97,7 +97,7 @@ class PvPChart extends React.Component {
             {/* Add a  KDR avg line: */}
             <VictoryLine
               style={{
-                data: { stroke: '#32a852', opacity: 0.7 },
+                data: { stroke: 'black', opacity: 0.7 },
               }}
               data={[
                 { x: 0, y: average },

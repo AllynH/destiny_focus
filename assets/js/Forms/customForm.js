@@ -145,7 +145,7 @@ export default function FormDialog(props) {
             error={error}
             margin='dense'
             id='precisionShotsLanded'
-            placeholder='50'
+            placeholder='10'
             label='Precision Kills per game (count)'
             type='int'
             fullWidth
