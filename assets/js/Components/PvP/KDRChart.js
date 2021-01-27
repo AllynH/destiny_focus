@@ -34,11 +34,17 @@ class PvPChart extends React.Component {
   }
 
   render() {
-    const kdr = 1.2
+    const { focusReducer } = this.props
+    // console.log('KDR Chart:')
+    // console.log(focusReducer)
+    // eslint-disable-next-line no-unused-expressions
+    focusReducer.payload ? console.log('Using focus goals') : console.log('Using default goals')
+    const kdrGoal = focusReducer.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
+
     const average = this.getAverage(this.props.data)
-    console.log('Render PvPChart')
-    console.log(this.props)
-    console.log(this.state?.focusReducer)
+    // console.log('Render PvPChart')
+    // console.log(this.props)
+
     return (
       <>
         <div className='chart kdr-chart'>
@@ -84,8 +90,8 @@ class PvPChart extends React.Component {
                 data: { fill: 'greyscale', opacity: 0.7 },
               }}
               data={[
-                { x: 0, y: kdr },
-                { x: 30, y: kdr },
+                { x: 0, y: kdrGoal },
+                { x: 30, y: kdrGoal },
               ]}
             />
             {/* Add a  KDR avg line: */}

@@ -3,6 +3,8 @@
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
 import React from 'react'
+import { connect } from 'react-redux'
+
 import KDRChart from './KDRChart'
 import KDAChart from './KDAChart'
 
@@ -158,8 +160,21 @@ class PvPChart extends React.Component {
     const { error, isLoaded, jsonResponse } = this.state
     const { gameMode } = this.props
 
-    console.log('PvP JSON response:')
-    console.log(jsonResponse)
+    const { focusReducer } = this.props || {}
+    // const { focus } = this.props.focusReducer.payload || null
+
+    // console.log('PvP JSON response:')
+    // console.log(jsonResponse)
+
+    // console.log('Redux test:')
+    // console.log(focus)
+    // console.log('focusReducer')
+    // console.log(focusReducer)
+    // console.log('this.state')
+    // console.log(this.state)
+    // console.log(this.props)
+    // console.log(this.state)
+    console.log()
 
     if (error) {
       return <div>Error: {error.message}</div>
@@ -169,12 +184,12 @@ class PvPChart extends React.Component {
       const kdr = this.getKdr(jsonResponse)
       const myPgcr = this.makePGCR(jsonResponse)
       const { membershipType, membershipId } = this.props.match.params
-      const { focusReducer } = this.state || {}
+      // const { focusReducer } = this.state || {}
       const { allTime, season } = statsData
 
       return (
         <>
-          {/* Put character lict on top? */}
+          {/* Put character list on top? */}
           {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
           <div>
             <this.Headings />
@@ -182,7 +197,7 @@ class PvPChart extends React.Component {
               <div className='chart chart-heading-wrap'>
                 <div className='chart chart-wrap'>
                   <h1>Recent matches - K/D R data</h1>
-                  <KDRChart title={'K/D Ratio'} data={kdr} {...this.props} />
+                  <KDRChart title={'K/D Ratio'} data={kdr} focusReducer={focusReducer} {...this.props} />
                 </div>
                 <div className='chart chart-wrap'>
                   <h1>DETAILED STATS FOR LAST 10 GAMES:</h1>
@@ -204,4 +219,15 @@ class PvPChart extends React.Component {
   }
 }
 
-export default PvPChart
+const mapStateToProps = (state) => {
+  return {
+    focus: state.focus,
+    killDeathRatio: state.killDeathRatio,
+    winLossRatio: state.winLossRatio,
+    precisionShotsLanded: state.precisionShotsLanded,
+    avgLifeTime: state.avgLifeTime,
+    focusReducer: state.focusReducer,
+  }
+}
+
+export default connect(mapStateToProps)(PvPChart)

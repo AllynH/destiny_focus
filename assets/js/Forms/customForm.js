@@ -14,16 +14,17 @@ import { increment, setPvp, setGambit, setRaid } from '../Actions'
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false)
-  const [kdr, setKdr] = React.useState(0)
-  const [wlr, setWlr] = React.useState(0)
-  const [psl, setPsl] = React.useState(0)
+  const [killDeathRatio, setKillDeathRatio] = React.useState(0)
+  const [winLossRatio, setWinLossRatio] = React.useState(0)
+  const [precisionShotsLanded, setPrecisionShotsLanded] = React.useState(0)
+  const [avgLifeTime, setAvgLifeTime] = React.useState(0)
   const [selFocus, setFocus] = React.useState('')
   const [helperText, setHelperText] = React.useState('')
   const [error, setError] = React.useState(false)
   const [values, setValues] = React.useState({
-    kdr: 0,
-    wlr: 0,
-    psl: 0,
+    killDeathRatio: 0,
+    winLossRatio: 0,
+    precisionShotsLanded: 0,
     helperText: '',
   })
 
@@ -51,28 +52,30 @@ export default function FormDialog(props) {
     setOpen(false)
     console.log('Submit')
     console.log('focus', focus)
-    console.log('kdr', kdr)
-    console.log('wlr', wlr)
-    console.log('psl', psl)
+    console.log('killDeathRatio', killDeathRatio)
+    console.log('winLossRatio', winLossRatio)
+    console.log('precisionShotsLanded', precisionShotsLanded)
+    console.log('avgLifeTime', avgLifeTime)
     if (!error) {
       setFocus(focus)
-      setKdr(kdr)
-      setWlr(wlr)
-      setPsl(psl)
+      setKillDeathRatio(killDeathRatio)
+      setWinLossRatio(winLossRatio)
+      setPrecisionShotsLanded(precisionShotsLanded)
+      setAvgLifeTime(avgLifeTime)
       // console.log(store.getState())
       console.log('Dispatching actions:')
       dispatch(increment(2))
       if (focus === 'pvp') {
         console.log('Setting focus -> ', focus)
-        dispatch(setPvp({ kdr, wlr, psl }))
+        dispatch(setPvp({ killDeathRatio, winLossRatio, precisionShotsLanded, avgLifeTime }))
       }
       else if (focus === 'gambit') {
         console.log('Setting focus -> ', focus)
-        dispatch(setGambit({ kdr, wlr, psl }))
+        dispatch(setGambit({ killDeathRatio, winLossRatio, precisionShotsLanded, avgLifeTime }))
       }
       else {
         console.log('Setting focus -> ', focus)
-        dispatch(setRaid({ kdr, wlr, psl }))
+        dispatch(setRaid({ killDeathRatio, winLossRatio, precisionShotsLanded, avgLifeTime }))
       }
     } else {
       // eslint-disable-next-line no-alert
@@ -105,7 +108,7 @@ export default function FormDialog(props) {
       <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
         <DialogTitle id='form-dialog-title'>Focus: {focus}</DialogTitle>
 
-        {/* {props.children ? props.children : <h2>No children...</h2>} */}
+        {/* {props.chilillDeathRatioen ? props.chilillDeathRatioen : <h2>No chilillDeathRatioen...</h2>} */}
 
         <DialogContent>
           <DialogContentText>
@@ -116,37 +119,49 @@ export default function FormDialog(props) {
             helperText={helperText}
             error={error}
             margin='dense'
-            id='pvp-kdr'
+            id='pvp-killDeathRatio'
             placeholder='1.5'
             label='Kill Death Ratio'
             type='int'
             fullWidth
-            onInput={(kdr) => setKdr(kdr.target.value)}
-            // onInput={(kdr) => kdr.target.value}
+            onInput={(killDeathRatio) => setKillDeathRatio(killDeathRatio.target.value)}
+            // onInput={(killDeathRatio) => killDeathRatio.target.value}
             onChange={handleInputChange}
           />
           <TextField
             helperText={helperText}
             error={error}
             margin='dense'
-            id='wlr'
+            id='winLossRatio'
             placeholder='75'
             label='Win Loss Ratio (percent)'
-            type='email'
+            type='int'
             fullWidth
-            onInput={(wlr) => setWlr(wlr.target.value)}
+            onInput={(winLossRatio) => setWinLossRatio(winLossRatio.target.value)}
             onChange={handleInputChange}
           />
           <TextField
             helperText={helperText}
             error={error}
             margin='dense'
-            id='psl'
+            id='precisionShotsLanded'
             placeholder='50'
             label='Precision Kills per game (count)'
-            type='email'
+            type='int'
             fullWidth
-            onInput={(psl) => setPsl(psl.target.value)}
+            onInput={(precisionShotsLanded) => setPrecisionShotsLanded(precisionShotsLanded.target.value)}
+            onChange={handleInputChange}
+          />
+          <TextField
+            helperText={helperText}
+            error={error}
+            margin='dense'
+            id='avgLifeTime'
+            placeholder='90'
+            label='Average time alive (seconds)'
+            type='int'
+            fullWidth
+            onInput={(avgLifeTime) => setAvgLifeTime(avgLifeTime.target.value)}
             onChange={handleInputChange}
           />
         </DialogContent>
