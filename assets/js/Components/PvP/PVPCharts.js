@@ -224,7 +224,7 @@ const mapStateToProps = (state) => {
     focus: state.focus,
     killDeathRatio: state.killDeathRatio,
     winLossRatio: state.winLossRatio,
-    precisionShotsLanded: state.precisionShotsLanded,
+    precisionKillsCount: state.precisionKillsCount,
     avgLifeTime: state.avgLifeTime,
     focusReducer: state.focusReducer,
   }

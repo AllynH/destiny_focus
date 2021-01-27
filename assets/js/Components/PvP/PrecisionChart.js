@@ -24,7 +24,7 @@ export default function PrecisionChart(props) {
     var goal = focusReducer?.payload ? parseFloat(focusReducer.payload.avgLifeTime) : 100
   } else {
     var dataType = 'precision kills'
-    var goal = focusReducer?.payload ? parseFloat(focusReducer.payload.precisionShotsLanded) : 5
+    var goal = focusReducer?.payload ? parseFloat(focusReducer.payload.precisionKillsCount) : 5
   }
 
   const parseData = (props) => {

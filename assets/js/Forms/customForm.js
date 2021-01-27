@@ -16,7 +16,7 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false)
   const [killDeathRatio, setKillDeathRatio] = React.useState(0)
   const [winLossRatio, setWinLossRatio] = React.useState(0)
-  const [precisionShotsLanded, setPrecisionShotsLanded] = React.useState(0)
+  const [precisionKillsCount, setPrecisionKillsCount] = React.useState(0)
   const [avgLifeTime, setAvgLifeTime] = React.useState(0)
   const [selFocus, setFocus] = React.useState('')
   const [helperText, setHelperText] = React.useState('')
@@ -24,7 +24,7 @@ export default function FormDialog(props) {
   const [values, setValues] = React.useState({
     killDeathRatio: 0,
     winLossRatio: 0,
-    precisionShotsLanded: 0,
+    precisionKillsCount: 0,
     helperText: '',
   })
 
@@ -54,28 +54,28 @@ export default function FormDialog(props) {
     console.log('focus', focus)
     console.log('killDeathRatio', killDeathRatio)
     console.log('winLossRatio', winLossRatio)
-    console.log('precisionShotsLanded', precisionShotsLanded)
+    console.log('precisionKillsCount', precisionKillsCount)
     console.log('avgLifeTime', avgLifeTime)
     if (!error) {
       setFocus(focus)
       setKillDeathRatio(killDeathRatio)
       setWinLossRatio(winLossRatio)
-      setPrecisionShotsLanded(precisionShotsLanded)
+      setPrecisionKillsCount(precisionKillsCount)
       setAvgLifeTime(avgLifeTime)
       // console.log(store.getState())
       console.log('Dispatching actions:')
       dispatch(increment(2))
       if (focus === 'pvp') {
         console.log('Setting focus -> ', focus)
-        dispatch(setPvp({ killDeathRatio, winLossRatio, precisionShotsLanded, avgLifeTime }))
+        dispatch(setPvp({ killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime }))
       }
       else if (focus === 'gambit') {
         console.log('Setting focus -> ', focus)
-        dispatch(setGambit({ killDeathRatio, winLossRatio, precisionShotsLanded, avgLifeTime }))
+        dispatch(setGambit({ killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime }))
       }
       else {
         console.log('Setting focus -> ', focus)
-        dispatch(setRaid({ killDeathRatio, winLossRatio, precisionShotsLanded, avgLifeTime }))
+        dispatch(setRaid({ killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime }))
       }
     } else {
       // eslint-disable-next-line no-alert
@@ -144,12 +144,12 @@ export default function FormDialog(props) {
             helperText={helperText}
             error={error}
             margin='dense'
-            id='precisionShotsLanded'
+            id='precisionKillsCount'
             placeholder='10'
             label='Precision Kills per game (count)'
             type='int'
             fullWidth
-            onInput={(precisionShotsLanded) => setPrecisionShotsLanded(precisionShotsLanded.target.value)}
+            onInput={(precisionKillsCount) => setPrecisionKillsCount(precisionKillsCount.target.value)}
             onChange={handleInputChange}
           />
           <TextField

@@ -6,7 +6,7 @@ export const ViewStore = (props) => {
   const state = useSelector((state) => state)
   const { focus } = useSelector((state) => state.focusReducer)
   const {
-    killDeathRatio, winLossRatio, precisionShotsLanded, avgLifeTime,
+    killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
   } = state.focusReducer.payload || {}
 
   // console.log('Inside ViewStore:')
@@ -20,7 +20,7 @@ export const ViewStore = (props) => {
         <li>Focus: {focus}</li>
         <li>K/D R: {killDeathRatio || ''}</li>
         <li>W/L R: {winLossRatio || ''}</li>
-        <li>Precision shots: {precisionShotsLanded}</li>
+        <li>Precision shots: {precisionKillsCount}</li>
         <li>Average Life Time: {avgLifeTime}</li>
       </ul>
     </div>
