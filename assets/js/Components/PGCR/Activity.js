@@ -29,9 +29,10 @@ export default function Activity(
   const [activityDef, setActivityDef] = useState('')
   const [referenceDef, setReferenceDef] = useState('')
   const [isLoaded, setLoaded] = useState(false)
+  const { gameMode } = props 
 
-  // console.log('Activity:')
-  // console.log(props)
+  console.log('Activity:')
+  console.log(props)
 
   const standingClassName = (s) => {
     // eslint-disable-next-line no-nested-ternary
@@ -39,9 +40,19 @@ export default function Activity(
     return style
   }
 
+  const standingTitle = (s, mode) => {
+
+    switch (mode) {
+      case 'raid':
+        return 'Raid'
+      default:
+        return (s === '') ? 'No win loss data' : (s)
+    }
+  }
+
   const HeaderCollapsed = () => (
     <div className={`pgcr-game-wrapper ${standingClassName(standing)}`}>
-      <div>{ standing || 'Raid'}</div>
+      <div>{ standingTitle(standing, gameMode) || 'Raid'}</div>
       <div>Kills:&nbsp;{kills}</div>
       <div>KDR:&nbsp;{kdr}</div>
       <div>{completionDate}</div>

@@ -149,6 +149,7 @@
 .activity-name{
     font-size: 1.2em;;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .activity-icon-name-wrapper{

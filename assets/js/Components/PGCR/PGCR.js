@@ -131,6 +131,7 @@ export function PgcrDetailsPvP({ pgcr }) {
       })}
 
       {entriesList.map((element, index) => {
+        // Bungie removed the standing and teams information from some PGCR's:
         if (element.values.team === 'undefined') {
           if (element.values.completed.basic.displayValue === 'Yes') {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
@@ -459,6 +460,7 @@ export default function Pgcr(props) {
   const [pgcr, setPgcr] = useState()
   const [isExpanded, setIsExpanded] = useState(false)
 
+  const { gameMode } = getUrlDetails()
   const { instanceId } = props.activityDetails
   // console.log('In PGCR.js - instanceId:')
   // console.log(instanceId)
@@ -481,7 +483,6 @@ export default function Pgcr(props) {
   }
 
   const PgcrDetails = () => {
-    const { gameMode } = getUrlDetails()
 
     console.log(gameMode)
     console.log(pgcr)
@@ -506,7 +507,7 @@ export default function Pgcr(props) {
             handleClick(instanceId)
           }}
         >
-          <Activity {...props} isExpanded={isExpanded} />
+          <Activity {...props} isExpanded={isExpanded} gameMode={gameMode} />
           {pgcr && <PgcrDetails />}
         </a>
       </div>
