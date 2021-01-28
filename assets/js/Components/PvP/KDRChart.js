@@ -3,6 +3,7 @@
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
 import React from 'react'
+
 import {
   VictoryChart,
   VictoryTheme,
@@ -11,6 +12,8 @@ import {
   VictoryTooltip,
   VictoryAxis,
 } from 'victory'
+
+import DisplayKdrFocus from './DisplayFocus'
 
 function ChartBody(props) {
   return (
@@ -106,7 +109,7 @@ class PvPChart extends React.Component {
             />
           </VictoryChart>
         </div>
-        {/* <ChartBody title={this.props.title} /> */}
+        <DisplayKdrFocus avgKdr={average} focusReducer={focusReducer} {...this.props} />
       </>
     )
   }

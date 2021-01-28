@@ -213,6 +213,7 @@ class PvPChart extends React.Component {
               {/* <ViewStore /> */}
             </div>
           </div>
+          <ClickableCharacterList memberships={{ membershipId, membershipType }} />
         </>
       )
     }

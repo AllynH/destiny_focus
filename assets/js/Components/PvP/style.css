@@ -149,3 +149,11 @@
     padding-right: 5px;
 }
 
+/* */
+.focus-kdr-row{
+    display: grid;
+    grid-template-columns: 80px 30px;
+    align-items: center;
+    margin-left: 10px;
+    padding: 5px;
+}

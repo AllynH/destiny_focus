@@ -11,7 +11,7 @@ import AbilitiesPie from './AbilitiesPie'
 import Melee from '../../../destiny-icons/weapons/melee.svg'
 import Grenade from '../../../destiny-icons/weapons/grenade.svg'
 import Weapons from '../../../destiny-icons/weapons/hand_cannon.svg'
-import AutoRifle from '../../../destiny-icons/weapons/auto_rifle.svg'
+// import AutoRifle from '../../../destiny-icons/weapons/auto_rifle.svg'
 import Super from '../../../destiny-icons/supers/arc_titan.svg'
 
 import './style.css'

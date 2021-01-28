@@ -31,8 +31,8 @@ export default function Activity(
   const [isLoaded, setLoaded] = useState(false)
   const { gameMode } = props 
 
-  console.log('Activity:')
-  console.log(props)
+  // console.log('Activity:')
+  // console.log(props)
 
   const standingClassName = (s) => {
     // eslint-disable-next-line no-nested-ternary
