@@ -50,7 +50,7 @@ export function PgcrDetailsPvP({ pgcr }) {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
             const pgcr_userName = element.player.destinyUserInfo.displayName
             const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
-            const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
+            const pgcr_kda = Number(Number(element.values.kills.basic.value + element.values.assists.basic.value) / element.values.deaths.basic.value).toFixed(2)
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
             const pgcr_assists = element.values.assists.basic.displayValue
@@ -59,6 +59,8 @@ export function PgcrDetailsPvP({ pgcr }) {
               backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
               maxHeight: 30,
             }
+            console.log('pgcr_kills, pgcr_assists, pgcr_deaths, pgcr_kda')
+            console.log(pgcr_kills, pgcr_assists, pgcr_deaths, pgcr_kda)
 
             return (
               <li className={'pgcr-char-wrap team-alpha'} key={index}>
@@ -93,7 +95,7 @@ export function PgcrDetailsPvP({ pgcr }) {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
             const pgcr_userName = element.player.destinyUserInfo.displayName
             const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
-            const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
+            const pgcr_kda = Number(Number(element.values.kills.basic.value + element.values.assists.basic.value) / element.values.deaths.basic.value).toFixed(2)
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
             const pgcr_assists = element.values.assists.basic.displayValue
@@ -137,7 +139,7 @@ export function PgcrDetailsPvP({ pgcr }) {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
             const pgcr_userName = element.player.destinyUserInfo.displayName
             const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
-            const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
+            const pgcr_kda = Number(Number(element.values.kills.basic.value + element.values.assists.basic.value) / element.values.deaths.basic.value).toFixed(2)
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
             const pgcr_assists = element.values.assists.basic.displayValue
