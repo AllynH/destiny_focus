@@ -13,6 +13,7 @@ import {
   VictoryAxis,
 } from 'victory'
 
+import { getKdrAverage } from '../../Utils/HelperFunctions/KdrFunctions'
 import DisplayKdrFocus from './DisplayFocus'
 
 function ChartBody(props) {
@@ -33,7 +34,7 @@ class PvPChart extends React.Component {
 
     const sum = avg.reduce((a, b) => a + b, 0)
     const average = sum / avg.length || 0
-    return average
+    return [average, avg.length]
   }
 
   render() {
@@ -44,9 +45,12 @@ class PvPChart extends React.Component {
     focusReducer.payload ? console.log('Using focus goals') : console.log('Using default goals')
     const kdrGoal = focusReducer.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
 
-    const average = this.getAverage(this.props.data)
-    // console.log('Render PvPChart')
-    // console.log(this.props)
+    const [average, arrLength] = getKdrAverage(this.props.data)
+    console.log('Render PvPChart')
+    console.log(this.props)
+    console.log(average)
+    console.log(arrLength)
+    console.log(this.props.data)
 
     return (
       <>
@@ -93,8 +97,8 @@ class PvPChart extends React.Component {
                 data: { stroke: 'var(--gambit-green)', opacity: 0.7 },
               }}
               data={[
-                { x: 0, y: kdrGoal },
-                { x: 30, y: kdrGoal },
+                { x: 1, y: kdrGoal },
+                { x: arrLength + 1, y: kdrGoal },
               ]}
             />
             {/* Add a  KDR avg line: */}
@@ -103,8 +107,8 @@ class PvPChart extends React.Component {
                 data: { stroke: 'black', opacity: 0.7 },
               }}
               data={[
-                { x: 0, y: average },
-                { x: 30, y: average },
+                { x: 1, y: average },
+                { x: arrLength + 1, y: average },
               ]}
             />
           </VictoryChart>

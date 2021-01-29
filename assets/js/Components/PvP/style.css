@@ -151,6 +151,14 @@
 
 /* */
 .focus-kdr-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.focus-kdr-grid{
     display: grid;
     grid-template-columns: 80px 30px;
     align-items: center;

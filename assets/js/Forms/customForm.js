@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable camelcase */
 import React from 'react'
 import Route from 'react-router-dom'
@@ -128,7 +129,7 @@ export default function FormDialog(props) {
             // onInput={(killDeathRatio) => killDeathRatio.target.value}
             onChange={handleInputChange}
           />
-          <TextField
+          {/* <TextField
             helperText={helperText}
             error={error}
             margin='dense'
@@ -139,7 +140,7 @@ export default function FormDialog(props) {
             fullWidth
             onInput={(winLossRatio) => setWinLossRatio(winLossRatio.target.value)}
             onChange={handleInputChange}
-          />
+          /> */}
           <TextField
             helperText={helperText}
             error={error}
