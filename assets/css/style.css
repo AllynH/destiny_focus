@@ -87,7 +87,7 @@ body::before {
   will-change: transform;
   z-index: -1;
   margin-left: -125px;
-  margin-left: -125px;
+  margin-right: -125px;
 }
 
 /* Template for any mobile specific items: */

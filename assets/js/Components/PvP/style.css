@@ -165,3 +165,17 @@
     margin-left: 10px;
     padding: 5px;
 }
+
+.focus-kdr-wrapper{
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 2px var(--grey-dark-1);
+    background-color: var(--grey-dark-3);
+    box-shadow: 3px 3px 15px black;
+}
+
+.focus-heading-h2{
+    text-align: center;
+    border-bottom: 1px solid var(--bungie-power);
+}

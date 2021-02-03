@@ -20,32 +20,57 @@ export default function DisplayKdrFocus(props) {
   console.log('DisplayKdrFocus')
   console.log(props)
 
+  const kdrRecommendation = (lessDeathsKdr, moreKillsKdr) => {
+    if (moreKillsKdr > lessDeathsKdr) {
+      return (
+        <>
+          <h3 className='focus-kdr-recommendation-h3'>Focus: KILLS</h3>
+          <hr />
+          <p className='focus-kdr-recommendation-description'>Focus on increasing the number of kills per game to improve your KD/R the fastest.</p>
+          <blockquote className='focus-kdr-recommendation-subtitle'>Don't let up until they're dust, Guardian.</blockquote>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <h3 className='focus-kdr-recommendation-h3'>Focus: STAY ALIVE</h3>
+          <hr />
+          <p className='focus-kdr-recommendation-description'>Focus on increasing your average time alive per game to improve your KD/R the fastest.</p>
+          <blockquote className='focus-kdr-recommendation-subtitle'>This is the moment Iron Lords live for.</blockquote>
+        </>
+      )
+    }
+  }
+
   const projectedKdr = (kdrData) => {
+    const lessDeathsKdr = projectKdrAverage(kdrData, 0, 1)
+    const moreKillsKdr = projectKdrAverage(kdrData, 1, 0)
+    const moreKillsLessDeathsKdr = projectKdrAverage(kdrData, 1, 1)
+
+    const focusRecommendation = kdrRecommendation(lessDeathsKdr, moreKillsKdr)
     return (
+      <>
+      <div className='focus-kdr-recommendation'>{focusRecommendation}</div>
       <div className='focus-kdr-details'>
-        <p>See how your KD/R can increase by focusing on staying alive:</p>
-        {/* <div className='focus-kdr'>KDR with 0.5 less deaths per game: {projectKdrAverage(kdrData, 0, 0.5)}</div> */}
+        <p>See how your KD/R can increase by implementing a focus path:</p>
         <div className='focus-kdr-row'>
-          <span className='ability-detail-title'>KDR with 1 less deaths per game: </span>
-          <span className='ability-detail-value'>{projectKdrAverage(kdrData, 0, 1)}</span>
+          <span className='ability-detail-title'>KDR with 1 less death per game: </span>
+          <span className='ability-detail-value'>{lessDeathsKdr}</span>
         </div>
-        {/* <div className='focus-kdr'>KDR with   2 less deaths per game: {projectKdrAverage(kdrData, 0, 2)}</div> */}
-        {/* <div className='focus-kdr'>KDR with 0.5 more kills per game: {projectKdrAverage(kdrData, 0.5, 0)}</div> */}
         <div className='focus-kdr-row'>
-          <span className='ability-detail-title'>KDR with 1 more kills per game: </span>
-          <span className='ability-detail-value'>{projectKdrAverage(kdrData, 1, 0)}</span>
+          <span className='ability-detail-title'>KDR with 1 more kill per game: </span>
+          <span className='ability-detail-value'>{moreKillsKdr}</span>
         </div>
-        {/* <div className='focus-kdr'>KDR with   2 more kills per game: {projectKdrAverage(kdrData, 2, 0)}</div> */}
         <div className='focus-kdr-row'>
           <span className='ability-detail-title'>KDR with -1 death +1 kill per game: </span>
-          <span className='ability-detail-value'>{projectKdrAverage(kdrData, 1, 1)}</span>
+          <span className='ability-detail-value'>{moreKillsLessDeathsKdr}</span>
         </div>
       </div>
+      </>
     )
   }
 
-  const CompareResults = (avg, goal) => {
-    return (
+  const CompareResults = (avg, goal) => (
       <div className='focus-kdr-details'>
         <div className='focus-kdr-grid'>
           <span className='ability-detail-title'>Avg KDR: </span>
@@ -56,12 +81,11 @@ export default function DisplayKdrFocus(props) {
           <span className='ability-detail-value'>{parseFloat(goal).toFixed(1)}</span>
         </div>
       </div>
-    )
-  }
+  )
 
   const DisplayFocus = (avg, goal, data) => (
     <div className='focus-kdr-wrapper'>
-      <h3>Focus goals are set:</h3>
+      <h2 className='focus-heading-h2'>Focus goals are set:</h2>
       <div className='focus-kdr-'>{CompareResults(avg, goal)}</div>
       <div className='focus-kdr-'>{projectedKdr(data)}</div>
     </div>
