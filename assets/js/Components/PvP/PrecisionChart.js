@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
+import { data } from 'jquery'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -16,7 +17,9 @@ export default function PrecisionChart(props) {
   console.log(props)
 
   const { focusReducer } = props
-  focusReducer?.payload ? console.log('PrecisionChart using focus goals') : console.log('PrecisionChart using default goals')
+  focusReducer?.payload
+    ? console.log('PrecisionChart using focus goals')
+    : console.log('PrecisionChart using default goals')
   const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
 
   if (props.chartName === 'averageLifeTime') {
@@ -46,7 +49,7 @@ export default function PrecisionChart(props) {
     })
 
     const sum = avg.reduce((a, b) => a + b, 0)
-    const average = (sum / avg.length) || 0
+    const average = sum / avg.length || 0
     return average
   }
 
@@ -56,13 +59,18 @@ export default function PrecisionChart(props) {
   console.log(average)
 
   const Summary = (dataType, average, goal) => (
-    <div className={'precision-chart-summary'}>
-      <p>
-        Avg.: {average.toFixed(2)}
-      </p>
-      <p>
-        Goal: {goal}
-      </p>
+    <div className='weapon-precision-wrapper'>
+      <p>Average {dataType} per game:</p>
+      <div className='focus-kdr-grid'>
+        <span className='ability-detail-title'>Avg.: </span>
+        <span className='ability-detail-value'>{average.toFixed(1)}</span>
+      </div>
+
+      <div className='focus-kdr-grid'>
+        <span className='ability-detail-title'>Goal: </span>
+        <span className='ability-detail-value'>{goal}</span>
+      </div>
+
     </div>
   )
 
@@ -98,7 +106,7 @@ export default function PrecisionChart(props) {
           />
         </VictoryChart>
       </div>
-      {Summary (dataType, average, goal)}
+      {Summary(dataType, average, goal)}
     </div>
   )
 }
