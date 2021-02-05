@@ -112,9 +112,11 @@ export default function NavBar() {
     >
       <AppBar position='static'>
         <Toolbar>
+          <div className='icon-shimmer'>
+          </div>
           <IconButton
             edge='start'
-            className={classes.menuButton}
+            className={`${classes.menuButton}`}
             color='inherit'
             aria-label='Destiny focus: menu'
             aria-controls='menu-appbar'
