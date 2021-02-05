@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     maxHeight: 100,
     width: '100%',
+    backgroundColor: 'var(--crucible-dark-4)',
     backgroundPosition: '-52px bottom',
     backgroundSize: 'cover',
     '& .MuiAppBar-colorPrimary': {},
@@ -110,7 +111,7 @@ export default function NavBar() {
           : {}
       }
     >
-      <AppBar position='static'>
+      <AppBar position='static' className='nav-bar-main'>
         <Toolbar>
           <div className='icon-shimmer'>
           </div>

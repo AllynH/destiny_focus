@@ -207,6 +207,11 @@ footer .footer-nav {
 }
 
 /* Nav bar: */
+.nav-bar-main{
+  margin-bottom: 20px;
+  background-color: var(--crucible-dark-4);
+}
+
 @keyframes shimmerBackground {
   0% {background-position:-5000px 0}
   100% {background-position:5000px 0}
@@ -223,8 +228,9 @@ footer .footer-nav {
   background-repeat: repeat-y;
   background-position:-5000px 0;
   animation: shimmerBackground 8s linear infinite;
-  height: 70px;
+  height: 96px;
   width: 96px;
   position: absolute;
   top: 50px;
+  border-radius: 50%;
 }
