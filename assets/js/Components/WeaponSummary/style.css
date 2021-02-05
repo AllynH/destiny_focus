@@ -13,3 +13,20 @@
     width: 100px;
     text-align: center;    
 }
+
+.weapon-precision-wrapper{
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 2px var(--grey-dark-1);
+    background-color: var(--grey-dark-3);
+    box-shadow: 3px 3px 15px black;
+}
+
+.weapon-precision-avg-max-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

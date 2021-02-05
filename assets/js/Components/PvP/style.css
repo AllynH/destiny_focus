@@ -175,7 +175,17 @@
     box-shadow: 3px 3px 15px black;
 }
 
+.focus-kdr-grid-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+}
+
 .focus-heading-h2{
     text-align: center;
     border-bottom: 1px solid var(--bungie-power);
+}
+
+.focus-kdr-recommendation-subtitle{
+    color: var(--grey-light-2);
 }

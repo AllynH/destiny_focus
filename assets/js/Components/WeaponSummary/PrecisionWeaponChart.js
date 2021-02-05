@@ -142,14 +142,18 @@ export default function PrecisionWeaponChart(props) {
           <VictoryAxis label={'Games (left is newer)'} />
         </VictoryChart>
       </div>
-      <h3>Weapon stats: {weaponName || ''}</h3>
+      <div className='weapon-precision-wrapper'>
+      <h2 className='focus-heading-h2'>Weapon stats: {weaponName || ''}</h2>
       <p>
-        {weaponName}: was equied for: {equipCount} games.
+        Equiped for: {equipCount} games.
       </p>
-      <p>Max kills: {maxKills}</p>
-      <p>Max precision kills: {maxPrecisionKills}</p>
-      <p>Avg kills: {killsAvg}</p>
-      <p>Avg precision kills: {precisionAvg}</p>
+      <div className='weapon-precision-avg-max-grid'>
+        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Max kills: </span><span className='ability-detail-value'>{maxKills}</span></div>
+        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Max precision kills: </span><span className='ability-detail-value'>{maxPrecisionKills}</span></div>
+        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Avg kills: </span><span className='ability-detail-value'>{killsAvg}</span></div>
+        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Avg precision kills: </span><span className='ability-detail-value'>{precisionAvg}</span></div>
+      </div>
+      </div>
     </>
   )
 }

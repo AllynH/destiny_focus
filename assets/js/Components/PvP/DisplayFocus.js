@@ -24,8 +24,7 @@ export default function DisplayKdrFocus(props) {
     if (moreKillsKdr > lessDeathsKdr) {
       return (
         <>
-          <h3 className='focus-kdr-recommendation-h3'>Focus: KILLS</h3>
-          <hr />
+          <h2 className='focus-heading-h2'>Focus: KILLS</h2>
           <p className='focus-kdr-recommendation-description'>Focus on increasing the number of kills per game to improve your KD/R the fastest.</p>
           <blockquote className='focus-kdr-recommendation-subtitle'>Don't let up until they're dust, Guardian.</blockquote>
         </>
@@ -33,8 +32,7 @@ export default function DisplayKdrFocus(props) {
     } else {
       return (
         <>
-          <h3 className='focus-kdr-recommendation-h3'>Focus: STAY ALIVE</h3>
-          <hr />
+          <h2 className='focus-heading-h2'>Focus: STAY ALIVE</h2>
           <p className='focus-kdr-recommendation-description'>Focus on increasing your average time alive per game to improve your KD/R the fastest.</p>
           <blockquote className='focus-kdr-recommendation-subtitle'>This is the moment Iron Lords live for.</blockquote>
         </>
@@ -52,6 +50,7 @@ export default function DisplayKdrFocus(props) {
       <>
       <div className='focus-kdr-recommendation'>{focusRecommendation}</div>
       <div className='focus-kdr-details'>
+        <hr />
         <p>See how your KD/R can increase by implementing a focus path:</p>
         <div className='focus-kdr-row'>
           <span className='ability-detail-title'>KDR with 1 less death per game: </span>
@@ -71,7 +70,7 @@ export default function DisplayKdrFocus(props) {
   }
 
   const CompareResults = (avg, goal) => (
-      <div className='focus-kdr-details'>
+      <div className='focus-kdr-details focus-kdr-grid-wrapper'>
         <div className='focus-kdr-grid'>
           <span className='ability-detail-title'>Avg KDR: </span>
           <span className='ability-detail-value'>{avg.toFixed(1)}</span>
@@ -87,7 +86,6 @@ export default function DisplayKdrFocus(props) {
     <div className='focus-kdr-wrapper'>
       <h2 className='focus-heading-h2'>Focus goals are set:</h2>
       <div className='focus-kdr-'>{CompareResults(avg, goal)}</div>
-      <div className='focus-kdr-'>{projectedKdr(data)}</div>
     </div>
   )
 
@@ -100,6 +98,9 @@ export default function DisplayKdrFocus(props) {
           <p>Customise your focus goals to see more data.</p>
         )}
       </div>
+      <div className='focus-kdr-wrapper'>
+      <div className='focus-kdr-'>{projectedKdr(data)}</div>
+    </div>
     </>
   )
 }
