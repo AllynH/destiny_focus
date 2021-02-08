@@ -6,7 +6,9 @@ import Shimmer from '../../Utils/Loading/Shimmer'
 import PrecisionChart from './PrecisionChart'
 import PrecisionWeaponKills from '../WeaponSummary/PrecisionWeaponKills'
 import AbilityChart from './AbilityChart'
+import PrecisionFocus from '../Focus/PrecisionFocus'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
+import { AvgWeaponAbilityKills } from '../../Utils/HelperFunctions/KdrFunctions'
 
 import './style.css'
 
@@ -31,8 +33,10 @@ export function Loading() {
 
 export default function PgcrSummary(props) {
   const [pgcrSummary, setPgcrSummary] = useState()
+  const [avgKillSummary, setAvgKillSummary] = useState()
   const { membershipType, membershipId, characterId } = props.match.params
   const { gameMode } = getUrlDetails()
+  const focusGoals = props.focusReducer?.payload
 
   console.log('pgcrSummary')
   console.log(pgcrSummary)
@@ -46,6 +50,8 @@ export default function PgcrSummary(props) {
       setPgcrSummary(result)
       console.log('fetchPgcrSummary')
       console.log(result)
+      setAvgKillSummary(AvgWeaponAbilityKills(result))
+
     }
     fetchPgcrSummary()
   }, [props])
@@ -57,13 +63,14 @@ export default function PgcrSummary(props) {
         <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} {...props} />
         <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} {...props} />
       </div>
+      <PrecisionFocus {...pgcrSummary} chartData={avgKillSummary} {...props} />
       <h2 className='heading-capitalize'>WEAPON DATA:</h2>
       <div className='small-chart-wrapper'>
         <PrecisionWeaponKills {...pgcrSummary} />
       </div>
       <h2 className='heading-capitalize'>KILLS BREAKDOWN:</h2>
       <div className='small-chart-wrapper'>
-        <AbilityChart {...pgcrSummary} />
+        { pgcrSummary && avgKillSummary && <AbilityChart {...pgcrSummary} chartData={avgKillSummary} />}
       </div>
     </>
   )
