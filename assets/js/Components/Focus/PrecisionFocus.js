@@ -98,6 +98,8 @@ export default function DisplayPrecisionFocus(props) {
   }
 
   const CompareResults = (avg, per) => (
+    <div className='focus-goals-wrapper'>
+    <h2 className='focus-heading-h2'>Focus goals are set:</h2>
     <div className='focus-kdr-details focus-kdr-grid-wrapper'>
       <div className='focus-kdr-grid'>
         <span className='ability-detail-title'>Avg precision kills: </span>
@@ -108,30 +110,18 @@ export default function DisplayPrecisionFocus(props) {
         <span className='ability-detail-value'>{parseFloat(per).toFixed(1)}</span>
       </div>
     </div>
-  )
-
-  const DisplayFocus = (avg, per) => (
-    <div className='focus-kdr-wrapper'>
-      <h2 className='focus-heading-h2'>Focus goals are set:</h2>
-      <div className='focus-kdr-'>{CompareResults(avg, per)}</div>
     </div>
   )
+
   return (
     <>
-      <div>
-        {focusGoals ? (
-          DisplayFocus(average, precisionGoal)
-        ) : (
-          <p>Customise your focus goals to see more data.</p>
-        )}
-        </div>
       <div className='focus-kdr-wrapper'>
-      {/* {focusGoals ? (
-        CompareResults(average, precisionGoal)
-      ) : (
-          <p>Customise your focus goals to see more data.</p>
-      )} */}
         <PrecisionRecommendation precisionPercentage={percent} />
+        {focusGoals ? (
+          CompareResults(average, precisionGoal)
+        ) : (
+          <p className='focus-goals-not-set'>Customise your focus goals to see more data.</p>
+        )}
       </div>
     </>
   )

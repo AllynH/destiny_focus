@@ -89,11 +89,19 @@ SEASONS = {
     },
     12: {
         "TITLE" 	: "Season of the Hunt",
-        "ACTIVE"    : True,
+        "ACTIVE"    : False,
         "EXPANSION" : "Beyond Light",
         "YEAR"  	: "4",
         "START" 	: '2020-10-10 00:00:01',
-        "END"   	: '2021-10-10 00:00:00',
+        "END"   	: '2021-02-09 00:00:00',
+    },
+    13: {
+        "TITLE" 	: "Season of the Chosen",
+        "ACTIVE"    : True,
+        "EXPANSION" : "Beyond Light",
+        "YEAR"  	: "4",
+        "START" 	: '2021-02-09 00:00:01',
+        "END"   	: '2021-05-11 00:00:00',
     },
 }
 
