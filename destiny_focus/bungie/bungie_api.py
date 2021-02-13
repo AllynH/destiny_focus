@@ -22,8 +22,8 @@ class BungieApi(object):
         self.check_for_refresh(user)
 
     def check_for_refresh(self, user):
-        print(user.refresh_ready)
-        print(user.refresh_expired)
+        # print(user.refresh_ready)
+        # print(user.refresh_expired)
         if user.refresh_ready < datetime.utcnow():
             print("\n\nRefresh ready!\n\n")
         return self.auth_session

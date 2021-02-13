@@ -34,13 +34,21 @@ blueprint = Blueprint("auth", __name__, url_prefix="/auth", static_folder="../st
 
 @blueprint.before_request
 def before_request():
+    """
+    Executed before a request is made.
+    Refresh user credentials here.
+    """
     g.user = current_user
-    print(g.user)
     if g.user.is_authenticated:
+        # print(g.user)
+        # print(g.user.refresh_ready)
         if g.user.refresh_ready < datetime.utcnow():
             print("\n\nRefresh ready - before_request!\n\n")
             # Put refresh code in here!
-            # oauth = OAuthSignin(provider).get_provider(provider)
+            token_response = OAuthSignin('bungie').get_provider('bungie').get_refresh_token(g.user)
+            # print(token_response)
+            print("Welcome back user.")
+            user = update_user(user=g.user, token_response=token_response.json(), refresh=True)
 
 
 @login_manager.user_loader
@@ -50,6 +58,7 @@ def load_user(user_id):
 
 
 @blueprint.route("/", methods=["GET", "POST"])
+@login_required
 def home():
     """home page."""
     form = LoginForm(request.form)
@@ -61,8 +70,12 @@ def home():
             # flash("You are logged in.", "success")
             _url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
-        else:
-            flash_errors(form)
+    else:
+        flash_errors(form)
+
+        return redirect(url_for("auth.character_select"))
+        
+
     return render_template("auth/welcome.html", form=form)
 
 
@@ -124,7 +137,7 @@ def oauth_callback(provider):
         user = create_user(get_account_res.json(), token_response.json())
     else:
         print("Welcome back user.")
-        user = update_user(user, get_account_res.json(), token_response.json())
+        user = update_user(user=user, get_account_res=get_account_res.json(), token_response=token_response.json())
 
     login_user(user)
 

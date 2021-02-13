@@ -50,10 +50,17 @@ def create_user(get_account_res, token_response):
     return user
 
 
-def update_user(user, get_account_res, token_response):
+def update_user(user, token_response, get_account_res=None, refresh=False):
     """
     Update a user account:
     """
+
+    if refresh:
+        membershipId    = user.bungieMembershipId
+        displayName     = user.username
+    else:
+        membershipId    = get_account_res['Response']['bungieNetUser']['membershipId']
+        displayName     = get_account_res['Response']['bungieNetUser']['displayName']
 
 	# refresh_ready 					= datetime.utcnow() + timedelta(seconds=int(response.json()['expires_in']))
 
@@ -63,16 +70,16 @@ def update_user(user, get_account_res, token_response):
     access_expired                  = datetime.utcnow() + timedelta(seconds=int(token_response['expires_in']))
     last_seen                       = datetime.utcnow()
 
-    print("Debug:")
-    print(datetime.utcnow())
-    print(datetime.utcnow() + timedelta(seconds=int(token_response['expires_in'])))
-    print(refresh_ready)
-    print(type(refresh_ready))
-    print()
+    # print("Debug:")
+    # print(datetime.utcnow())
+    # print(datetime.utcnow() + timedelta(seconds=int(token_response['expires_in'])))
+    # print(refresh_ready)
+    # print(type(refresh_ready))
+    # print()
 
     account = {
-        'bungieMembershipId'    : get_account_res['Response']['bungieNetUser']['membershipId'],
-        'displayName'           : get_account_res['Response']['bungieNetUser']['displayName'],
+        'bungieMembershipId'    : membershipId,
+        'displayName'           : displayName,
         'access_token'          : token_response['access_token'],
         'refresh_token'         : token_response['refresh_token'],
         'refresh_ready'         : refresh_ready,

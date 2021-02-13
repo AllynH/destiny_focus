@@ -1,4 +1,6 @@
 from flask import current_app, url_for, request, redirect, session
+from destiny_focus.user.models import User
+
 import requests
 from urllib import parse
 
@@ -8,7 +10,7 @@ from datetime import datetime, timedelta
 class OAuthSignin(object):
     providers = None
 
-    def __init__(self, provider_name):
+    def __init__(self, provider_name, user=None):
         super().__init__()
         self.provider_name = provider_name
         credentials = current_app.config['OAUTH_CREDENTIALS'][provider_name]
@@ -34,8 +36,10 @@ class OAuthSignin(object):
     def get_callback_url(self):
         return url_for('oauth_callback', provider=self.provider_name, _external=True)
 
-    def get_refresh_token(self):
-        return url_for('oauth_callback', provider=self.provider_name, _external=True)
+    def get_refresh_token(self, user):
+        # return url_for('auth.oauth_callback', provider=self.provider_name, _external=True)
+        print(self, user)
+        pass
 
     @classmethod
     def get_provider(cls, provider_name):
@@ -53,9 +57,9 @@ class OAuthSignin(object):
         # return self.providers[provider_name]
 
 class BungieSignIn(OAuthSignin):
-    def __init__(self):
+    def __init__(self, user=None):
         super(BungieSignIn, self).__init__('bungie')
-        # TODO: Maybe replace?
+        self.user = user
         self.service = {
             'name'              : 'bungie',
             'client_id'         : self.consumer_id,
@@ -117,6 +121,35 @@ class BungieSignIn(OAuthSignin):
         # token_json              = response.json()['refresh_token']
         # post_data = f'grant_type=refresh_token&refresh_token={token_json}&client_id={self.service["client_id"]}&client_secret={self.service["client_secret"]}'
         # response = requests.post(self.service['access_token_url'], data=post_data, headers=headers)
+        # Useful debug print statements:
+        # print(response.status_code)
+        # print(response.text)
+        # print(response.json())
+
+        return response
+
+
+    def get_refresh_token(self, user):
+        """
+        1) Retrieve the users refresh token.
+        2) Use the refresh token to get the refreshed access token    - 90 days.
+        2) Returns the token response.
+        """
+
+        current_user = User.query.filter_by(bungieMembershipId=user.bungieMembershipId).first()
+
+        print("\nRefreshing tokens: oauth.py")
+        # print("User:", user)
+
+        headers = self.service['headers']
+        headers['Content-Type']		= 'application/x-www-form-urlencoded'
+        headers['client_id'] 		= self.service['client_id']
+        headers['client_secret']	= self.service['client_secret']
+
+        # Refresh access token:
+        token_json              = current_user.refresh_token
+        post_data = f'grant_type=refresh_token&refresh_token={token_json}&client_id={self.service["client_id"]}&client_secret={self.service["client_secret"]}'
+        response = requests.post(self.service['access_token_url'], data=post_data, headers=headers)
         # Useful debug print statements:
         # print(response.status_code)
         # print(response.text)

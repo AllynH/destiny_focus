@@ -1,7 +1,6 @@
 .focus-goals-wrapper{
     background-color: var(--grey-dark-2);
-    width: 100%;
-    padding: 0px;
+    padding: 0px 10px;
     margin: 0px;
     box-shadow: 3px 3px 15px black;
     border-radius: 5px;

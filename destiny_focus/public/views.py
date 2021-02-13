@@ -4,6 +4,7 @@ from flask import (
     Blueprint,
     current_app,
     flash,
+    g,
     redirect,
     render_template,
     request,
@@ -23,6 +24,18 @@ import requests
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 
+@blueprint.before_request
+def before_request():
+    """
+    Executed before a request is made.
+    Refresh user credentials here.
+    """
+    print("\n\nUnauth redirect")
+    g.user = current_user
+    if g.user.is_authenticated:
+        print(g.user)
+        print(g.user.refresh_ready)
+        return redirect(url_for('auth.home'))
 
 @login_manager.user_loader
 def load_user(user_id):
