@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
+import DiscFullIcon from '@material-ui/icons/DiscFull'
+import PublishIcon from '@material-ui/icons/Publish'
+
 import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
-import { GetActivityDefinition } from '../../Utils/API/API_Requests'
+import { GetActivityDefinition, PutPGCR, DeletePGCR } from '../../Utils/API/API_Requests'
 import './style.css'
 
 import CrucibleImage from '../../../img/cards/Crucible.png'
@@ -24,35 +30,41 @@ export default function Activity(
     kdr = props.values?.killsDeathsRatio?.basic?.displayValue || 0,
     completionDate = getDatePlayedFromTimestamp(props.period),
     completionTime = props.values?.activityDurationSeconds?.basic?.displayValue || '666 hours',
-  },
+  }
 ) {
   const [activityDef, setActivityDef] = useState('')
   const [referenceDef, setReferenceDef] = useState('')
   const [isLoaded, setLoaded] = useState(false)
-  const { gameMode } = props 
+  const [isSaved, setSaved] = useState(props.favourite)
+  const [saveError, setSaveError] = useState(false)
+  const [pgcrsFull, setPgcrsFull] = useState(false)
 
-  // console.log('Activity:')
-  // console.log(props)
+  const { gameMode } = props
+  const activityId = Number(props.activityDetails.instanceId)
+
+  console.log('Activity:')
+  console.log(props)
+  console.log(props.activityDetails)
+  console.log(activityId)
 
   const standingClassName = (s) => {
     // eslint-disable-next-line no-nested-ternary
-    const style = (s === '') ? '' : (s === 'Victory') ? 'standing-victory' : 'standing-defeat'
+    const style = s === '' ? '' : s === 'Victory' ? 'standing-victory' : 'standing-defeat'
     return style
   }
 
   const standingTitle = (s, mode) => {
-
     switch (mode) {
       case 'raid':
         return 'Raid'
       default:
-        return (s === '') ? 'No win loss data' : (s)
+        return s === '' ? 'No win loss data' : s
     }
   }
 
   const HeaderCollapsed = () => (
     <div className={`pgcr-game-wrapper ${standingClassName(standing)}`}>
-      <div>{ standingTitle(standing, gameMode) || 'Raid'}</div>
+      <div>{standingTitle(standing, gameMode) || 'Raid'}</div>
       <div>Kills:&nbsp;{kills}</div>
       <div>KDR:&nbsp;{kdr}</div>
       <div>{completionDate}</div>
@@ -83,27 +95,135 @@ export default function Activity(
   }
 
   const returnIcon = (icon) => {
+    // eslint-disable-next-line no-nested-ternary
     const iconPath = icon.includes('missing_icon_d2.png')
       ? gameIcon()
-      : `https://www.bungie.net${activityDef.displayProperties.icon}`
+      : activityDef.displayProperties
+        ? `https://www.bungie.net${activityDef?.displayProperties?.icon}`
+        : gameIcon()
     return iconPath
   }
 
   const styles = (iconPath) => ({
     backgroundImage: `url(${iconPath})`,
   })
+
+  // Store a PGCR in the users DB:
+  const savePgcr = async (activityId) => {
+    const result = await PutPGCR({
+      params: { activityId },
+    })
+    console.log('PutPGCR')
+    console.log(result)
+    if (result.errorStatus === 'Success') {
+      setSaved(true)
+    } else {
+      if (result.user_has_room === false) {
+        setPgcrsFull(true)
+        console.log('pgcrsFull', pgcrsFull)
+      }
+      setSaveError(true)
+    }
+  }
+
+  // Store a PGCR in the users DB:
+  const deletePgcr = async (activityId) => {
+    const result = await DeletePGCR({
+      params: { activityId },
+    })
+    console.log('DeletePGCR')
+    console.log(result)
+    if (result.errorStatus === 'Success') {
+      setSaved(false)
+    } else {
+      setSaveError(true)
+    }
+  }
+
+  const handleClick = (a) => {
+    switch (isSaved) {
+      case true:
+      default:
+        deletePgcr(a)
+        break
+      case false:
+        savePgcr(a)
+        break
+    }
+  }
+
+  const SaveButton = () => (
+    <>
+      {
+        // eslint-disable-next-line no-nested-ternary
+        isSaved ? (
+          <FavoriteIcon style={{ color: 'var(--gambit-green)', fontSize: 'xx-large' }} />
+        ) // eslint-disable-next-line no-nested-ternary
+          : !saveError ? (
+          <FavoriteBorderIcon />
+          ) : pgcrsFull ? (
+          <>
+            <DiscFullIcon style={{ color: 'var(--crucible-red)' }} />
+          </>
+          ) : (
+          <>
+            <ErrorOutlineIcon style={{ color: 'var(--crucible-red)' }} />
+          </>
+          )
+      }
+    </>
+  )
+
+  const ShareButton = () => (
+    <>
+      <PublishIcon />
+    </>
+  )
+
+  const SaveMessage = () => (
+    <div className='pgcr-save-message'>
+      {
+        // eslint-disable-next-line no-nested-ternary
+        isSaved ? (
+          // <p>Saved!</p>
+          ''
+        ) // eslint-disable-next-line no-nested-ternary
+          : !saveError ? (
+          <p></p>
+          ) : pgcrsFull ? (
+          <p>No more room</p>
+          ) : (
+          <p>Error saving</p>
+          )
+      }
+    </div>
+  )
+
   const HeaderExpanded = () => (
     <div className='pgcr pgcr-game-wrapper-expanded' style={mapStyle()}>
       <div className='pgcr activity-icon-name-wrapper'>
+        <div className='pgcr-button-message-wrapper'>
+          <div className='pgcr-social-buttons'>
+            <div className='pgcr-save-button' role='button' onClick={() => handleClick(activityId)}>
+              <SaveButton />
+            </div>
+            <div className='pgcr-share-button' role='button'>
+              <ShareButton role='button' />
+            </div>
+          </div>
+          <SaveMessage/>
+        </div>
         <span
           className={'pgcr activity-icon'}
-          style={styles(returnIcon(activityDef.displayProperties.icon))}
+          style={styles(returnIcon(activityDef?.displayProperties?.icon || ''))}
         ></span>
-        <span className={'pgcr activity-name'}>{activityDef.displayProperties.name}</span>
+        <span className={'pgcr activity-name'}>
+          {activityDef?.displayProperties?.name || 'UNKNOWN ACTIVITY'}
+        </span>
       </div>
       <div className='pgcr activity-results-wrapper'>
         <h2 className='pgcr activity-map-name'>
-          {referenceDef ? referenceDef.displayProperties.name : ''}
+          {referenceDef ? referenceDef.displayProperties?.name : 'UNKNOWN MAP'}
         </h2>
         <div className='stats header-completion-time'>
           <p className='stats completion-time-value'>{completionDate}</p>

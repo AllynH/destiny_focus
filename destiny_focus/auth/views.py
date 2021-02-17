@@ -12,12 +12,14 @@ from flask import (
     session,
     jsonify
 )
+from flask.wrappers import Response
 from flask_login import login_required, login_user, logout_user, current_user
 
 from destiny_focus.extensions import login_manager
 from destiny_focus.auth.forms import LoginForm
 from destiny_focus.user.forms import RegisterForm
-from destiny_focus.user.models import User, Manifest
+from destiny_focus.user.models import PGCRs, User, Manifest, PGCRs
+from destiny_focus.extensions import db
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
 from destiny_focus.tools.user_login import create_user, update_user
@@ -625,3 +627,161 @@ def about():
     """About page."""
     form = LoginForm(request.form)
     return render_template("auth/about.html", form=form)
+
+####################################################################################################
+# A list of routes for managing PGCR's:
+####################################################################################################
+@blueprint.route("/put/pgcr/<int:activityId>")#, methods=["PUT"])
+@login_required
+def put_pgcr(activityId):
+    """
+    Add a PGCR to the PGCR table and a reference to the PGCR in Users.pgcrs.
+    The User has an allocation of stored PGCR's: pgcr_count
+    """
+
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    pgcr_list = []
+    status  = None
+    space   = None
+    exists  = None
+
+    pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
+    for e in pgcr_entries:
+        pgcr_list.append(e.activityId)
+
+    pgcr_count = user.pgcr_count
+    pgcr_allocation = user.pgcr_allocation
+
+    space = True if pgcr_count < pgcr_allocation else False
+    exists = True if activityId in pgcr_list else False
+
+    # print(f"space: {space} exists: {exists} activityId: {activityId}")
+
+    if space and not exists:
+        activity = my_api.get_pgcr(str(activityId))
+
+        if activity["ErrorStatus"] == "Success":
+            print(f"Adding PGCR: {activityId} for user: {user.unique_name}")
+            status = True
+            duration = 0
+            for e in activity["Response"]["entries"]:
+                if int(e["values"]["activityDurationSeconds"]["basic"]["value"]) > duration:
+                    duration = int(e["values"]["activityDurationSeconds"]["basic"]["value"])
+            membershipType  = activity["Response"]["activityDetails"]["membershipType"]
+            mode            = activity["Response"]["activityDetails"]["mode"]
+            players         = len(activity["Response"]["entries"])
+            period          = datetime.strptime(activity["Response"]["period"], "%Y-%m-%dT%H:%M:%SZ")
+
+            pgcr = PGCRs.createPGCR(
+                activityId      = activityId,
+                membershipType  = membershipType,
+                mode            = mode,
+                players         = players,
+                duration        = duration,
+                period          = period,
+            )
+            user.pgcr_count += 1
+            user.pgcrs.append(pgcr)
+            db.session.add(pgcr)
+            db.session.commit()
+
+            response = {
+                "errorStatus"   : "Success",
+                "message"       : f"Stored: {activityId}",
+                "activityId"    : activityId,
+                "membershipType": membershipType,
+                "mode"          : mode,
+                "players"       : players,
+                "duration"      : duration,
+                "period"        : period,
+                "user_has_room"         : space,
+                "already_stored"        : exists,
+                "pgcr_req_successful"   : status,
+            }
+            return jsonify(response)
+
+        else:
+            status = False
+
+    response = {
+        "errorStatus"           : "Fail",
+        "message"               : "There was an error",
+        "user_has_room"         : space,
+        "already_stored"        : exists,
+        "pgcr_req_successful"   : status,
+    }
+
+    return jsonify(response)
+
+
+
+
+@blueprint.route("/get/pgcr_list/")#, methods=["PUT"])
+@login_required
+def get_pgcr_list():
+    """
+    Add a PGCR to the PGCR table and a reference to the PGCR in Users.pgcrs.
+    The User has an allocation of stored PGCR's: pgcr_count
+    """
+
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+
+    pgcr_list = []
+
+    pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
+    for e in pgcr_entries:
+        pgcr_list.append(e.activityId)
+
+    response = {
+        "errorStatus"   : "Success",
+        "user_pgcrs"    : pgcr_list,
+    }
+
+    return jsonify(response)
+
+
+@blueprint.route("/delete/pgcr/<int:activityId>")#, methods=["DELETE"])
+@login_required
+def delete_pgcr(activityId):
+    """
+    Delete a PGCR from a users allocated list.
+    Delete a PGCR from the PGCR table remove reference to the PGCR in Users.pgcrs.
+    The User has an allocation of stored PGCR's: pgcr_count
+    """
+
+    exists = False
+
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+
+    pgcr_entry = PGCRs.query.filter(PGCRs.user_id == User.id, PGCRs.activityId==activityId).first()
+
+    if pgcr_entry:
+        exists = True if activityId == pgcr_entry.activityId else False
+
+    if exists:
+        print(f"Deleting PGCR: {activityId} for user: {user.unique_name}")
+        user.pgcr_count = user.pgcr_count - 1 if user.pgcr_count > 0 else 0
+
+        db.session.delete(pgcr_entry)
+        db.session.commit()
+
+        response = {
+            "errorStatus"   : "Success",
+            "message"       : f"Deleted: {activityId}",
+            "activityId"    : activityId,
+            "current_space" : user.pgcr_allocation,
+            "stored_pgcrs"  : user.pgcr_count,
+            "pgcr_exists"   : exists,
+        }
+
+    else:
+        response = {
+            "errorStatus"   : "Fail",
+            "message"       : "There was an error",
+            "pgcr_exists"   : exists,
+        }
+
+    return jsonify(response)
+

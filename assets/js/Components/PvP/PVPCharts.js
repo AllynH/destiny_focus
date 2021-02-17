@@ -12,7 +12,7 @@ import './style.css'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 // import { getUrlDetails } from '../../Utils/HelperFunctions'
 import AccountStats from '../AccountStats/AccountStats'
-import PGCR from '../PGCR/PGCR'
+import PgcrList from '../PGCR/PgcrList'
 import PgcrSummary from './PgcrSummary'
 import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
@@ -133,17 +133,6 @@ class PvPChart extends React.Component {
     return precisionList
   }
 
-  makePGCR(jsonResponse) {
-    const pgcrList = []
-    const myArray = jsonResponse.Response.activities
-    const pgcr_list = myArray.map((p, index) => (
-      <li className={'pgcr pgcr-item'} key={index}>
-        <PGCR {...p} />
-      </li>
-    ))
-    return pgcr_list
-  }
-
   Headings() {
     const kdrHeading = 'K/D R data'
     const pgcrHeading = 'Post Game Carnage Reports'
@@ -182,7 +171,6 @@ class PvPChart extends React.Component {
       return <Spinner />
     } else {
       const kdr = this.getKdr(jsonResponse)
-      const myPgcr = this.makePGCR(jsonResponse)
       const { membershipType, membershipId } = this.props.match.params
       // const { focusReducer } = this.state || {}
       const { allTime, season } = statsData
@@ -207,7 +195,7 @@ class PvPChart extends React.Component {
               <div className='pgcr activity-wrapper'>
                 <div className='activity-list-wrapper'>
                   <h1>Recent matches - PGCR's</h1>
-                  <ul className={'pgcr activity-list'}>{myPgcr}</ul>
+                  <ul className={'pgcr activity-list'}><PgcrList activityList={jsonResponse} /></ul>
                 </div>
               </div>
               {/* <ViewStore /> */}

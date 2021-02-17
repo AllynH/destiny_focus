@@ -103,16 +103,33 @@
 
 .pgcr{
     font-size: 16px;
+    cursor: default;
 }
 
 .pgcr-pointer{
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .pgcr-ul{
     padding-left: unset;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.pgcr-button-message-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.pgcr-social-buttons{
+    display: flex;
+    flex-direction: row;
+}
+.pgcr-save-button{
+    padding-left: 20px;
+    cursor: pointer;
+}
+.pgcr-save-message{
+    padding-left: 20px;
 }
 
 .activity-list-wrapper{

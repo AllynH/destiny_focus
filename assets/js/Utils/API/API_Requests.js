@@ -68,3 +68,14 @@ export const GetCurrentBungieAccount = async (options) => apiRequest('/auth/get/
   ...options,
 })
 
+export const GetUserPGCRList = async (options) => apiRequest('/auth/get/pgcr_list', {
+  ...options,
+})
+
+export const PutPGCR = async (options) => apiRequest(`/auth/put/pgcr/${options.params.activityId}`, {
+  ...options,
+})
+
+export const DeletePGCR = async (options) => apiRequest(`/auth/delete/pgcr/${options.params.activityId}`, {
+  ...options,
+})

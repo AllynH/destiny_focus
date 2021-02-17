@@ -89,6 +89,10 @@ class User(UserMixin, SurrogatePK, Model):
     access_expired          = Column(db.DateTime, default=dt.datetime.utcnow)
     last_seen               = Column(db.DateTime, default=dt.datetime.utcnow)
 
+    # Add some items to deal with PGCR's
+    pgcr_allocation         = Column(db.Integer, nullable=False, default=30)
+    pgcr_count              = Column(db.Integer, nullable=False, default=0)
+    pgcrs                   = db.relationship('PGCRs', backref='pgcr_user_ref', lazy='dynamic')
 
     # username = Column(db.String(80), unique=True, nullable=False)
     # email = Column(db.String(80), unique=True, nullable=False)
@@ -103,7 +107,6 @@ class User(UserMixin, SurrogatePK, Model):
     # def __init__(self, username, email, password=None, **kwargs):
     #     """Create instance."""
     #     db.Model.__init__(self, username=username, email=email, **kwargs)
-
 
     @property
     def account_details(self):
@@ -187,3 +190,36 @@ class Manifest_Version(SurrogatePK, Model):
     def __repr__(self):
         """Represent instance as a unique string."""
         return f"<Manifest_Version: ({self.current_revision} : {self.update_date})>"
+
+class PGCRs(SurrogatePK, Model):
+    """
+    A table to store a list of players PGCR's.
+    PGCR's are linked back to user via 1 to many relationship.
+
+    Use classmethod to instantiate the PGCRs instance:
+    my_pgcr = PGCRs.createPGCR(...)
+
+    """
+
+    __tablename__ = "pgcrs"
+    activityId          = Column(db.Integer, nullable=False, default=666)
+    membershipType      = Column(db.Integer, nullable=False, default=2)
+    mode                = Column(db.Integer, nullable=False, default=5)
+    players             = Column(db.Integer, nullable=False, default=5)
+    duration            = Column(db.Integer, nullable=False, default=666)
+    period              = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
+    createdAt           = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
+    user_id             = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    @classmethod
+    def createPGCR(cls, **kwargs):
+        kwargs['createdAt'] = kwargs['period'] + dt.timedelta(seconds=kwargs['duration'])
+        return cls(**kwargs)
+
+    def __init__(self, activityId, **kwargs):
+        """Create instance."""
+        db.Model.__init__(self, activityId=activityId, **kwargs)
+
+    def __repr__(self):
+        """Represent instance as a unique string."""
+        return f"<PGCR: ({self.activityId} : {self.mode})>"
