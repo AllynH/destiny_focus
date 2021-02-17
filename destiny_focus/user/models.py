@@ -202,7 +202,7 @@ class PGCRs(SurrogatePK, Model):
     """
 
     __tablename__ = "pgcrs"
-    activityId          = Column(db.Integer, nullable=False, default=666)
+    activityId          = Column(db.BigInteger, nullable=False, default=666)
     membershipType      = Column(db.Integer, nullable=False, default=2)
     mode                = Column(db.Integer, nullable=False, default=5)
     players             = Column(db.Integer, nullable=False, default=5)
