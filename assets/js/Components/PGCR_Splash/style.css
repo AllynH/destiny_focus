@@ -1,0 +1,174 @@
+@media screen and (min-width: 600px) {
+    :root{
+        --pgcr-splash-height: 700px;
+        --pgcr-splash-width: 1280px;
+    }
+    .pgcr-splash-wrapper{
+        width: var(--pgcr-splash-width);
+        display: block;
+        margin: 0 auto;
+    }
+
+    .pgcr-splash-container{
+        height: var(--pgcr-splash-height);
+        width: var(--pgcr-splash-width);
+        /* border: 1px solid red; */
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+    .container-left{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        /* border: 1px solid green; */
+    }
+    .container-left-game-icon{
+        position: relative;
+    }
+    .game-icon-bg{
+        height: 280px;
+        width: 280px;
+        border-radius: 50%;
+        background-color: black;
+        opacity: 40%;
+        position: absolute;
+        top: 40px;
+        z-index: -1;
+        border: solid 1px var(--crucible-red);
+        filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+    }
+
+    .game-icon-diamond{
+        height: 280px;
+        width: 280px;
+        transform: rotate(45deg);
+        background-color: rgba(20, 20, 20, .8);
+        opacity: 40%;
+        position: absolute;
+        top: 40px;
+        z-index: -1;
+        border: solid 1px var(--crucible-red);
+        /* filter: drop-shadow( 3px 3px 2px rgba(20, 20, 20, .2)); */
+    }
+
+    .container-right-wrap{
+        display: flex;
+        flex-direction: column;
+    }
+    .team-icon-wrap{
+        position: relative;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .alpha-icon-bg{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: black;
+        opacity: 50%;
+        z-index: -1;
+    }
+    .bravo-icon-bg{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: white;
+        opacity: 80%;
+        z-index: -1;
+    }
+    .pgcr-splash-team-wrap{
+        display: flex;
+        flex-direction: column;
+    }
+    .alpha-colour-banner{
+        border-top: 5px solid white;
+        background-color: var(--crucible-red);
+        height: 20px;
+        width: 100%;
+    }
+    .bravo-colour-banner{
+        border-top: 5px solid white;
+        background-color: var(--vanguard-blue);
+        height: 20px;
+        width: 100%;
+    }
+    .pgcr-splash-character-row{
+        background-color: rgba( 255, 255, 255, .2);
+        z-index: -1;
+        height: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 4px 0px;
+    }
+    .pgcr-splash-character-details{
+        z-index: -1;
+        display: grid;
+        grid-template-columns: 25ch 1fr 1fr 1fr 1fr;
+
+    }
+    .team-icon-score-wrap{
+        position: relative;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        background-color: rgba(20, 20, 20 ,0.2);
+    }
+    .team-icon-score-pull-left{
+        position: absolute;
+        left: -100px;
+        display: flex;
+        align-items: center;
+        background-color: rgba(20, 20, 20 ,0.2);
+        border-radius: 50%;
+        z-index: 2;
+    }
+    .pgcr-splash-heading-wrap{
+        position: relative;
+    }
+    .heading-underline{
+        position: absolute;
+        height: 50px;
+        width: 30px;
+        border-bottom: solid 4px rgba( 255, 255, 255, .4);
+    }
+    .pgcr-splash-match-result{
+        border-bottom: none;
+        margin: 10px 0;
+    }
+
+
+
+
+  }
+
+
+
+  @media screen and (max-width: 600px) {
+    :root{
+        --pgcr-splash-height: 500px;
+        --pgcr-splash-width: 600px;
+    }
+    .pgcr-splash-wrapper{
+    }
+
+    .pgcr-splash-container{
+        height: var(--pgcr-splash-height);
+        width: var(--pgcr-splash-width);
+        border: 1px solid blue;
+
+    }
+  }
+
+/* 
+  .pgcr-splash-container{
+    height: var(--pgcr-splash-height);
+    width: var(--pgcr-splash-width);
+    border: 1px solid blue;
+
+} */

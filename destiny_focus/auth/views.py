@@ -716,32 +716,6 @@ def put_pgcr(activityId):
     return jsonify(response)
 
 
-
-
-@blueprint.route("/get/pgcr_list/")#, methods=["PUT"])
-@login_required
-def get_pgcr_list():
-    """
-    Add a PGCR to the PGCR table and a reference to the PGCR in Users.pgcrs.
-    The User has an allocation of stored PGCR's: pgcr_count
-    """
-
-    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
-
-    pgcr_list = []
-
-    pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
-    for e in pgcr_entries:
-        pgcr_list.append(e.activityId)
-
-    response = {
-        "errorStatus"   : "Success",
-        "user_pgcrs"    : pgcr_list,
-    }
-
-    return jsonify(response)
-
-
 @blueprint.route("/delete/pgcr/<int:activityId>")#, methods=["DELETE"])
 @login_required
 def delete_pgcr(activityId):
@@ -784,4 +758,38 @@ def delete_pgcr(activityId):
         }
 
     return jsonify(response)
+
+
+@blueprint.route("/get/pgcr_list/")#, methods=["PUT"])
+@login_required
+def get_pgcr_list():
+    """
+    Add a PGCR to the PGCR table and a reference to the PGCR in Users.pgcrs.
+    The User has an allocation of stored PGCR's: pgcr_count
+    """
+
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+
+    pgcr_list = []
+
+    pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
+    for e in pgcr_entries:
+        pgcr_list.append(e.activityId)
+
+    response = {
+        "errorStatus"   : "Success",
+        "user_pgcrs"    : pgcr_list,
+    }
+
+    return jsonify(response)
+
+
+@blueprint.route("/pgcr/<int:activityId>")
+@login_required
+def pgcr(activityId):
+    # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    # my_api = BungieApi(user)
+
+    # get_account_res = my_api.GetCurrentBungieAccount()
+    return render_template("auth/pgcr.html")
 
