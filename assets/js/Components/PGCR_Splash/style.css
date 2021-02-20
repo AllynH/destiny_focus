@@ -103,7 +103,7 @@
     }
     .pgcr-splash-character-row{
         background-color: rgba( 255, 255, 255, .2);
-        z-index: -1;
+        /* z-index: -1; */
         height: 30px;
         display: flex;
         flex-direction: column;
@@ -111,7 +111,7 @@
         margin: 4px 0px;
     }
     .pgcr-splash-character-details{
-        z-index: -1;
+        /* z-index: -1; */
         display: grid;
         grid-template-columns: 25ch 1fr 1fr 1fr 1fr;
 

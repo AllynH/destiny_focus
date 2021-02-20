@@ -40,6 +40,7 @@ def before_request():
     Executed before a request is made.
     Refresh user credentials here.
     """
+    session.permanent = True
     g.user = current_user
     if g.user.is_authenticated:
         # print(g.user)
