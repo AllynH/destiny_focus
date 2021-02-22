@@ -1,5 +1,6 @@
+/* eslint-disable linebreak-style */
 import React, { useState } from 'react'
-
+import { Link, useParams, useHistory } from 'react-router-dom'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
@@ -30,7 +31,7 @@ export default function Activity(
     kdr = props.values?.killsDeathsRatio?.basic?.displayValue || 0,
     completionDate = getDatePlayedFromTimestamp(props.period),
     completionTime = props.values?.activityDurationSeconds?.basic?.displayValue || '666 hours',
-  }
+  },
 ) {
   const [activityDef, setActivityDef] = useState('')
   const [referenceDef, setReferenceDef] = useState('')
@@ -38,6 +39,10 @@ export default function Activity(
   const [isSaved, setSaved] = useState(props.favourite)
   const [saveError, setSaveError] = useState(false)
   const [pgcrsFull, setPgcrsFull] = useState(false)
+  const params = useParams()
+  console.log('activity.js')
+  console.log(params)
+  // const { gameMode, characterId, membershipId, membershipType } = params
 
   const { gameMode } = props
   const activityId = Number(props.activityDetails.instanceId)
@@ -176,7 +181,17 @@ export default function Activity(
 
   const ShareButton = () => (
     <>
-      <PublishIcon />
+      <Link
+        to={{
+          pathname: `/auth/pgcr/${activityId}`,
+          // search: '?sort=name',
+          // hash: '#the-hash',
+          state: { params },
+        }}
+      style={{ textDecoration: 'none' }}>
+        <PublishIcon />
+      </Link>
+
     </>
   )
 

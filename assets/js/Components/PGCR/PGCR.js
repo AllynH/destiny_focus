@@ -503,7 +503,7 @@ export default function Pgcr(props) {
   return (
     <>
       <div className='pgcr-wrapper'>
-        <a
+        <div
           className='pgcr pgcr-pointer'
           role='button'
           onClick={() => {
@@ -512,7 +512,7 @@ export default function Pgcr(props) {
         >
           <Activity {...props} isExpanded={isExpanded} gameMode={gameMode} />
           {pgcr && <PgcrDetails />}
-        </a>
+        </div>
       </div>
     </>
   )

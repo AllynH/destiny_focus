@@ -10,7 +10,7 @@ import Account from './Components/AccountStats/Account'
 import GambitChart from './Components/Gambit/GambitCharts'
 import Welcome from './Components/Welcome/Welcome'
 import CharacterSelect from './Components/CharacterSelect'
-import PgcrSplash from './Components/PGCR_Splash/PGCR_splash'
+import PvpSplash from './Components/PGCR_Splash/PvpSplash'
 
 import GoogleAnalytics from './Components/Analytics/GoogleAnalytics'
 
@@ -27,7 +27,7 @@ class App extends React.Component {
           <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
           <Route path='/auth/raid/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
           <Route path='/auth/account/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={Account} />
-          <Route path='/auth/pgcr/:activityId([0-9]+)/'component={PgcrSplash} />
+          <Route path='/auth/pgcr/:activityId([0-9]+)/'component={PvpSplash} />
           <Route path='/logout' exact={true} component={Welcome} />
           <Route path='/about/' exact={true} />
           <Route path='/' exact={true} component={Welcome} />
