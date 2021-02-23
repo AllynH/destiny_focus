@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react'
-import { Link, useParams, useHistory } from 'react-router-dom'
+import { Link, useParams, useLocation, useHistory } from 'react-router-dom'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
@@ -40,6 +40,9 @@ export default function Activity(
   const [saveError, setSaveError] = useState(false)
   const [pgcrsFull, setPgcrsFull] = useState(false)
   const params = useParams()
+  const location = useLocation()
+  const history = useHistory()
+
   console.log('activity.js')
   console.log(params)
   // const { gameMode, characterId, membershipId, membershipType } = params
@@ -162,17 +165,17 @@ export default function Activity(
       {
         // eslint-disable-next-line no-nested-ternary
         isSaved ? (
-          <FavoriteIcon style={{ color: 'var(--gambit-green)', fontSize: 'xx-large' }} />
+          <FavoriteIcon style={{ color: 'var(--gambit-green)' }} className='pgcr-icon' />
         ) // eslint-disable-next-line no-nested-ternary
           : !saveError ? (
-          <FavoriteBorderIcon />
+          <FavoriteBorderIcon className='pgcr-icon' />
           ) : pgcrsFull ? (
           <>
-            <DiscFullIcon style={{ color: 'var(--crucible-red)' }} />
+            <DiscFullIcon style={{ color: 'var(--crucible-red)' }} className='pgcr-icon' />
           </>
           ) : (
           <>
-            <ErrorOutlineIcon style={{ color: 'var(--crucible-red)' }} />
+            <ErrorOutlineIcon style={{ color: 'var(--crucible-red)' }} className='pgcr-icon' />
           </>
           )
       }
@@ -186,10 +189,10 @@ export default function Activity(
           pathname: `/auth/pgcr/${activityId}`,
           // search: '?sort=name',
           // hash: '#the-hash',
-          state: { params },
+          state: { params, location, history },
         }}
-      style={{ textDecoration: 'none' }}>
-        <PublishIcon />
+      style={{ textDecoration: 'none', color: 'inherit' }}>
+        <PublishIcon className='pgcr-icon' />
       </Link>
 
     </>

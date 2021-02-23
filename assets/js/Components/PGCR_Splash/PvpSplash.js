@@ -13,7 +13,9 @@ import './style.css'
 export default function PvpSplash(props) {
   const [pgcr, setPgcr] = useState()
   const params = useParams()
+  console.log('PvpSplash.js')
   console.log(params)
+  console.log(props)
 
   const { activityId } = params
 

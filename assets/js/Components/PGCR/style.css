@@ -131,6 +131,10 @@
 .pgcr-save-message{
     padding-left: 20px;
 }
+.pgcr-icon:hover{
+    transform: scale(1.2);
+    padding: 0 3px;
+}
 
 .activity-list-wrapper{
     display: flex;
