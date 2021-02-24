@@ -165,17 +165,17 @@ export default function Activity(
       {
         // eslint-disable-next-line no-nested-ternary
         isSaved ? (
-          <FavoriteIcon style={{ color: 'var(--gambit-green)' }} className='pgcr-icon' />
+          <FavoriteIcon style={{ color: 'var(--gambit-green)' }} />
         ) // eslint-disable-next-line no-nested-ternary
           : !saveError ? (
-          <FavoriteBorderIcon className='pgcr-icon' />
+          <FavoriteBorderIcon />
           ) : pgcrsFull ? (
           <>
-            <DiscFullIcon style={{ color: 'var(--crucible-red)' }} className='pgcr-icon' />
+            <DiscFullIcon style={{ color: 'var(--crucible-red)' }} />
           </>
           ) : (
           <>
-            <ErrorOutlineIcon style={{ color: 'var(--crucible-red)' }} className='pgcr-icon' />
+            <ErrorOutlineIcon style={{ color: 'var(--crucible-red)' }} />
           </>
           )
       }
@@ -192,7 +192,7 @@ export default function Activity(
           state: { params, location, history },
         }}
       style={{ textDecoration: 'none', color: 'inherit' }}>
-        <PublishIcon className='pgcr-icon' />
+        <PublishIcon />
       </Link>
 
     </>
@@ -222,10 +222,10 @@ export default function Activity(
       <div className='pgcr activity-icon-name-wrapper'>
         <div className='pgcr-button-message-wrapper'>
           <div className='pgcr-social-buttons'>
-            <div className='pgcr-save-button' role='button' onClick={() => handleClick(activityId)}>
+            <div className='pgcr-save-button pgcr-icon' role='button' onClick={() => handleClick(activityId)}>
               <SaveButton />
             </div>
-            <div className='pgcr-share-button' role='button'>
+            <div className='pgcr-share-button pgcr-icon' role='button'>
               <ShareButton role='button' />
             </div>
           </div>

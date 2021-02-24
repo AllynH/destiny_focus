@@ -34,11 +34,19 @@ export default function CharacterSelect() {
   const classes = useStyles()
 
   useEffect(() => {
+    console.log('useEffect!')
     const fetchCurrrentBungieAccount = async () => {
       const result = await GetCurrentBungieAccount({
         params: {},
       })
       setAccount(result.Response.destinyMemberships)
+      console.log(result)
+      if (result.ErrorStatus === 'Success') {
+        // console.log(result.Response.destinyMemberships[0].membershipId)
+        // console.log(result.Response.destinyMemberships[0].membershipType)
+        setMembershipId(result.Response.destinyMemberships[0].membershipId)
+        setMembershipType(result.Response.destinyMemberships[0].membershipType)
+      }
     }
     fetchCurrrentBungieAccount()
   }, [])
@@ -67,7 +75,7 @@ export default function CharacterSelect() {
       ) : (
         <Shimmer />
       )}
-      {membershipType && <h3>Choose a character...</h3> }
+      {membershipType && <h3>Choose a character: {ACCOUNTTYPES[membershipType]}</h3> }
       {membershipType ? <ClickableCharacterList memberships={{ membershipId, membershipType }} /> : '' }
     </>
   )

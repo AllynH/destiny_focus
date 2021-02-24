@@ -122,7 +122,7 @@ export default function PvpSplash(props) {
 
               {pgcr &&
                 pgcr?.Response?.entries
-                  .filter((entry) => entry.values.team.basic.value === 19)
+                  .filter((entry) => entry.values?.team?.basic?.value === 19)
                   .map((entry, index) => <Player {...entry} key={index} />)}
             </div>
 
@@ -157,7 +157,7 @@ export default function PvpSplash(props) {
 
               {pgcr &&
                 pgcr?.Response?.entries
-                  .filter((entry) => entry.values.team.basic.value === 18)
+                  .filter((entry) => entry.values?.team?.basic?.value === 18)
                   .map((entry, index) => <Player {...entry} key={index} />)}
             </div>
           </div>
