@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react'
-import { Link, useParams, useLocation, useHistory } from 'react-router-dom'
+import { Link, useParams, useLocation } from 'react-router-dom'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
@@ -41,7 +41,7 @@ export default function Activity(
   const [pgcrsFull, setPgcrsFull] = useState(false)
   const params = useParams()
   const location = useLocation()
-  const history = useHistory()
+  // const history = useHistory()
 
   console.log('activity.js')
   console.log(params)
@@ -189,7 +189,7 @@ export default function Activity(
           pathname: `/auth/pgcr/${activityId}`,
           // search: '?sort=name',
           // hash: '#the-hash',
-          state: { params, location, history },
+          state: { params, location },
         }}
       style={{ textDecoration: 'none', color: 'inherit' }}>
         <PublishIcon />
