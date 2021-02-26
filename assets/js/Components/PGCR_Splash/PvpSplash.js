@@ -19,7 +19,6 @@ export default function PvpSplash(props) {
 
   const { activityId } = params
 
-
   // const activityId = 7897012836
 
   // Fetch the Activity definition - Map icon, name :
@@ -47,7 +46,7 @@ export default function PvpSplash(props) {
     return (
       <div className='pgcr-splash-character-row'>
         <div className='pgcr-splash-character-details'>
-          <div>{username}</div>
+          <div className='align-left'>{username}</div>
           <div>{kills}</div>
           <div>{deaths}</div>
           <div>{assists}</div>
@@ -91,68 +90,74 @@ export default function PvpSplash(props) {
               </div>
             </div>
 
-            <div className='pgcr-splash-team-wrap'>
-              <div className='pgcr-splash-alpha'>
-                <div className='team-icon-score-wrap'>
-                  <div className='team-icon-score-pull-left'>
-                    <div className='team-score'>
-                      <h2>
-                      {pgcr
-                          && pgcr?.Response?.teams
-                            .filter((t) => t.teamId === 19)
-                            .map((t, index) => t.score.basic.value
-                          )
-                        }
-                      </h2>
-                    </div>
-                    <div className='team-icon-wrap'>
-                      <div className='alpha-icon-bg'></div>
-                      <AlphaTeam
-                        width={50}
-                        height={50}
-                        viewBox={'0 0 32 32'}
-                        style={{ fill: 'var(--crucible-red)' }}
-                      />
-                    </div>
-                  </div>
-                  <h2>ALPHA</h2>
-                </div>
-                <div className='alpha-colour-banner'></div>
+            <div className='pgcr-position-relative'>
+              <div className='gcr-splash-categories'>
+                <div></div>
+                <div className='pgcr-category'>K</div>
+                <div className='pgcr-category'>D</div>
+                <div className='pgcr-category'>A</div>
+                <div className='pgcr-category'>K/D R</div>
               </div>
 
-              {pgcr &&
-                pgcr?.Response?.entries
-                  .filter((entry) => entry.values?.team?.basic?.value === 19)
-                  .map((entry, index) => <Player {...entry} key={index} />)}
-            </div>
-
-            <div className='pgcr-splash-team-wrap'>
-              <div className='pgcr-splash-alpha'>
-                <div className='team-icon-score-wrap'>
-                  <div className='team-icon-score-pull-left'>
-                    <div className='team-score'>
-                      <h2>
-                        {pgcr
-                          && pgcr?.Response?.teams
-                            .filter((t) => t.teamId === 18)
-                            .map((t, index) => t.score.basic.value
-                          )
-                        }
-                      </h2>
+              <div className='pgcr-splash-team-wrap'>
+                <div className='pgcr-splash-alpha'>
+                  <div className='team-icon-score-wrap'>
+                    <div className='team-icon-score-pull-left'>
+                      <div className='team-score'>
+                        <h2>
+                          {pgcr &&
+                            pgcr?.Response?.teams
+                              .filter((t) => t.teamId === 19)
+                              .map((t, index) => t.score.basic.value)}
+                        </h2>
+                      </div>
+                      <div className='team-icon-wrap'>
+                        <div className='alpha-icon-bg'></div>
+                        <AlphaTeam
+                          width={50}
+                          height={50}
+                          viewBox={'0 0 32 32'}
+                          style={{ fill: 'var(--crucible-red)' }}
+                        />
+                      </div>
                     </div>
-                    <div className='team-icon-wrap'>
-                      <div className='bravo-icon-bg'></div>
-                      <BravoTeam
-                        width={50}
-                        height={50}
-                        viewBox={'0 0 32 32'}
-                        style={{ fill: 'var(--vanguard-blue)' }}
-                      />
-                    </div>
+                    <h2>ALPHA</h2>
                   </div>
-                  <h2>BRAVO</h2>
+                  <div className='alpha-colour-banner'></div>
                 </div>
-                <div className='bravo-colour-banner'></div>
+
+                {pgcr &&
+                  pgcr?.Response?.entries
+                    .filter((entry) => entry.values?.team?.basic?.value === 19)
+                    .map((entry, index) => <Player {...entry} key={index} />)}
+              </div>
+
+              <div className='pgcr-splash-team-wrap'>
+                <div className='pgcr-splash-alpha'>
+                  <div className='team-icon-score-wrap'>
+                    <div className='team-icon-score-pull-left'>
+                      <div className='team-score'>
+                        <h2>
+                          {pgcr &&
+                            pgcr?.Response?.teams
+                              .filter((t) => t.teamId === 18)
+                              .map((t, index) => t.score.basic.value)}
+                        </h2>
+                      </div>
+                      <div className='team-icon-wrap'>
+                        <div className='bravo-icon-bg'></div>
+                        <BravoTeam
+                          width={50}
+                          height={50}
+                          viewBox={'0 0 32 32'}
+                          style={{ fill: 'var(--vanguard-blue)' }}
+                        />
+                      </div>
+                    </div>
+                    <h2>BRAVO</h2>
+                  </div>
+                  <div className='bravo-colour-banner'></div>
+                </div>
               </div>
 
               {pgcr &&
