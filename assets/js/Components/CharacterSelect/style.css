@@ -23,3 +23,16 @@
     margin: 0;
     padding: 10;
 }
+
+.character-select-platform-wrap{
+    display: flex;
+    flex-direction: column;
+}
+.char-select-list{
+
+}
+.char-select-list-item{
+    list-style-type: none;
+    padding: 10px 10px;
+    float: left;
+}

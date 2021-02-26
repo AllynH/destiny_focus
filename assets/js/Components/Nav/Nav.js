@@ -113,8 +113,9 @@ export default function NavBar() {
     >
       <AppBar position='static' className='nav-bar-main'>
         <Toolbar>
-          <div className='icon-shimmer'>
-          </div>
+          {profile &&
+            <div className='icon-shimmer'></div>
+          }
           <IconButton
             edge='start'
             className={`${classes.menuButton}`}
