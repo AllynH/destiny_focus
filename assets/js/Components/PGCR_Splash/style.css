@@ -58,6 +58,7 @@
 
     .pgcr-position-relative{
         position: relative;
+        height: 100%;
     }
     .gcr-splash-categories{
         display: grid;
@@ -75,6 +76,10 @@
     .container-right-wrap{
         display: flex;
         flex-direction: column;
+        height: 90%;
+    }
+    .container-right{
+        height: 100%;
     }
     .team-icon-wrap{
         position: relative;
@@ -237,6 +242,7 @@
 
     .pgcr-position-relative{
         position: relative;
+        height: 100%;
     }
     .gcr-splash-categories{
         display: grid;
@@ -250,10 +256,13 @@
         border: solid 1px rgba( 255, 255, 255, .4);
         width: 100%;
     }
-
+    .container-right{
+        height: 100%;
+    }
     .container-right-wrap{
         display: flex;
         flex-direction: column;
+        height: 100%;
     }
     .team-icon-wrap{
         position: relative;
