@@ -6,15 +6,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import KDRChart from './KDRChart'
-import KDAChart from './KDAChart'
 
 import './style.css'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
-// import { getUrlDetails } from '../../Utils/HelperFunctions'
-import AccountStats from '../AccountStats/AccountStats'
 import PgcrList from '../PGCR/PgcrList'
 import PgcrSummary from './PgcrSummary'
-import { ViewStore } from '../../Utils/ViewStore'
+// import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { statsData } from '../../Data/statsData'
@@ -150,20 +147,6 @@ class PvPChart extends React.Component {
     const { gameMode } = this.props
 
     const { focusReducer } = this.props || {}
-    // const { focus } = this.props.focusReducer.payload || null
-
-    // console.log('PvP JSON response:')
-    // console.log(jsonResponse)
-
-    // console.log('Redux test:')
-    // console.log(focus)
-    // console.log('focusReducer')
-    // console.log(focusReducer)
-    // console.log('this.state')
-    // console.log(this.state)
-    // console.log(this.props)
-    // console.log(this.state)
-    console.log()
 
     if (error) {
       return <div>Error: {error.message}</div>
