@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 
+import Button from '@material-ui/core/Button'
+import SaveIcon from '@material-ui/icons/Save'
 import { GetPGCR } from '../../Utils/API/API_Requests'
 
 import Crucible from '../../../destiny-icons/factions/faction_crucible.svg'
@@ -8,11 +10,14 @@ import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.s
 import AlphaTeam from '../../../destiny-icons/factions/team_alpha.svg'
 import BravoTeam from '../../../destiny-icons/factions/team_bravo.svg'
 
+import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
+
 import './style.css'
 
 export default function PvpSplash(props) {
   const [pgcr, setPgcr] = useState()
   const params = useParams()
+  const currRef = useRef(null)
   console.log('PvpSplash.js')
   console.log(params)
   console.log(props)
@@ -58,7 +63,9 @@ export default function PvpSplash(props) {
 
   return (
     <div className='pgcr-splash-wrapper'>
-      <div className='pgcr-splash-container'>
+      <div className='pgcr-splash-container'
+        ref={currRef}
+      >
         <div className='container-left'>
           <div className='container-left-icons'>
             <div className='container-left-game-icon'>
@@ -168,6 +175,16 @@ export default function PvpSplash(props) {
           </div>
         </div>
       </div>
+          {/* <Button
+            variant='contained'
+            color='primary'
+            size='small'
+            // className={classes.button}
+            startIcon={<SaveIcon />}
+            onClick={() => capturePngWithName(currRef, 'PGCR')}
+          >
+            Share .jpg
+          </Button> */}
     </div>
   )
 }

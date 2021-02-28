@@ -93,7 +93,7 @@ class Account extends React.Component {
       const { allTime, season } = statsData
 
       return (
-        <div>
+        <div className='account-stats-wrapper'>
           <h2>{allTime.heading}</h2>
           <div className='stats-background'>
             <div className='button-wrapper'>
