@@ -86,8 +86,10 @@ body::before {
   position: fixed;
   will-change: transform;
   z-index: -1;
-  margin-left: -125px;
-  margin-right: -125px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 /* Template for any mobile specific items: */
