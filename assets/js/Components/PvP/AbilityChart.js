@@ -26,7 +26,7 @@ export default function AbilitiesChart(props) {
 
   return (
     <>
-      <div className='ability-chart-wrap'>
+      <div className='ability-chart-wrap flex-direction'>
         <div className='ability-chart-description'>
         <p className='sub-heading'>Avg. kills per game.</p>
           <ul className='ability-list'>

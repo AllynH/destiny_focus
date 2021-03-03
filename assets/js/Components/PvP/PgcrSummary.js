@@ -59,7 +59,7 @@ export default function PgcrSummary(props) {
   const Charts = (
     <>
       <h2 className='heading-capitalize'>PLAYSTYLE:</h2>
-      <div className='small-chart-wrapper'>
+      <div className='small-chart-wrapper flex-direction'>
         <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} {...props} />
         <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} {...props} />
       </div>

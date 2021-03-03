@@ -54,7 +54,7 @@ class PvPChart extends React.Component {
 
     return (
       <>
-        <div className='chart kdr-chart'>
+        <div className='chart kdr-chart big-chart'>
           <VictoryChart
             // height={300}
             // width={300}
