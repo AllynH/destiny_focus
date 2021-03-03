@@ -165,12 +165,11 @@ export default function PvpSplash(props) {
                   </div>
                   <div className='bravo-colour-banner'></div>
                 </div>
-              </div>
-
-              {pgcr &&
+                {pgcr &&
                 pgcr?.Response?.entries
                   .filter((entry) => entry.values?.team?.basic?.value === 18)
                   .map((entry, index) => <Player {...entry} key={index} />)}
+              </div>
             </div>
           </div>
         </div>
