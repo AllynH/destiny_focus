@@ -20,6 +20,7 @@ from destiny_focus.user.forms import RegisterForm
 from destiny_focus.user.models import User
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
+from destiny_focus.bungie.bungie_api_unauth import BungieApiUnauth
 import requests
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
@@ -31,11 +32,13 @@ def before_request():
     Refresh user credentials here.
     """
     print("\n\nUnauth redirect")
-    g.user = current_user
-    if g.user.is_authenticated:
-        print(g.user)
-        print(g.user.refresh_ready)
-        return redirect(url_for('auth.home'))
+    print(request.endpoint)
+    if not request.endpoint == "public.pgcr":
+        g.user = current_user
+        if g.user.is_authenticated:
+            print(g.user)
+            print(g.user.refresh_ready)
+            return redirect(url_for('auth.home'))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -103,3 +106,21 @@ def about():
     """About page."""
     form = LoginForm(request.form)
     return render_template("public/about.html", form=form)
+
+@blueprint.route("/get/pgcr/<activityId>/")
+def get_pgcr(activityId):
+    
+    my_api = BungieApiUnauth()
+
+    activity = my_api.get_pgcr(activityId)
+
+    return jsonify(activity)
+
+@blueprint.route("/pgcr/<int:activityId>")
+def pgcr(activityId):
+    # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    # my_api = BungieApi(user)
+
+    # get_account_res = my_api.GetCurrentBungieAccount()
+    return render_template("auth/pgcr.html")
+

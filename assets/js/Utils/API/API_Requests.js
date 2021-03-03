@@ -37,6 +37,10 @@ export const GetPGCR = async (options) => apiRequest(`/auth/get/pgcr/${options.p
   ...options,
 })
 
+export const GetPGCRUnauth = async (options) => apiRequest(`/get/pgcr/${options.params.activityId}`, {
+  ...options,
+})
+
 export const GetActivityDefinition = async (options) => apiRequest(`/auth/get/manifest/${options.params.definition}/${options.params.defHash}`, {
   ...options,
 })

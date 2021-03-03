@@ -28,7 +28,7 @@ class BungieApi(object):
             print("\n\nRefresh ready!\n\n")
         return self.auth_session
 
-    def make_session(self):
+    def make_session(self="unauth"):
         """
         Make the authorized session.
         """

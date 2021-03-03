@@ -147,7 +147,7 @@ export default function NavBar() {
               <MenuIcon />
             )}
           </IconButton>
-          {authFlag && (
+          {authFlag ? (
             <Menu
               id='menu-appbar'
               anchorOrigin={{
@@ -189,7 +189,30 @@ export default function NavBar() {
                 <a href='/auth/logout/'>Logout</a>
               </MenuItem>
             </Menu>
-          )}
+          )
+        :
+        <Menu
+        id='menu-appbar'
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        anchorEl={anchorElProfile}
+        onClose={handleClose}
+        open={openProfile}
+      >
+        <MenuList>
+          <MenuItem onClick={handleClose} component={Link} to={'/'}>
+            Destiny Focus
+          </MenuItem>
+        </MenuList>
+      </Menu>
+  }
 
           <Typography variant='h6' className={classes.title}>
             Destiny Focus

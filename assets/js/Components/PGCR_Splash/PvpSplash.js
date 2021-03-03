@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
-import { GetPGCR } from '../../Utils/API/API_Requests'
+import { GetPGCRUnauth } from '../../Utils/API/API_Requests'
 
 import Crucible from '../../../destiny-icons/factions/faction_crucible.svg'
 import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.svg'
@@ -29,7 +29,7 @@ export default function PvpSplash(props) {
   // Fetch the Activity definition - Map icon, name :
   useEffect(() => {
     const fetchPgcr = async (activityId) => {
-      const result = await GetPGCR({
+      const result = await GetPGCRUnauth({
         params: {
           activityId,
         },
