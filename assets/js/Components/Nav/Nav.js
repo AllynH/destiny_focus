@@ -207,9 +207,9 @@ export default function NavBar() {
         open={openProfile}
       >
         <MenuList>
-          <MenuItem onClick={handleClose} component={Link} to={'/'}>
-            Destiny Focus
-          </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <a className='link-nav-home' href='/'>Destiny Focus</a>
+              </MenuItem>
         </MenuList>
       </Menu>
   }

@@ -217,6 +217,9 @@ footer .footer-nav {
   margin-bottom: 20px;
   background-color: var(--crucible-dark-4);
 }
+.link-nav-home{
+  text-decoration: none;
+}
 
 @keyframes shimmerBackground {
   0% {background-position:-5000px 0}
