@@ -186,7 +186,7 @@ export default function Activity(
     <>
       <Link
         to={{
-          pathname: `/auth/pgcr/${activityId}`,
+          pathname: `/pgcr/${activityId}`,
           // search: '?sort=name',
           // hash: '#the-hash',
           state: { params, location },
