@@ -18,9 +18,9 @@ export default function PvpSplash(props) {
   const [pgcr, setPgcr] = useState()
   const params = useParams()
   const currRef = useRef(null)
-  console.log('PvpSplash.js')
-  console.log(params)
-  console.log(props)
+  // console.log('PvpSplash.js')
+  // console.log(params)
+  // console.log(props)
 
   const { activityId } = params
 
@@ -34,9 +34,9 @@ export default function PvpSplash(props) {
           activityId,
         },
       })
+      // console.log('fetchPgcr')
       setPgcr(result)
-      console.log('fetchPgcr')
-      console.log(result)
+      // console.log(result)
     }
     fetchPgcr(activityId)
   }, [props])

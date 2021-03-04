@@ -31,9 +31,10 @@ def before_request():
     Executed before a request is made.
     Refresh user credentials here.
     """
-    print("\n\nUnauth redirect")
-    print(request.endpoint)
-    if not request.endpoint == "public.pgcr":
+    # print("\n\nUnauth redirect")
+    pgcr_list = ["public.get_pgcr", "public.pgcr"]
+    # print(request.endpoint)
+    if not request.endpoint in pgcr_list:
         g.user = current_user
         if g.user.is_authenticated:
             print(g.user)
@@ -118,6 +119,7 @@ def get_pgcr(activityId):
 
 @blueprint.route("/pgcr/<int:activityId>")
 def pgcr(activityId):
+    # print("Public PGCR route:")
     # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     # my_api = BungieApi(user)
 
