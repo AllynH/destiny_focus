@@ -102,7 +102,7 @@ export default function FormDialog(props) {
   const testNumber = (num) => !isNaN(num)
 
   return (
-    <div>
+    <div className='div-shimmer'>
       <Button variant='outlined' color='primary' onClick={handleClickOpen}>
         Customize Focus
       </Button>

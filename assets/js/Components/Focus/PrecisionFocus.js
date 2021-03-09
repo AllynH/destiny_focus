@@ -11,6 +11,7 @@ import {
   getPrecisionAverage,
 } from '../../Utils/HelperFunctions/KdrFunctions'
 import { ProgressBar } from '../Progress/ProgressBar'
+import CustomizeMessage from './CustomizeMessage'
 
 import './style.css'
 
@@ -120,7 +121,7 @@ export default function DisplayPrecisionFocus(props) {
         {focusGoals ? (
           CompareResults(average, precisionGoal)
         ) : (
-          <p className='focus-goals-not-set'>Customise your focus goals to see more data.</p>
+          <CustomizeMessage />
         )}
       </div>
     </>

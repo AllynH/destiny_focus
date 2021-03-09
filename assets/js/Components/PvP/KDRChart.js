@@ -14,7 +14,7 @@ import {
 } from 'victory'
 
 import { getKdrAverage } from '../../Utils/HelperFunctions/KdrFunctions'
-import DisplayKdrFocus from './DisplayFocus'
+import DisplayKdrFocus from '../Focus/DisplayFocus'
 
 function ChartBody(props) {
   return (

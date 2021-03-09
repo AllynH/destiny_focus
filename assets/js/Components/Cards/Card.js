@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Route, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import FormDialog from '../../Forms/customForm'
 
 import './cards.css';
@@ -39,7 +39,6 @@ const useStyles = makeStyles({
 
 });
 
-
 export default function MediaCard(props) {
   // This is the main card body area.
   // Props are provided from WrapCard component.
@@ -47,8 +46,14 @@ export default function MediaCard(props) {
   // console.log(props.match)
   const classes = useStyles();
   const {
-    focus, apiUrl, image, colours, description,
+    focus, image, colours, description,
   } = props.focus_details
+  const {
+    membershipId, membershipType, characterId,
+  } = useParams()
+  const apiUrl = `/auth/${focus}/${membershipType}/${membershipId}/${characterId}`
+  console.log(membershipId, membershipType, characterId)
+  console.log(apiUrl)
 
   return (
     <Card className={classes.root}>

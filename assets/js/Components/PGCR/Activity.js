@@ -45,6 +45,8 @@ export default function Activity(
 
   console.log('activity.js')
   console.log(params)
+  console.log(location)
+  const { pathname } = location
   // const { gameMode, characterId, membershipId, membershipType } = params
 
   const { gameMode } = props
@@ -189,7 +191,7 @@ export default function Activity(
           pathname: `/pgcr/${activityId}`,
           // search: '?sort=name',
           // hash: '#the-hash',
-          state: { params, location },
+          state: { params, location, pathname },
         }}
       style={{ textDecoration: 'none', color: 'inherit' }}>
         <PublishIcon />

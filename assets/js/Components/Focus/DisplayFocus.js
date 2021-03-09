@@ -6,6 +6,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { projectKdrAverage } from '../../Utils/HelperFunctions/KdrFunctions'
+import CustomizeMessage from './CustomizeMessage'
 
 import './style.css'
 
@@ -107,7 +108,7 @@ export default function DisplayKdrFocus(props) {
         {focusGoals ? (
           CompareResults(avgKdr, focusGoals.killDeathRatio)
         ) : (
-          <p className='focus-goals-not-set'>Customise your focus goals to see more data.</p>
+          <CustomizeMessage />
         )}
       </div>
     </>

@@ -18,9 +18,11 @@ export default function PvpSplash(props) {
   const [pgcr, setPgcr] = useState()
   const params = useParams()
   const currRef = useRef(null)
-  // console.log('PvpSplash.js')
-  // console.log(params)
-  // console.log(props)
+  console.log('PvpSplash.js')
+  console.log(params)
+  console.log(props)
+  const { pathname } = props.location?.state || null
+  console.log('Return address:', pathname)
 
   const { activityId } = params
 
