@@ -21,7 +21,7 @@ export default function PvpSplash(props) {
   console.log('PvpSplash.js')
   console.log(params)
   console.log(props)
-  const { pathname } = props.location?.state || null
+  const { pathname } = props.location?.state || ''
   console.log('Return address:', pathname)
 
   const { activityId } = params
