@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
 import { GetPGCRUnauth } from '../../Utils/API/API_Requests'
-import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
+import { calculateKillDeathRatio, calculateKillDeathAssistsRatio } from '../../Utils/HelperFunctions/KdrFunctions'
 
 import Crucible from '../../../destiny-icons/factions/faction_crucible.svg'
 import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.svg'

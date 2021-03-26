@@ -25,15 +25,6 @@ export const ACCOUNTTYPES = {
   all: 'All',
 }
 
-export function calculateKillDeathRatio(k, d) {
-  const kills = parseFloat(k)
-  const deaths = parseFloat(d)
-  if (deaths === 0) {
-    return (kills).toFixed(2)
-  }
-  return (kills / deaths).toFixed(2)
-}
-
 export function iOS() {
   return [
     'iPad Simulator',

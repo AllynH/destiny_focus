@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable camelcase */
 import React, { useState } from 'react'
 
@@ -5,12 +6,14 @@ import CheckIcon from '@material-ui/icons/Check'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
+import { getUrlDetails } from '../../Utils/HelperFunctions'
+import { calculateKillDeathRatio, calculateKillDeathAssistsRatio } from '../../Utils/HelperFunctions/KdrFunctions'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 
 import Activity from './Activity'
 import { GetPGCR } from '../../Utils/API/API_Requests'
 import './style.css'
+
 
 export function PgcrDetailsPvP({ pgcr }) {
   console.log('pgcr')
@@ -49,11 +52,11 @@ export function PgcrDetailsPvP({ pgcr }) {
           if (element.values.completed.basic.displayValue === 'Yes') {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
             const pgcr_userName = element.player.destinyUserInfo.displayName
-            const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
-            const pgcr_kda = Number(Number(element.values.kills.basic.value + element.values.assists.basic.value) / element.values.deaths.basic.value).toFixed(2)
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
             const pgcr_assists = element.values.assists.basic.displayValue
+            const pgcr_kdr = calculateKillDeathRatio(pgcr_kills, pgcr_deaths)
+            const pgcr_kda = calculateKillDeathAssistsRatio(pgcr_kills, pgcr_deaths, pgcr_assists)
             const pgcr_team = element.values.assists.basic.displayValue
             const iconStyle = {
               backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
@@ -94,12 +97,12 @@ export function PgcrDetailsPvP({ pgcr }) {
           if (element.values.completed.basic.displayValue === 'Yes') {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
             const pgcr_userName = element.player.destinyUserInfo.displayName
-            const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
-            const pgcr_kda = Number(Number(element.values.kills.basic.value + element.values.assists.basic.value) / element.values.deaths.basic.value).toFixed(2)
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
             const pgcr_assists = element.values.assists.basic.displayValue
             const pgcr_team = element.values.assists.basic.displayValue
+            const pgcr_kdr = calculateKillDeathRatio(pgcr_kills, pgcr_deaths)
+            const pgcr_kda = calculateKillDeathAssistsRatio(pgcr_kills, pgcr_deaths, pgcr_assists)
             const iconStyle = {
               backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
               maxHeight: 30,
@@ -138,12 +141,12 @@ export function PgcrDetailsPvP({ pgcr }) {
           if (element.values.completed.basic.displayValue === 'Yes') {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
             const pgcr_userName = element.player.destinyUserInfo.displayName
-            const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
-            const pgcr_kda = Number(Number(element.values.kills.basic.value + element.values.assists.basic.value) / element.values.deaths.basic.value).toFixed(2)
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
             const pgcr_assists = element.values.assists.basic.displayValue
             const pgcr_team = element.values.assists.basic.displayValue
+            const pgcr_kdr = calculateKillDeathRatio(pgcr_kills, pgcr_deaths)
+            const pgcr_kda = calculateKillDeathAssistsRatio(pgcr_kills, pgcr_deaths, pgcr_assists)
             const iconStyle = {
               backgroundImage: `url(https://www.bungie.net${pgcr_icon})`,
               maxHeight: 30,
@@ -239,11 +242,11 @@ export function PgcrDetailsRaid({ pgcr }) {
         const pcgr_standing_icon = completionIcon(pgcr_standing)
         const pgcr_icon = element.player.destinyUserInfo.iconPath
         const pgcr_userName = element.player.destinyUserInfo.displayName
-        const pgcr_kdr = element.values.killsDeathsRatio.basic.displayValue
-        const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
         const pgcr_deaths = element.values.deaths.basic.displayValue
         const pgcr_kills = element.values.kills.basic.displayValue
         const pgcr_assists = element.values.assists.basic.displayValue
+        const pgcr_kdr = calculateKillDeathRatio(pgcr_kills, pgcr_deaths)
+        const pgcr_kda = calculateKillDeathAssistsRatio(pgcr_kills, pgcr_deaths, pgcr_assists)
         const pgcr_completion_time = element.values.timePlayedSeconds.basic.displayValue
         const pgcr_super_kills = element.extended.values.weaponKillsSuper.basic.value
         const iconStyle = {
