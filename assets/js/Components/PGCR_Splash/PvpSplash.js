@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
 import { GetPGCRUnauth } from '../../Utils/API/API_Requests'
+import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
 
 import Crucible from '../../../destiny-icons/factions/faction_crucible.svg'
 import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.svg'
@@ -48,7 +49,7 @@ export default function PvpSplash(props) {
     const kills = e?.values?.kills?.basic?.value
     const deaths = e?.values?.deaths?.basic?.value
     const assists = e?.values?.assists?.basic?.value
-    const kdr = deaths > 0 ? (kills / deaths).toFixed(1) : 0
+    const kdr = calculateKillDeathRatio(kills, deaths)
 
     return (
       <div className='pgcr-splash-character-row'>
