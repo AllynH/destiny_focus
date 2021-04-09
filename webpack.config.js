@@ -21,6 +21,11 @@ const debug = process.env.NODE_ENV !== 'production'
 const rootAssetPath = path.join(__dirname, 'assets')
 
 module.exports = {
+  // Removes lots of "Child mini-css-extract-plugin" messages.
+  stats: {
+    entrypoints: false,
+    children: false,
+  },
   // configuration
   context: __dirname,
   entry: {

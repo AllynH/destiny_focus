@@ -19,19 +19,30 @@
     <meta name="msapplication-TileImage" content="{{static_url_for('static', filename='build/favicon/mstile-150x150.png') }}">
     <meta name="theme-color" content="#ffffff">
 
-    <title>
-      {% block page_title %} 
-      Destiny Focus
-       {% endblock %}
-    </title>
-
     <meta name="author" content="Allyn Hunt" />
 
-    <meta
-      name="description"
-      content="A Destiny the game web application, helping you focus on improving your PvP or PvE game.
-      Destiny-Focus displays stats from your previous Crucible, Gambit, or Raids and allows you to track your progression and improvements."
-    />
+    <!-- Primary Meta Tags -->
+    <title>Destiny Focus</title>
+    <meta name="title" content="Destiny Focus">
+    <meta name="description" content="A Destiny the game web application, helping you focus on improving your PvP or PvE game.
+          Destiny-Focus displays stats from your previous Crucible, Gambit, or Raids and allows you to track your progression and improvements.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://destiny-focus.me/">
+    <meta property="og:title" content="Destiny Focus">
+    <meta property="og:description" content="A Destiny the game web application, helping you focus on improving your PvP or PvE game.
+          Destiny-Focus displays stats from your previous Crucible, Gambit, or Raids and allows you to track your progression and improvements.">
+    <meta property="og:image" content="{{static_url_for('static', filename='build/favicon/Screenshot.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://destiny-focus.me/">
+    <meta property="twitter:title" content="Destiny Focus">
+    <meta property="twitter:description" content="A Destiny the game web application, helping you focus on improving your PvP or PvE game.
+          Destiny-Focus displays stats from your previous Crucible, Gambit, or Raids and allows you to track your progression and improvements.">
+    <meta property="twitter:image" content="{{static_url_for('static', filename='build/favicon/Screenshot.png') }}">
+
     <meta name="keywords" content="Destiny, Destiny the game, Crucible, Gambit, Raid, PVP, PVE, stats, PGCR.">
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <!-- https://css-tricks.com/the-notch-and-css/ -->
