@@ -44,6 +44,9 @@ export const GetPGCRUnauth = async (options) => apiRequest(`/get/pgcr/${options.
 export const GetActivityDefinition = async (options) => apiRequest(`/auth/get/manifest/${options.params.definition}/${options.params.defHash}`, {
   ...options,
 })
+export const GetActivityDefinitionUnauth = async (options) => apiRequest(`/get/manifest/${options.params.definition}/${options.params.defHash}`, {
+  ...options,
+})
 
 export const GetPGCRList = async (options) => apiRequest(
   `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`,

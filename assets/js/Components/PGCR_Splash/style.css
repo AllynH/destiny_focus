@@ -1,18 +1,62 @@
+.root{
+    --bgImage: ''
+}
+.pgcr_splash-completed{
+    border-left: var(--gambit-green) solid 4px;
+    margin-right: 4px;
+}
+
+.pgcr_splash-failed{
+    border-left: var(--crucible-red) solid 4px;
+    margin-right: 4px;
+}
+
+.padding-left{
+    padding-left: 4px;
+}
+.align-left{
+    text-align: left;
+}
+
+.pgcr-splash-nf-score{
+    margin: 20px 0 0 0;
+    padding: 20px;
+    border: solid 1px rgba( 255, 255, 255, .2);
+}
+
+.pgcr-splash-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    min-height: var(--pgcr-splash-height);
+    /* filter: blur(8px); */
+    z-index: -1;
+    position: relative;
+}
+
+.pgcr-splash-wrapper::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+    /* filter: blur(3px); */
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)) repeat scroll 0% 0%, rgba(0, 0, 0, 0) var(--bgImage) no-repeat scroll 0px 0px / cover;
+}
+
+
 @media screen and (min-width: 600px) {
     :root{
-        --pgcr-splash-height: 700px;
+        --pgcr-splash-height: 600px;
         --pgcr-splash-width: 1180px;
         --pgcr-icon-height: 280px;
         --pgcr-icon-width: 280px;
     }
-    .pgcr-splash-wrapper{
-        width: var(--pgcr-splash-width);
-        display: block;
-        margin: 0 auto;
-    }
 
     .pgcr-splash-container{
-        height: var(--pgcr-splash-height);
+        min-height: var(--pgcr-splash-height);
         width: var(--pgcr-splash-width);
         /* border: 1px solid red; */
         display: grid;
@@ -35,8 +79,6 @@
         background-color: black;
         opacity: 40%;
         position: absolute;
-        top: 40px;
-        left: 9px;
         z-index: -1;
         border: solid 1px var(--crucible-red);
         filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
@@ -49,20 +91,25 @@
         background-color: rgba(20, 20, 20, .8);
         opacity: 40%;
         position: absolute;
-        top: 40px;
-        left: 9px;
         z-index: -1;
         border: solid 1px var(--crucible-red);
         /* filter: drop-shadow( 3px 3px 2px rgba(20, 20, 20, .2)); */
+    }
+    .raid-icon-bg{
+        top: 40px;
+        left: 18px;
+    }
+    .pvp-icon-bg{
+        top: 40px;
+        left: 9px;
     }
 
     .pgcr-position-relative{
         position: relative;
         height: 100%;
     }
-    .gcr-splash-categories{
+    .pgcr-splash-categories{
         display: grid;
-        grid-template-columns: 25ch 1fr 1fr 1fr 1fr;
         position: absolute;
         height: 100%;
         width: 100%;
@@ -134,11 +181,14 @@
     .pgcr-splash-character-details{
         /* z-index: -1; */
         display: grid;
-        grid-template-columns: 25ch 1fr 1fr 1fr 1fr;
         text-align: center;
+        align-items: center;
     }
-    .align-left{
-        text-align: left;
+    .pvp-details{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr;
+    }
+    .raid-details{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr;
     }
     .team-icon-score-wrap{
         position: relative;
@@ -175,25 +225,20 @@
 
   }
 
-/* 
+/*
   Mobile devices:
 */
 
   @media screen and (max-width: 600px) {
     :root{
-        --pgcr-splash-height: 700px;
+        --pgcr-splash-height: 450px;
         --pgcr-splash-width: 360px;
         --pgcr-icon-height: 280px;
         --pgcr-icon-width: 280px;
     }
-    .pgcr-splash-wrapper{
-        width: var(--pgcr-splash-width);
-        display: block;
-        margin: 0 auto;
-    }
 
     .pgcr-splash-container{
-        height: var(--pgcr-splash-height);
+        min-height: var(--pgcr-splash-height);
         width: var(--pgcr-splash-width);
         /* border: 1px solid red; */
         display: grid;
@@ -202,8 +247,8 @@
     .container-left{
         position: absolute;
         z-index: -1;
-        opacity: 50%;
-        top: 250px;
+        opacity: 20%;
+        top: 150px;
         right: 50px;
         /* display: flex;
         flex-direction: column;
@@ -246,9 +291,9 @@
         position: relative;
         height: 100%;
     }
-    .gcr-splash-categories{
+    .pgcr-splash-categories{
         display: grid;
-        grid-template-columns: 15ch 1fr 1fr 1fr 1fr;
+        /* grid-template-columns: 15ch 1fr 1fr 1fr 1fr; */
         position: absolute;
         height: 100%;
         width: 100%;
@@ -319,14 +364,17 @@
     .pgcr-splash-character-details{
         z-index: -1;
         display: grid;
-        grid-template-columns: 15ch 1fr 1fr 1fr 1fr;
         gap: 5px;
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: center;
+        align-items: center;
     }
-    .align-left{
-        text-align: left;
+    .pvp-details{
+        grid-template-columns: 30px 15ch 1fr 1fr 1fr 1fr;
+    }
+    .raid-details{
+        grid-template-columns: 30px 15ch 1fr 1fr 1fr 1fr;
     }
     .team-icon-score-wrap{
         position: relative;
@@ -367,7 +415,7 @@
 
   }
 
-/* 
+/*
   .pgcr-splash-container{
     height: var(--pgcr-splash-height);
     width: var(--pgcr-splash-width);

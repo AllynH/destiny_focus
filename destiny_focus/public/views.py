@@ -21,6 +21,8 @@ from destiny_focus.user.models import User
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
 from destiny_focus.bungie.bungie_api_unauth import BungieApiUnauth
+from destiny_focus.manifest_tools.manifest_functions import get_definition
+from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS, ACTIVITY_MODES
 import requests
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
@@ -32,7 +34,7 @@ def before_request():
     Refresh user credentials here.
     """
     # print("\n\nUnauth redirect")
-    pgcr_list = ["public.get_pgcr", "public.pgcr"]
+    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest"]
     # print(request.endpoint)
     if not request.endpoint in pgcr_list:
         g.user = current_user
@@ -110,6 +112,9 @@ def about():
 
 @blueprint.route("/get/pgcr/<activityId>/")
 def get_pgcr(activityId):
+    """
+    Get an unauthorised PGCR.
+    """
     
     my_api = BungieApiUnauth()
 
@@ -126,3 +131,24 @@ def pgcr(activityId):
     # get_account_res = my_api.GetCurrentBungieAccount()
     return render_template("auth/pgcr.html")
 
+
+@blueprint.route("/get/manifest/<string:definition>/<int:def_hash>/")
+def get_manifest(definition, def_hash):
+    """
+    Pull an item from the Manifest.
+    """
+    def_list = MANIFEST_DEFINITIONS
+
+    if definition in def_list and isinstance(def_hash, int):
+        response = get_definition(str(definition), str(def_hash))
+        # print(response)
+    else:
+        def_hash_manifest_item = Manifest.query.filter_by(definition_id=str(def_hash)).all()
+        print("Definition not found!")
+        print(def_hash)
+        print(definition)
+        print(type(def_hash))
+        print(def_hash_manifest_item)
+        response = {"Response": "Error"}
+
+    return jsonify(response)

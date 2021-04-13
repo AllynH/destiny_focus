@@ -10,7 +10,7 @@ import Account from './Components/AccountStats/Account'
 import GambitChart from './Components/Gambit/GambitCharts'
 import Welcome from './Components/Welcome/Welcome'
 import CharacterSelect from './Components/CharacterSelect'
-import PvpSplash from './Components/PGCR_Splash/PvpSplash'
+import PvpSplash from './Components/PGCR_Splash/SelectPgcr'
 
 import GoogleAnalytics from './Components/Analytics/GoogleAnalytics'
 
