@@ -127,8 +127,9 @@ export default function PvpSplash(props) {
                         </h2>
                       </div>
                       <div className='team-icon-wrap'>
-                        <div className='alpha-icon-bg'></div>
+                        <div className='alpha-icon-bg z-index-2'></div>
                         <AlphaTeam
+                          className='z-index-2'
                           width={50}
                           height={50}
                           viewBox={'0 0 32 32'}
@@ -162,6 +163,7 @@ export default function PvpSplash(props) {
                       <div className='team-icon-wrap'>
                         <div className='bravo-icon-bg'></div>
                         <BravoTeam
+                          className='z-index-2'
                           width={50}
                           height={50}
                           viewBox={'0 0 32 32'}

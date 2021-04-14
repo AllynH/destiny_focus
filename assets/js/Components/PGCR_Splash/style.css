@@ -17,6 +17,9 @@
 .align-left{
     text-align: left;
 }
+.z-index-2{
+    z-index: 2;
+}
 
 .pgcr-splash-nf-score{
     margin: 20px 0 0 0;
