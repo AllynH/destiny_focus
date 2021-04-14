@@ -72,7 +72,9 @@ export default function RaidSplash(props) {
 
   const completionDate = pgcr ? getDatePlayedFromTimestamp(pgcr?.Response?.period) : 0
   const completionTime = pgcr ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue : '666 hours'
-  const nfScore = pgcr?.Response?.entries.map((el) => el.score.basic.value).reduce((acc, curr) => acc + curr, 0)
+  const nfScore = pgcr?.Response?.entries
+    .map((el) => el.values.teamScore.basic.value)
+    .reduce((acc, curr) => (acc > curr) ? acc : curr, 0)
 
   return (
     <div className='pgcr-splash-wrapper'
