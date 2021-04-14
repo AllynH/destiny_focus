@@ -31,7 +31,7 @@
     width: 100%;
     min-height: var(--pgcr-splash-height);
     /* filter: blur(8px); */
-    z-index: -1;
+    z-index: 0;
     position: relative;
 }
 
@@ -61,7 +61,7 @@
         display: grid;
         grid-template-columns: 1fr 3fr;
         position: relative;
-        z-index: 0;
+        z-index: 1;
     }
     .container-left{
         display: flex;
@@ -80,7 +80,7 @@
         background-color: black;
         opacity: 40%;
         position: absolute;
-        z-index: -1;
+        z-index: 0;
         border: solid 1px var(--crucible-red);
         filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
     }
@@ -92,7 +92,7 @@
         background-color: rgba(20, 20, 20, .8);
         opacity: 40%;
         position: absolute;
-        z-index: -1;
+        z-index: 0;
         border: solid 1px var(--crucible-red);
         /* filter: drop-shadow( 3px 3px 2px rgba(20, 20, 20, .2)); */
     }
@@ -129,7 +129,7 @@
     .container-right{
         height: 100%;
         position: relative;
-        z-index: 1;
+        z-index: 2;
     }
     .team-icon-wrap{
         position: relative;
@@ -145,7 +145,7 @@
         border-radius: 50%;
         background-color: black;
         opacity: 50%;
-        z-index: -1;
+        z-index: 0;
     }
     .bravo-icon-bg{
         position: absolute;
@@ -154,7 +154,7 @@
         border-radius: 50%;
         background-color: white;
         opacity: 80%;
-        z-index: -1;
+        z-index: 0;
     }
     .pgcr-splash-team-wrap{
         display: flex;
@@ -207,7 +207,7 @@
         align-items: center;
         background-color: rgba(20, 20, 20 ,0.2);
         border-radius: 50%;
-        z-index: 2;
+        z-index: 3;
     }
     .team-score{
         margin-right: 5px;
@@ -249,7 +249,7 @@
     }
     .container-left{
         position: absolute;
-        z-index: -1;
+        z-index: 0;
         opacity: 20%;
         top: 150px;
         right: 50px;
@@ -271,7 +271,7 @@
         position: absolute;
         top: 40px;
         right: 4px;
-        z-index: -1;
+        z-index: 0;
         border: solid 1px var(--crucible-red);
         filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
     }
@@ -285,7 +285,7 @@
         position: absolute;
         top: 40px;
         right: 4px;
-        z-index: -1;
+        z-index: 0;
         border: solid 1px var(--crucible-red);
         /* filter: drop-shadow( 3px 3px 2px rgba(20, 20, 20, .2)); */
     }
@@ -328,7 +328,7 @@
         border-radius: 50%;
         background-color: black;
         opacity: 50%;
-        z-index: -1;
+        z-index: 0;
     }
     .bravo-icon-bg{
         position: absolute;
@@ -337,7 +337,7 @@
         border-radius: 50%;
         background-color: white;
         opacity: 80%;
-        z-index: -1;
+        z-index: 0;
     }
     .pgcr-splash-team-wrap{
         display: flex;
@@ -357,7 +357,7 @@
     }
     .pgcr-splash-character-row{
         background-color: rgba( 255, 255, 255, .2);
-        z-index: -1;
+        z-index: 0;
         height: 30px;
         display: flex;
         flex-direction: column;
@@ -365,7 +365,7 @@
         margin: 4px 0px;
     }
     .pgcr-splash-character-details{
-        z-index: -1;
+        z-index: 0;
         display: grid;
         gap: 5px;
         overflow: hidden;
@@ -387,7 +387,7 @@
         flex-direction: row;
         background-color: rgba(20, 20, 20 ,0.2);
         align-items: center;
-        z-index: -1;
+        z-index: 0;
     }
     .team-icon-score-pull-left{
         /* position: absolute; */
@@ -396,7 +396,7 @@
         align-items: center;
         background-color: rgba(20, 20, 20 ,0.2);
         border-radius: 50%;
-        z-index: 2;
+        z-index: 3;
         padding-right: 20px;
     }
     .team-score{
