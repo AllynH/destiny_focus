@@ -65,6 +65,7 @@ export default function SelectPgcr(props) {
     switch (activityMode) {
       case 'Raid':
       case 'Nightfall':
+      case 'Story':
         return <RaidSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} />
       case 'AllPvP':
       case 'Gambit':

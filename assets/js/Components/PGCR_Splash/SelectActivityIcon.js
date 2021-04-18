@@ -2,7 +2,7 @@ import React from 'react'
 
 import Crucible from '../../../destiny-icons/factions/faction_crucible.svg'
 import Gambit from '../../../destiny-icons/gambit/gambit2.svg'
-import Trials from '../../../destiny-icons/factions/faction_osiris.svg'
+import Trials from '../../../img/icons/faction_osiris2.svg'
 import Raid from '../../../destiny-icons/explore/raid_complex.svg'
 
 import './style.css'
@@ -66,9 +66,11 @@ export default function SelectActivityIcon(props) {
           <Trials
             width={300}
             height={345}
-            viewBox={'0 0 30 30'}
+            // Values taken from .svg
+            viewBox={'0 0 8.4 8.4'}
             style={{
               fill: 'var(--bungie-power)',
+              // stroke: 'var(--bungie-power)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
