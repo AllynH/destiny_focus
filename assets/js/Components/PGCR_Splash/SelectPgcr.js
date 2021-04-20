@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 
 import { GetPGCRUnauth, GetActivityDefinitionUnauth } from '../../Utils/API/API_Requests'
-import { calculateKillDeathRatio, calculateKillDeathAssistsRatio } from '../../Utils/HelperFunctions/KdrFunctions'
+import {
+  calculateKillDeathRatio,
+  calculateKillDeathAssistsRatio,
+} from '../../Utils/HelperFunctions/KdrFunctions'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { BASIC_ACTIVITY_MODES } from '../../Data/destinyEnums'
 import RaidSplash from './RaidSplash'
@@ -11,6 +14,7 @@ import PvpSplash from './PvpSplash'
 import './style.css'
 
 export default function SelectPgcr(props) {
+  const [selectedCharacter, setSelectedCharacter] = useState(null)
   const [pgcr, setPgcr] = useState()
   const [modeIsRaid, setModeIsRaid] = useState()
   const [activityDef, setActivityDef] = useState()
@@ -22,11 +26,15 @@ export default function SelectPgcr(props) {
   console.log('Return address:', pathname)
 
   const { activityId } = params
+  const location = useLocation()
 
-  // const activityId = 7897012836
-
-  // Fetch the Activity definition - Map icon, name :
   useEffect(() => {
+    // Fetch character any time URL changes:
+    const searchParams = new URLSearchParams(location)
+    const character = searchParams.get('character')
+    setSelectedCharacter(character)
+
+    // Make API calls:
     const fetchPgcr = async (activityId) => {
       const result = await GetPGCRUnauth({
         params: {
@@ -66,18 +74,49 @@ export default function SelectPgcr(props) {
       case 'Raid':
       case 'Nightfall':
       case 'Story':
-        return <RaidSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} />
+        // return <RaidSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} selectedCharacter={selectedCharacter} />
+        return (
+          <RaidSplash
+            {...{
+              pgcr,
+              activityDef,
+              referenceDef,
+              modeIsRaid,
+              activityMode,
+              selectedCharacter,
+            }}
+          />
+        )
+
       case 'AllPvP':
       case 'Gambit':
-        return <PvpSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} />
+        return (
+          <PvpSplash
+            {...{
+              pgcr,
+              activityDef,
+              referenceDef,
+              modeIsRaid,
+              activityMode,
+              selectedCharacter,
+            }}
+          />
+        )
       default:
-        return <PvpSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} />
+        return (
+          <PvpSplash
+            {...{
+              pgcr,
+              activityDef,
+              referenceDef,
+              modeIsRaid,
+              activityMode,
+              selectedCharacter,
+            }}
+          />
+        )
     }
   }
 
-  return (
-    <>
-      {referenceDef && activityDef && <RenderPgcr /> }
-    </>
-  )
+  return <>{referenceDef && activityDef && <RenderPgcr />}</>
 }

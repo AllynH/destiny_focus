@@ -30,6 +30,26 @@ class BungieApiUnauth(object):
         }
         return self.auth_session
 
+    def flag_error(self, function_name, response):
+        """
+        Return a JSON formatted error.
+        """
+        # print("Inside Flagged error")
+        # print(type(response.json()))
+        fail = {
+            'status'        : "Error",
+            'ErrorStatus'   : response.json()["ErrorStatus"],
+            'status_code'   : response.status_code,
+            'request'       : function_name,
+            'message'       : response.json()
+        }
+
+        print('Bungie response error:')
+        print(fail)
+
+        return response.json()
+        # return jsonify(fail)
+
     def get_pgcr(self, activityId):
         """
         https://bungie-net.github.io/multi/operation_get_Destiny2-GetPostGameCarnageReport.html#operation_get_Destiny2-GetPostGameCarnageReport

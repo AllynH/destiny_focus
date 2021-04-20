@@ -61,7 +61,6 @@ export default function SelectActivityIcon(props) {
           />
         )
       case 'TrialsOfOsiris':
-        console.log('Returning Trials emblem!')
         return (
           <Trials
             width={300}

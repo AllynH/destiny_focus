@@ -11,27 +11,28 @@ import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
 
 import './style.css'
 
-export default function RaidSplash(props) {
-
-  const {
-    pgcr, activityMode, modeIsRaid, activityDef, referenceDef,
-  } = props
-
+export default function RaidSplash({
+  pgcr = {},
+  activityDef = {},
+  referenceDef = {},
+  modeIsRaid = true,
+  activityMode = 4,
+  selectedCharacter = null,
+}) {
   const params = useParams()
   const currRef = useRef(null)
-  console.log('PvpSplash.js')
-  console.log(params)
-  console.log(props)
-  console.log('PvpSplash.js end')
-  const { pathname } = props.location?.state || ''
-
-  const { activityId } = params
-
 
   const backgroundImage = `url(https://www.bungie.net${referenceDef.pgcrImage})`
   const mapStyle = () => ({
     '--bgImage': backgroundImage,
   })
+
+  const returnMapName = () => {
+    if (!modeIsRaid) {
+      return referenceDef.displayProperties?.description || 'UNKNOWN MAP'
+    }
+    return referenceDef.displayProperties?.description
+  }
 
   function Player(e) {
     const completedDiv = (s) => {
@@ -103,15 +104,11 @@ export default function RaidSplash(props) {
             <div className='match-results'>
               <div className='pgcr-splash-heading-wrap'>
                 <div className='heading-underline'></div>
-                <h1 className='pgcr-splash-match-result'>{activityDef?.displayProperties?.name || 'UNKNOWN ACTIVITY'}</h1>
+                <h1 className='pgcr-splash-match-result'>{activityDef.displayProperties?.name || 'UNKNOWN ACTIVITY'}</h1>
                   <div className='pgcr activity-results-wrapper'>
 
                     <h2 className='pgcr activity-map-name'>
-                      {modeIsRaid
-                        ? referenceDef 
-                          ? referenceDef.displayProperties?.name 
-                          : 'UNKNOWN MAP'
-                        : referenceDef.displayProperties?.description}
+                      {returnMapName()}
                     </h2>
                     <div className='stats header-completion-time'>
                       <p className='stats completion-time-value'>{completionDate}</p>
@@ -167,8 +164,7 @@ export default function RaidSplash(props) {
 
             { modeIsRaid
               ? ''
-              :
-              <div className='stats header-completion-time'>
+              : <div className='stats header-completion-time'>
                 <p className='stats completion-time-value pgcr-splash-nf-score'>SCORE: {nfScore}</p>
               </div>
             }

@@ -15,17 +15,17 @@ import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
 
 import './style.css'
 
-export default function PvpSplash(props) {
-  const {
-    pgcr, activityMode, modeIsRaid, activityDef, referenceDef,
-  } = props
+export default function PvpSplash({
+  pgcr = {},
+  activityDef = {},
+  referenceDef = {},
+  modeIsRaid = true,
+  activityMode = 4,
+  selectedCharacter = null,
+}) {
   const params = useParams()
   const currRef = useRef(null)
   console.log('PvpSplash.js')
-  console.log(params)
-  console.log(props)
-  const { pathname } = props.location?.state || ''
-  console.log('Return address:', pathname)
 
   const { activityId } = params
 
@@ -90,11 +90,11 @@ export default function PvpSplash(props) {
             <div className='match-results'>
               <div className='pgcr-splash-heading-wrap'>
                 <div className='heading-underline'></div>
-                  <h1 className='pgcr-splash-match-result'>{activityDef?.displayProperties?.name || 'UNKNOWN ACTIVITY'}</h1>
+                  <h1 className='pgcr-splash-match-result'>{activityDef.displayProperties?.name || 'UNKNOWN ACTIVITY'}</h1>
                   <div className='pgcr activity-results-wrapper'>
 
                     <h2 className='pgcr activity-map-name'>
-                      {referenceDef ? referenceDef.displayProperties?.name : 'UNKNOWN MAP'}
+                      {referenceDef.displayProperties?.name || 'UNKNOWN MAP'}
                     </h2>
                     <div className='stats header-completion-time'>
                       <p className='stats completion-time-value'>{completionDate}</p>
