@@ -14,7 +14,7 @@ import PvpSplash from './PvpSplash'
 import './style.css'
 
 export default function SelectPgcr(props) {
-  const [selectedCharacter, setSelectedCharacter] = useState(null)
+  const [activeUserId, setActiveUserId] = useState(null)
   const [pgcr, setPgcr] = useState()
   const [modeIsRaid, setModeIsRaid] = useState()
   const [activityDef, setActivityDef] = useState()
@@ -32,7 +32,7 @@ export default function SelectPgcr(props) {
     // Fetch character any time URL changes:
     const searchParams = new URLSearchParams(location)
     const character = searchParams.get('character')
-    setSelectedCharacter(character)
+    setActiveUserId(character)
 
     // Make API calls:
     const fetchPgcr = async (activityId) => {
@@ -74,7 +74,7 @@ export default function SelectPgcr(props) {
       case 'Raid':
       case 'Nightfall':
       case 'Story':
-        // return <RaidSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} selectedCharacter={selectedCharacter} />
+        // return <RaidSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} setActiveUserId={setActiveUserId} />
         return (
           <RaidSplash
             {...{
@@ -83,7 +83,7 @@ export default function SelectPgcr(props) {
               referenceDef,
               modeIsRaid,
               activityMode,
-              selectedCharacter,
+              setActiveUserId,
             }}
           />
         )
@@ -98,7 +98,7 @@ export default function SelectPgcr(props) {
               referenceDef,
               modeIsRaid,
               activityMode,
-              selectedCharacter,
+              setActiveUserId,
             }}
           />
         )
@@ -111,7 +111,7 @@ export default function SelectPgcr(props) {
               referenceDef,
               modeIsRaid,
               activityMode,
-              selectedCharacter,
+              setActiveUserId,
             }}
           />
         )

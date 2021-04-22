@@ -7,6 +7,8 @@ import { calculateKillDeathRatio, calculateKillDeathAssistsRatio } from '../../U
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 
 import SelectActivityIcon from './SelectActivityIcon'
+import Player from './Player'
+
 import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.svg'
 import AlphaTeam from '../../../destiny-icons/factions/team_alpha.svg'
 import BravoTeam from '../../../destiny-icons/factions/team_bravo.svg'
@@ -21,11 +23,14 @@ export default function PvpSplash({
   referenceDef = {},
   modeIsRaid = true,
   activityMode = 4,
-  selectedCharacter = null,
+  setActiveUserId = null,
 }) {
   const params = useParams()
   const currRef = useRef(null)
   console.log('PvpSplash.js')
+  console.log('pgcr', pgcr)
+  console.log('activityDef', activityDef)
+  console.log('referenceDef', referenceDef)
 
   const { activityId } = params
 
@@ -33,6 +38,7 @@ export default function PvpSplash({
   const mapStyle = () => ({
     '--bgImage': backgroundImage,
   })
+  /*
   function Player(e) {
     const username = e?.player?.destinyUserInfo?.displayName
     const kills = e?.values?.kills?.basic?.value
@@ -59,6 +65,7 @@ export default function PvpSplash({
       </div>
     )
   }
+  */
 
   const completionDate = pgcr ? getDatePlayedFromTimestamp(pgcr?.Response?.period) : 0
   const completionTime = pgcr ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue : '666 hours'
@@ -111,7 +118,7 @@ export default function PvpSplash({
                 <div className='pgcr-category'>K</div>
                 <div className='pgcr-category'>D</div>
                 <div className='pgcr-category'>A</div>
-                <div className='pgcr-category'>K/D R</div>
+                <div className='pgcr-category'>{activityMode === 'Gambit' ? 'Damage' : 'K/D R'}</div>
               </div>
 
               <div className='pgcr-splash-team-wrap'>
@@ -145,7 +152,7 @@ export default function PvpSplash({
                 {pgcr &&
                   pgcr?.Response?.entries
                     .filter((entry) => entry.values?.team?.basic?.value === 19)
-                    .map((entry, index) => <Player {...entry} key={index} />)}
+                    .map((entry, index) => <Player {...setActiveUserId} entry={entry} key={index} {...modeIsRaid} activityMode={activityMode} />)}
               </div>
 
               <div className='pgcr-splash-team-wrap'>
@@ -178,7 +185,7 @@ export default function PvpSplash({
                 {pgcr &&
                 pgcr?.Response?.entries
                   .filter((entry) => entry.values?.team?.basic?.value === 18)
-                  .map((entry, index) => <Player {...entry} key={index} />)}
+                  .map((entry, index) => <Player {...setActiveUserId} entry={entry} key={index} {...modeIsRaid} activityMode={activityMode} />)}
               </div>
             </div>
           </div>

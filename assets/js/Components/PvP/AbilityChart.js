@@ -30,7 +30,6 @@ export default function AbilitiesChart(props) {
         <div className='ability-chart-description'>
         <p className='sub-heading'>Avg. kills per game.</p>
           <ul className='ability-list'>
-            <li className='ability-list-li'><div className='icon weapon_icon'><Melee width={32} /></div><div className='ability-detail-title'>MELEE: </div><div className='ability-detail-value'>{chartData.melee}</div></li>
             <li className='ability-list-li'><div className='icon weapon_icon'><Grenade width={32} /></div><div className='ability-detail-title'>GRENADE: </div><div className='ability-detail-value'>{chartData.grenades}</div></li>
             <li className='ability-list-li'><div className='icon weapon_icon'><Super width={32} viewBox={'0 -10 50 50'} /></div><div className='ability-detail-title'>SUPER: </div><div className='ability-detail-value'>{chartData.supers}</div></li>
             <li className='ability-list-li'><div className='icon weapon_icon'><Weapons width={32} viewBox={'0 -10 50 50'} /></div><div className='ability-detail-title'>WEAPONS: </div><div className='ability-detail-value'>{chartData.weapons}</div></li>

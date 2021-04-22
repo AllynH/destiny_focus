@@ -7,6 +7,7 @@ import { calculateKillDeathRatio, calculateKillDeathAssistsRatio } from '../../U
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 
 import SelectActivityIcon from './SelectActivityIcon'
+import Player from './Player'
 import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
 
 import './style.css'
@@ -17,7 +18,7 @@ export default function RaidSplash({
   referenceDef = {},
   modeIsRaid = true,
   activityMode = 4,
-  selectedCharacter = null,
+  setActiveUserId = null,
 }) {
   const params = useParams()
   const currRef = useRef(null)
@@ -34,42 +35,42 @@ export default function RaidSplash({
     return referenceDef.displayProperties?.description
   }
 
-  function Player(e) {
-    const completedDiv = (s) => {
-      if (s) {
-        return 'pgcr_splash-completed'
-      }
-      return 'pgcr_splash-failed'
-    }
+  // function Player(e) {
+  //   const completedDiv = (s) => {
+  //     if (s) {
+  //       return 'pgcr_splash-completed'
+  //     }
+  //     return 'pgcr_splash-failed'
+  //   }
 
-    const username = e?.player?.destinyUserInfo?.displayName
-    const kills = e?.values?.kills?.basic?.value
-    const deaths = e?.values?.deaths?.basic?.value
-    const assists = e?.values?.assists?.basic?.value
-    const score = e?.score?.basic?.value
-    const kdr = calculateKillDeathRatio(kills, deaths)
-    const standing = e?.values?.completed?.basic?.displayValue === 'Yes'
-    const Completed = completedDiv(standing)
-    const playerIcon = e?.player?.destinyUserInfo?.iconPath
-    const iconStyle = {
-      backgroundImage: `url(https://www.bungie.net${playerIcon})`,
-      height: 30,
-      width: 30,
-      backgroundSize: 'contain',
-    }
-    return (
-      <div className={`pgcr-splash-character-row ${Completed}`}>
-        <div className='pgcr-splash-character-details raid-details'>
-          <div className='pgcr-splash-icon'style={iconStyle}></div>
-          <div className='align-left padding-left'>{username}</div>
-          <div>{kills}</div>
-          <div>{deaths}</div>
-          <div>{assists}</div>
-          <div>{modeIsRaid ? kdr : score}</div>
-        </div>
-      </div>
-    )
-  }
+  //   const username = e?.player?.destinyUserInfo?.displayName
+  //   const kills = e?.values?.kills?.basic?.value
+  //   const deaths = e?.values?.deaths?.basic?.value
+  //   const assists = e?.values?.assists?.basic?.value
+  //   const score = e?.score?.basic?.value
+  //   const kdr = calculateKillDeathRatio(kills, deaths)
+  //   const standing = e?.values?.completed?.basic?.displayValue === 'Yes'
+  //   const Completed = completedDiv(standing)
+  //   const playerIcon = e?.player?.destinyUserInfo?.iconPath
+  //   const iconStyle = {
+  //     backgroundImage: `url(https://www.bungie.net${playerIcon})`,
+  //     height: 30,
+  //     width: 30,
+  //     backgroundSize: 'contain',
+  //   }
+  //   return (
+  //     <div className={`pgcr-splash-character-row ${Completed}`}>
+  //       <div className='pgcr-splash-character-details raid-details'>
+  //         <div className='pgcr-splash-icon'style={iconStyle}></div>
+  //         <div className='align-left padding-left'>{username}</div>
+  //         <div>{kills}</div>
+  //         <div>{deaths}</div>
+  //         <div>{assists}</div>
+  //         <div>{modeIsRaid ? kdr : score}</div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   const completionDate = pgcr ? getDatePlayedFromTimestamp(pgcr?.Response?.period) : 0
   const completionTime = pgcr ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue : '666 hours'
@@ -157,7 +158,7 @@ export default function RaidSplash({
 
                 {pgcr
                   && pgcr?.Response?.entries
-                    .map((entry, index) => <Player {...entry} key={index} />)}
+                    .map((entry, index) => <Player {...setActiveUserId} entry={entry} key={index} {...modeIsRaid} activityMode={activityMode} />)}
               </div>
 
             </div>
