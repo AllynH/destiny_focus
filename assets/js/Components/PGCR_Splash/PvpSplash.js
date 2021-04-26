@@ -3,8 +3,12 @@ import { useParams } from 'react-router-dom'
 
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
-import { calculateKillDeathRatio, calculateKillDeathAssistsRatio } from '../../Utils/HelperFunctions/KdrFunctions'
+import {
+  calculateKillDeathRatio,
+  calculateKillDeathAssistsRatio,
+} from '../../Utils/HelperFunctions/KdrFunctions'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
+import { pgcrSplashCategories } from './parsePgcrData'
 
 import SelectActivityIcon from './SelectActivityIcon'
 import Player from './Player'
@@ -27,10 +31,10 @@ export default function PvpSplash({
 }) {
   const params = useParams()
   const currRef = useRef(null)
-  console.log('PvpSplash.js')
-  console.log('pgcr', pgcr)
-  console.log('activityDef', activityDef)
-  console.log('referenceDef', referenceDef)
+  // console.log('PvpSplash.js')
+  // console.log('pgcr', pgcr)
+  // console.log('activityDef', activityDef)
+  // console.log('referenceDef', referenceDef)
 
   const { activityId } = params
 
@@ -38,53 +42,23 @@ export default function PvpSplash({
   const mapStyle = () => ({
     '--bgImage': backgroundImage,
   })
-  /*
-  function Player(e) {
-    const username = e?.player?.destinyUserInfo?.displayName
-    const kills = e?.values?.kills?.basic?.value
-    const deaths = e?.values?.deaths?.basic?.value
-    const assists = e?.values?.assists?.basic?.value
-    const kdr = calculateKillDeathRatio(kills, deaths)
-    const playerIcon = e?.player?.destinyUserInfo?.iconPath
-    const iconStyle = {
-      backgroundImage: `url(https://www.bungie.net${playerIcon})`,
-      height: 30,
-      width: 30,
-      backgroundSize: 'contain',
-    }
-    return (
-      <div className='pgcr-splash-character-row'>
-        <div className='pgcr-splash-character-details pvp-details'>
-          <div className='pgcr-splash-icon'style={iconStyle}></div>
-          <div className='align-left padding-left'>{username}</div>
-          <div>{kills}</div>
-          <div>{deaths}</div>
-          <div>{assists}</div>
-          <div>{kdr}</div>
-        </div>
-      </div>
-    )
-  }
-  */
 
   const completionDate = pgcr ? getDatePlayedFromTimestamp(pgcr?.Response?.period) : 0
-  const completionTime = pgcr ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue : '666 hours'
+  const completionTime = pgcr
+    ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
+    : '666 hours'
+  const pgcrCategory = pgcrSplashCategories[activityMode]
+  const gridColCount = `pgcr_splash_grid_${pgcrCategory.length}`
 
   return (
-    <div className='pgcr-splash-wrapper'
-      style={mapStyle()}
-    >
-      <div className='pgcr-splash-container'
-        ref={currRef}
-      >
+    <div className='pgcr-splash-wrapper' style={mapStyle()}>
+      <div className='pgcr-splash-container' ref={currRef}>
         <div className='container-left'>
           <div className='container-left-icons'>
             <div className='container-left-game-icon'>
               <div className='game-icon-bg pvp-icon-bg'></div>
               <div className='game-icon-diamond pvp-icon-bg'></div>
-              <SelectActivityIcon
-                activityMode={activityMode}
-              />
+              <SelectActivityIcon activityMode={activityMode} />
             </div>
             <div className='container-left-rep-icon'>
               {/* <FactionRep width={300} height={345} viewBox={'0 0 30 30'} /> */}
@@ -97,28 +71,28 @@ export default function PvpSplash({
             <div className='match-results'>
               <div className='pgcr-splash-heading-wrap'>
                 <div className='heading-underline'></div>
-                  <h1 className='pgcr-splash-match-result'>{activityDef.displayProperties?.name || 'UNKNOWN ACTIVITY'}</h1>
-                  <div className='pgcr activity-results-wrapper'>
-
-                    <h2 className='pgcr activity-map-name'>
-                      {referenceDef.displayProperties?.name || 'UNKNOWN MAP'}
-                    </h2>
-                    <div className='stats header-completion-time'>
-                      <p className='stats completion-time-value'>{completionDate}</p>
-                      <p className='stats completion-time-value'>{completionTime}</p>
-                    </div>
+                <h1 className='pgcr-splash-match-result'>
+                  {activityDef.displayProperties?.name || 'UNKNOWN ACTIVITY'}
+                </h1>
+                <div className='pgcr activity-results-wrapper'>
+                  <h2 className='pgcr activity-map-name'>
+                    {referenceDef.displayProperties?.name || 'UNKNOWN MAP'}
+                  </h2>
+                  <div className='stats header-completion-time'>
+                    <p className='stats completion-time-value'>{completionDate}</p>
+                    <p className='stats completion-time-value'>{completionTime}</p>
                   </div>
+                </div>
               </div>
             </div>
 
             <div className='pgcr-position-relative'>
-              <div className='pgcr-splash-categories pvp-details'>
+              <div className={`pgcr-splash-categories raid_details ${gridColCount}`}>
                 <div></div> {/* icon */}
                 <div></div> {/* username */}
-                <div className='pgcr-category'>K</div>
-                <div className='pgcr-category'>D</div>
-                <div className='pgcr-category'>A</div>
-                <div className='pgcr-category'>{activityMode === 'Gambit' ? 'Damage' : 'K/D R'}</div>
+                {pgcrCategory.map((cats, index) => (
+                  <div key={index} className='pgcr-category'>{cats}</div>
+                ))}
               </div>
 
               <div className='pgcr-splash-team-wrap'>
@@ -152,7 +126,15 @@ export default function PvpSplash({
                 {pgcr &&
                   pgcr?.Response?.entries
                     .filter((entry) => entry.values?.team?.basic?.value === 19)
-                    .map((entry, index) => <Player {...setActiveUserId} entry={entry} key={index} {...modeIsRaid} activityMode={activityMode} />)}
+                    .map((entry, index) => (
+                      <Player
+                        {...setActiveUserId}
+                        entry={entry}
+                        key={index}
+                        {...modeIsRaid}
+                        activityMode={activityMode}
+                      />
+                    ))}
               </div>
 
               <div className='pgcr-splash-team-wrap'>
@@ -183,15 +165,23 @@ export default function PvpSplash({
                   <div className='bravo-colour-banner'></div>
                 </div>
                 {pgcr &&
-                pgcr?.Response?.entries
-                  .filter((entry) => entry.values?.team?.basic?.value === 18)
-                  .map((entry, index) => <Player {...setActiveUserId} entry={entry} key={index} {...modeIsRaid} activityMode={activityMode} />)}
+                  pgcr?.Response?.entries
+                    .filter((entry) => entry.values?.team?.basic?.value === 18)
+                    .map((entry, index) => (
+                      <Player
+                        {...setActiveUserId}
+                        entry={entry}
+                        key={index}
+                        {...modeIsRaid}
+                        activityMode={activityMode}
+                      />
+                    ))}
               </div>
             </div>
           </div>
         </div>
       </div>
-          {/* <Button
+      {/* <Button
             variant='contained'
             color='primary'
             size='small'

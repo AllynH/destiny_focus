@@ -83,7 +83,7 @@ export default function SelectPgcr(props) {
               referenceDef,
               modeIsRaid,
               activityMode,
-              setActiveUserId,
+              activeUserId,
             }}
           />
         )
@@ -98,7 +98,7 @@ export default function SelectPgcr(props) {
               referenceDef,
               modeIsRaid,
               activityMode,
-              setActiveUserId,
+              activeUserId,
             }}
           />
         )
@@ -111,7 +111,7 @@ export default function SelectPgcr(props) {
               referenceDef,
               modeIsRaid,
               activityMode,
-              setActiveUserId,
+              activeUserId,
             }}
           />
         )

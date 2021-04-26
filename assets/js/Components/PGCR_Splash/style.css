@@ -52,6 +52,7 @@
     display: grid;
     grid-template-columns: 50px 3fr 1fr 1fr;
     align-items: center;
+    justify-items: left
 }
 
 .hover-animation:hover{
@@ -209,16 +210,24 @@
         margin: 4px 0px;
     }
     .pgcr-splash-character-details{
-        /* z-index: -1; */
         display: grid;
         text-align: center;
         align-items: center;
     }
-    .pvp-details{
+    .pgcr_splash_grid_4{
         grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr;
     }
-    .raid-details{
-        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr;
+    .pgcr_splash_grid_5{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr;
+    }
+    .pgcr_splash_grid_6{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+    .pgcr_splash_grid_7{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+    .pgcr_splash_grid_8{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     .team-icon-score-wrap{
         position: relative;
@@ -265,6 +274,7 @@
         --pgcr-splash-width: 360px;
         --pgcr-icon-height: 280px;
         --pgcr-icon-width: 280px;
+        --pgcr-splash-name-width: 25ch;
     }
 
     .pgcr-splash-container{
@@ -323,7 +333,7 @@
     }
     .pgcr-splash-categories{
         display: grid;
-        /* grid-template-columns: 15ch 1fr 1fr 1fr 1fr; */
+        /* grid-template-columns: 25ch 1fr 1fr 1fr 1fr; */
         position: absolute;
         height: 100%;
         width: 100%;
@@ -400,11 +410,20 @@
         text-align: center;
         align-items: center;
     }
-    .pvp-details{
-        grid-template-columns: 30px 15ch 1fr 1fr 1fr 1fr;
+    .pgcr_splash_grid_4{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr;
     }
-    .raid-details{
-        grid-template-columns: 30px 15ch 1fr 1fr 1fr 1fr;
+    .pgcr_splash_grid_5{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr;
+    }
+    .pgcr_splash_grid_6{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+    .pgcr_splash_grid_7{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+    .pgcr_splash_grid_8{
+        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     .team-icon-score-wrap{
         position: relative;

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+import { parsePgcrData } from './parsePgcrData'
+
 import { calculateKillDeathRatio } from '../../Utils/HelperFunctions/KdrFunctions'
 import { returnSimpleActivity } from '../../Utils/HelperFunctions/getMode'
 import { GetActivityDefinition } from '../../Utils/API/API_Requests'
@@ -14,74 +16,27 @@ export default function Player({
   entry = {},
   activityMode = 'Raid',
 }) {
+  const pgcrData = parsePgcrData(entry, activityMode, activeUserId)
+  const gridLen = `pgcr_splash_grid_${pgcrData.values.length}`
+
   const [open, setOpen] = useState(false)
-  console.log('activityMode', activityMode)
-  /*
-    Takes an individual entry from mapping: pgcr.Response.entries
-  */
-  const completedDiv = (s) => {
-    console.log('completed div', s)
-    if (s) {
-      return 'pgcr_splash-completed'
-    }
-    return 'pgcr_splash-failed'
-  }
-
-  const membershipId = entry.player?.destinyUserInfo?.membershipId
-
-  const setActive = Boolean(membershipId === activeUserId)
-  const activeUser = setActive ? 'active' : ''
-
-  const username = entry.player?.destinyUserInfo?.displayName
-  const kills = entry.values?.kills?.basic?.value
-  const deaths = entry.values?.deaths?.basic?.value
-  const primevalDamage = entry.extended?.values?.primevalDamage?.basic?.value
-  const assists = entry.values?.assists?.basic?.value
-  const score = entry.score?.basic?.value
-  const kdr = calculateKillDeathRatio(kills, deaths)
-  const standing = entry.values?.completed?.basic?.displayValue === 'Yes'
-  const completed = completedDiv(standing)
-  const playerIcon = entry.player?.destinyUserInfo?.iconPath
-  const iconStyle = {
-    backgroundImage: `url(https://www.bungie.net${playerIcon})`,
-    height: 30,
-    width: 30,
-    backgroundSize: 'contain',
-  }
   const toggleOpen = () => {
     setOpen(!open)
   }
 
-  const getLastValue = (m) => {
-    switch (returnSimpleActivity(m)) {
-      case 'AllPvP':
-      case 'TrialsOfOsiris':
-      default:
-        return { completedFlag: '', value: kdr }
-      // return { completedFlag: '', values: [{ name: 'kills', value: kills }, { name: 'deaths', value: deaths }, { name: 'assists', value: assists }, { name: 'kdr', value: kdr }] }
-      case 'Gambit':
-        return { completedFlag: '', value: primevalDamage }
-      case 'Nightfall':
-        return { completedFlag: '', value: score }
-      case 'Raid':
-        return { completedFlag: completed, value: score }
-    }
-  }
-  const lastValues = getLastValue(activityMode)
   return (
     <div className='pgcr-splash-player-wrapper hover-animation'>
       <div
-        className={`pgcr-splash-character-row ${activeUser} ${lastValues.completedFlag}`}
+        className={`pgcr-splash-character-row ${pgcrData.activeUser} ${pgcrData.completedFlag}`}
         role='button'
         onClick={() => toggleOpen()}
       >
-        <div className='pgcr-splash-character-details raid-details'>
-          <div className='pgcr-splash-icon' style={iconStyle}></div>
-          <div className='align-left padding-left'>{username}</div>
-          <div>{kills}</div>
-          <div>{deaths}</div>
-          <div>{assists}</div>
-          <div>{lastValues.value}</div>
+        <div className={`pgcr-splash-character-details ${gridLen}`}>
+          <div className='pgcr-splash-icon' style={pgcrData.iconStyle}></div>
+          <div className='align-left padding-left'>{pgcrData.username}</div>
+          {pgcrData.values.map((value, index) => (
+            <div key={index}>{value}</div>
+          ))}
         </div>
       </div>
       {open ? <PlayerDropdown {...entry} /> : ''}
@@ -92,7 +47,7 @@ export default function Player({
 function PlayerDropdown(entry) {
   return (
     <>
-      <ul className='no-margin'>
+      <ul className='no-margin dark-transparent-bg'>
         <DropdownDataRow
           index={1}
           weaponName={'Weapon'}
@@ -100,12 +55,7 @@ function PlayerDropdown(entry) {
           precision={'Precision:'}
         />
       </ul>
-      {/* <div className='pgcr-weapon-wrapper'>
-        <div></div>
-        <div>Weapon</div>
-        <div>Kills:</div>
-        <div>Precision:</div>
-      </div> */}
+
       <ul className='no-margin dark-transparent-bg'>
         {entry.extended.weapons?.map((w, index) => (
           <DisplayWeapon key={index} weaponHash={w.referenceId} index={index} w={w} />
