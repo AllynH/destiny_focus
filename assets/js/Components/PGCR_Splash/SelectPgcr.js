@@ -23,7 +23,8 @@ export default function SelectPgcr(props) {
   const params = useParams()
   const currRef = useRef(null)
   const { pathname } = props.location?.state || ''
-  console.log('Return address:', pathname)
+  // console.log('props', props)
+  // console.log('Return address:', pathname)
 
   const { activityId } = params
   const location = useLocation()
@@ -62,13 +63,10 @@ export default function SelectPgcr(props) {
   }, [props])
 
   const returnActivityMode = () => {
-    console.log(BASIC_ACTIVITY_MODES[pgcr.Response?.activityDetails?.mode])
-    console.log(pgcr.Response?.activityDetails?.mode)
     return BASIC_ACTIVITY_MODES[pgcr.Response?.activityDetails?.mode]
   }
 
   const RenderPgcr = () => {
-    console.log('Activity:', returnActivityMode())
     const activityMode = returnActivityMode()
     switch (activityMode) {
       case 'Raid':
@@ -84,6 +82,7 @@ export default function SelectPgcr(props) {
               modeIsRaid,
               activityMode,
               activeUserId,
+              pathname,
             }}
           />
         )
@@ -99,6 +98,7 @@ export default function SelectPgcr(props) {
               modeIsRaid,
               activityMode,
               activeUserId,
+              pathname,
             }}
           />
         )
@@ -112,6 +112,7 @@ export default function SelectPgcr(props) {
               modeIsRaid,
               activityMode,
               activeUserId,
+              pathname,
             }}
           />
         )

@@ -47,10 +47,13 @@ export default function Activity(
   console.log(params)
   console.log(location)
   const { pathname } = location
-  // const { gameMode, characterId, membershipId, membershipType } = params
+  const { characterId, membershipId, membershipType } = params
 
   const { gameMode } = props
   const activityId = Number(props.activityDetails.instanceId)
+
+  console.log('gameMode, characterId, membershipId, membershipType')
+  console.log(gameMode, characterId, membershipId, membershipType)
 
   console.log('Activity:')
   console.log(props)
@@ -191,12 +194,19 @@ export default function Activity(
           pathname: `/pgcr/${activityId}`,
           // search: '?sort=name',
           // hash: '#the-hash',
-          state: { params, location, pathname },
+          state: {
+            params,
+            location,
+            pathname,
+            gameMode,
+            membershipId,
+            membershipType,
+          },
         }}
-      style={{ textDecoration: 'none', color: 'inherit' }}>
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
         <PublishIcon />
       </Link>
-
     </>
   )
 
@@ -224,14 +234,18 @@ export default function Activity(
       <div className='pgcr activity-icon-name-wrapper'>
         <div className='pgcr-button-message-wrapper'>
           <div className='pgcr-social-buttons'>
-            <div className='pgcr-save-button pgcr-icon' role='button' onClick={() => handleClick(activityId)}>
+            <div
+              className='pgcr-save-button pgcr-icon'
+              role='button'
+              onClick={() => handleClick(activityId)}
+            >
               <SaveButton />
             </div>
             <div className='pgcr-share-button pgcr-icon' role='button'>
               <ShareButton role='button' />
             </div>
           </div>
-          <SaveMessage/>
+          <SaveMessage />
         </div>
         <span
           className={'pgcr activity-icon'}

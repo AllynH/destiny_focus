@@ -12,7 +12,6 @@ export default function SelectActivityIcon(props) {
 
   const ReturnActivityIcon = (mode) => {
     const m = props.activityMode
-    console.log('Activity Icon selector:', m)
     switch (m) {
       case 'Raid':
       case 'Nightfall':
