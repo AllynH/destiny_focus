@@ -53,7 +53,7 @@ export default function RaidSplash({
   const nfScore = pgcr?.Response?.entries
     .map((el) => el.values.teamScore.basic.value)
     .reduce((acc, curr) => (acc > curr ? acc : curr), 0)
-  const pgcrCategory = pgcrSplashCategories[activityMode]
+  const pgcrCategory = pgcrSplashCategories[activityMode] || pgcrSplashCategories.Raid
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length}`
   return (
     <>

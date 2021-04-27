@@ -49,8 +49,10 @@ export default function PvpSplash({
   const completionTime = pgcr
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'
-  const pgcrCategory = pgcrSplashCategories[activityMode]
-  const gridColCount = `pgcr_splash_grid_${pgcrCategory.length}`
+  const pgcrCategory = pgcrSplashCategories[activityMode] || pgcrSplashCategories.AllPvP
+  console.log('activityMode')
+  console.log(activityMode)
+  const gridColCount = `pgcr_splash_grid_${pgcrCategory.length} `
 
   return (
     <>

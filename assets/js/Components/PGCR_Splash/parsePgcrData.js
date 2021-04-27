@@ -25,6 +25,7 @@ export function parsePgcrData(entry, mode, activeUserId) {
   const playerIcon = entry.player?.destinyUserInfo?.iconPath
 
   const weaponKillsSuper = entry.extended.values.weaponKillsSuper.basic.value
+  const weaponKillsGrenade = entry.extended.values.weaponKillsGrenade.basic.value
   const activityDurationSeconds = entry.values.activityDurationSeconds.basic.displayValue
 
   // Gambit:
@@ -55,11 +56,23 @@ export function parsePgcrData(entry, mode, activeUserId) {
     switch (returnSimpleActivity(m)) {
       case 'AllPvP':
       case 'TrialsOfOsiris':
+      case 'Survival':
+      case 'Control':
+      case 'Clash':
+      case 'IronBanner':
+      case 'Countdown':
       default:
         return {
           ...genericData,
           completedFlag: '',
           values: [kills, deaths, assists, kdr],
+        }
+      case 'AllMayhem':
+      case 'Mayhem':
+        return {
+          ...genericData,
+          completedFlag: '',
+          values: [kills, deaths, weaponKillsSuper, weaponKillsGrenade, kdr],
         }
       case 'Gambit':
         return {
@@ -95,9 +108,22 @@ export function parsePgcrData(entry, mode, activeUserId) {
 }
 
 export const pgcrSplashCategories = {
+  /* PvE Modes */
   Raid: ['K', 'D', 'K/D R', 'Super Kills', 'Duration'],
-  Gambit: ['K', 'G. K', 'D', 'G. D', 'MB', 'ML', 'MD', 'Dam'],
-  AllPvP: ['K', 'D', 'A', ' K/D R'],
+  Strike: ['K', 'D', 'K/D R', 'Super Kills', 'Duration'],
   Nightfall: ['K', 'D', 'A', 'Score'],
-  TrialsOfOsiris: ['K', 'D', 'A', ' K/D R'],
+
+  /* Gambit: */
+  Gambit: ['K', 'G. K', 'D', 'G. D', 'MB', 'ML', 'MD', 'Dam'],
+
+  /* PvP modes: */
+  AllPvP: ['K', 'D', 'A', 'K/D R'],
+  Survival: ['K', 'D', 'A', 'K/D R'],
+  AllMayhem: ['K', 'D', 'Super Kills', 'Grenade Kills', 'K/D R'],
+  Mayhem: ['K', 'D', 'Super Kills', 'Grenade Kills', 'K/D R'],
+  Control: ['K', 'D', 'A', 'K/D R'],
+  Clash: ['K', 'D', 'A', 'K/D R'],
+  IronBanner: ['K', 'D', 'A', 'K/D R'],
+  Countdown: ['K', 'D', 'A', 'K/D R'],
+  TrialsOfOsiris: ['K', 'D', 'A', 'K/D R'],
 }

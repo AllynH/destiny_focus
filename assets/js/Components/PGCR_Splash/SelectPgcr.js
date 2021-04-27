@@ -72,6 +72,7 @@ export default function SelectPgcr(props) {
       case 'Raid':
       case 'Nightfall':
       case 'Story':
+      case 'Social':
         // return <RaidSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} setActiveUserId={setActiveUserId} />
         return (
           <RaidSplash
