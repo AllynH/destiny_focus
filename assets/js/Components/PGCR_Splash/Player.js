@@ -82,7 +82,7 @@ function PlayerDropdown(entry) {
           index={1}
           weaponName={'Super'}
           iconSvg={<Super width={32} viewBox={'0 -10 50 50'} style={{ fill: 'white' }} />}
-          kills={entry.extended.values.weaponKillsMelee.basic.value}
+          kills={entry.extended.values.weaponKillsSuper.basic.value}
           precision={0}
         />
       </ul>

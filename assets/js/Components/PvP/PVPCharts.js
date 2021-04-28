@@ -5,7 +5,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import KDRChart from './KDRChart'
+import KDRChart from './KDRChartScatter'
 
 import './style.css'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'

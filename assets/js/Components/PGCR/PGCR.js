@@ -467,15 +467,15 @@ export default function Pgcr(props) {
 
   const { gameMode } = getUrlDetails()
   const { instanceId } = props.activityDetails
-  console.log('In PGCR.js - instanceId:')
-  console.log(instanceId)
-  console.log(props)
+  // console.log('In PGCR.js - instanceId:')
+  // console.log(instanceId)
+  // console.log(props)
 
   const fetchPgcr = async (activityId) => {
     // console.log('Fetching fetchPgcr:')
     const result = await GetPGCR({ params: { activityId } })
-    console.log('Getting PGCR response:')
-    console.log(result)
+    // console.log('Getting PGCR response:')
+    // console.log(result)
     setPgcr(result)
   }
 

@@ -19,7 +19,7 @@ export function parsePgcrData(entry, mode, activeUserId) {
   const deaths = entry.values?.deaths?.basic?.value
   const assists = entry.values?.assists?.basic?.value
   const score = entry.score?.basic?.value
-  const kdr = calculateKillDeathRatio(kills, deaths)
+  const kdr = Number(calculateKillDeathRatio(kills, deaths)).toFixed(1)
   const standing = entry.values?.completed?.basic?.displayValue === 'Yes'
   const completed = completedDiv(standing)
   const playerIcon = entry.player?.destinyUserInfo?.iconPath
@@ -109,8 +109,8 @@ export function parsePgcrData(entry, mode, activeUserId) {
 
 export const pgcrSplashCategories = {
   /* PvE Modes */
-  Raid: ['K', 'D', 'K/D R', 'Super Kills', 'Duration'],
-  Strike: ['K', 'D', 'K/D R', 'Super Kills', 'Duration'],
+  Raid: ['K', 'D', 'K/D R', 'S. K', 'D'],
+  Strike: ['K', 'D', 'K/D R', 'S. K', 'D'],
   Nightfall: ['K', 'D', 'A', 'Score'],
 
   /* Gambit: */
@@ -119,8 +119,8 @@ export const pgcrSplashCategories = {
   /* PvP modes: */
   AllPvP: ['K', 'D', 'A', 'K/D R'],
   Survival: ['K', 'D', 'A', 'K/D R'],
-  AllMayhem: ['K', 'D', 'Super Kills', 'Grenade Kills', 'K/D R'],
-  Mayhem: ['K', 'D', 'Super Kills', 'Grenade Kills', 'K/D R'],
+  AllMayhem: ['K', 'D', 'S. K', 'G. K', 'K/D R'],
+  Mayhem: ['K', 'D', 'S. K', 'G. K', 'K/D R'],
   Control: ['K', 'D', 'A', 'K/D R'],
   Clash: ['K', 'D', 'A', 'K/D R'],
   IronBanner: ['K', 'D', 'A', 'K/D R'],

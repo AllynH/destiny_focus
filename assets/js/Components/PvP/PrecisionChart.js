@@ -2,11 +2,13 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable semi */
 /* eslint-disable no-else-return */
-import { data } from 'jquery'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine } from 'victory'
+
+import ChartLegend from '../ChartHelpers/ChartLegend'
+
 import './style.css'
 
 export default function PrecisionChart(props) {
@@ -78,6 +80,7 @@ export default function PrecisionChart(props) {
     <div className='summary-chart-wrapper'>
       <h3 className='heading-capitalize'>{dataType}:</h3>
       <div className='chart precision-chart'>
+        <ChartLegend />
         <VictoryChart
           /* theme={VictoryTheme.material} */ domainPadding={10}
           height={230}
@@ -97,7 +100,7 @@ export default function PrecisionChart(props) {
           <VictoryLine
             name='Average'
             style={{
-              data: { stroke: 'black', opacity: 0.7 },
+              data: { stroke: 'var(--vanguard-blue)', opacity: 0.7 },
             }}
             data={[
               { x: 0, y: average },

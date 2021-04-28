@@ -431,19 +431,19 @@
         align-items: center;
     }
     .pgcr_splash_grid_4{
-        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr;
+        grid-template-columns: 30px 12ch 1fr 1fr 1fr 1fr;
     }
     .pgcr_splash_grid_5{
-        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 30px 12ch 1fr 1fr 1fr 1fr 1fr;
     }
     .pgcr_splash_grid_6{
-        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 30px 12ch 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     .pgcr_splash_grid_7{
-        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 30px 12ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     .pgcr_splash_grid_8{
-        grid-template-columns: 30px 25ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 30px 12ch 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     .team-icon-score-wrap{
         position: relative;

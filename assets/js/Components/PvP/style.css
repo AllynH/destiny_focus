@@ -211,6 +211,34 @@
 
 }
 
+/*Chart legend: */
+.chart-legend-wrapper{
+    margin-bottom: -40px;
+    padding-top: 10px;
+}
+.chart-legend-text{
+    padding-left: 4px;
+    font-size: 14px;
+}
+.chart-legend-square{
+    width: 14px;
+    height: 14px;
+}
+.focus-colour{
+    background-color: var(--gambit-green);
+}
+.average-colour{
+    background-color: var(--vanguard-blue);
+}
+.chart-legend-item{
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    margin: 4px;
+    color: black;
+    align-items: center;
+}
+
 /* 
   Mobile devices:
 */
@@ -252,3 +280,4 @@
     }
         
 }
+

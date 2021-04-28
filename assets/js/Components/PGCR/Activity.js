@@ -52,13 +52,13 @@ export default function Activity(
   const { gameMode } = props
   const activityId = Number(props.activityDetails.instanceId)
 
-  console.log('gameMode, characterId, membershipId, membershipType')
-  console.log(gameMode, characterId, membershipId, membershipType)
+  // console.log('gameMode, characterId, membershipId, membershipType')
+  // console.log(gameMode, characterId, membershipId, membershipType)
 
-  console.log('Activity:')
-  console.log(props)
-  console.log(props.activityDetails)
-  console.log(activityId)
+  // console.log('Activity:')
+  // console.log(props)
+  // console.log(props.activityDetails)
+  // console.log(activityId)
 
   const standingClassName = (s) => {
     // eslint-disable-next-line no-nested-ternary
