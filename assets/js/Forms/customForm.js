@@ -11,6 +11,8 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
+import Light from '../../img/icons/light.svg'
+
 import {
   increment, setPvp, setGambit, setRaid,
 } from '../Actions'
@@ -110,7 +112,7 @@ export default function FormDialog(props) {
     <div className='div-shimmer center-vertical-align'>
 
       <div role='button' variant='outlined' color='primary' className={'focus-button'} onClick={handleClickOpen}>
-        <span className='focus-button-span'>Customize Focus</span>
+        <span className='focus-button-span'>Customize Focus <Light className='icon-focus-light' /></span>
       </div>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
