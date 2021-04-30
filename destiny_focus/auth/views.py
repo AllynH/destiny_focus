@@ -220,11 +220,10 @@ def get_characters():
 
     get_account_res = my_api.GetCurrentBungieAccount()
 
-    membershipId    = int(request.args.get('membershipId', str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])))
-    membershipType  = int(request.args.get('membershipType', str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])))
+    # Take values from request args- or default to stored values:
+    membershipId    = str(request.args.get('membershipId', str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])))
+    membershipType  = str(request.args.get('membershipType', str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])))
 
-    membershipId    = str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])
-    membershipType  = str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])
     get_characters_res = my_api.get_profile(membershipType, membershipId)
     
     character_details = get_character_details_json(get_characters_res)

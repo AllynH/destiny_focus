@@ -11,7 +11,9 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-import { increment, setPvp, setGambit, setRaid } from '../Actions'
+import {
+  increment, setPvp, setGambit, setRaid,
+} from '../Actions'
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false)
@@ -33,7 +35,9 @@ export default function FormDialog(props) {
   const counter = useSelector((state) => state.counter)
   const dispatch = useDispatch()
 
-  const { focus, apiUrl, image, colours, description } = props.focus_details
+  const {
+    focus, apiUrl, image, colours, description,
+  } = props.focus_details
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -45,10 +49,7 @@ export default function FormDialog(props) {
 
   const handleSubmit = (e) => {
     console.log('customForm focus', focus)
-    // let new_focus = 'pvp'
-    // if (focus === 'Crucible') {
-    //   new_focus = 'pvp'
-    // }
+
     e.preventDefault()
     setOpen(false)
     console.log('Submit')
@@ -68,15 +69,19 @@ export default function FormDialog(props) {
       dispatch(increment(2))
       if (focus === 'pvp') {
         console.log('Setting focus -> ', focus)
-        dispatch(setPvp({ killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime }))
-      }
-      else if (focus === 'gambit') {
+        dispatch(setPvp({
+          killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
+        }))
+      } else if (focus === 'gambit') {
         console.log('Setting focus -> ', focus)
-        dispatch(setGambit({ killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime }))
-      }
-      else {
+        dispatch(setGambit({
+          killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
+        }))
+      } else {
         console.log('Setting focus -> ', focus)
-        dispatch(setRaid({ killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime }))
+        dispatch(setRaid({
+          killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
+        }))
       }
     } else {
       // eslint-disable-next-line no-alert
@@ -102,15 +107,14 @@ export default function FormDialog(props) {
   const testNumber = (num) => !isNaN(num)
 
   return (
-    <div className='div-shimmer'>
-      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
-        Customize Focus
-      </Button>
+    <div className='div-shimmer center-vertical-align'>
+
+      <div role='button' variant='outlined' color='primary' className={'focus-button'} onClick={handleClickOpen}>
+        <span className='focus-button-span'>Customize Focus</span>
+      </div>
+
       <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
         <DialogTitle id='form-dialog-title'>Focus: {focus}</DialogTitle>
-
-        {/* {props.chilillDeathRatioen ? props.chilillDeathRatioen : <h2>No chilillDeathRatioen...</h2>} */}
-
         <DialogContent>
           <DialogContentText>
             Customize your focus goals: How many headshots have you landed today?
