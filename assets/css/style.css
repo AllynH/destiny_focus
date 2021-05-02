@@ -332,3 +332,7 @@ footer .footer-nav {
   list-style: none;
   padding: 0;
 }
+.link-style-none{
+  color: white;
+  text-decoration: none;
+}

@@ -9,6 +9,7 @@ import AccountStats from './Components/AccountStats/AccountStats'
 import Account from './Components/AccountStats/Account'
 import GambitChart from './Components/Gambit/GambitCharts'
 import Welcome from './Components/Welcome/Welcome'
+import FaqContent from './Components/FAQ'
 import CharacterSelect from './Components/CharacterSelect'
 import PvpSplash from './Components/PGCR_Splash/SelectPgcr'
 
@@ -31,6 +32,7 @@ class App extends React.Component {
           <Route path='/pgcr/:activityId([0-9]+)/'component={PvpSplash} />
           <Route path='/logout' exact={true} component={Welcome} />
           <Route path='/about/' exact={true} />
+          <Route path='/faq/' exact={true} component={FaqContent} />
           <Route path='/' exact={true} component={Welcome} />
           <Route component={Error} />
         </Switch>

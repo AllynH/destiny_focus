@@ -34,7 +34,7 @@ def before_request():
     Refresh user credentials here.
     """
     # print("\n\nUnauth redirect")
-    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest"]
+    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about"]
     # print(request.endpoint)
     if not request.endpoint in pgcr_list:
         g.user = current_user
@@ -109,6 +109,11 @@ def about():
     """About page."""
     form = LoginForm(request.form)
     return render_template("public/about.html", form=form)
+
+@blueprint.route("/faq/")
+def faq():
+    """FAQ page."""
+    return render_template("public/faq.html")
 
 @blueprint.route("/get/pgcr/<activityId>/")
 def get_pgcr(activityId):

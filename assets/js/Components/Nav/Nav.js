@@ -181,8 +181,14 @@ export default function NavBar() {
               </MenuList>
               <hr />
               <MenuList>
-                <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
+              <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
                   Change platform
+                </MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
+                  About Destiny-Fous
+                </MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to={'/faq/'}>
+                  FAQ
                 </MenuItem>
               </MenuList>
               <MenuItem onClick={handleClose}>
