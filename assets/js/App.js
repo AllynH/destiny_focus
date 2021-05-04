@@ -1,13 +1,11 @@
 import React from 'react'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 
 import NavBar from './Components/Nav/Nav'
 
 import ChooseFocus from './Components/Cards/ChooseFocus'
 import PvPChart from './Components/PvP/PVPCharts'
-import AccountStats from './Components/AccountStats/AccountStats'
 import Account from './Components/AccountStats/Account'
-import GambitChart from './Components/Gambit/GambitCharts'
 import Welcome from './Components/Welcome/Welcome'
 import FaqContent from './Components/FAQ'
 import CharacterSelect from './Components/CharacterSelect'
@@ -20,7 +18,7 @@ class App extends React.Component {
     return (
       <>
         <Route component={GoogleAnalytics}/>
-        <Route path='/:auth/:gameMode/:membershipType([1|2|3|4|5])?/:membershipId([0-9]+)?/:characterId([0-9]+)?/' {...this.props} component={NavBar}/>
+        <Route path='/:auth?/:gameMode?/:membershipType([1|2|3|4|5])?/:membershipId([0-9]+)?/:characterId([0-9]+)?/' {...this.props} component={NavBar}/>
         <Switch>
           <Route path='/auth/character_select/'exact={true} component={CharacterSelect} />
           <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={ChooseFocus} />

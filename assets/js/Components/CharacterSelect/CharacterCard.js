@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -8,6 +9,8 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
+
+import { setAccount } from '../../Actions'
 
 import './style.css'
 
@@ -26,12 +29,24 @@ const useStyles = makeStyles({
 
 export default function CharacterCard(props) {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const { character, linkUrl } = props
+
+  // Dispatch accountReducer:
+  const setCharAccount = () => {
+    const split = linkUrl.split('/')
+    const data = {
+      membershipType: split[3],
+      membershipId: split[4],
+      characterId: split[5],
+    }
+    dispatch(setAccount(data))
+  }
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <Link to={linkUrl} style={{ textDecoration: 'none' }}>
+        <Link to={linkUrl} onClick={setCharAccount} style={{ textDecoration: 'none' }}>
           <CardMedia
             className={classes.media}
             image={`https://bungie.net${character.emblem_hash.secondaryIcon}`}

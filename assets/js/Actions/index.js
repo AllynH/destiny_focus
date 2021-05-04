@@ -18,3 +18,11 @@ export const setRaid = (data) => ({
   type: 'raid',
   payload: data,
 })
+export const setAccount = (data) => ({
+  type: 'select_account',
+  account: {
+    characterId: data.characterId,
+    membershipType: data.membershipType,
+    membershipId: data.membershipId,
+  },
+})

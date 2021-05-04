@@ -1,19 +1,23 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-export const ViewStore = (props) => {
+export const ViewStore = () => {
   console.log('ViewStore')
-  const state = useSelector((state) => state)
-  const { focus } = useSelector((state) => state.focusReducer)
+  const state = useSelector((s) => s)
+  const { focus } = useSelector((s) => s.focusReducer)
+  const { account } = useSelector((s) => s.accountReducer)
   const {
     killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
   } = state.focusReducer.payload || {}
+  const {
+    membershipType, membershipId, characterId,
+  } = state.accountReducer.account || {}
 
   // console.log('Inside ViewStore:')
-  // console.log(props)
   // console.log(state)
   // console.log(state.focusReducer)
   // console.log(focus)
+  // console.log(account)
   return (
     <div>
       <ul>
@@ -22,6 +26,9 @@ export const ViewStore = (props) => {
         <li>W/L R: {winLossRatio || ''}</li>
         <li>Precision shots: {precisionKillsCount}</li>
         <li>Average Life Time: {avgLifeTime}</li>
+        <li>membershipType: {membershipType}</li>
+        <li>membershipId: {membershipId}</li>
+        <li>characterId: {characterId}</li>
       </ul>
     </div>
   )

@@ -13,6 +13,8 @@ import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import FormDialog from '../../Forms/customForm'
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 
+// import { ViewStore } from '../../Utils/ViewStore'
+
 export default function ChooseFocus(props) {
   const getFocus = useSelector((state) => state.focus)
   // console.log('State focus', getFocus)

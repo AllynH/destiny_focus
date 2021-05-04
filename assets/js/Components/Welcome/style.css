@@ -42,8 +42,8 @@
   }
   
   .text_rotate::before {
-    color: black;
     content: 'Crucible';
+    color: rgba(0, 0, 0, 0);
     animation: text_rotation linear infinite 8s;
   }
   @keyframes text_rotation {
@@ -51,29 +51,29 @@
       color: var(--grey-light-3);
     }   
     20% {
-      color: black;
       content: 'Raids';
+      color: rgba(0, 0, 0, 0);
     }
     30% {
       color: var(--grey-light-3);
     }  
     40% {
       content: 'K/D R';
-      color: black;
+      color: rgba(0, 0, 0, 0);
     }
     50% {
       color: var(--grey-light-3);
     }  
     60% {
       content: 'Headshots';
-      color: black;
+      color: rgba(0, 0, 0, 0);
     }
     70% {
       color: var(--grey-light-3);
     }  
     80% {
       content: 'Gambit';
-      color: black;
+      color: rgba(0, 0, 0, 0);
     }
     90% {
       color: var(--grey-light-3);

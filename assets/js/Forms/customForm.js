@@ -92,6 +92,7 @@ export default function FormDialog(props) {
   }
 
   const handleInputChange = (e) => {
+    const testNumber = (num) => !Number.isNaN(num)
     const { name, value } = e.target
     const val = testNumber(value)
     if (!val) {
@@ -106,7 +107,6 @@ export default function FormDialog(props) {
     }
   }
 
-  const testNumber = (num) => !isNaN(num)
 
   return (
     <div className='div-shimmer center-vertical-align'>
