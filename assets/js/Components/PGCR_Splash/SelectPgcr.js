@@ -1,12 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
 import { GetPGCRUnauth, GetActivityDefinitionUnauth } from '../../Utils/API/API_Requests'
-import {
-  calculateKillDeathRatio,
-  calculateKillDeathAssistsRatio,
-} from '../../Utils/HelperFunctions/KdrFunctions'
-import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { BASIC_ACTIVITY_MODES } from '../../Data/destinyEnums'
 import RaidSplash from './RaidSplash'
 import PvpSplash from './PvpSplash'
@@ -19,10 +14,8 @@ export default function SelectPgcr(props) {
   const [modeIsRaid, setModeIsRaid] = useState()
   const [activityDef, setActivityDef] = useState()
   const [referenceDef, setReferenceDef] = useState()
-
   const params = useParams()
-  const currRef = useRef(null)
-  const { pathname } = props.location?.state || ''
+  const { pathname } = props?.location?.state || ''
   // console.log('props', props)
   // console.log('Return address:', pathname)
 
@@ -36,7 +29,7 @@ export default function SelectPgcr(props) {
     setActiveUserId(character)
 
     // Make API calls:
-    const fetchPgcr = async (activityId) => {
+    const fetchPgcr = async () => {
       const result = await GetPGCRUnauth({
         params: {
           activityId,
@@ -62,9 +55,7 @@ export default function SelectPgcr(props) {
     fetchPgcr(activityId)
   }, [props])
 
-  const returnActivityMode = () => {
-    return BASIC_ACTIVITY_MODES[pgcr.Response?.activityDetails?.mode]
-  }
+  const returnActivityMode = () => BASIC_ACTIVITY_MODES[pgcr.Response?.activityDetails?.mode]
 
   const RenderPgcr = () => {
     const activityMode = returnActivityMode()
@@ -73,7 +64,6 @@ export default function SelectPgcr(props) {
       case 'Nightfall':
       case 'Story':
       case 'Social':
-        // return <RaidSplash pgcr={pgcr} activityDef={activityDef} referenceDef={referenceDef} modeIsRaid={modeIsRaid} activityMode={activityMode} setActiveUserId={setActiveUserId} />
         return (
           <RaidSplash
             {...{

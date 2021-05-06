@@ -1,21 +1,17 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable semi */
-/* eslint-disable no-else-return */
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import { projectKdrAverage } from '../../Utils/HelperFunctions/KdrFunctions'
 import CustomizeMessage from './CustomizeMessage'
+import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import './style.css'
 
 export default function DisplayKdrFocus(props) {
-  const getFocus = useSelector((state) => state.focus)
   const { avgKdr } = props
   const { focusReducer } = props
   const { data } = props
   const focusGoals = props.focusReducer?.payload
+  const { gameMode } = getUrlDetails()
   // const spacer = {&nsbp&nsbp}
 
   console.log('DisplayKdrFocus')
@@ -30,23 +26,22 @@ export default function DisplayKdrFocus(props) {
             Focus on increasing the number of kills per game to improve your KD/R the fastest.
           </p>
           <blockquote className='focus-kdr-recommendation-subtitle'>
-            Don't let up until they're dust, Guardian.
-          </blockquote>
-        </>
-      )
-    } else {
-      return (
-        <>
-          <h2 className='focus-heading-h2'>Focus: STAY ALIVE</h2>
-          <p className='focus-kdr-recommendation-description'>
-            Focus on increasing your average time alive per game to improve your KD/R the fastest.
-          </p>
-          <blockquote className='focus-kdr-recommendation-subtitle'>
-            This is the moment Iron Lords live for.
+            Don{"'"}t let up until they{"'"}re dust, Guardian.
           </blockquote>
         </>
       )
     }
+    return (
+      <>
+        <h2 className='focus-heading-h2'>Focus: STAY ALIVE</h2>
+        <p className='focus-kdr-recommendation-description'>
+          Focus on increasing your average time alive per game to improve your KD/R the fastest.
+        </p>
+        <blockquote className='focus-kdr-recommendation-subtitle'>
+          This is the moment Iron Lords live for.
+        </blockquote>
+      </>
+    )
   }
 
   const projectedKdr = (kdrData) => {
@@ -94,22 +89,29 @@ export default function DisplayKdrFocus(props) {
     </div>
   )
 
+  function CheckCorrectFocus() {
+    if (!focusGoals) {
+      return <CustomizeMessage />
+    }
+    if (gameMode === focusReducer.focus) {
+      return CompareResults(avgKdr, focusGoals.killDeathRatio)
+    }
+    return (
+      <>
+        {CompareResults(avgKdr, focusGoals.killDeathRatio)}
+        <div className='focus-mismatch-warn'>
+          Warning - Focus goals set for: {focusReducer.focus}
+        </div>
+        <CustomizeMessage />
+      </>
+    )
+  }
+
   return (
     <>
-      {/* <div>
-        {focusGoals ? (
-          DisplayFocus(avgKdr, focusGoals.killDeathRatio, data)
-        ) : (
-          <p>Customise your focus goals to see more data.</p>
-        )}
-      </div> */}
       <div className='focus-kdr-wrapper'>
         <div className='focus-kdr-'>{projectedKdr(data)}</div>
-        {focusGoals ? (
-          CompareResults(avgKdr, focusGoals.killDeathRatio)
-        ) : (
-          <CustomizeMessage />
-        )}
+        <CheckCorrectFocus />
       </div>
     </>
   )

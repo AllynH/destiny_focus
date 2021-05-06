@@ -9,3 +9,11 @@
 .focus-customize-message{
     padding: 10px  0px;
 }
+
+.focus-mismatch-warn{
+    margin: 5px 0px;
+    padding: 5px;
+    border: 2px solid var(--crucible-dark-1);
+    background-color: var(--crucible-dark-3);
+    text-align: center;
+}

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import { Link } from 'react-router-dom'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 export default function ReturnToFocusButton(props) {
-  const { pathname, gameMode, membershipId, membershipType } = props
+  const {
+    pathname,
+  } = props
 
   return (
     <Link

@@ -1,7 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable semi */
-/* eslint-disable no-else-return */
 import React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -12,15 +8,17 @@ import {
 } from '../../Utils/HelperFunctions/KdrFunctions'
 import { ProgressBar } from '../Progress/ProgressBar'
 import CustomizeMessage from './CustomizeMessage'
+import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import './style.css'
 
 export default function DisplayPrecisionFocus(props) {
-  const focusGoals = props.focusReducer?.payload
   const { chartData } = props
   const weaponKills = props?.chartData?.weapons
   const precisionGoal = focusGoals?.precisionKillsCount
-
+  const { focusReducer } = props
+  const focusGoals = props.focusReducer?.payload
+  const { gameMode } = getUrlDetails()
   // console.log('DisplayPrecisionFocus')
   // console.log(props)
   // console.log(chartData)
@@ -114,15 +112,29 @@ export default function DisplayPrecisionFocus(props) {
     </div>
   )
 
+  function CheckCorrectFocus() {
+    if (!focusGoals) {
+      return <CustomizeMessage />
+    }
+    if (gameMode === focusReducer.focus) {
+      return CompareResults(average, focusGoals.killDeathRatio)
+    }
+    return (
+      <>
+        {CompareResults(average, focusGoals.killDeathRatio)}
+        <div className='focus-mismatch-warn'>
+          Warning - Focus goals set for: {focusReducer.focus}
+        </div>
+        <CustomizeMessage />
+      </>
+    )
+  }
+
   return (
     <>
       <div className='focus-kdr-wrapper'>
         <PrecisionRecommendation precisionPercentage={percent} />
-        {focusGoals ? (
-          CompareResults(average, precisionGoal)
-        ) : (
-          <CustomizeMessage />
-        )}
+        <CheckCorrectFocus />
       </div>
     </>
   )
