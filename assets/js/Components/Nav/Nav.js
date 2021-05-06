@@ -73,21 +73,21 @@ export default function NavBar() {
   const openProfile = Boolean(anchorElProfile)
 
   const handleProfile = (event) => {
-    console.log('Profile clicked')
+    // console.log('Profile clicked')
     setAnchorElProfile(event.currentTarget)
   }
 
   const handleClose = () => {
-    console.log('handleClick')
+    // console.log('handleClick')
     setAnchorElProfile(null)
   }
 
   useEffect(() => {
-    console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
+    // console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
     if (auth === 'auth') {
       setAuthFlag(true)
     }
-    const fetchProfile = async (activityId) => {
+    const fetchProfile = async () => {
       const result = await GetCharacters({
         params: {},
       })
@@ -113,9 +113,7 @@ export default function NavBar() {
     >
       <AppBar position='static' className='nav-bar-main'>
         <Toolbar>
-          {profile &&
-            <div className='icon-shimmer'></div>
-          }
+          {profile && <div className='icon-shimmer'></div>}
           <IconButton
             edge='start'
             className={`${classes.menuButton}`}
@@ -181,11 +179,11 @@ export default function NavBar() {
               </MenuList>
               <hr />
               <MenuList>
-              <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
+                <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
                   Change platform
                 </MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
-                  About Destiny-Fous
+                  About
                 </MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to={'/faq/'}>
                   FAQ
@@ -195,30 +193,31 @@ export default function NavBar() {
                 <a href='/auth/logout/'>Logout</a>
               </MenuItem>
             </Menu>
-          )
-        :
-        <Menu
-        id='menu-appbar'
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        anchorEl={anchorElProfile}
-        onClose={handleClose}
-        open={openProfile}
-      >
-        <MenuList>
-              <MenuItem onClick={handleClose}>
-                <a className='link-nav-home' href='/'>Destiny Focus</a>
-              </MenuItem>
-        </MenuList>
-      </Menu>
-  }
+          ) : (
+            <Menu
+              id='menu-appbar'
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              anchorEl={anchorElProfile}
+              onClose={handleClose}
+              open={openProfile}
+            >
+              <MenuList>
+                <MenuItem onClick={handleClose}>
+                  <a className='link-nav-home' href='/'>
+                    Destiny Focus
+                  </a>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
 
           <Typography variant='h6' className={classes.title}>
             Destiny Focus

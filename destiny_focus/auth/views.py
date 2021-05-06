@@ -76,7 +76,7 @@ def home():
     else:
         flash_errors(form)
 
-        return redirect(url_for("auth.character_select"))
+        return redirect(url_for("auth.character_select", redirect="true"))
         
 
     return render_template("auth/welcome.html", form=form)
