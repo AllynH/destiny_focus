@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import {
   getPercentage,
@@ -13,9 +12,7 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 import './style.css'
 
 export default function DisplayPrecisionFocus(props) {
-  const { chartData } = props
   const weaponKills = props?.chartData?.weapons
-  const precisionGoal = focusGoals?.precisionKillsCount
   const { focusReducer } = props
   const focusGoals = props.focusReducer?.payload
   const { gameMode } = getUrlDetails()
@@ -29,7 +26,9 @@ export default function DisplayPrecisionFocus(props) {
   const percent = Number(getPercentage(average, weaponKills))
 
   const AccuracyRecommendation = (p) => {
-    const { progress, theme, progressBarMessage, focusMessage, quoteMessage } = p
+    const {
+      progress, theme, progressBarMessage, focusMessage, quoteMessage,
+    } = p
     const steps = `${progress.toFixed(1)}% / 100%`
     return (
       <>
@@ -57,8 +56,7 @@ export default function DisplayPrecisionFocus(props) {
     switch (true) {
       case precisionPercentage < 33:
       default:
-        focusMessage =
-          'Focus on increasing your accuracy, less than 33% of your kills were precision kills.'
+        focusMessage = 'Focus on increasing your accuracy, less than 33% of your kills were precision kills.'
         progressBarMessage = 'Focus: Accuracy is poor'
         return (
           <AccuracyRecommendation
@@ -69,8 +67,7 @@ export default function DisplayPrecisionFocus(props) {
           />
         )
       case precisionPercentage > 33 && precisionPercentage < 66:
-        focusMessage =
-          'Focus on increasing your accuracy, less than 66% of your kills were precision kills.'
+        focusMessage = 'Focus on increasing your accuracy, less than 66% of your kills were precision kills.'
         progressBarMessage = 'Focus: Accuracy is good'
         return (
           <AccuracyRecommendation
