@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 import { CrucibleFormFields, GambitFormFields, RaidFormFields } from '../../Forms/formFields'
 import Card from './Card'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
-import FormDialog from '../../Forms/customForm'
+import FormDialog from '../../Forms/focusForm'
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 
 // import { ViewStore } from '../../Utils/ViewStore'

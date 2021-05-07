@@ -10,7 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { useParams, Link } from 'react-router-dom';
-import FormDialog from '../../Forms/customForm'
+import FormDialog from '../../Forms/focusForm'
 
 import './cards.css';
 import './card.css';

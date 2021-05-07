@@ -1,15 +1,14 @@
 import React from 'react'
 
 import { CrucibleFormFields, GambitFormFields, RaidFormFields } from '../../Forms/formFields'
-import FormDialog from '../../Forms/customForm'
+import FormDialog from '../../Forms/focusForm'
 import { getUrlDetails } from '../../Utils/HelperFunctions/index'
 import { FOCUS_DETAILS } from './FocusDetails'
 
 export default function ChooseFocusForm() {
   const { gameMode } = getUrlDetails()
-  console.log('ChooseFocusForm')
-  console.log('ChooseFocusForm')
-  console.log(gameMode)
+  // console.log('ChooseFocusForm')
+  // console.log(gameMode)
 
   const getForm = () => {
     switch (gameMode) {

@@ -16,4 +16,6 @@
     border: 2px solid var(--crucible-dark-1);
     background-color: var(--crucible-dark-3);
     text-align: center;
+    border-radius: 3px;
+    box-shadow: 3px 3px 15px black;
 }

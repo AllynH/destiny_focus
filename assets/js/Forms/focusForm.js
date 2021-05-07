@@ -15,7 +15,7 @@ import Light from '../../img/icons/light.svg'
 
 import {
   increment, setPvp, setGambit, setRaid,
-} from '../Actions'
+} from '../Redux/Actions'
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false)
@@ -50,7 +50,7 @@ export default function FormDialog(props) {
   }
 
   const handleSubmit = (e) => {
-    console.log('customForm focus', focus)
+    console.log('focusForm focus', focus)
 
     e.preventDefault()
     setOpen(false)
@@ -106,7 +106,6 @@ export default function FormDialog(props) {
       setFocus(focus)
     }
   }
-
 
   return (
     <div className='div-shimmer center-vertical-align'>
