@@ -1,5 +1,4 @@
 const accountReducer = (state = {}, action) => {
-
   switch (action.type) {
     case 'select_account': {
       const newState = {

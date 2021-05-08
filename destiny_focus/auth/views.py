@@ -225,7 +225,11 @@ def get_characters():
     membershipType  = str(request.args.get('membershipType', str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])))
 
     get_characters_res = my_api.get_profile(membershipType, membershipId)
-    
+
+    if get_characters_res["ErrorStatus"] != "Success":
+        flash(f"Bungie systems are down: {get_characters_res.get('message', {}).get('Message', {})}", "error")
+        return redirect(url_for("public.home"))
+
     character_details = get_character_details_json(get_characters_res)
 
     return jsonify(character_details)
@@ -261,7 +265,7 @@ def choose_focus(membershipType, membershipId, characterId):
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     # print(get_profile_res)
     if get_profile_res["ErrorStatus"] != "Success":
-        flash("Bungie systems are down :(", "error")
+        flash(f"Bungie systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
         return redirect(url_for("public.home"))
 
     return render_template("auth/choose_focus.html")
@@ -275,7 +279,8 @@ def pvp(membershipType, membershipId, characterId):
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     if get_profile_res["ErrorStatus"] != "Success":
-        flash("Bungie systems are down :(", "error")
+        flash(f"Bungie systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+
         return redirect(url_for("public.home"))
 
     # character_details = get_character_details_json(get_profile_res)
@@ -305,7 +310,7 @@ def raid(membershipType, membershipId, characterId):
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     if get_profile_res["ErrorStatus"] != "Success":
-        flash("Bungie systems are down :(", "error")
+        flash(f"Bungie systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
         return redirect(url_for("public.home"))
 
     return render_template("auth/choose_focus.html")
@@ -442,6 +447,10 @@ def get_historical_stats(membershipType, membershipId, characterId):
             break
         else:
             activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
+            if activity["ErrorStatus"] != "Success":
+                flash(f"Bungie systems are down: {activity.get('message', {}).get('Message', {})}", "error")
+                return redirect(url_for("public.home"))
+
 
             found_activities = activity['Response']['allPvP'].get('daily', False)
 

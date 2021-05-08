@@ -45,8 +45,7 @@ export default function SeasonMenu(props) {
     <div>
       <div className='season-dropdown-button'>
         <Button
-          className={'dropdown-button'}
-          className={classes.button}
+          className={`dropdown-button ${classes.button}`}
           aria-controls='simple-menu'
           aria-haspopup='true'
           onClick={handleClick}
@@ -61,11 +60,13 @@ export default function SeasonMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {Object.keys(SEASONS).map((p, index) => (
-          <MenuItem key={index} value={p} onClick={handleClose}>
-            {`${p}: ${SEASONS[p].TITLE}`}
-          </MenuItem>
-        ))}
+        {Object.keys(SEASONS)
+          // .filter((p) => p.ACTIVE === true)
+          .map((p, index) => (
+            <MenuItem key={index} value={p} onClick={handleClose}>
+              {`${p}: ${SEASONS[p].TITLE}`}
+            </MenuItem>
+          ))}
       </Menu>
       {selectedSeason ? (
         <AccountStats

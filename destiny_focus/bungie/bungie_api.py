@@ -182,8 +182,8 @@ class BungieApi(object):
         print('Bungie response error:')
         print(fail)
 
-        return response.json()
-        # return jsonify(fail)
+        # return response.json()
+        return (fail)
 
     def get_pgcr(self, activityId):
         """
