@@ -54,7 +54,7 @@ export default function PgcrSummary(props) {
 
     }
     fetchPgcrSummary()
-  }, [props])
+  }, [])
 
   const Charts = (
     <>

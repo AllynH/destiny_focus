@@ -23,7 +23,7 @@ export default function PgcrList(props) {
       console.log(result)
     }
     fetchUserPgcrList()
-  }, [props])
+  }, [])
 
   // const CreatePgcrList = () => (
   //   <div>

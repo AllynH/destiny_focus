@@ -74,7 +74,7 @@ class AccountStats extends React.Component {
     }
   }
 
-  _checkResponse(state) {
+  checkResponse(state) {
     const { jsonResponse, isLoaded } = state
     if (isLoaded && jsonResponse.ErrorCode > 1) {
       console.log('Caught error!')
@@ -92,7 +92,7 @@ class AccountStats extends React.Component {
     }
   }
 
-  _createDataStructure(stats) {
+  createDataStructure(stats) {
     const { scope } = this.props
     const { props } = this
     const { season, seasonDescription } = this.props

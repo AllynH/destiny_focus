@@ -4,15 +4,23 @@
   "rules": {
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "@typescript-eslint/no-unused-vars": "off",
+    "no-confusing-arrow": ["error", {"allowParens": true}],
+    // No props validation - yet:
+    "react/prop-types": 0,
+
+    // Missing semicolon - these are too MLG for me:
     "semi": 0,
-    "no-param-reassign": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/prefer-default-export": 0,
+    // Don't care about LF CRLF:
+    "linebreak-style": 0,
+    // Don't name class functions: _internalFunc()
+    // "no-underscore-dangle": 0,
+
+    // Remove?? :
+    // "no-param-reassign": 0,
+    // "import/no-extraneous-dependencies": 0,
+    // "import/prefer-default-export": 0
     // "consistent-return": 0,
     // "no-confusing-arrow": 0,
-    "no-confusing-arrow": ["error", {"allowParens": true}],
-    "no-underscore-dangle": 0,
-    "linebreak-style": 0
   },
   "env": {
     "browser": true,

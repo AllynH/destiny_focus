@@ -19,11 +19,12 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 class PvPChart extends React.Component {
   constructor(props) {
-    console.log('PvPChart')
-    console.log(props)
     super(props)
     this.getKdr = this.getKdr.bind(this)
+    // this.countdown = 59
+    this.startTimer = true
     this.state = {
+      countdown: 59,
       error: null,
       isLoaded: false,
       jsonResponse: [],
@@ -31,12 +32,34 @@ class PvPChart extends React.Component {
     }
   }
 
-  componentDidMount(props) {
-    this.fetchPVPData()
+  componentDidMount() {
+    // this.fetchPVPData()
+    this.timerId = setInterval(() => this.tick(), 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId)
+  }
+
+  tick() {
+    // Run on first init:
+    if (this.startTimer) {
+      this.startTimer = false
+      this.fetchPVPData()
+    }
+    // Only run again when countdown === 0:
+    if (this.state.countdown === 0) {
+      this.setState({countdown: 59})
+      this.fetchPVPData()
+    } else {
+      this.setState({countdown: (this.state.countdown - 1)})
+    }
   }
 
   fetchPVPData = async () => {
-    const { membershipType, membershipId, characterId, gameMode } = getUrlDetails()
+    const {
+      membershipType, membershipId, characterId, gameMode,
+    } = getUrlDetails()
 
     switch (gameMode) {
       case 'gambit':
@@ -54,7 +77,12 @@ class PvPChart extends React.Component {
         {
           const gameMode = 4
           const response = await GetRaidData({
-            params: { membershipType, membershipId, characterId, gameMode },
+            params: {
+              membershipType,
+              membershipId,
+              characterId,
+              gameMode,
+            },
           })
           this.setState({
             isLoaded: true,
@@ -160,6 +188,7 @@ class PvPChart extends React.Component {
 
       return (
         <>
+          <div>{this.state.countdown}</div>
           {/* Put character list on top? */}
           {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
           <div>
@@ -168,7 +197,12 @@ class PvPChart extends React.Component {
               <div className='chart chart-heading-wrap'>
                 <div className='chart chart-wrap'>
                   <h1>Recent matches - K/D R data</h1>
-                  <KDRChart title={'K/D Ratio'} data={kdr} focusReducer={focusReducer} {...this.props} />
+                  <KDRChart
+                    title={'K/D Ratio'}
+                    data={kdr}
+                    focusReducer={focusReducer}
+                    {...this.props}
+                  />
                 </div>
                 <div className='chart chart-wrap'>
                   <h1>DETAILED STATS FOR LAST 10 GAMES:</h1>
@@ -178,7 +212,9 @@ class PvPChart extends React.Component {
               <div className='pgcr activity-wrapper'>
                 <div className='activity-list-wrapper'>
                   <h1>Recent matches - PGCR's</h1>
-                  <ul className={'pgcr activity-list'}><PgcrList activityList={jsonResponse} /></ul>
+                  <ul className={'pgcr activity-list'}>
+                    <PgcrList activityList={jsonResponse} />
+                  </ul>
                 </div>
               </div>
               {/* <ViewStore /> */}
@@ -191,15 +227,13 @@ class PvPChart extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    focus: state.focus,
-    killDeathRatio: state.killDeathRatio,
-    winLossRatio: state.winLossRatio,
-    precisionKillsCount: state.precisionKillsCount,
-    avgLifeTime: state.avgLifeTime,
-    focusReducer: state.focusReducer,
-  }
-}
+const mapStateToProps = (state) => ({
+  focus: state.focus,
+  killDeathRatio: state.killDeathRatio,
+  winLossRatio: state.winLossRatio,
+  precisionKillsCount: state.precisionKillsCount,
+  avgLifeTime: state.avgLifeTime,
+  focusReducer: state.focusReducer,
+})
 
 export default connect(mapStateToProps)(PvPChart)
