@@ -1,19 +1,19 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { useParams, Link } from 'react-router-dom';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import { useParams, Link } from 'react-router-dom'
 import FormDialog from '../../Forms/focusForm'
 
-import './cards.css';
-import './card.css';
+import './cards.css'
+import './card.css'
 
 const useStyles = makeStyles({
   root: {
@@ -34,37 +34,39 @@ const useStyles = makeStyles({
   content: {
     minHeight: 100,
   },
-  actions: {
-  },
-
-});
+  actions: {},
+})
 
 export default function MediaCard(props) {
   // This is the main card body area.
   // Props are provided from WrapCard component.
   // console.log('Card.js')
   // console.log(props.match)
-  const classes = useStyles();
-  const {
-    focus, image, colours, description,
-  } = props.focus_details
-  const {
-    membershipId, membershipType, characterId,
-  } = useParams()
+  const classes = useStyles()
+  const { focus, Image, colours, description } = props.focus_details
+  const { membershipId, membershipType, characterId } = useParams()
   const apiUrl = `/auth/${focus}/${membershipType}/${membershipId}/${characterId}`
   console.log(membershipId, membershipType, characterId)
   console.log(apiUrl)
+  console.log(Image)
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <Link to={apiUrl} style={{ textDecoration: 'none' }}>
-          <CardMedia
+          {/* <CardMedia
             style={{ backgroundColor: colours.colour_1 }}
             className={classes.media}
-            image={image}
+            src={Image}
+            component='img'
             focus={focus}
-          />
+          /> */}
+          <div
+            className={`card-media-svg ${classes.media}`}
+            style={{ backgroundColor: colours.colour_1 }}
+          >
+            <Image style={{ fill: 'white'}} height={280} width={280} />
+          </div>
           <CardContent style={{ backgroundColor: colours.colour_2 }}>
             <div className='blank-area'></div>
             <Typography

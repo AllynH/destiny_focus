@@ -9,11 +9,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 import { calculateKillDeathRatio, calculateKillDeathAssistsRatio } from '../../Utils/HelperFunctions/KdrFunctions'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
+import { BASIC_ACTIVITY_MODES } from '../../Data/destinyEnums'
 
 import Activity from './Activity'
 import { GetPGCR } from '../../Utils/API/API_Requests'
 import './style.css'
-
 
 export function PgcrDetailsPvP({ pgcr }) {
   console.log('pgcr')
@@ -46,8 +46,8 @@ export function PgcrDetailsPvP({ pgcr }) {
 
       {entriesList.map((element, index) => {
         if (
-          element.values.team?.basic.displayValue === '18' ||
-          element.values.team?.basic.displayValue === 'Alpha'
+          element.values.team?.basic.displayValue === '18'
+          || element.values.team?.basic.displayValue === 'Alpha'
         ) {
           if (element.values.completed.basic.displayValue === 'Yes') {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
@@ -329,8 +329,8 @@ export function PgcrDetailsGambit({ pgcr }) {
 
       {entriesList.map((element, index) => {
         if (
-          element.values.team?.basic.displayValue === '18' ||
-          element.values.team?.basic.displayValue === 'Alpha'
+          element.values.team?.basic.displayValue === '18'
+          || element.values.team?.basic.displayValue === 'Alpha'
         ) {
           if (element.values.completed.basic.displayValue === 'Yes') {
             const pgcr_icon = element.player.destinyUserInfo.iconPath
@@ -338,12 +338,10 @@ export function PgcrDetailsGambit({ pgcr }) {
             const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
-            const pgcr_guardian_deaths =
-              element.extended.values.invaderDeaths.basic.value +
-              element.extended.values.invasionDeaths.basic.value
-            const pgcr_guardian_kills =
-              element.extended.values.invaderKills.basic.value +
-              element.extended.values.invasionKills.basic.value
+            const pgcr_guardian_deaths = element.extended.values.invaderDeaths.basic.value
+              + element.extended.values.invasionDeaths.basic.value
+            const pgcr_guardian_kills = element.extended.values.invaderKills.basic.value
+              + element.extended.values.invasionKills.basic.value
 
             const pgcr_motes_banked = element.extended.values.motesDeposited.basic.value
             const pgcr_motes_lost = element.extended.values.motesLost.basic.value
@@ -402,12 +400,10 @@ export function PgcrDetailsGambit({ pgcr }) {
             const pgcr_kda = element.values.killsDeathsAssists.basic.displayValue
             const pgcr_deaths = element.values.deaths.basic.displayValue
             const pgcr_kills = element.values.kills.basic.displayValue
-            const pgcr_guardian_deaths =
-              element.extended.values.invaderDeaths.basic.value +
-              element.extended.values.invasionDeaths.basic.value
-            const pgcr_guardian_kills =
-              element.extended.values.invaderKills.basic.value +
-              element.extended.values.invasionKills.basic.value
+            const pgcr_guardian_deaths = element.extended.values.invaderDeaths.basic.value
+              + element.extended.values.invasionDeaths.basic.value
+            const pgcr_guardian_kills = element.extended.values.invaderKills.basic.value
+              + element.extended.values.invasionKills.basic.value
 
             const pgcr_motes_banked = element.extended.values.motesDeposited.basic.value
             const pgcr_motes_lost = element.extended.values.motesLost.basic.value
@@ -463,6 +459,7 @@ export function PgcrDetailsGambit({ pgcr }) {
 
 export default function Pgcr(props) {
   const [pgcr, setPgcr] = useState()
+  const [activityMode, setActivityMode] = useState('Unknown')
   const [isExpanded, setIsExpanded] = useState(false)
 
   const { gameMode } = getUrlDetails()
@@ -477,6 +474,7 @@ export default function Pgcr(props) {
     // console.log('Getting PGCR response:')
     // console.log(result)
     setPgcr(result)
+    setActivityMode(BASIC_ACTIVITY_MODES[result?.Response?.activityDetails?.mode])
   }
 
   const handleClick = (instanceId) => {
@@ -489,7 +487,6 @@ export default function Pgcr(props) {
   }
 
   const PgcrDetails = () => {
-
     console.log(gameMode)
     console.log(pgcr)
     console.log(pgcr)
@@ -513,7 +510,7 @@ export default function Pgcr(props) {
             handleClick(instanceId)
           }}
         >
-          <Activity {...props} isExpanded={isExpanded} gameMode={gameMode} />
+          <Activity {...props} activityMode={activityMode} isExpanded={isExpanded} gameMode={gameMode} />
           {pgcr && <PgcrDetails />}
         </div>
       </div>

@@ -20,6 +20,13 @@
     background-size: contain;
 }
 
+.card-media-svg{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0px;
+}
+
 @media screen and (max-width: 600px) {
     .card-wrapper {
       margin-left: 20px;

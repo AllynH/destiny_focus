@@ -2,7 +2,7 @@ import React from 'react'
 
 import './style.css'
 
-export default function Spinner(props) {
+export default function Spinner() {
   return (
     <div className='lds-spinner-wrapper'>
       <div className='lds-spinner'>

@@ -5,12 +5,19 @@ import Gambit from '../../../destiny-icons/gambit/gambit2.svg'
 import Trials from '../../../img/icons/faction_osiris2.svg'
 import Raid from '../../../destiny-icons/explore/raid_complex.svg'
 
+import DualSpinner from '../../Utils/Loading/SpinnerDualRing'
+
 import './style.css'
 
 export default function SelectActivityIcon(props) {
   const { activityMode } = props
+  const { smallIcon } = props || false
 
-  const ReturnActivityIcon = (mode) => {
+  const iconWidth = smallIcon ? 150 : 300
+  const iconHeight = smallIcon ? 150 : 345
+  const iconColour = smallIcon ? 'white' : null
+
+  const ReturnActivityIcon = () => {
     const m = props.activityMode
     switch (m) {
       case 'Raid':
@@ -18,11 +25,11 @@ export default function SelectActivityIcon(props) {
       default:
         return (
           <Raid
-            width={300}
-            height={345}
-            viewBox={'0 0 30 30'}
+            width={iconWidth}
+            height={iconHeight}
+            viewBox={'0 0 30 32'}
             style={{
-              fill: 'var(--grey-light-2)',
+              fill: smallIcon ? iconColour : 'var(--grey-light-2)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
@@ -36,11 +43,11 @@ export default function SelectActivityIcon(props) {
       case 'Rumble':
         return (
           <Crucible
-            width={300}
-            height={345}
-            viewBox={'0 0 30 30'}
+            width={iconWidth}
+            height={iconHeight}
+            viewBox={'0 0 30 32'}
             style={{
-              fill: 'var(--crucible-red)',
+              fill: smallIcon ? iconColour : 'var(--crucible-red)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
@@ -49,11 +56,11 @@ export default function SelectActivityIcon(props) {
       case 'Gambit':
         return (
           <Gambit
-            width={300}
-            height={345}
-            viewBox={'0 0 30 30'}
+            width={iconWidth}
+            height={iconHeight}
+            viewBox={'0 0 30 32'}
             style={{
-              fill: 'var(--gambit-green)',
+              fill: smallIcon ? iconColour : 'var(--gambit-green)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
@@ -62,18 +69,23 @@ export default function SelectActivityIcon(props) {
       case 'TrialsOfOsiris':
         return (
           <Trials
-            width={300}
-            height={345}
+            width={iconWidth}
+            height={iconHeight}
             // Values taken from .svg
             viewBox={'0 0 8.4 8.4'}
             style={{
-              fill: 'var(--bungie-power)',
+              fill: smallIcon ? iconColour : 'var(--bungie-power)',
               // stroke: 'var(--bungie-power)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
           />
         )
+      case 'Unknown':
+        return (
+        <div
+        style={{ display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center' }}
+        ><DualSpinner /></div> )
     }
   }
 

@@ -7,27 +7,24 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
 import DiscFullIcon from '@material-ui/icons/DiscFull'
 import PublishIcon from '@material-ui/icons/Publish'
 
-import { getUrlDetails, calculateKillDeathRatio } from '../../Utils/HelperFunctions'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { GetActivityDefinition, PutPGCR, DeletePGCR } from '../../Utils/API/API_Requests'
+import SelectActivityIcon from '../PGCR_Splash/SelectActivityIcon'
 import './style.css'
-
-import CrucibleImage from '../../../img/cards/Crucible.png'
-import GambitImage from '../../../img/cards/Gambit.png'
-import RaidImage from '../../../img/cards/Raid.png'
 
 export default function Activity(
   props,
   {
-    team = '',
-    activityIcon = '',
-    player = '',
-    clan = '',
+    activityMode = props.activityMode || '',
+    // team = '',
+    // activityIcon = '',
+    // player = '',
+    // clan = '',
     standing = props.values?.standing?.basic?.displayValue || '',
     kills = props.values?.kills?.basic?.displayValue || 0,
-    deaths = props.values?.deaths?.basic?.displayValue || 0,
-    assists = props.values?.assists?.basic?.displayValue || 0,
-    kda = props.values?.killsDeathsAssists?.basic?.displayValue || 0,
+    // deaths = props.values?.deaths?.basic?.displayValue || 0,
+    // assists = props.values?.assists?.basic?.displayValue || 0,
+    // kda = props.values?.killsDeathsAssists?.basic?.displayValue || 0,
     kdr = props.values?.killsDeathsRatio?.basic?.displayValue || 0,
     completionDate = getDatePlayedFromTimestamp(props.period),
     completionTime = props.values?.activityDurationSeconds?.basic?.displayValue || '666 hours',
@@ -43,22 +40,16 @@ export default function Activity(
   const location = useLocation()
   // const history = useHistory()
 
-  console.log('activity.js')
-  console.log(params)
-  console.log(location)
+  // console.log('activity.js')
+  // console.log(props)
+  // console.log('activityMode', activityMode)
+  // console.log(params)
+  // console.log(location)
   const { pathname } = location
-  const { characterId, membershipId, membershipType } = params
+  const { membershipId, membershipType } = params
 
   const { gameMode } = props
   const activityId = Number(props.activityDetails.instanceId)
-
-  // console.log('gameMode, characterId, membershipId, membershipType')
-  // console.log(gameMode, characterId, membershipId, membershipType)
-
-  // console.log('Activity:')
-  // console.log(props)
-  // console.log(props.activityDetails)
-  // console.log(activityId)
 
   const standingClassName = (s) => {
     // eslint-disable-next-line no-nested-ternary
@@ -93,32 +84,6 @@ export default function Activity(
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     height: 300,
-  })
-
-  const gameIcon = () => {
-    const { gameMode } = getUrlDetails()
-    switch (gameMode) {
-      case 'gambit':
-        return GambitImage
-      case 'raid':
-        return RaidImage
-      default:
-        return CrucibleImage
-    }
-  }
-
-  const returnIcon = (icon) => {
-    // eslint-disable-next-line no-nested-ternary
-    const iconPath = icon.includes('missing_icon_d2.png')
-      ? gameIcon()
-      : activityDef.displayProperties
-        ? `https://www.bungie.net${activityDef?.displayProperties?.icon}`
-        : gameIcon()
-    return iconPath
-  }
-
-  const styles = (iconPath) => ({
-    backgroundImage: `url(${iconPath})`,
   })
 
   // Store a PGCR in the users DB:
@@ -247,13 +212,12 @@ export default function Activity(
           </div>
           <SaveMessage />
         </div>
-        <span
-          className={'pgcr activity-icon'}
-          style={styles(returnIcon(activityDef?.displayProperties?.icon || ''))}
-        ></span>
-        <span className={'pgcr activity-name'}>
+        <div className={'pgcr activity-icon'}>
+          <SelectActivityIcon activityMode={activityMode} smallIcon={true} />
+        </div>
+        <h3 className={'pgcr activity-name'}>
           {activityDef?.displayProperties?.name || 'UNKNOWN ACTIVITY'}
-        </span>
+        </h3>
       </div>
       <div className='pgcr activity-results-wrapper'>
         <h2 className='pgcr activity-map-name'>
@@ -280,8 +244,8 @@ export default function Activity(
     const result = await GetActivityDefinition({
       params: { definition: 'DestinyActivityDefinition', defHash: activityId },
     })
-    console.log('fetchDirectorActivityDefinition')
-    console.log(result)
+    // console.log('fetchDirectorActivityDefinition')
+    // console.log(result)
     setActivityDef(result)
   }
 

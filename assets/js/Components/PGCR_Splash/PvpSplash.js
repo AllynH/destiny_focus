@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useParams } from 'react-router-dom'
 
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
-import {
-  calculateKillDeathRatio,
-  calculateKillDeathAssistsRatio,
-} from '../../Utils/HelperFunctions/KdrFunctions'
+// import Button from '@material-ui/core/Button'
+// import SaveIcon from '@material-ui/icons/Save'
+
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { pgcrSplashCategories } from './parsePgcrData'
 
@@ -14,11 +11,11 @@ import SelectActivityIcon from './SelectActivityIcon'
 import Player from './Player'
 import ReturnToFocusButton from './ReturnToFocus'
 
-import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.svg'
+// import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.svg'
 import AlphaTeam from '../../../destiny-icons/factions/team_alpha.svg'
 import BravoTeam from '../../../destiny-icons/factions/team_bravo.svg'
 
-import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
+// import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
 
 import './style.css'
 
