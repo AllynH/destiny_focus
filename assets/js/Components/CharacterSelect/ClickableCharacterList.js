@@ -8,24 +8,9 @@ import CharacterCard from './CharacterCard'
 
 import './style.css'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    maxHeight: 100,
-    background: 'var(--crucible-red)',
-    padding: 10,
-    borderRadius: 5,
-    textDecoration: 'none',
-    color: 'var(--grey-bg)',
-    width: 100,
-    textAlign: 'center',
-  },
-}))
-
 export default function ClickableCharacterList(props) {
   const [profile, setProfile] = useState()
-  const classes = useStyles()
-  const { membershipId, membershipType } = props.memberships
+  const { platform, membershipId, membershipType } = props.memberships
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -35,7 +20,7 @@ export default function ClickableCharacterList(props) {
       setProfile(result)
     }
     fetchProfile()
-  }, [props])
+  }, [platform, membershipId, membershipType])
 
   return (
     <div className='card-wrapper'>

@@ -41,15 +41,15 @@ class PvPChart extends React.Component {
 
   render() {
     const { focusReducer } = this.props
-    focusReducer.payload ? console.log('Using focus goals') : console.log('Using default goals')
-    const kdrGoal = focusReducer.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
+    focusReducer?.payload ? console.log('Using focus goals') : console.log('Using default goals')
+    const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer?.payload.killDeathRatio) : 1.2
     const [average, arrLength] = getKdrAverage(this.props.data)
-    console.log('Render PvPChart')
-    console.log(this.props)
-    console.log('kdrGoal', kdrGoal)
-    console.log('average', average)
-    console.log(arrLength)
-    console.log(this.props.data)
+    // console.log('Render PvPChart')
+    // console.log(this.props)
+    // console.log('kdrGoal', kdrGoal)
+    // console.log('average', average)
+    // console.log(arrLength)
+    // console.log(this.props.data)
 
     return (
       <>

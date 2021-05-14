@@ -18,10 +18,10 @@ import './style.css'
 
 export default function AbilitiesChart(props) {
   const getFocus = useSelector((state) => state.focus)
-  console.log('getFocus')
-  console.log(getFocus)
-  console.log('PrecisionChart')
-  console.log(props)
+  // console.log('getFocus')
+  // console.log(getFocus)
+  // console.log('PrecisionChart')
+  // console.log(props)
   const { chartData } = props
 
   return (

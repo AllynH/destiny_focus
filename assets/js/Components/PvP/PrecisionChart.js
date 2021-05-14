@@ -13,16 +13,16 @@ import './style.css'
 
 export default function PrecisionChart(props) {
   const getFocus = useSelector((state) => state.focus)
-  console.log('getFocus')
-  console.log(getFocus)
-  console.log('PrecisionChart')
-  console.log(props)
+  // console.log('getFocus')
+  // console.log(getFocus)
+  // console.log('PrecisionChart')
+  // console.log(props)
 
   const { focusReducer } = props
-  focusReducer?.payload
-    ? console.log('PrecisionChart using focus goals')
-    : console.log('PrecisionChart using default goals')
-  const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
+  // focusReducer?.payload
+  //   ? console.log('PrecisionChart using focus goals')
+  //   : console.log('PrecisionChart using default goals')
+  // const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
 
   if (props.chartName === 'averageLifeTime') {
     var dataType = 'life time (secs)'
@@ -57,8 +57,8 @@ export default function PrecisionChart(props) {
 
   const chartData = parseData(props)
   const average = getAverage(chartData)
-  console.log('average')
-  console.log(average)
+  // console.log('average')
+  // console.log(average)
 
   const Summary = (dataType, average, goal) => (
     <div className='weapon-precision-wrapper'>

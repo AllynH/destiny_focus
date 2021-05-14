@@ -17,107 +17,87 @@ import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requ
 import { statsData } from '../../Data/statsData'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
-const UPDATE_TIME = 20
-const fetchPVPData = async () => {
-  const {
-    membershipType, membershipId, characterId, gameMode,
-  } = getUrlDetails()
-
-  switch (gameMode) {
-    case 'gambit': {
-      const response = await GetGambitData({
-        params: { membershipType, membershipId, characterId },
-      })
-      return response
-    }
-    case 'raid': {
-      const newGameMode = 4
-      const response = await GetRaidData({
-        params: {
-          membershipType,
-          membershipId,
-          characterId,
-          gameMode: newGameMode,
-        },
-      })
-      return response
-    }
-    case 'pvp': {
-      const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
-      return response
-    }
-    default: {
-      const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
-      return response
-    }
-  }
-}
-
 class PvPChart extends React.Component {
   constructor(props) {
     super(props)
+    this.countdown = 59
 
     this.getKdr = this.getKdr.bind(this)
     this.state = {
       error: null,
       isLoaded: false,
-      countdown: 0,
-      timerId: null,
-      updateCount: 0,
       jsonResponse: [],
       ...this.state,
     }
   }
 
   componentDidMount() {
-    if (this.timerId) {
-      clearInterval(this.timerId)
-    }
     this.timerId = setInterval(() => this.tick(), 1000)
+    this.fetchPVPData()
   }
 
-  async tick() {
-    // Prevent ticking when updating:
-    if (!this.state.updating) {
-      let newCountdown = this.state.countdown - 1
-      if (newCountdown < 0) {
-        this.setState({ ...this.state, updating: true })
-        console.log('Updating!')
-        try {
-          await this.update()
-        } catch (error) {
-          console.log(error)
-        } finally {
-          newCountdown = UPDATE_TIME
-        }
-      }
-      this.setState({ ...this.state, countdown: newCountdown, updating: false })
+  componentWillUnmount() {
+    clearInterval(this.timerId)
+  }
+
+  tick() {
+    // fetch data when countdown === 0:
+    if (this.countdown === 0) {
+      this.countdown = 59
+      this.fetchPVPData()
+    } else {
+      this.countdown -= 1
     }
   }
 
-  async update() {
-    try {
-      const data = await fetchPVPData()
-      this.setState({
-        ...this.state,
-        updateCount: this.state.updateCount + 1,
-        jsonResponse: data,
-        isLoaded: true,
-      })
-    } catch (error) {
-      console.log(error)
-      const data = { error: 'Error of some sort fetching data...' }
-      this.setState({
-        ...this.state,
-        updateCount: this.state.updateCount + 1,
-        jsonResponse: data,
-      })
+  fetchPVPData = async () => {
+    const { membershipType, membershipId, characterId, gameMode } = getUrlDetails()
+
+    switch (gameMode) {
+      case 'gambit':
+        {
+          const response = await GetGambitData({
+            params: { membershipType, membershipId, characterId },
+          })
+          this.setState({
+            isLoaded: true,
+            jsonResponse: response,
+          })
+        }
+        break
+      case 'raid':
+        {
+          const gameMode = 4
+          const response = await GetRaidData({
+            params: { membershipType, membershipId, characterId, gameMode },
+          })
+          this.setState({
+            isLoaded: true,
+            jsonResponse: response,
+          })
+        }
+        break
+      case 'pvp': {
+        const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
+        this.setState({
+          isLoaded: true,
+          jsonResponse: response,
+        })
+        break
+      }
+      default: {
+        const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
+        this.setState({
+          isLoaded: true,
+          jsonResponse: response,
+        })
+      }
     }
   }
 
   getKdr(jsonResponse) {
-    // console.log('PvPChart - data:')
-    // console.log(jsonResponse)
+    console.log('PvPChart - data:')
+    console.log(jsonResponse)
     const kdrList = []
     const myArray = jsonResponse.Response.activities
     myArray.forEach((element, index) => {
@@ -136,7 +116,7 @@ class PvPChart extends React.Component {
         kills,
         assists,
       }
-      return kdrList.push(kdrDetails)
+      kdrList.push(kdrDetails)
     })
     return kdrList
   }
@@ -152,7 +132,7 @@ class PvPChart extends React.Component {
       if (kills === '0' && deaths === '0') {
         return true
       }
-      // console.log(`Kill / Death ratio: ${precision}. For game: ${index}.`)
+      console.log(`Kill / Death ratio: ${precision}. For game: ${index}.`)
       const precisionDetails = {
         x: index + 1,
         y: parseFloat(precision),
@@ -160,7 +140,7 @@ class PvPChart extends React.Component {
         kills,
         assists,
       }
-      return precisionList.push(precisionDetails)
+      precisionList.push(precisionDetails)
     })
     return precisionList
   }
@@ -189,16 +169,13 @@ class PvPChart extends React.Component {
       return <Spinner />
     } else {
       const kdr = this.getKdr(jsonResponse)
-      const { platform, membershipType, membershipId } = this.props.match.params
+      const { membershipType, membershipId } = this.props.match.params
       // const { focusReducer } = this.state || {}
       const { allTime, season } = statsData
 
       return (
         <>
-          <h1>State:</h1>
-          <div>Count: {this.state.countdown}</div>
-          <div>Update count: {this.state.updateCount}</div>
-          <div>Updating: {this.state.updating ? 'updating' : 'not updating'}</div>
+          <div>{this.countdown}</div>
           {/* Put character list on top? */}
           {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
           <div>
@@ -216,17 +193,18 @@ class PvPChart extends React.Component {
                 </div>
                 <div className='chart chart-wrap'>
                   <h1>DETAILED STATS FOR LAST 10 GAMES:</h1>
-                  <PgcrSummary activityList={jsonResponse} {...this.props} />
+                  <PgcrSummary {...this.props} />
                 </div>
               </div>
               <div className='pgcr activity-wrapper'>
                 <div className='activity-list-wrapper'>
-                  <h1>Recent matches - PGCR{"'"}s</h1>
+                  <h1>Recent matches - PGCR's</h1>
                   <ul className={'pgcr activity-list'}>
                     <PgcrList activityList={jsonResponse} />
                   </ul>
                 </div>
               </div>
+              {/* <ViewStore /> */}
             </div>
           </div>
           <ClickableCharacterList memberships={{ membershipId, membershipType }} />
@@ -236,14 +214,15 @@ class PvPChart extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  focus: state.focus,
-  killDeathRatio: state.killDeathRatio,
-  winLossRatio: state.winLossRatio,
-  precisionKillsCount: state.precisionKillsCount,
-  avgLifeTime: state.avgLifeTime,
-  focusReducer: state.focusReducer,
-})
+const mapStateToProps = (state) => {
+  return {
+    focus: state.focus,
+    killDeathRatio: state.killDeathRatio,
+    winLossRatio: state.winLossRatio,
+    precisionKillsCount: state.precisionKillsCount,
+    avgLifeTime: state.avgLifeTime,
+    focusReducer: state.focusReducer,
+  }
+}
 
 export default connect(mapStateToProps)(PvPChart)
-// export default PvPChart

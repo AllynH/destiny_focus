@@ -14,8 +14,8 @@ export default function DisplayKdrFocus(props) {
   const { gameMode } = getUrlDetails()
   // const spacer = {&nsbp&nsbp}
 
-  console.log('DisplayKdrFocus')
-  console.log(props)
+  // console.log('DisplayKdrFocus')
+  // console.log(props)
 
   const kdrRecommendation = (lessDeathsKdr, moreKillsKdr) => {
     if (moreKillsKdr > lessDeathsKdr) {

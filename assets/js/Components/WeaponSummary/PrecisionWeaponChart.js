@@ -11,8 +11,8 @@ import './style.css'
 
 export default function PrecisionWeaponChart(props) {
   const parseData = (props) => {
-    console.log('PrecisionWeaponChart')
-    console.log(props)
+    // console.log('PrecisionWeaponChart')
+    // console.log(props)
     const dataPre = []
     const dataKills = []
     let equipCount = 0

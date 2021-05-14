@@ -13,8 +13,8 @@ import './style.css'
 import Spinner from '../../Utils/Loading/Spinner'
 
 export default function AbilitiesPie(props) {
-  console.log('AbilitiesPie')
-  console.log(props)
+  // console.log('AbilitiesPie')
+  // console.log(props)
   const { data } = props
 
   const [formattedData, setFormattedData] = useState(false)
@@ -62,7 +62,7 @@ export default function AbilitiesPie(props) {
       return formatted
     }
     makeChartData()
-  }, [props])
+  }, [data])
 
   // console.log('Checking state:')
   // console.log(formattedData)

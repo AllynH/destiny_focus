@@ -16,8 +16,8 @@ import { GetPGCR } from '../../Utils/API/API_Requests'
 import './style.css'
 
 export function PgcrDetailsPvP({ pgcr }) {
-  console.log('pgcr')
-  console.log(pgcr)
+  // console.log('pgcr')
+  // console.log(pgcr)
   const entriesList = pgcr.Response.entries
 
   return (

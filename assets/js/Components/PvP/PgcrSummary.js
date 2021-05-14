@@ -37,9 +37,10 @@ export default function PgcrSummary(props) {
   const { membershipType, membershipId, characterId } = props.match.params
   const { gameMode } = getUrlDetails()
   const focusGoals = props.focusReducer?.payload
+  const myArray = props.activityList?.Response?.activities
 
-  console.log('pgcrSummary')
-  console.log(pgcrSummary)
+  // console.log('pgcrSummary')
+  // console.log(pgcrSummary)
 
   // Fetch the Activity definition - Map icon, name :
   useEffect(() => {
@@ -48,13 +49,13 @@ export default function PgcrSummary(props) {
         params: { membershipType, membershipId, characterId, gameMode },
       })
       setPgcrSummary(result)
-      console.log('fetchPgcrSummary')
-      console.log(result)
+      // console.log('fetchPgcrSummary')
+      // console.log(result)
       setAvgKillSummary(AvgWeaponAbilityKills(result))
 
     }
     fetchPgcrSummary()
-  }, [props])
+  }, [myArray])
 
   const Charts = (
     <>

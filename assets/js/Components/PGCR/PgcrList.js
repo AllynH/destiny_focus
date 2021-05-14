@@ -12,7 +12,7 @@ export default function PgcrList(props) {
   const pgcrList = []
   const myArray = activityList?.Response?.activities
 
-  console.log(myArray)
+  // console.log(myArray)
 
   // Fetch the users saved PGCR list:
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function PgcrList(props) {
       console.log(result)
     }
     fetchUserPgcrList()
-  }, [props])
+  }, [myArray])
 
   // const CreatePgcrList = () => (
   //   <div>
@@ -39,12 +39,12 @@ export default function PgcrList(props) {
 
   return (
     <div>
-      { savedPgcrs
-      && myArray.map((p, index) => (
-        <li className={'pgcr pgcr-item'} key={index} >
-          <PGCR {...p} favourite={savedPgcrs.includes(Number(p.activityDetails.instanceId))} />
-        </li>
-      ))}
+      {savedPgcrs &&
+        myArray.map((p, index) => (
+          <li className={'pgcr pgcr-item'} key={index}>
+            <PGCR {...p} favourite={savedPgcrs.includes(Number(p.activityDetails.instanceId))} />
+          </li>
+        ))}
     </div>
   )
 }
