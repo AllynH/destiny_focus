@@ -56,12 +56,12 @@ const fetchPVPData = async () => {
 class PvPChart extends React.Component {
   constructor(props) {
     super(props)
+    this.countdown = 0
 
     this.getKdr = this.getKdr.bind(this)
     this.state = {
       error: null,
       isLoaded: false,
-      countdown: 0,
       timerId: null,
       updateCount: 0,
       jsonResponse: [],
@@ -79,7 +79,7 @@ class PvPChart extends React.Component {
   async tick() {
     // Prevent ticking when updating:
     if (!this.state.updating) {
-      let newCountdown = this.state.countdown - 1
+      let newCountdown = this.countdown - 1
       if (newCountdown < 0) {
         this.setState({ ...this.state, updating: true })
         console.log('Updating!')
@@ -89,9 +89,10 @@ class PvPChart extends React.Component {
           console.log(error)
         } finally {
           newCountdown = UPDATE_TIME
+          this.setState({ ...this.state, updating: false })
         }
       }
-      this.setState({ ...this.state, countdown: newCountdown, updating: false })
+      this.countdown = newCountdown
     }
   }
 

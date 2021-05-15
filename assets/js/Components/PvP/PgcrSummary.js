@@ -39,8 +39,8 @@ export default function PgcrSummary(props) {
   const focusGoals = props.focusReducer?.payload
   const myArray = props.activityList?.Response?.activities
 
-  // console.log('pgcrSummary')
-  // console.log(pgcrSummary)
+  console.log('pgcrSummary')
+  console.log(pgcrSummary)
 
   // Fetch the Activity definition - Map icon, name :
   useEffect(() => {
