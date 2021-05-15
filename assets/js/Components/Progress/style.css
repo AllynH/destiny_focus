@@ -44,3 +44,31 @@
   transition: var(--crucible-red) 0.25s, width 1s ease-in-out;
 }
 
+/* ReloadProgressBar */
+.reload-progress-wrapper{
+  margin-top: 60px;
+}
+.reload-progress-bar{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 10px;
+  width: 100%;
+  /* background-color: var(--grey-dark-2); */
+  background-color: rgba(10, 10, 10, 0.3);
+}
+
+.reload-progress-bar-inner{
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: 6px;
+  max-width: 100%;
+  background-color: var(--vanguard-blue);
+  transition: width linear 0.9s;
+}
+.reload-animation-box{
+  max-width: 20px;
+  max-height: 20px;
+}

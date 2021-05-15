@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import KDRChart from './KDRChartScatter'
 
 import './style.css'
+import ReloadProgressBar from '../Progress/ReloadProgressBar'
+import SpinnerDualRing from '../../Utils/Loading/SpinnerDualRing'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import PgcrList from '../PGCR/PgcrList'
 import PgcrSummary from './PgcrSummary'
@@ -19,9 +21,7 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 const UPDATE_TIME = 20
 const fetchPVPData = async () => {
-  const {
-    membershipType, membershipId, characterId, gameMode,
-  } = getUrlDetails()
+  const { membershipType, membershipId, characterId, gameMode } = getUrlDetails()
 
   switch (gameMode) {
     case 'gambit': {
@@ -195,10 +195,15 @@ class PvPChart extends React.Component {
 
       return (
         <>
-          <h1>State:</h1>
-          <div>Count: {this.state.countdown}</div>
-          <div>Update count: {this.state.updateCount}</div>
-          <div>Updating: {this.state.updating ? 'updating' : 'not updating'}</div>
+          <div className='reload-progress-wrapper'>
+            {this.state.updating ? (
+              <div className='reload-animation-box'>
+                <SpinnerDualRing />
+              </div>
+            ) : (
+              <ReloadProgressBar value={this.state.countdown} max={UPDATE_TIME} />
+            )}
+          </div>
           {/* Put character list on top? */}
           {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
           <div>
