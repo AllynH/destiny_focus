@@ -35,8 +35,11 @@ def before_request():
     """
     # print("\n\nUnauth redirect")
     pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about"]
+    error = request.args.get('redirect', None)
+    error_flag = True if error == 'bungie_error' else False
+    print(error, error_flag)
     # print(request.endpoint)
-    if not request.endpoint in pgcr_list:
+    if not request.endpoint in pgcr_list and not error_flag:
         g.user = current_user
         if g.user.is_authenticated:
             print(g.user)

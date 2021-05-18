@@ -49,7 +49,16 @@ def before_request():
             print("\n\nRefresh ready - before_request!\n\n")
             # Put refresh code in here!
             token_response = OAuthSignin('bungie').get_provider('bungie').get_refresh_token(g.user)
-            # print(token_response)
+            print(token_response.status_code)
+            print(token_response.content)
+            print(token_response.json())
+            if (token_response.status_code != 200):
+                if isinstance(token_response.json(), dict):
+                    flash(f"Bungies systems are down: {token_response.json()}", "error")
+                    return redirect(url_for("public.home", redirect="bungie_error"))
+                else:
+                    flash(f"Bungies systems are down!")
+                    return redirect(url_for("auth.home", redirect="bungie_error"))
             print("Welcome back user.")
             user = update_user(user=g.user, token_response=token_response.json(), refresh=True)
 
@@ -227,7 +236,7 @@ def get_characters():
     get_characters_res = my_api.get_profile(membershipType, membershipId)
 
     if get_characters_res["ErrorStatus"] != "Success":
-        flash(f"Bungie systems are down: {get_characters_res.get('message', {}).get('Message', {})}", "error")
+        flash(f"Bungies systems are down: {get_characters_res.get('message', {}).get('Message', {})}", "error")
         return redirect(url_for("public.home"))
 
     character_details = get_character_details_json(get_characters_res)
@@ -265,7 +274,7 @@ def choose_focus(membershipType, membershipId, characterId):
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     # print(get_profile_res)
     if get_profile_res["ErrorStatus"] != "Success":
-        flash(f"Bungie systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
         return redirect(url_for("public.home"))
 
     return render_template("auth/choose_focus.html")
@@ -279,7 +288,7 @@ def pvp(membershipType, membershipId, characterId):
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     if get_profile_res["ErrorStatus"] != "Success":
-        flash(f"Bungie systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
 
         return redirect(url_for("public.home"))
 
@@ -296,7 +305,7 @@ def gambit(membershipType, membershipId, characterId):
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     if get_profile_res["ErrorStatus"] != "Success":
-        flash("Bungie systems are down :(", "error")
+        flash("Bungies systems are down :(", "error")
         return redirect(url_for("public.home"))
 
     return render_template("auth/choose_focus.html")
@@ -310,7 +319,7 @@ def raid(membershipType, membershipId, characterId):
 
     get_profile_res = my_api.get_profile(membershipType, membershipId)
     if get_profile_res["ErrorStatus"] != "Success":
-        flash(f"Bungie systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
         return redirect(url_for("public.home"))
 
     return render_template("auth/choose_focus.html")
@@ -448,7 +457,7 @@ def get_historical_stats(membershipType, membershipId, characterId):
         else:
             activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
             if activity["ErrorStatus"] != "Success":
-                flash(f"Bungie systems are down: {activity.get('message', {}).get('Message', {})}", "error")
+                flash(f"Bungies systems are down: {activity.get('message', {}).get('Message', {})}", "error")
                 return redirect(url_for("public.home"))
 
 

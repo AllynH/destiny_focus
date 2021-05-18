@@ -21,7 +21,9 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 const UPDATE_TIME = 20
 const fetchPVPData = async () => {
-  const { membershipType, membershipId, characterId, gameMode } = getUrlDetails()
+  const {
+    membershipType, membershipId, characterId, gameMode,
+  } = getUrlDetails()
 
   switch (gameMode) {
     case 'gambit': {
@@ -56,12 +58,12 @@ const fetchPVPData = async () => {
 class PvPChart extends React.Component {
   constructor(props) {
     super(props)
+    this.countdown = 0
 
     this.getKdr = this.getKdr.bind(this)
     this.state = {
       error: null,
       isLoaded: false,
-      countdown: 0,
       timerId: null,
       updateCount: 0,
       jsonResponse: [],
@@ -79,7 +81,7 @@ class PvPChart extends React.Component {
   async tick() {
     // Prevent ticking when updating:
     if (!this.state.updating) {
-      let newCountdown = this.state.countdown - 1
+      let newCountdown = this.countdown - 1
       if (newCountdown < 0) {
         this.setState({ ...this.state, updating: true })
         console.log('Updating!')
@@ -89,9 +91,10 @@ class PvPChart extends React.Component {
           console.log(error)
         } finally {
           newCountdown = UPDATE_TIME
+          this.setState({ ...this.state, updating: false })
         }
       }
-      this.setState({ ...this.state, countdown: newCountdown, updating: false })
+      this.countdown = newCountdown
     }
   }
 
@@ -191,7 +194,7 @@ class PvPChart extends React.Component {
       const kdr = this.getKdr(jsonResponse)
       const { platform, membershipType, membershipId } = this.props.match.params
       // const { focusReducer } = this.state || {}
-      const { allTime, season } = statsData
+      // const { allTime, season } = statsData
 
       return (
         <>
@@ -201,7 +204,9 @@ class PvPChart extends React.Component {
                 <SpinnerDualRing />
               </div>
             ) : (
-              <ReloadProgressBar value={this.state.countdown} max={UPDATE_TIME} />
+              <div className='round-time-bar' data-style='smooth' style={{ '--duration': UPDATE_TIME } } >
+                <div></div>
+              </div>
             )}
           </div>
           {/* Put character list on top? */}

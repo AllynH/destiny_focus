@@ -66,9 +66,36 @@
   height: 6px;
   max-width: 100%;
   background-color: var(--vanguard-blue);
-  transition: width linear 0.9s;
+  transition: width linear 1s;
 }
 .reload-animation-box{
   max-width: 20px;
   max-height: 20px;
+}
+
+/* 
+  CSS only countdown:
+  https://css-tricks.com/timer-bars-in-css-with-custom-properties/
+*/
+
+.round-time-bar {
+  margin: 1rem;
+  overflow: hidden;
+  background-color: rgba(10, 10, 10, 0.3);
+}
+.round-time-bar div {
+  height: 5px;
+  animation: roundtime calc(var(--duration) * 1s) steps(var(--duration))
+    forwards;
+  transform-origin: left center;
+  background: linear-gradient(to right, var(--crucible-red), var(--vanguard-blue));
+}
+.round-time-bar[data-style="smooth"] div {
+  animation: roundtime calc(var(--duration) * 1s) linear forwards;
+}
+@keyframes roundtime {
+  to {
+    /* More performant than `width` */
+    transform: scaleX(0);
+  }
 }
