@@ -3,6 +3,7 @@ import Raid from '../../../img/icons/Raid.svg'
 import Gambit from '../../../img/icons/Gambit.svg'
 import Trials from '../../../img/icons/faction_osiris2.svg'
 import Nightfall from '../../../img/icons/Nightfall.svg'
+import Dungeon from '../../../img/icons/Dungeon.svg'
 
 // eslint complaining about single (non-default) export but I want to add more data to this file:
 // eslint-disable-next-line import/prefer-default-export
@@ -28,7 +29,7 @@ export const FOCUS_DETAILS = {
     Image: Gambit,
     colours: {
       colour_1: 'var(--gambit-green)',
-      colour_2: 'var(--gambit-green)',
+      colour_2: 'var(--gambit-green-dark-1)',
       colour_3: 'var(--gambit-green)',
     },
   },
@@ -54,7 +55,7 @@ export const FOCUS_DETAILS = {
     Image: Trials,
     colours: {
       colour_1: 'var(--bungie-power)',
-      colour_2: 'var(--bungie-power)',
+      colour_2: 'var(--bungie-power-dark-1)',
       colour_3: 'var(--bungie-power)',
     },
 
@@ -65,7 +66,7 @@ export const FOCUS_DETAILS = {
     focusName: 'Dungeon',
     description:
       'Form a fireteam of up to three, and brave the strange and powerful realms of our enemies.',
-    Image: Raid,
+    Image: Dungeon,
     colours: {
       colour_1: 'var(--vanguard-dark-5)',
       colour_2: 'black',

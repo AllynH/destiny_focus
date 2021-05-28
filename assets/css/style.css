@@ -7,7 +7,9 @@
 :root {
 
   /* Bungie specific values: */
+  --bungie-power-light-1: #E7DA88;
   --bungie-power: #DDCB59;
+  --bungie-power-dark-1: #D5C034;
 
   /* Reference: Grey - 332F46 */
   --grey-bg:      #F7F7F8ff;
@@ -35,7 +37,10 @@
   --crucible-dark-5:  #210707;
 
   /* --gambit-green: */
-  --gambit-green: green;
+  --gambit-green-dark-1: #13533D;
+  --gambit-green: #42856E;
+  --gambit-green-light-1: green;
+  /*  */
   
   /* Vanguard Blue and highlights: */
   --vanguard-light-5: #E1EBF6;

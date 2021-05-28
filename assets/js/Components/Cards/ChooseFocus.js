@@ -27,7 +27,8 @@ export default function ChooseFocus(props) {
         <h1>Choose a focus:</h1>
       </div>
       <div className='card-wrapper'>
-        <div className='card-root-1'>
+
+        {/* <div className='card-root-1'>
           <Card focus_details={FOCUS_DETAILS.Crucible}>
             <FormDialog focus_details={FOCUS_DETAILS.Crucible}>
               <CrucibleFormFields />
@@ -47,8 +48,9 @@ export default function ChooseFocus(props) {
               <RaidFormFields />
             </FormDialog>
           </Card>
-        </div>
-        {/* {Object.keys(FOCUS_DETAILS).map((f, index) => (
+        </div> */}
+
+        {Object.keys(FOCUS_DETAILS).map((f, index) => (
           <div key={index} className='card-root-3'>
             <Card focus_details={FOCUS_DETAILS[f]}>
               <FormDialog focus_details={FOCUS_DETAILS[f]}>
@@ -56,7 +58,7 @@ export default function ChooseFocus(props) {
               </FormDialog>
             </Card>
           </div>
-        ))} */}
+        ))}
       </div>
       <h2>Choose a character:</h2>
       <ClickableCharacterList memberships={{ membershipId, membershipType }} />
