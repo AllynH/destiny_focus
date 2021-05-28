@@ -3,7 +3,9 @@ import React from 'react'
 import Crucible from '../../../destiny-icons/factions/faction_crucible.svg'
 import Gambit from '../../../destiny-icons/gambit/gambit2.svg'
 import Trials from '../../../img/icons/faction_osiris2.svg'
+import Ironbanner from '../../../img/icons/faction_ironbanner2.svg'
 import Raid from '../../../destiny-icons/explore/raid_complex.svg'
+import Nightfall from '../../../img/icons/Nightfall.svg'
 
 import DualSpinner from '../../Utils/Loading/SpinnerDualRing'
 
@@ -21,7 +23,6 @@ export default function SelectActivityIcon(props) {
     const m = props.activityMode
     switch (m) {
       case 'Raid':
-      case 'Nightfall':
       default:
         return (
           <Raid
@@ -66,6 +67,21 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
+      case 'IronBanner':
+        return (
+          <Ironbanner
+            width={iconWidth}
+            height={iconHeight}
+            // Values taken from .svg
+            viewBox={'0 0 8.4 8.4'}
+            style={{
+              fill: smallIcon ? iconColour : 'var(--gambit-green)',
+              // stroke: 'var(--bungie-power)',
+              zIndex: 1,
+              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+            }}
+          />
+        )
       case 'TrialsOfOsiris':
         return (
           <Trials
@@ -81,11 +97,29 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
+      case 'Nightfall':
+        return (
+          <Nightfall
+            width={iconWidth}
+            height={iconHeight}
+            viewBox={'0 0 25 25'}
+            style={{
+              fill: smallIcon ? iconColour : 'var(--grey-light-2)',
+              zIndex: 1,
+              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+            }}
+          />
+        )
       case 'Unknown':
         return (
-        <div
-        style={{ display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center' }}
-        ><DualSpinner /></div> )
+          <div
+            style={{
+              display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center',
+            }}
+          >
+            <DualSpinner />
+          </div>
+        )
     }
   }
 

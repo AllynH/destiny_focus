@@ -39,3 +39,17 @@
       margin-right: 100px;
     }
   }
+
+  .h2-focus-card{
+    color: white;
+    font-size: 24px;
+    margin: 0px;
+  }
+  .focus-card-description{
+    color: white;
+    font-size: 14px;
+  }
+  .focus-card-action-area{
+    min-height: 135px;
+    padding: 12px !important;
+  }

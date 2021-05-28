@@ -44,6 +44,42 @@ const fetchPVPData = async () => {
       })
       return response
     }
+    case 'trials': {
+      const newGameMode = 84
+      const response = await GetRaidData({
+        params: {
+          membershipType,
+          membershipId,
+          characterId,
+          gameMode: newGameMode,
+        },
+      })
+      return response
+    }
+    case 'dungeon': {
+      const newGameMode = 82
+      const response = await GetRaidData({
+        params: {
+          membershipType,
+          membershipId,
+          characterId,
+          gameMode: newGameMode,
+        },
+      })
+      return response
+    }
+    case 'nightfall': {
+      const newGameMode = 46
+      const response = await GetRaidData({
+        params: {
+          membershipType,
+          membershipId,
+          characterId,
+          gameMode: newGameMode,
+        },
+      })
+      return response
+    }
     case 'pvp': {
       const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
       return response

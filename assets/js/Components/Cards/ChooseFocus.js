@@ -19,6 +19,7 @@ export default function ChooseFocus(props) {
   const getFocus = useSelector((state) => state.focus)
   // console.log('State focus', getFocus)
   const { membershipType, membershipId } = props.match.params
+  Object.keys(FOCUS_DETAILS).map((f, index) => console.log('Focus: ', f))
 
   return (
     <div>
@@ -47,10 +48,15 @@ export default function ChooseFocus(props) {
             </FormDialog>
           </Card>
         </div>
-        {/* <div className='card-root-3'>
-          <p>view store</p>
-          <ViewStore {...props} />
-        </div> */}
+        {/* {Object.keys(FOCUS_DETAILS).map((f, index) => (
+          <div key={index} className='card-root-3'>
+            <Card focus_details={FOCUS_DETAILS[f]}>
+              <FormDialog focus_details={FOCUS_DETAILS[f]}>
+                <RaidFormFields />
+              </FormDialog>
+            </Card>
+          </div>
+        ))} */}
       </div>
       <h2>Choose a character:</h2>
       <ClickableCharacterList memberships={{ membershipId, membershipType }} />

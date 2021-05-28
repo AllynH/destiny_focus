@@ -43,12 +43,9 @@ export default function MediaCard(props) {
   // console.log('Card.js')
   // console.log(props.match)
   const classes = useStyles()
-  const { focus, Image, colours, description } = props.focus_details
+  const { focus, focusName, Image, colours, description } = props.focus_details
   const { membershipId, membershipType, characterId } = useParams()
   const apiUrl = `/auth/${focus}/${membershipType}/${membershipId}/${characterId}`
-  console.log(membershipId, membershipType, characterId)
-  console.log(apiUrl)
-  console.log(Image)
 
   return (
     <Card className={classes.root}>
@@ -67,16 +64,10 @@ export default function MediaCard(props) {
           >
             <Image style={{ fill: 'white'}} height={280} width={280} />
           </div>
-          <CardContent style={{ backgroundColor: colours.colour_2 }}>
+          <CardContent className='focus-card-action-area' style={{ backgroundColor: colours.colour_2 }}>
             <div className='blank-area'></div>
-            <Typography
-              className={classes.content}
-              variant='body2'
-              color='textSecondary'
-              component='p'
-            >
-              {description}
-            </Typography>
+            <h2 className='h2-focus-card'>{focusName}</h2>
+            <p className='focus-card-description'>{description}</p>
           </CardContent>
         </Link>
       </CardActionArea>

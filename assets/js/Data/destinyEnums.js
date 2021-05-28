@@ -1,3 +1,7 @@
+/* eslint-disable import/prefer-default-export */
+// Don't want to export default as I plan on adding to this file.
+// export default BASIC_ACTIVITY_MODES
+
 export const BASIC_ACTIVITY_MODES = {
   2: 'Story',
   3: 'Strike',
@@ -13,6 +17,7 @@ export const BASIC_ACTIVITY_MODES = {
   15: 'CrimsonDoubles',
   16: 'Nightfall',
   19: 'IronBanner',
+  43: 'IronBanner',
   25: 'AllMayhem',
   31: 'Supremacy',
   37: 'Survival',

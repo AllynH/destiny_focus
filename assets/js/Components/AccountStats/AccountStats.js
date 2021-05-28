@@ -54,7 +54,7 @@ class AccountStats extends React.Component {
       this.setState({
         isLoaded: true,
         jsonResponse: response,
-        dataStructure: this._createDataStructure(response.Response.allPvP[scope]),
+        dataStructure: this.createDataStructure(response.Response.allPvP[scope]),
       })
     } else {
       const response = await GetStatsData({
@@ -66,15 +66,17 @@ class AccountStats extends React.Component {
           gameMode,
         },
       })
+      console.log('GetStatsData')
+      console.log(response)
       this.setState({
         isLoaded: true,
         jsonResponse: response,
-        dataStructure: this._createDataStructure(response.Response.allPvP[scope]),
+        dataStructure: this.createDataStructure(response.Response.allPvP[scope]),
       })
     }
   }
 
-  _checkResponse(state) {
+  checkResponse(state) {
     const { jsonResponse, isLoaded } = state
     if (isLoaded && jsonResponse.ErrorCode > 1) {
       console.log('Caught error!')
@@ -92,7 +94,7 @@ class AccountStats extends React.Component {
     }
   }
 
-  _createDataStructure(stats) {
+  createDataStructure(stats) {
     const { scope } = this.props
     const { props } = this
     const { season, seasonDescription } = this.props
@@ -182,12 +184,12 @@ class AccountStats extends React.Component {
             value_2: stats.killsDeathsRatio.basic.displayValue || '',
           },
           footerData: {
-            title_1: 'Highest kills',
-            value_1: stats.longestKillSpree?.basic?.displayValue || '',
+            title_1: 'Highest daily kills',
+            value_1: stats.hs_kills?.pga?.displayValue || '',
             title_2: 'Highest precision kills',
-            value_2: stats.mostPrecisionKills?.basic?.displayValue || '',
-            title_3: 'Longest life',
-            value_3: stats.longestSingleLife?.basic?.displayValue || '',
+            value_2: stats.hs_precisionKills?.pga?.displayValue || '',
+            title_3: 'Average Lifespan',
+            value_3: stats.hs_averageLifespan?.pga?.displayValue || '',
           },
         },
         average: {
@@ -203,12 +205,12 @@ class AccountStats extends React.Component {
               : 0,
           },
           footerData: {
-            title_1: 'Total melee kills',
-            value_1: stats.weaponKillsMelee?.basic?.displayValue || '',
-            title_2: 'Total grenade kills',
-            value_2: stats.weaponKillsGrenade?.basic?.displayValue || '',
-            title_3: 'Total super kills',
-            value_3: stats.weaponKillsSuper?.basic?.displayValue || '',
+            title_1: 'Efficiency',
+            value_1: stats.efficiency?.basic?.displayValue || '',
+            title_2: 'Total precision kills',
+            value_2: stats.precisionKills?.pga?.displayValue || '',
+            title_3: 'Total medals earned',
+            value_3: stats.hs_totalMedalsEarned?.pga?.displayValue || '',
           },
         },
       }

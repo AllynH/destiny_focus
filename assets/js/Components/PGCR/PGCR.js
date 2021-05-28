@@ -475,6 +475,8 @@ export default function Pgcr(props) {
     // console.log(result)
     setPgcr(result)
     setActivityMode(BASIC_ACTIVITY_MODES[result?.Response?.activityDetails?.mode])
+    console.log(result?.Response?.activityDetails?.mode)
+    console.log(activityMode)
   }
 
   const handleClick = (instanceId) => {
@@ -494,6 +496,8 @@ export default function Pgcr(props) {
       case 'gambit':
         return <PgcrDetailsGambit pgcr={pgcr} />
       case 'raid':
+      case 'Nightfall':
+      case 'dungeon':
         return <PgcrDetailsRaid pgcr={pgcr} />
       default:
         return <PgcrDetailsPvP pgcr={pgcr} />

@@ -49,9 +49,9 @@ def before_request():
             print("\n\nRefresh ready - before_request!\n\n")
             # Put refresh code in here!
             token_response = OAuthSignin('bungie').get_provider('bungie').get_refresh_token(g.user)
-            print(token_response.status_code)
-            print(token_response.content)
-            print(token_response.json())
+            # print(token_response.status_code)
+            # print(token_response.content)
+            # print(token_response.json())
             if (token_response.status_code != 200):
                 if isinstance(token_response.json(), dict):
                     flash(f"Bungies systems are down: {token_response.json()}", "error")
@@ -80,7 +80,7 @@ def home():
         if form.validate_on_submit():
             login_user(form.user)
             # flash("You are logged in.", "success")
-            _url = request.args.get("next") or url_for("user.members")
+            redirect_url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
     else:
         flash_errors(form)
@@ -324,6 +324,45 @@ def raid(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
+@blueprint.route("/trials/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def trials(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
+
+@blueprint.route("/nightfall/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def nightfall(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
+
+@blueprint.route("/dungeon/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def dungeon(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
+
 @blueprint.route("/account/<membershipType>/<membershipId>/<characterId>")
 @login_required
 def account(membershipType, membershipId, characterId):
@@ -398,7 +437,7 @@ def get_raid(membershipType, membershipId, characterId):
         Raid: 4
     """
 
-    mode    = int(request.args.get('gameMode', 4))
+    mode    = int(request.args.get('game_mode', 4))
 
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
@@ -446,8 +485,7 @@ def get_historical_stats(membershipType, membershipId, characterId):
         if day_start < season_start:
             # Last request:
             day_start = season_start
-            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, modes=5, daystart=day_start, dayend=day_end, periodType='Daily')
-
+            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, modes=mode, daystart=day_start, dayend=day_end, periodType='Daily')
             found_activities = activity.get('Response', {}).get('allPvP', {}).get('daily', False)
             if found_activities:
                 for a in activity['Response']['allPvP']['daily']:
@@ -455,7 +493,7 @@ def get_historical_stats(membershipType, membershipId, characterId):
 
             break
         else:
-            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart=day_start, dayend=day_end, periodType='Daily')
+            activity = my_api.get_historical_stats(membershipType, membershipId, characterId, modes=mode, daystart=day_start, dayend=day_end, periodType='Daily')
             if activity["ErrorStatus"] != "Success":
                 flash(f"Bungies systems are down: {activity.get('message', {}).get('Message', {})}", "error")
                 return redirect(url_for("public.home"))
@@ -554,9 +592,12 @@ def pgcr_list(membershipType, membershipId, characterId):
     mode_arg = request.args.get('game_mode', 'pvp')
 
     game_mode_switch = {
-        'pvp'   : 5,
-        'gambit': 63,
-        'raid'  : 4,
+        'pvp'       : 5,
+        'trials'    : 84,
+        'gambit'    : 63,
+        'raid'      : 4,
+        'nightfall' : 46,
+        'dungeon'   : 82,
     }
     game_mode = game_mode_switch[mode_arg]
 
@@ -569,6 +610,17 @@ def pgcr_list(membershipType, membershipId, characterId):
 
     pgcr_list = []
     stat_list = []
+    activities_res = activity["Response"].get("activities", None)
+    if not activities_res:
+        print("\n\n\nNo activities!!!")
+        pgcr_list_res = {
+            "Response"      : stat_list,
+            "statusCode"    : 200,
+            "ErrorStatus"   : "Success",
+        }
+
+        return jsonify(pgcr_list_res)
+
     for a in activity["Response"]["activities"]:
         pgcr_list.append(a["activityDetails"]["instanceId"])
     pgcr_res_list = []

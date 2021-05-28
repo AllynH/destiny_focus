@@ -62,6 +62,7 @@ export default function SelectPgcr(props) {
     switch (activityMode) {
       case 'Raid':
       case 'Nightfall':
+      case 'Dungeon':
       case 'Story':
       case 'Social':
         return (

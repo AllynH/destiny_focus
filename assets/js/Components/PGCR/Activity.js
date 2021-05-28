@@ -61,6 +61,10 @@ export default function Activity(
     switch (mode) {
       case 'raid':
         return 'Raid'
+      case 'nightfall':
+        return 'Nightfall'
+      case 'dungeon':
+        return 'Dungeon'
       default:
         return s === '' ? 'No win loss data' : s
     }

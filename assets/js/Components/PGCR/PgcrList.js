@@ -23,7 +23,7 @@ export default function PgcrList(props) {
       console.log(result)
     }
     fetchUserPgcrList()
-  }, [myArray])
+  }, [activityList])
 
   // const CreatePgcrList = () => (
   //   <div>
@@ -39,8 +39,8 @@ export default function PgcrList(props) {
 
   return (
     <div>
-      {savedPgcrs &&
-        myArray.map((p, index) => (
+      {savedPgcrs
+        && myArray.map((p, index) => (
           <li className={'pgcr pgcr-item'} key={index}>
             <PGCR {...p} favourite={savedPgcrs.includes(Number(p.activityDetails.instanceId))} />
           </li>

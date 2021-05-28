@@ -145,15 +145,15 @@ export default function RaidSplash({
                 </div>
               </div>
 
-              {modeIsRaid ? (
-                ''
-              ) : (
+              {activityMode === 'Nightfall' ? (
                 <div className='stats header-completion-time'>
                   <p className='stats completion-time-value pgcr-splash-nf-score'>
                     SCORE: {nfScore}
                   </p>
                 </div>
-              )}
+              ) : (
+                ''
+              ) }
             </div>
           </div>
         </div>
