@@ -19,6 +19,8 @@ import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requ
 import { statsData } from '../../Data/statsData'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
+import GetProgresions from '../Profile/GetProgressions'
+
 const UPDATE_TIME = 20
 const fetchPVPData = async () => {
   const {
@@ -234,6 +236,7 @@ class PvPChart extends React.Component {
 
       return (
         <>
+          <GetProgresions />
           <div className='reload-progress-wrapper'>
             {this.state.updating ? (
               <div className='reload-animation-box'>

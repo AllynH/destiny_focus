@@ -12,6 +12,8 @@ import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { statsData } from '../../Data/statsData'
 
+import GetProgresions from '../Profile/GetProgressions'
+
 class Account extends React.Component {
   constructor(props) {
     console.log('Account')
@@ -25,57 +27,6 @@ class Account extends React.Component {
       ...this.state,
     }
   }
-
-  // componentDidMount(props) {
-  //   this.fetchPVPData()
-  // }
-
-  // fetchPVPData = async () => {
-  //   const { membershipType, membershipId, characterId } = this.props.match.params
-  //   const { gameMode } = this.props
-
-  //   console.log(this.props.match.path)
-
-  //   switch (gameMode) {
-  //     case 'gambit':
-  //       {
-  //         const response = await GetGambitData({
-  //           params: { membershipType, membershipId, characterId },
-  //         })
-  //         this.setState({
-  //           isLoaded: true,
-  //           jsonResponse: response,
-  //         })
-  //       }
-  //       break
-  //     case 'raid':
-  //       {
-  //         const response = await GetRaidData({
-  //           params: { membershipType, membershipId, characterId },
-  //         })
-  //         this.setState({
-  //           isLoaded: true,
-  //           jsonResponse: response,
-  //         })
-  //       }
-  //       break
-  //     case 'pvp': {
-  //       const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
-  //       this.setState({
-  //         isLoaded: true,
-  //         jsonResponse: response,
-  //       })
-  //       break
-  //     }
-  //     default: {
-  //       const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
-  //       this.setState({
-  //         isLoaded: true,
-  //         jsonResponse: response,
-  //       })
-  //     }
-  //   }
-  // }
 
   render() {
     const { membershipType, membershipId, characterId } = this.props.match.params
@@ -94,6 +45,7 @@ class Account extends React.Component {
 
       return (
         <div className='account-stats-wrapper'>
+          <GetProgresions {...this.props} />
           <h2>{allTime.heading}</h2>
           <div className='stats-background'>
             <div className='button-wrapper'>

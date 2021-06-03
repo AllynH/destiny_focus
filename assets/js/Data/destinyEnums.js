@@ -17,7 +17,7 @@ export const BASIC_ACTIVITY_MODES = {
   15: 'CrimsonDoubles',
   16: 'Nightfall',
   19: 'IronBanner',
-  43: 'IronBanner',
+  43: 'IronBanner', // IB Control:
   25: 'AllMayhem',
   31: 'Supremacy',
   37: 'Survival',
@@ -44,4 +44,16 @@ export const BASIC_ACTIVITY_MODES = {
   82: 'Dungeon',
   83: 'Sundial',
   84: 'TrialsOfOsiris',
+}
+
+export const PROGRESSION_HASHES = {
+  Glory: 1647151960,  // 5500
+  Valor: 2083746873,  // 2000
+  Infamy: 3008065600, // 15000
+}
+
+export const PROGRESSION_DATA = {
+  Glory: { hash: 1647151960, maxRank: 5500 },
+  Valor: { hash: 2083746873, maxRank: 2000 },
+  Infamy: { hash: 3008065600, maxRank: 15000 },
 }

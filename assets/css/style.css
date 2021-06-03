@@ -11,6 +11,10 @@
   --bungie-power: #DDCB59;
   --bungie-power-dark-1: #D5C034;
 
+  --glory: rgba(197, 23, 19, 255);
+  --valor: rgba(214, 129, 44, 255);
+  --infamy: rgba(65, 192, 160, 255);
+
   /* Reference: Grey - 332F46 */
   --grey-bg:      #F7F7F8ff;
   --grey-light-4: #E8E8EAff;

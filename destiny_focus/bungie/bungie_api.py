@@ -90,7 +90,7 @@ class BungieApi(object):
 
 
         url_params = {
-            'components' : "100,200"
+            'components' : "100,200,202"
             }
 
         url = self.api_urls['GetProfile']

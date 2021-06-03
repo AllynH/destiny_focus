@@ -38,7 +38,7 @@ class Character_Plate extends React.Component {
       )
   }
 
-  _render_object(json_response) {
+  renderObject(json_response) {
     return Object.keys(json_response).map((item, i) => {
       // console.log(json_response[item])
       // console.log(json_response[item].emblem_hash.icon)
@@ -69,7 +69,7 @@ class Character_Plate extends React.Component {
     } else {
       // console.log('Render')
       // console.log(json_response)
-      const contents = this._render_object(json_response)
+      const contents = this.renderObject(json_response)
       return (
             <div>
                 {contents}
