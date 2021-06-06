@@ -1,12 +1,18 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react'
+
+import { useDispatch } from 'react-redux'
 
 import { GetProfileWithArgs, GetActivityDefinition } from '../../Utils/API/API_Requests'
 import { PROGRESSION_DATA } from '../../Data/destinyEnums'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 import ProgressionCircles from './ProgressionCircle'
 
+import { setProgressions } from '../../Redux/Actions'
+
 export default function GetProgresions(props) {
   const [profile, setProfile] = useState(null)
+  const dispatch = useDispatch()
   const { membershipType, membershipId, characterId } = getUrlDetails()
 
   useEffect(() => {
@@ -19,6 +25,22 @@ export default function GetProgresions(props) {
         },
       })
       setProfile(result)
+
+      // Dispatch progressionsReducer:
+      const setCharProgressions = () => {
+        const tempList = []
+        Object.keys(PROGRESSION_DATA).map((m) => {
+          const curProg = result?.Response?.characterProgressions?.data[characterId]?.progressions[
+            PROGRESSION_DATA[m].hash
+          ]
+          const tempData = { [PROGRESSION_DATA[m].hash]: curProg }
+          tempList.push(tempData)
+        })
+        dispatch(
+          setProgressions({ progressions: { values: tempList, logged: new Date().toISOString() } }),
+        )
+      }
+      setCharProgressions()
     }
     fetchUserProfile()
   }, [props])
@@ -47,26 +69,28 @@ export default function GetProgresions(props) {
 }
 
 function CreateSingleProgression(props) {
-  const [progressions, setProgressions] = useState(null)
-  const { progressModeHash, modeProgressions, mode, maxRank } = props
+  const [prog, setProg] = useState(null)
+  const {
+    progressModeHash, modeProgressions, mode, maxRank,
+  } = props
 
   useEffect(() => {
-    const fetchProgressDefinition = async () => {
+    const fetchProgressionsDefinition = async () => {
       const result = await GetActivityDefinition({
         params: { definition: 'DestinyProgressionDefinition', defHash: progressModeHash },
       })
-      setProgressions(result)
+      setProg(result)
     }
-    fetchProgressDefinition()
+    fetchProgressionsDefinition()
   }, [props])
 
   return (
     <>
-      {progressions ? (
+      {prog ? (
         <DisplayProgression
           mode={mode}
           modeProgressions={modeProgressions}
-          progressionsData={progressions}
+          progressionsData={prog}
           maxRank={maxRank}
         />
       ) : (
@@ -77,11 +101,13 @@ function CreateSingleProgression(props) {
 }
 
 function DisplayProgression(props) {
-  const { progressionsData, modeProgressions, mode, maxRank } = props
+  const {
+    progressionsData, modeProgressions, mode, maxRank,
+  } = props
 
   return (
     <div className='progressions-item-wrap'>
-      <h3 className='progressions-title'>{mode}</h3>
+      <h3 className='progressions-mode-title'>{mode}</h3>
       <div className='progressions-chart-text-wrap'>
         <ProgressionCircles
           progressionsData={progressionsData}
@@ -93,19 +119,27 @@ function DisplayProgression(props) {
             {progressionsData.steps[modeProgressions.level].stepName}
           </div>
           <div className='progressions-text'>
-            {`Rank: [${modeProgressions.progressToNextLevel} : ${modeProgressions.nextLevelAt}]`}
+            <div className='progressions-title'>Rank:{' '}</div>
+            <div className='progressions-value'>{` [${modeProgressions.progressToNextLevel} : ${modeProgressions.nextLevelAt}]`}</div>
           </div>
           <div className='progressions-text'>
-            {`Progress: [${modeProgressions.currentProgress} : ${maxRank}]`}
+            <div className='progressions-title'>Progress:{' '}</div>
+            <div className='progressions-value'>{` [${modeProgressions.currentProgress} : ${maxRank}]`}</div>
           </div>
           <div className='progressions-text'>
-            {`Completed: ${Number((modeProgressions.currentProgress / maxRank) * 100).toFixed(0)}%`}
+            <div className='progressions-title'>Completed:{' '}</div>
+            <div className='progressions-value'>{` ${Number(
+              (modeProgressions.currentProgress / maxRank) * 100,
+            ).toFixed(0)}%`}</div>
           </div>
-          <div className='progressions-text'>
-            {modeProgressions.currentResetCount
-              ? `Reset count: ${modeProgressions.currentResetCount}`
-              : ''}
-          </div>
+          {modeProgressions.currentResetCount ? (
+            <div className='progressions-text'>
+              <div className='progressions-title'>Resets:{' '}</div>
+              <div className='progressions-value'>{` ${modeProgressions.currentResetCount}`}</div>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

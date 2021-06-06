@@ -1,14 +1,9 @@
 .progressions-wrapper{
-    min-height: 100px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 100px;
     justify-content: center;
-}
-.progressions-item-wrap{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 20px;
 }
 .progressions-image {
     height: 50px;
@@ -17,16 +12,12 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
-.progressions-chart-text-wrap{
-    display: flex;
-    flex-direction: row;
-}
 .progressions-text-wrap{
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    padding-left: 10px;
 }
-.progressions-title{
+.progressions-mode-title{
     text-transform: uppercase;
     font-weight: bold;
     margin: 0;
@@ -34,9 +25,50 @@
 
 .progressions-step-name{
     text-transform: uppercase;
-    /* font-weight: bold; */
+    font-weight: bolder;
 }
 .progressions-text{
+    display: flex;
+    flex-direction: row;
+}
+.progressions-title{
+    padding-right: 4px;
+}
+.progressions-value{
     font-weight: lighter;
     color: var(--grey-light-3);
+}
+
+
+/* Desktop: */
+
+@media screen and (min-width: 600px) {
+    .progressions-chart-text-wrap{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-top:10px
+    }
+    .progressions-item-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 20px;
+    }    
+}
+
+/* Mobile: */
+@media screen and (max-width: 600px) {
+    .progressions-chart-text-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .progressions-item-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px 0px;
+    }
 }

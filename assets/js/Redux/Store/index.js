@@ -3,7 +3,8 @@
     https://dev.to/link2twenty/react-redux-and-localstorage-2lih
     no-console disabled - as we want to see output if state fails.
 */
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
 import allReducers from '../Reducers'
 
@@ -35,7 +36,9 @@ function loadFromLocalStorage() {
 const store = createStore(
   allReducers,
   loadFromLocalStorage(),
+  // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk),
 )
 
 store.subscribe(() => saveToLocalStorage(store.getState()))

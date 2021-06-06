@@ -9,7 +9,6 @@ import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import AccountStats from './AccountStats'
 import SeasonMenu from './SeasonDropdown'
 import Spinner from '../../Utils/Loading/Spinner'
-import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { statsData } from '../../Data/statsData'
 
 import GetProgresions from '../Profile/GetProgressions'

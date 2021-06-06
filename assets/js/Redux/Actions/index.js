@@ -26,3 +26,7 @@ export const setAccount = (data) => ({
     membershipId: data.membershipId,
   },
 })
+export const setProgressions = (data) => ({
+  type: 'SET_PROGRESSIONS',
+  progressions: data.progressions,
+})
