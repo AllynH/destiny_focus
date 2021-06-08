@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import React from 'react'
 
 import './style.css'
@@ -11,6 +12,15 @@ export const ProgressBar = (props = {
   let colour = ''
   const pWidth = `${Number(progress.toFixed(1))}%`
   switch (theme) {
+    case ('Valor'):
+      colour = 'var(--valor)'
+      break
+    case ('Glory'):
+      colour = 'var(--glory)'
+      break
+    case ('Infamy'):
+      colour = 'var(--infamy)'
+      break
     case ('warn'):
       colour = 'var(--crucible-red)'
       break

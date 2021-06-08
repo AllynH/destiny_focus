@@ -15,7 +15,7 @@
 .progressions-text-wrap {
   display: flex;
   flex-direction: column;
-  padding-left: 10px;
+  /* padding-left: 10px; */
 }
 .progressions-mode-title {
   text-transform: uppercase;
@@ -39,6 +39,14 @@
   color: var(--grey-light-3);
 }
 
+.overflowing{
+  background: rgb(255,255,255);
+}
+
+.div-circle{
+  border-radius: 50%;
+}
+
 /* Desktop: */
 @media screen and (min-width: 600px) {
   .progressions-chart-text-wrap {
@@ -51,7 +59,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 20px;
+    padding: 20px 20px;
+    margin: 10px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }
 
@@ -67,6 +77,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px 0px;
+    padding: 10px 4px;
+    margin: 10px 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }

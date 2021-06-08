@@ -44,7 +44,9 @@ class Account extends React.Component {
 
       return (
         <div className='account-stats-wrapper'>
-          <GetProgresions {...this.props} />
+          <div className='stats-background'>
+            <GetProgresions {...this.props} />
+          </div>
           <h2>{allTime.heading}</h2>
           <div className='stats-background'>
             <div className='button-wrapper'>

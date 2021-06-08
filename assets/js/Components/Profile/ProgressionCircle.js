@@ -30,7 +30,8 @@ export default function ProgressionCircles(props) {
   const imageX = (radius1 * 2 - imageHeight) / 2
   const imageY = (radius1 * 2 - imageWidth) / 2
 
-  const { progressionsData, modeProgressions, maxRank } = props
+  const { progressionsDefinition, profileProgressions, maxRank, currentStep } = props
+  console.log(props)
 
   return (
     <svg height={radius1 * 2} width={radius1 * 2}>
@@ -41,8 +42,8 @@ export default function ProgressionCircles(props) {
         cy={radius1}
       />
       <circle
-        stroke={`rgba(${progressionsData.color.red}, ${progressionsData.color.green}, ${progressionsData.color.blue}, ${progressionsData.color.alpha})`}
-        strokeDasharray={`${(circumference1 * modeProgressions.currentProgress) / maxRank} ${circumference1}`}
+        stroke={`rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})`}
+        strokeDasharray={`${(circumference1 * profileProgressions.currentProgress) / maxRank} ${circumference1}`}
         transform={'rotate(-90)'}
         style={{ strokeDashoffset: { circumference1 } }}
         strokeWidth={stroke}
@@ -53,7 +54,7 @@ export default function ProgressionCircles(props) {
       />
       <circle
         stroke='white'
-        strokeDasharray={`${(circumference2 * modeProgressions.progressToNextLevel) / modeProgressions.nextLevelAt} ${circumference2}`}
+        strokeDasharray={`${(circumference2 * profileProgressions.progressToNextLevel) / profileProgressions.nextLevelAt} ${circumference2}`}
         transform={'rotate(-90)'}
         style={{ strokeDashoffset: { circumference2 } }}
         strokeWidth={stroke}
@@ -67,7 +68,7 @@ export default function ProgressionCircles(props) {
         height={imageHeight}
         x={imageX}
         y={imageY}
-        xlinkHref={`https://www.bungie.net${progressionsData.steps[modeProgressions.level].icon}`}
+        xlinkHref={`https://www.bungie.net${progressionsDefinition.steps[currentStep].icon}`}
       />
     </svg>
   )
