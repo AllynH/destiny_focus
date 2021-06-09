@@ -31,14 +31,15 @@ export default function GetProgresions(props) {
       const setCharProgressions = () => {
         const tempList = []
         Object.keys(PROGRESSION_DATA).map((m) => {
-          const curProg = result?.Response?.characterProgressions?.data[characterId]?.progressions[
-            PROGRESSION_DATA[m].hash
-          ]
+          const curProg =
+            result?.Response?.characterProgressions?.data[characterId]?.progressions[
+              PROGRESSION_DATA[m].hash
+            ]
           const tempData = { [PROGRESSION_DATA[m].hash]: curProg }
           tempList.push(tempData)
         })
         dispatch(
-          setProgressions({ progressions: { values: tempList, logged: new Date().toISOString() } }),
+          setProgressions({ progressions: { values: tempList, logged: new Date().toISOString() } })
         )
       }
       setCharProgressions()
@@ -63,7 +64,7 @@ export default function GetProgresions(props) {
               {...profile}
               {...props}
             />
-        ))
+          ))
         : ''}
     </div>
   )
@@ -71,9 +72,7 @@ export default function GetProgresions(props) {
 
 function CreateSingleProgression(props) {
   const [prog, setProg] = useState(null)
-  const {
-    progressModeHash, profileProgressions, mode, maxRank,
-  } = props
+  const { progressModeHash, profileProgressions, mode, maxRank } = props
 
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
@@ -102,55 +101,64 @@ function CreateSingleProgression(props) {
 }
 
 function DisplayProgression(props) {
-  const {
-    progressionsDefinition, profileProgressions, mode, maxRank,
-  } = props
+  const { progressionsDefinition, profileProgressions, mode, maxRank } = props
 
   const currentStep = Math.min(profileProgressions.level, progressionsDefinition.steps.length - 1)
   const progress = Number(((profileProgressions.currentProgress / maxRank) * 100).toFixed(0))
 
   /* Styling: */
   const overflowFlag = profileProgressions.level === progressionsDefinition.steps.length
-  const overflowBorder = { borderColor: `rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})` }
+  const overflowBorder = {
+    borderColor: `rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})`,
+  }
   const borderStyle = overflowFlag ? overflowBorder : {}
-  const gradient = { background: `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, 1) 100%)` }
+  const gradient = {
+    background: `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, 1) 100%)`,
+  }
   const overFlowStyle = { ...gradient, ...borderStyle }
 
   return (
-    <div className={`progressions-item-wrap ${overflowFlag ? 'overflow' : ''}`} style={overflowFlag ? overFlowStyle : {}}>
+    <div
+      className={`progressions-item-wrap ${overflowFlag ? 'overflow' : ''}`}
+      style={overflowFlag ? overFlowStyle : {}}
+    >
       <h3 className='progressions-mode-title'>{mode}</h3>
       <div className='progressions-chart-text-wrap'>
         <div className={`${overflowFlag ? 'div-shimmer div-circle' : ''}`}>
-        <ProgressionCircles
-          progressionsDefinition={progressionsDefinition}
-          profileProgressions={profileProgressions}
-          maxRank={maxRank}
-          currentStep={currentStep}
-        />
+          <ProgressionCircles
+            progressionsDefinition={progressionsDefinition}
+            profileProgressions={profileProgressions}
+            maxRank={maxRank}
+            currentStep={currentStep}
+          />
         </div>
         <div className='progressions-text-wrap'>
           <div className='progressions-step-name'>
             {progressionsDefinition.steps[currentStep].stepName}
           </div>
           <div className='progressions-text'>
-            <div className='progressions-title'>Rank:{' '}</div>
+            <div className='progressions-title'>Rank: </div>
             <div className='progressions-value'>{` [${profileProgressions.progressToNextLevel} : ${profileProgressions.nextLevelAt}]`}</div>
           </div>
           <div className='progressions-text'>
-            <div className='progressions-title'>Progress:{' '}</div>
+            <div className='progressions-title'>Progress: </div>
             <div className='progressions-value'>{` [${profileProgressions.currentProgress} : ${maxRank}]`}</div>
           </div>
-            <div className='progressions-text'>
-              <div className='progressions-title'>Resets:{' '}</div>
-              <div className='progressions-value'>{` ${profileProgressions.currentResetCount ? profileProgressions.currentResetCount : 0}`}</div>
+          <div className='progressions-text'>
+            <div className='progressions-title'>Resets: </div>
+            <div className='progressions-value'>
+              {profileProgressions.currentResetCount ? profileProgressions.currentResetCount : 0}
             </div>
-          <ProgressBar
-            progress={progress}
-            theme={mode}
-            message={'Completed'}
-            steps={`${progress}%`}
-          />
+          </div>
         </div>
+      </div>
+      <div className='progress-bar-wrap'>
+        <ProgressBar
+          progress={progress}
+          theme={mode}
+          message={'Completed'}
+          steps={`${progress}%`}
+        />
       </div>
     </div>
   )
