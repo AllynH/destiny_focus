@@ -7,6 +7,7 @@ import { GetProfileWithArgs, GetActivityDefinition } from '../../Utils/API/API_R
 import { PROGRESSION_DATA } from '../../Data/destinyEnums'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 import ProgressionCircles from './ProgressionCircle'
+import Checkboxes from './Checkboxes'
 import { ProgressBar } from '../Progress/ProgressBar'
 
 import { setProgressions } from '../../Redux/Actions'
@@ -30,16 +31,15 @@ export default function GetProgresions(props) {
       // Dispatch progressionsReducer:
       const setCharProgressions = () => {
         const tempList = []
-        Object.keys(PROGRESSION_DATA).map((m) => {
-          const curProg =
-            result?.Response?.characterProgressions?.data[characterId]?.progressions[
-              PROGRESSION_DATA[m].hash
-            ]
+        Object.keys(PROGRESSION_DATA).forEach((m) => {
+          const curProg = result?.Response?.characterProgressions?.data[characterId]?.progressions[
+            PROGRESSION_DATA[m].hash
+          ]
           const tempData = { [PROGRESSION_DATA[m].hash]: curProg }
           tempList.push(tempData)
         })
         dispatch(
-          setProgressions({ progressions: { values: tempList, logged: new Date().toISOString() } })
+          setProgressions({ progressions: { values: tempList, logged: new Date().toISOString() } }),
         )
       }
       setCharProgressions()
@@ -61,10 +61,15 @@ export default function GetProgresions(props) {
                   PROGRESSION_DATA[m].hash
                 ]
               }
+              profileStreak={
+                profile.Response.characterProgressions.data[characterId].progressions[
+                  PROGRESSION_DATA[m].streakHash
+                ]
+              }
               {...profile}
               {...props}
             />
-          ))
+        ))
         : ''}
     </div>
   )
@@ -72,7 +77,9 @@ export default function GetProgresions(props) {
 
 function CreateSingleProgression(props) {
   const [prog, setProg] = useState(null)
-  const { progressModeHash, profileProgressions, mode, maxRank } = props
+  const {
+    progressModeHash, profileProgressions, profileStreak, mode, maxRank,
+  } = props
 
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
@@ -90,6 +97,7 @@ function CreateSingleProgression(props) {
         <DisplayProgression
           mode={mode}
           profileProgressions={profileProgressions}
+          profileStreak={profileStreak}
           progressionsDefinition={prog}
           maxRank={maxRank}
         />
@@ -101,13 +109,22 @@ function CreateSingleProgression(props) {
 }
 
 function DisplayProgression(props) {
-  const { progressionsDefinition, profileProgressions, mode, maxRank } = props
+  const {
+    progressionsDefinition, profileProgressions, profileStreak, mode, maxRank,
+  } = props
 
+  /* Streak data: */
+  const streakCount = profileStreak.stepIndex
+  const arrSize = 5
+  const streakArray = Array(arrSize).fill(true).fill(false, streakCount, arrSize)
+
+  /* Progress data: */
   const currentStep = Math.min(profileProgressions.level, progressionsDefinition.steps.length - 1)
   const progress = Number(((profileProgressions.currentProgress / maxRank) * 100).toFixed(0))
 
   /* Styling: */
   const overflowFlag = profileProgressions.level === progressionsDefinition.steps.length
+  const modeColour = `rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})`
   const overflowBorder = {
     borderColor: `rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})`,
   }
@@ -144,12 +161,22 @@ function DisplayProgression(props) {
             <div className='progressions-title'>Progress: </div>
             <div className='progressions-value'>{` [${profileProgressions.currentProgress} : ${maxRank}]`}</div>
           </div>
+
+          <div className='progressions-text'>
+            <div className='progressions-title'>Streak: </div>
+            <div className='progressions-value'>{`${profileStreak.stepIndex}`}</div>
+          </div>
+          <div className='progressions-text'>
+            <div className='progressions-title'>This week: </div>
+            <div className='progressions-value'>{`${profileProgressions.weeklyProgress}`}</div>
+          </div>
           <div className='progressions-text'>
             <div className='progressions-title'>Resets: </div>
             <div className='progressions-value'>
               {profileProgressions.currentResetCount ? profileProgressions.currentResetCount : 0}
             </div>
           </div>
+          <Checkboxes streakArray={streakArray} modeColour={modeColour} />
         </div>
       </div>
       <div className='progress-bar-wrap'>

@@ -28,8 +28,8 @@
   font-weight: bolder;
 }
 .progressions-text {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .progressions-title {
   padding-right: 4px;
@@ -57,7 +57,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 10px;
   }
   .progressions-item-wrap {
     display: flex;
@@ -74,7 +73,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
   }
   .progressions-item-wrap {
     display: flex;
@@ -86,4 +84,21 @@
   .progressions-text {
     font-size: 14px;
   }
+}
+
+.checkbox-wrapper{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.checkbox-box{
+  height: 14px;
+  width: 14px;
+  padding: 2px;
+  margin: 2px 2px;
+  border: dashed 1px rgba(255, 255, 255, 0.4);
+}
+.filled-box{
+
 }

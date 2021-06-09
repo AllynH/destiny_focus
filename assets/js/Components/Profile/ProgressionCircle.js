@@ -30,8 +30,9 @@ export default function ProgressionCircles(props) {
   const imageX = (radius1 * 2 - imageHeight) / 2
   const imageY = (radius1 * 2 - imageWidth) / 2
 
-  const { progressionsDefinition, profileProgressions, maxRank, currentStep } = props
-  console.log(props)
+  const {
+    progressionsDefinition, profileProgressions, maxRank, currentStep,
+  } = props
 
   return (
     <svg height={radius1 * 2} width={radius1 * 2}>
