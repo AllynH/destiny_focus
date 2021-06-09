@@ -161,11 +161,6 @@ function DisplayProgression(props) {
             <div className='progressions-title'>Progress: </div>
             <div className='progressions-value'>{` [${profileProgressions.currentProgress} : ${maxRank}]`}</div>
           </div>
-
-          <div className='progressions-text'>
-            <div className='progressions-title'>Streak: </div>
-            <div className='progressions-value'>{`${profileStreak.stepIndex}`}</div>
-          </div>
           <div className='progressions-text'>
             <div className='progressions-title'>This week: </div>
             <div className='progressions-value'>{`${profileProgressions.weeklyProgress}`}</div>
