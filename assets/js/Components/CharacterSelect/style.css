@@ -36,3 +36,10 @@
     padding: 10px 10px;
     float: left;
 }
+
+.selected-character{
+    /* border: 1px solid var(--bungie-power); */
+    -webkit-box-shadow: 0 10px 6px -6px var(--bungie-power);
+    -moz-box-shadow: 0 10px 6px -6px var(--bungie-power);
+    box-shadow: 0 10px 6px -6px var(--bungie-power) !important;
+}

@@ -18,7 +18,7 @@ import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 export default function ChooseFocus(props) {
   const getFocus = useSelector((state) => state.focus)
   // console.log('State focus', getFocus)
-  const { membershipType, membershipId } = props.match.params
+  const { membershipType, membershipId, characterId } = props.match.params
   Object.keys(FOCUS_DETAILS).map((f, index) => console.log('Focus: ', f))
 
   return (
@@ -61,7 +61,7 @@ export default function ChooseFocus(props) {
         ))}
       </div>
       <h2>Choose a character:</h2>
-      <ClickableCharacterList memberships={{ membershipId, membershipType }} />
+      <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
       {/* <Character_Plate /> */}
     </div>
   )

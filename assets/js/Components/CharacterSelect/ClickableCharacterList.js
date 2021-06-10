@@ -10,7 +10,9 @@ import './style.css'
 
 export default function ClickableCharacterList(props) {
   const [profile, setProfile] = useState()
-  const { platform, membershipId, membershipType } = props.memberships
+  const {
+    platform, membershipId, membershipType, characterId,
+  } = props.memberships
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -27,7 +29,12 @@ export default function ClickableCharacterList(props) {
       {profile ? (
         Object.keys(profile).map((p, index) => (
           <div key={index} className='card-list'>
-            <CharacterCard linkUrl={`/auth/choose_focus/${membershipType}/${membershipId}/${p}` } key={index} character={profile[p]} />
+            <CharacterCard
+              linkUrl={`/auth/choose_focus/${membershipType}/${membershipId}/${p}`}
+              key={index}
+              character={profile[p]}
+              selected={p === characterId}
+            />
           </div>
         ))
       ) : (

@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 export default function CharacterCard(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { character, linkUrl } = props
+  const { character, linkUrl, selected } = props
 
   // Dispatch accountReducer:
   const setCharAccount = () => {
@@ -43,8 +43,10 @@ export default function CharacterCard(props) {
     dispatch(setAccount(data))
   }
 
+  const highlighted = selected ? 'selected-character' : ''
+
   return (
-    <Card className={classes.root}>
+    <Card className={`character-card ${highlighted} ${classes.root}`} >
       <CardActionArea>
         <Link to={linkUrl} onClick={setCharAccount} style={{ textDecoration: 'none' }}>
           <CardMedia

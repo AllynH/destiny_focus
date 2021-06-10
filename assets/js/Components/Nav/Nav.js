@@ -64,7 +64,9 @@ const useBGStyles = makeStyles((theme) => ({
 }))
 
 export default function NavBar() {
-  const { auth, membershipType, membershipId, characterId, gameMode } = useParams()
+  const {
+    auth, membershipType, membershipId, characterId, gameMode,
+  } = useParams()
 
   const [authFlag, setAuthFlag] = useState(false)
   const [anchorElProfile, setAnchorElProfile] = useState(null)
@@ -101,15 +103,16 @@ export default function NavBar() {
 
   return (
     <>
+      <div className='event-banner' id='pride'></div>
       <div
         className={profile ? bgClasses.root : classes.root}
         style={
           profile
             ? {
-                position: 'relative,',
-                backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
-                backgroundColor: 'transparent',
-              }
+              position: 'relative,',
+              backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
+              backgroundColor: 'transparent',
+            }
             : {}
         }
       >
@@ -132,14 +135,14 @@ export default function NavBar() {
                   style={
                     profile
                       ? {
-                          position: 'relative',
-                          top: 50,
-                          minHeight: 96,
-                          minWidth: 96,
-                          backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
-                          backgroundColor: 'transparent',
-                          backgroundSize: 'contain',
-                        }
+                        position: 'relative',
+                        top: 50,
+                        minHeight: 96,
+                        minWidth: 96,
+                        backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
+                        backgroundColor: 'transparent',
+                        backgroundSize: 'contain',
+                      }
                       : {}
                   }
                 ></div>
@@ -228,7 +231,7 @@ export default function NavBar() {
           </Toolbar>
         </AppBar>
       </div>
-      <div className='event-banner' id='pride'></div>
+      <div className='nav-spacer'></div>
     </>
   )
 }

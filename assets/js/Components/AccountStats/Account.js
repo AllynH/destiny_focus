@@ -64,7 +64,7 @@ class Account extends React.Component {
           <div className='stats-background'>
             <SeasonMenu {...this.props} {...statsData} />
           </div>
-          <ClickableCharacterList memberships={{ membershipId, membershipType }} />
+          <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
         </div>
       )
     }

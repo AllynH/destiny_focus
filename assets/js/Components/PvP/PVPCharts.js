@@ -157,8 +157,6 @@ class PvPChart extends React.Component {
   }
 
   getKdr(jsonResponse) {
-    // console.log('PvPChart - data:')
-    // console.log(jsonResponse)
     const kdrList = []
     const myArray = jsonResponse.Response.activities
     myArray.forEach((element, index) => {
@@ -230,7 +228,9 @@ class PvPChart extends React.Component {
       return <Spinner />
     } else {
       const kdr = this.getKdr(jsonResponse)
-      const { platform, membershipType, membershipId } = this.props.match.params
+      const {
+        membershipType, membershipId, characterId,
+      } = this.props.match.params
       // const { focusReducer } = this.state || {}
       // const { allTime, season } = statsData
 
@@ -278,7 +278,7 @@ class PvPChart extends React.Component {
               </div>
             </div>
           </div>
-          <ClickableCharacterList memberships={{ membershipId, membershipType }} />
+          <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
         </>
       )
     }
