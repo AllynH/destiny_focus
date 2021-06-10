@@ -20,6 +20,7 @@ import GetProgresions from '../Profile/GetProgressions'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    display: 'inline-block',
     maxHeight: 100,
     width: '100%',
     backgroundColor: 'var(--crucible-dark-4)',
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 const useBGStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    display: 'inline-block',
     maxHeight: 100,
     width: '100%',
     backgroundPosition: '-52px bottom',
@@ -62,9 +64,7 @@ const useBGStyles = makeStyles((theme) => ({
 }))
 
 export default function NavBar() {
-  const {
-    auth, membershipType, membershipId, characterId, gameMode,
-  } = useParams()
+  const { auth, membershipType, membershipId, characterId, gameMode } = useParams()
 
   const [authFlag, setAuthFlag] = useState(false)
   const [anchorElProfile, setAnchorElProfile] = useState(null)
@@ -100,132 +100,135 @@ export default function NavBar() {
   }, [auth, membershipType, membershipId, characterId, gameMode])
 
   return (
-    <div
-      className={profile ? bgClasses.root : classes.root}
-      style={
-        profile
-          ? {
-            position: 'relative,',
-            backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
-            backgroundColor: 'transparent',
-          }
-          : {}
-      }
-    >
-      <AppBar position='static' className='nav-bar-main'>
-        <Toolbar>
-          {profile && <div className='icon-shimmer'></div>}
-          <IconButton
-            edge='start'
-            className={`${classes.menuButton}`}
-            color='inherit'
-            aria-label='Destiny focus: menu'
-            aria-controls='menu-appbar'
-            aria-haspopup='true'
-            onClick={handleProfile}
-          >
-            {profile ? (
-              <div
+    <>
+      <div
+        className={profile ? bgClasses.root : classes.root}
+        style={
+          profile
+            ? {
+                position: 'relative,',
+                backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
+                backgroundColor: 'transparent',
+              }
+            : {}
+        }
+      >
+        <AppBar position='static' className='nav-bar-main'>
+          <Toolbar>
+            {profile && <div className='icon-shimmer'></div>}
+            <IconButton
+              edge='start'
+              className={`${classes.menuButton}`}
+              color='inherit'
+              aria-label='Destiny focus: menu'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
+              onClick={handleProfile}
+            >
+              {profile ? (
+                <div
+                  onClose={handleClose}
+                  open={openProfile}
+                  style={
+                    profile
+                      ? {
+                          position: 'relative',
+                          top: 50,
+                          minHeight: 96,
+                          minWidth: 96,
+                          backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
+                          backgroundColor: 'transparent',
+                          backgroundSize: 'contain',
+                        }
+                      : {}
+                  }
+                ></div>
+              ) : (
+                <MenuIcon />
+              )}
+            </IconButton>
+            {authFlag ? (
+              <Menu
+                id='menu-appbar'
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                anchorEl={anchorElProfile}
                 onClose={handleClose}
                 open={openProfile}
-                style={
-                  profile
-                    ? {
-                      position: 'relative',
-                      top: 50,
-                      minHeight: 96,
-                      minWidth: 96,
-                      backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
-                      backgroundColor: 'transparent',
-                      backgroundSize: 'contain',
-                    }
-                    : {}
-                }
-              ></div>
-            ) : (
-              <MenuIcon />
-            )}
-          </IconButton>
-          {authFlag ? (
-            <Menu
-              id='menu-appbar'
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              anchorEl={anchorElProfile}
-              onClose={handleClose}
-              open={openProfile}
-            >
-              <MenuList>
-                <MenuItem
-                  onClick={handleClose}
-                  component={Link}
-                  to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
-                >
-                  Account stats
-                </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  component={Link}
-                  to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}`}
-                >
-                  Choose Focus
-                </MenuItem>
-              </MenuList>
-              <hr />
-              <MenuList>
-                <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
-                  Change platform
-                </MenuItem>
-                <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
-                  About
-                </MenuItem>
-                <MenuItem onClick={handleClose} component={Link} to={'/faq/'}>
-                  FAQ
-                </MenuItem>
-              </MenuList>
-              <MenuItem onClick={handleClose}>
-                <a href='/auth/logout/'>Logout</a>
-              </MenuItem>
-            </Menu>
-          ) : (
-            <Menu
-              id='menu-appbar'
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              anchorEl={anchorElProfile}
-              onClose={handleClose}
-              open={openProfile}
-            >
-              <MenuList>
+              >
+                <MenuList>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
+                  >
+                    Account stats
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}`}
+                  >
+                    Choose Focus
+                  </MenuItem>
+                </MenuList>
+                <hr />
+                <MenuList>
+                  <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
+                    Change platform
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
+                    About
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to={'/faq/'}>
+                    FAQ
+                  </MenuItem>
+                </MenuList>
                 <MenuItem onClick={handleClose}>
-                  <a className='link-nav-home' href='/'>
-                    Destiny Focus
-                  </a>
+                  <a href='/auth/logout/'>Logout</a>
                 </MenuItem>
-              </MenuList>
-            </Menu>
-          )}
+              </Menu>
+            ) : (
+              <Menu
+                id='menu-appbar'
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                anchorEl={anchorElProfile}
+                onClose={handleClose}
+                open={openProfile}
+              >
+                <MenuList>
+                  <MenuItem onClick={handleClose}>
+                    <a className='link-nav-home' href='/'>
+                      Destiny Focus
+                    </a>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            )}
 
-          <Typography variant='h6' className={classes.title}>
-            Destiny Focus
-          </Typography>
-          {/* <GetProgresions {...{}} /> */}
-        </Toolbar>
-      </AppBar>
-    </div>
+            <Typography variant='h6' className={classes.title}>
+              Destiny Focus
+            </Typography>
+            {/* <GetProgresions {...{}} /> */}
+          </Toolbar>
+        </AppBar>
+      </div>
+      <div className='event-banner' id='pride'></div>
+    </>
   )
 }
