@@ -1,48 +1,84 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
-import Shimmer from '../../Utils/Loading/Shimmer'
 import WeaponDropdown from './WeaponDropdown'
+import { WEAPON_TYPES } from '../../Data/destinyEnums'
 
 import './style.css'
 
-export default function PrecisionWeaponKills(props) {
-  var weapon_id_list = []
-  var weapon_name_list = []
-  props.Response.map((p, index) => {
-    // In case of no weapon kills:
+const createWeaponDefList = (Response) => {
+  /*
+    Creates an object containing all unique weapons, a player has achieved a kill with.
+    This uses a 'try catch', as in some cases the user may not
+      have gotten a weapon kill in a given game.
+  */
+  let wepDefObjs = {}
+  Response.forEach((p) => {
     try {
-      p.data.extended.weapons.map((w) => {
-        // weapon_id_list.indexOf(w.referenceId) === -1 ? weapons.push(w.referenceId) : null
-        weapon_name_list.indexOf(w.definition.displayProperties.name) === -1
-          ? weapon_name_list.push(w.definition.displayProperties.name)
-          : null
+      p.data.extended.weapons.forEach((w) => {
+        if (Object.keys(wepDefObjs).indexOf(w.referenceId) === -1) {
+          wepDefObjs = { ...wepDefObjs, [w.referenceId]: w.definition }
+        }
       })
     } catch (e) {
-      // null
       // console.log(e)
-      // console.log(p)
     }
-    // console.log(weapons)
   })
+  return wepDefObjs
+}
 
-  console.log('weapons')
-  console.log(weapon_name_list)
-  // console.log(weapon_id_list)
+const filterWeaponDefList = (weapDefObj, filter = 'kinetic') => {
+  /*
+    Filters wepDefObj for weapons of a given bucketTypeHash.
+    Hashes are:
+      kinetic
+      energy
+      power
+  */
+  const wepHash = WEAPON_TYPES[filter]
+  const filtered = Object.keys(weapDefObj)
+    .filter((hash) => weapDefObj[hash].inventory.bucketTypeHash === wepHash)
+    .reduce((accumulator, hash) => {
+      accumulator[hash] = weapDefObj[hash]
+      return accumulator
+    }, {})
+  return filtered
+}
 
-  // Mida Multi-Tool: 1331482397
+const filterWeaponDefListByHash = (weapDefObj, filter = 'kinetic', selectedHash = 1364093401) => {
+  /*
+    Filters wepDefObj for weapons of a given bucketTypeHash.
+    Hashes are:
+      kinetic
+      energy
+      power
+  */
+  const wepHash = WEAPON_TYPES[filter]
+  const filtered = Object.keys(weapDefObj)
+    .filter((hash) => weapDefObj[hash].inventory.bucketTypeHash === wepHash)
+    .filter((hash) => weapDefObj[hash].hash === selectedHash)
+    .reduce((accumulator, hash) => {
+      accumulator[hash] = weapDefObj[hash]
+      return accumulator
+    }, {})
+  return filtered
+}
 
-  const WeaponList = () => {
-    const weapons = weapon_name_list.map((w, index) => {
-      return <li key={index}>{w}</li>
-    })
+export default function PrecisionWeaponKills(props) {
+  const { Response } = props || {}
+  const allWeaponDefs = createWeaponDefList(Response)
+  // const filteredWeapons = filterWeaponDefList(allWeaponDefs, 'energy')
+  // const TLW = filterWeaponDefListByHash(allWeaponDefs, 'kinetic', 1364093401)
 
-    const weaponList = <ul>{weapons}</ul>
-    return weapon_name_list
-  }
+  // console.log('Weapon filters:')
+  // console.log(allWeaponDefs)
+  // console.log(filteredWeapons)
+  // console.log(TLW)
 
   return (
     <div>
-      <WeaponDropdown {...props} weaponList={weapon_name_list} />
+      <WeaponDropdown
+        {...props}
+        allWeaponDefs={allWeaponDefs} />
     </div>
   )
 }

@@ -236,7 +236,6 @@ class PvPChart extends React.Component {
 
       return (
         <>
-          <GetProgresions />
           <div className='reload-progress-wrapper'>
             {this.state.updating ? (
               <div className='reload-animation-box'>
@@ -248,6 +247,7 @@ class PvPChart extends React.Component {
               </div>
             )}
           </div>
+          <GetProgresions />
           {/* Put character list on top? */}
           {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
           <div>

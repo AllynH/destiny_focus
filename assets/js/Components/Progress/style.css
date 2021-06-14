@@ -46,7 +46,7 @@
 
 /* ReloadProgressBar */
 .reload-progress-wrapper{
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 .reload-progress-bar{
   position: relative;
@@ -79,7 +79,7 @@
 */
 
 .round-time-bar {
-  margin: 1rem;
+  /* margin: 1rem; */
   overflow: hidden;
   background-color: rgba(10, 10, 10, 0.3);
 }

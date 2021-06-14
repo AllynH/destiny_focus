@@ -650,7 +650,7 @@ def pgcr_list(membershipType, membershipId, characterId):
                 # Add weapon definition to responses:
                 try:
                     for index, weapons in enumerate(entry["extended"].get("weapons")):
-                        definition = get_definition("DestinyInventoryItemLiteDefinition", str(weapons["referenceId"]))
+                        definition = get_definition("DestinyInventoryItemDefinition", str(weapons["referenceId"]))
                         stats["data"]["extended"]["weapons"][index]["definition"] = definition
                 except:
                     continue

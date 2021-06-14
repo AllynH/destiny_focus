@@ -57,3 +57,9 @@ export const PROGRESSION_DATA = {
   Valor: { hash: 2083746873, maxRank: 2000, streakHash: 2203850209 },
   Infamy: { hash: 3008065600, maxRank: 15000, streakHash: 2939151659 },
 }
+
+export const WEAPON_TYPES = {
+  kinetic: 1498876634,
+  energy: 2465295065,
+  power: 953998645,
+}

@@ -6,10 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import PrecisionWeaponChart from './PrecisionWeaponChart'
 
 export default function SimpleMenu(props) {
-  console.log(props)
-  console.log(props.weaponList)
+  const { allWeaponDefs } = props
   const [anchorEl, setAnchorEl] = React.useState(null)
-  const [selectedWeapon, setSelectedWeapon] = React.useState(props.weaponList[0] || '')
+  const [selectedWeapon, setSelectedWeapon] = React.useState(Object.keys(allWeaponDefs)[0] || '')
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -19,7 +18,6 @@ export default function SimpleMenu(props) {
     setSelectedWeapon(event.currentTarget.getAttribute('value'))
     setAnchorEl(null)
   }
-
 
   const useStyles = makeStyles({
     button: {
@@ -33,14 +31,12 @@ export default function SimpleMenu(props) {
   });
   const classes = useStyles();
 
-  console.log('selectedWeapon')
-  console.log(selectedWeapon)
-
   return (
     <div>
-      <Button className={'dropdown-button'} className={classes.button} aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
-        {selectedWeapon || 'Select a weapon'}
+      <Button className={`dropdown-button ${classes.button}`} aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
+        {allWeaponDefs[selectedWeapon]?.displayProperties?.name || 'Select a weapon'}
       </Button>
+
       <Menu
         id='simple-menu'
         anchorEl={anchorEl}
@@ -48,14 +44,18 @@ export default function SimpleMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {props.weaponList.map((p, index) => (
+        {Object.keys(allWeaponDefs).map((p, index) => (
           <MenuItem key={index} value={p} onClick={handleClose}>
-            {p}
+            {allWeaponDefs[p].displayProperties.name}
           </MenuItem>
         ))}
       </Menu>
+
       {selectedWeapon ? (
-        <PrecisionWeaponChart weaponName={selectedWeapon} {...props} />
+        <PrecisionWeaponChart
+          weaponName={allWeaponDefs[selectedWeapon].displayProperties.name}
+          {...props}
+        />
       ) : (
         ''
       )}
