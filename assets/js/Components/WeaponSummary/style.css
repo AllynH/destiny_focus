@@ -1,32 +1,78 @@
-.h2-weapon-precision{
-    color: var(--crucible-dark-4);
-    margin-left: 20px;
-    text-transform: uppercase;
+.h2-weapon-precision {
+  color: var(--crucible-dark-4);
+  margin-left: 20px;
+  text-transform: uppercase;
 }
 
-.dropdown-button{
-    background: var(--crucible-red);
-    padding: 10px 25px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: var(--grey-bg);
-    width: 100px;
-    text-align: center;    
+.dropdown-button {
+  background: var(--crucible-red);
+  padding: 10px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--grey-bg);
+  width: 100px;
+  text-align: center;
 }
 
-.weapon-precision-wrapper{
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    border: solid 2px var(--grey-dark-1);
-    background-color: var(--grey-dark-3);
-    box-shadow: 3px 3px 15px black;
+.weapon-precision-wrapper {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 2px var(--grey-dark-1);
+  background-color: var(--grey-dark-3);
+  box-shadow: 3px 3px 15px black;
 }
 
-.weapon-precision-avg-max-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    padding-top: 4px;
-    padding-bottom: 4px;
+.weapon-precision-avg-max-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.weapon-selector-list {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  background-color: var(--grey-dark-5);
+  box-shadow: 3px 3px 15px black;
+}
+
+.weapon-selector-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.weapon-selector-image-text-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+.weapon-selector-item-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.weapon-selector-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.weapon-selector-icon {
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 45px;
+  width: 45px;
+  margin: 5px;
+  box-shadow: 2px 2px 5px black;
+}
+.weapon-selector-title {
+  margin: 0px;
+}
+
+.weapon-selector-item:hover {
+  box-shadow: 0 0 0 2px var(--vanguard-light-5);
+  transform: scale(1.1) translateZ(0);
+  transition: box-shadow 0.25s, transform 0.25s;
 }

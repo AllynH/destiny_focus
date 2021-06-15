@@ -1,55 +1,52 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import { makeStyles } from '@material-ui/core/styles';
+
 import PrecisionWeaponChart from './PrecisionWeaponChart'
+import { filterWeaponDefList } from '../../Utils/HelperFunctions/FilterWeapons'
 
 export default function SimpleMenu(props) {
   const { allWeaponDefs } = props
-  const [anchorEl, setAnchorEl] = React.useState(null)
   const [selectedWeapon, setSelectedWeapon] = React.useState(Object.keys(allWeaponDefs)[0] || '')
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+  const kineticWeapons = filterWeaponDefList(allWeaponDefs, 'kinetic')
+  const energyWeapons = filterWeaponDefList(allWeaponDefs, 'energy')
+  const powerWeapons = filterWeaponDefList(allWeaponDefs, 'power')
 
   const handleClose = (event) => {
     setSelectedWeapon(event.currentTarget.getAttribute('value'))
-    setAnchorEl(null)
   }
 
-  const useStyles = makeStyles({
-    button: {
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-      borderRadius: 5,
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      color: 'var(--grey-bg)',
-      width: 150,
-      textAlign: 'center',
-    },
-  });
-  const classes = useStyles();
+  const WeaponGroup = (p) => {
+    const { weaponObject, weaponType } = p
+    return (
+      <div className='weapon-selector-group'>
+        <div className='weapon-selector-image-text-wrap'>
+          <h3 className='weapon-selector-title'>{weaponType}</h3>
+          <div className='weapon-selector-item-list'>
+            {Object.keys(weaponObject).map((weapon, index) => (
+              <div key={index} className=''>
+                <div
+                  className='weapon-selector-icon weapon-selector-item'
+                  key={index}
+                  onClick={handleClose}
+                  value={weapon}
+                  aria-controls='simple-menu'
+                  aria-haspopup='true'
+                  style={{
+                    background: `url(${`https://www.bungie.net${weaponObject[weapon]?.displayProperties?.icon}`}`,
+                    backgroundSize: 'contain',
+                    backgrouudRepeat: 'no-repeat',
+                  }}
+                ></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div>
-      <Button className={`dropdown-button ${classes.button}`} aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
-        {allWeaponDefs[selectedWeapon]?.displayProperties?.name || 'Select a weapon'}
-      </Button>
-
-      <Menu
-        id='simple-menu'
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {Object.keys(allWeaponDefs).map((p, index) => (
-          <MenuItem key={index} value={p} onClick={handleClose}>
-            {allWeaponDefs[p].displayProperties.name}
-          </MenuItem>
-        ))}
-      </Menu>
 
       {selectedWeapon ? (
         <PrecisionWeaponChart
@@ -59,6 +56,11 @@ export default function SimpleMenu(props) {
       ) : (
         ''
       )}
+      <div className='weapon-selector-list'>
+        <WeaponGroup weaponObject={kineticWeapons} weaponType='Kinetic' />
+        <WeaponGroup weaponObject={energyWeapons} weaponType='Energy' />
+        <WeaponGroup weaponObject={powerWeapons} weaponType='Power' />
+      </div>
     </div>
   )
 }

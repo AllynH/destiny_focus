@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import KDRChart from './KDRChartScatter'
 
 import './style.css'
-import ReloadProgressBar from '../Progress/ReloadProgressBar'
 import SpinnerDualRing from '../../Utils/Loading/SpinnerDualRing'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import PgcrList from '../PGCR/PgcrList'
@@ -16,7 +15,6 @@ import PgcrSummary from './PgcrSummary'
 // import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
-import { statsData } from '../../Data/statsData'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import GetProgresions from '../Profile/GetProgressions'
@@ -218,8 +216,6 @@ class PvPChart extends React.Component {
 
   render() {
     const { error, isLoaded, jsonResponse } = this.state
-    const { gameMode } = this.props
-
     const { focusReducer } = this.props || {}
 
     if (error) {
@@ -231,8 +227,6 @@ class PvPChart extends React.Component {
       const {
         membershipType, membershipId, characterId,
       } = this.props.match.params
-      // const { focusReducer } = this.state || {}
-      // const { allTime, season } = statsData
 
       return (
         <>

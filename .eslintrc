@@ -15,6 +15,9 @@
     // Don't name class functions: _internalFunc()
     // "no-underscore-dangle": 0,
 
+    // Change max line length to 120:
+    "max-len": ["error", { "code": 120 }]
+    
     // Remove?? :
     // "no-param-reassign": 0,
     // "import/no-extraneous-dependencies": 0,

@@ -4,6 +4,7 @@ import {
   VictoryChart, VictoryBar, VictoryStack, VictoryAxis,
 } from 'victory'
 
+import { PrecisionChartLegend } from '../ChartHelpers/ChartLegend'
 import './style.css'
 
 export default function PrecisionWeaponChart(props) {
@@ -84,16 +85,18 @@ export default function PrecisionWeaponChart(props) {
 
   return (
     <>
-      <div className='chart kdr-chart'>
-        <h2 className='h2-weapon-precision'>{weaponName || ''}</h2>
-        <VictoryChart height={400} width={400} domainPadding={{ x: 30, y: 20 }}>
-          <VictoryStack colorScale={['blue', 'tomato']}>
-            {WeaponData.map((d, i) => (
-              <VictoryBar data={d} key={i} />
-            ))}
-          </VictoryStack>
+      <div className='chart-focus-row-wrapper'>
+        <div className='chart kdr-chart'>
+          <PrecisionChartLegend />
+          {/* <h2 className='h2-weapon-precision'>{weaponName || ''}</h2> */}
+          <VictoryChart height={300} width={450} domainPadding={{ x: 30, y: 20 }}>
+            <VictoryStack colorScale={['var(--vanguard-blue)', 'var(--crucible-red)']}>
+              {WeaponData.map((d, i) => (
+                <VictoryBar data={d} key={i} />
+              ))}
+            </VictoryStack>
 
-          {/* <VictoryLine
+            {/* <VictoryLine
             style={{
               data: { fill: 'greyscale', opacity: 0.7 },
             }}
@@ -112,21 +115,32 @@ export default function PrecisionWeaponChart(props) {
             ]}
           /> */}
 
-          <VictoryAxis label={'Kills'} dependentAxis />
-          <VictoryAxis label={'Games (left is newer)'} />
-        </VictoryChart>
-      </div>
-      <div className='weapon-precision-wrapper'>
-      <h2 className='focus-heading-h2'>Weapon stats: {weaponName || ''}</h2>
-      <p>
-        Equiped for: {equipCount} games.
-      </p>
-      <div className='weapon-precision-avg-max-grid'>
-        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Max kills: </span><span className='ability-detail-value'>{maxKills}</span></div>
-        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Max precision kills: </span><span className='ability-detail-value'>{maxPrecisionKills}</span></div>
-        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Avg kills: </span><span className='ability-detail-value'>{killsAvg}</span></div>
-        <div className='weapon-precision-avg-max-grid'><span className='ability-detail-title'>Avg precision kills: </span><span className='ability-detail-value'>{precisionAvg}</span></div>
-      </div>
+            <VictoryAxis label={'Kills'} dependentAxis />
+            <VictoryAxis label={'Games (left is newer)'} />
+          </VictoryChart>
+        </div>
+        <div className='weapon-precision-wrapper'>
+          <h2 className='focus-heading-h2 no-margin'>{weaponName || ''}: {equipCount} games</h2>
+          {/* <p>Equiped for: {equipCount} games.</p> */}
+          <div className='weapon-precision-avg-max-grid'>
+            <div className='weapon-precision-avg-max-grid'>
+              <span className='ability-detail-title'>Max kills: </span>
+              <span className='ability-detail-value'>{maxKills}</span>
+            </div>
+            <div className='weapon-precision-avg-max-grid'>
+              <span className='ability-detail-title'>Max precision kills: </span>
+              <span className='ability-detail-value'>{maxPrecisionKills}</span>
+            </div>
+            <div className='weapon-precision-avg-max-grid'>
+              <span className='ability-detail-title'>Avg kills: </span>
+              <span className='ability-detail-value'>{killsAvg}</span>
+            </div>
+            <div className='weapon-precision-avg-max-grid'>
+              <span className='ability-detail-title'>Avg precision kills: </span>
+              <span className='ability-detail-value'>{precisionAvg}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )

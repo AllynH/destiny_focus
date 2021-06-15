@@ -30,6 +30,10 @@
   justify-content: center;
   filter: drop-shadow(1px 1px 8px black);
 }
+.small-chart-wrap{
+  width: 400px;
+  /* height: 250px; */
+}
 .float-below {
   padding-right: 8px;
   /* margin-bottom: -50px; */
@@ -74,6 +78,7 @@
 
 .heading-capitalize {
   text-transform: capitalize;
+  margin: 5px;
 }
 
 .summary-chart-wrapper {
@@ -225,6 +230,12 @@
 }
 .average-colour {
   background-color: var(--vanguard-blue);
+}
+.precision-colour{
+  background-color: var(--vanguard-blue);
+}
+.bodyshot-colour{
+  background-color: var(--crucible-red);
 }
 .chart-legend-item {
   display: flex;

@@ -25,7 +25,7 @@ export function PcgrStats(props) {
 export function Loading() {
   return (
     <>
-      <h3 className='loading-text'>Hold on, I'm pulling a lot of data...</h3>
+      <h3 className='loading-text'>Hold on, I{'\''}m pulling a lot of data...</h3>
       <Shimmer />
     </>
   )
@@ -36,7 +36,6 @@ export default function PgcrSummary(props) {
   const [avgKillSummary, setAvgKillSummary] = useState()
   const { membershipType, membershipId, characterId } = props.match.params
   const { gameMode } = getUrlDetails()
-  const focusGoals = props.focusReducer?.payload
   const myArray = props.activityList?.Response?.activities
 
   // console.log('pgcrSummary')
@@ -44,15 +43,16 @@ export default function PgcrSummary(props) {
 
   // Fetch the Activity definition - Map icon, name :
   useEffect(() => {
-    const fetchPgcrSummary = async (activityId) => {
+    const fetchPgcrSummary = async () => {
       const result = await GetPGCRList({
-        params: { membershipType, membershipId, characterId, gameMode },
+        params: {
+          membershipType, membershipId, characterId, gameMode,
+        },
       })
       setPgcrSummary(result)
       // console.log('fetchPgcrSummary')
       // console.log(result)
       setAvgKillSummary(AvgWeaponAbilityKills(result))
-
     }
     fetchPgcrSummary()
   }, [myArray])
