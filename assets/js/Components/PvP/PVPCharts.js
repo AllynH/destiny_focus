@@ -18,6 +18,7 @@ import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requ
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import GetProgresions from '../Profile/GetProgressions'
+import FocusChoiceHeader from './FocusChoiceHeader'
 
 const UPDATE_TIME = 20
 const fetchPVPData = async () => {
@@ -230,6 +231,7 @@ class PvPChart extends React.Component {
 
       return (
         <>
+          <FocusChoiceHeader />
           <div className='reload-progress-wrapper'>
             {this.state.updating ? (
               <div className='reload-animation-box'>

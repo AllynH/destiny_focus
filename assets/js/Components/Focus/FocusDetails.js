@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import Crucible from '../../../img/icons/Crucible.svg'
 import Raid from '../../../img/icons/Raid.svg'
 import Gambit from '../../../img/icons/Gambit.svg'

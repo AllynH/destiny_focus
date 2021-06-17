@@ -34,14 +34,14 @@
 .weapon-selector-list {
   display: flex;
   flex-direction: column;
-  margin: 10px 0;
-  background-color: var(--grey-dark-5);
-  box-shadow: 3px 3px 15px black;
 }
 
 .weapon-selector-group {
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 4px;
+  border-radius: 3px;
 }
 
 .weapon-selector-image-text-wrap {

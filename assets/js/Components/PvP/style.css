@@ -1,3 +1,6 @@
+.focus-header-gamemode-heading{
+  border: none;
+}
 .chart-heading-wrap {
   display: flex;
   flex-direction: column;
@@ -286,3 +289,4 @@
     align-self: center;
   }
 }
+

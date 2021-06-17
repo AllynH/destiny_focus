@@ -6,6 +6,7 @@ import Trials from '../../../img/icons/faction_osiris2.svg'
 import Ironbanner from '../../../img/icons/faction_ironbanner2.svg'
 import Raid from '../../../destiny-icons/explore/raid_complex.svg'
 import Nightfall from '../../../img/icons/Nightfall.svg'
+import Dungeon from '../../../img/icons/Dungeon.svg'
 
 import DualSpinner from '../../Utils/Loading/SpinnerDualRing'
 
@@ -37,6 +38,7 @@ export default function SelectActivityIcon(props) {
           />
         )
       case 'AllPvP':
+      case 'All PvP':
       case 'Survival':
       case 'Control':
       case 'Elimination':
@@ -110,11 +112,27 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
+      case 'Dungeon':
+        return (
+          <Dungeon
+            width={iconWidth}
+            height={iconHeight}
+            viewBox={'0 0 8.4 8.4'}
+            style={{
+              fill: smallIcon ? iconColour : 'var(--grey-light-2)',
+              zIndex: 1,
+              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+            }}
+          />
+        )
       case 'Unknown':
         return (
           <div
             style={{
-              display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              width: '50%',
+              alignItems: 'center',
             }}
           >
             <DualSpinner />

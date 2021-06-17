@@ -56,7 +56,7 @@ export default function SimpleMenu(props) {
       ) : (
         ''
       )}
-      <div className='weapon-selector-list'>
+      <div className='weapon-selector-list weapon-precision-wrapper'>
         <WeaponGroup weaponObject={kineticWeapons} weaponType='Kinetic' />
         <WeaponGroup weaponObject={energyWeapons} weaponType='Energy' />
         <WeaponGroup weaponObject={powerWeapons} weaponType='Power' />

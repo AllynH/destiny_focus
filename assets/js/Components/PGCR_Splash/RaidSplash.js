@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useRef } from 'react'
+// import { useParams } from 'react-router-dom'
 
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
-import {
-  calculateKillDeathRatio,
-  calculateKillDeathAssistsRatio,
-} from '../../Utils/HelperFunctions/KdrFunctions'
+// import Button from '@material-ui/core/Button'
+// import SaveIcon from '@material-ui/icons/Save'
+// import {
+//   calculateKillDeathRatio,
+//   calculateKillDeathAssistsRatio,
+// } from '../../Utils/HelperFunctions/KdrFunctions'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { pgcrSplashCategories } from './parsePgcrData'
 
 import SelectActivityIcon from './SelectActivityIcon'
 import Player from './Player'
 import ReturnToFocusButton from './ReturnToFocus'
-import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
+// import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
 
 import './style.css'
 
@@ -26,14 +26,14 @@ export default function RaidSplash({
   setActiveUserId = null,
   pathname = '/',
 }) {
-  const params = useParams()
+  // const params = useParams()
   const currRef = useRef(null)
   // console.log('PvpSplash.js')
   // console.log('pgcr', pgcr)
   // console.log('activityDef', activityDef)
   // console.log('referenceDef', referenceDef)
 
-  const { activityId } = params
+  // const { activityId } = params
   const backgroundImage = `url(https://www.bungie.net${referenceDef.pgcrImage})`
   const mapStyle = () => ({
     '--bgImage': backgroundImage,
@@ -110,10 +110,10 @@ export default function RaidSplash({
                       <div className='team-icon-score-pull-left'>
                         <div className='team-score'>
                           <h2>
-                            {pgcr &&
-                              pgcr?.Response?.teams
+                            {pgcr
+                              && pgcr?.Response?.teams
                                 // .filter((t) => t.teamId === 19)
-                                .map((t, index) => t.score.basic.value)}
+                                .map((t) => t.score.basic.value)}
                           </h2>
                         </div>
                         {/* <div className='team-icon-wrap'>
@@ -132,8 +132,8 @@ export default function RaidSplash({
                     {/* <div className='alpha-colour-banner'></div> */}
                   </div>
 
-                  {pgcr &&
-                    pgcr?.Response?.entries.map((entry, index) => (
+                  {pgcr
+                    && pgcr?.Response?.entries.map((entry, index) => (
                       <Player
                         {...setActiveUserId}
                         entry={entry}
