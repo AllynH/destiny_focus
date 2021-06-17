@@ -19,22 +19,23 @@ export default function AbilitiesPie(props) {
 
   const [formattedData, setFormattedData] = useState(false)
 
-  const orange = { base: 'gold', highlight: 'darkOrange' }
+  /* Legacy debug items: */
+  // const orange = { base: 'gold', highlight: 'darkOrange' }
 
-  const red = { base: 'tomato', highlight: 'orangeRed' }
+  // const red = { base: 'tomato', highlight: 'orangeRed' }
 
-  const innerRadius = 30
+  // const innerRadius = 30
 
-  const style = {
-    fontSize: 18,
-    fontWeight: 'bold',
-  }
+  // const style = {
+  //   fontSize: 18,
+  //   fontWeight: 'bold',
+  // }
 
-  const testData = [
-    { x: 1, y: 2, label: 'one' },
-    { x: 2, y: 3, label: 'two' },
-    { x: 3, y: 5, label: 'three' },
-  ]
+  // const testData = [
+  //   { x: 1, y: 2, label: 'one' },
+  //   { x: 2, y: 3, label: 'two' },
+  //   { x: 3, y: 5, label: 'three' },
+  // ]
 
   useEffect(() => {
     // console.log('Inside useEffect: AbilitiesPie')
@@ -48,17 +49,16 @@ export default function AbilitiesPie(props) {
         const accountForZero = value > 0 ? value : 0.1
         const vals = {
           x: count,
-          y: value,
+          y: accountForZero,
           label: `${key}: ${value}`,
           stroke: 'var(--crucible-red)',
-          filter: 'drop-shadow( 3px 3px 7px rgba(0, 0, 0, .5))',
+          filter: 'drop-shadow( 3px 3px 7px rgba(255, 255, 255, .5))',
         }
         formatted.push(vals)
       }
 
       // console.log(formatted)
       setFormattedData(formatted)
-      // setFormattedData(junk)
       return formatted
     }
     makeChartData()
@@ -83,11 +83,11 @@ export default function AbilitiesPie(props) {
               </linearGradient>
               <linearGradient id='gradient3' x1='0%' y1='0%' x2='0%' y2='100%'>
                 <stop offset='0%' stopColor='var(--gambit-green)' />
-                <stop offset='100%' stopColor='darkGreen' />
+                <stop offset='100%' stopColor='var(--gambit-green-dark-1)' />
               </linearGradient>
               <linearGradient id='gradient4' x1='0%' y1='0%' x2='0%' y2='100%'>
-                <stop offset='0%' stopColor='purple' />
-                <stop offset='100%' stopColor='blue' />
+                <stop offset='0%' stopColor='var(--bungie-power-light-1)' />
+                <stop offset='100%' stopColor='var(--bungie-power-dark-1)' />
               </linearGradient>
             </defs>
           </svg>
@@ -95,7 +95,7 @@ export default function AbilitiesPie(props) {
             padding={40}
             labelComponent={<VictoryTooltip />}
             style={{
-              data: { filter: 'drop-shadow( 3px 3px 7px rgba(50, 50, 50, .6))' },
+              data: { filter: 'drop-shadow( 3px 3px 7px rgba(200, 200, 200, .5))' },
               labels: {
                 fill: 'var(--vanguard-dark-4)',
                 fontSize: 20,

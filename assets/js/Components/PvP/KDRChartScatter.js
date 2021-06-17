@@ -44,6 +44,21 @@ class PvPChart extends React.Component {
     focusReducer?.payload ? console.log('Using focus goals') : console.log('Using default goals')
     const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer?.payload.killDeathRatio) : 1.2
     const [average, arrLength] = getKdrAverage(this.props.data)
+
+    const axisStyle = {
+      background: {
+        fill: 'var(--vanguard-dark-5)',
+      },
+      tickLabels: {
+        fill: 'white',
+      },
+      axis: {
+        stroke: 'white',
+      },
+      axisLabel: {
+        fill: 'white',
+      },
+    }
     // console.log('Render PvPChart')
     // console.log(this.props)
     // console.log('kdrGoal', kdrGoal)
@@ -59,6 +74,19 @@ class PvPChart extends React.Component {
             <VictoryChart
               // height={400}
               // width={400}
+              style={{
+                background: {
+                  fill: 'var(--vanguard-dark-5)',
+                },
+                tickLabels: {
+                  fill: 'white',
+                },
+              }}
+              // theme={{
+              //   tickLabels: {
+              //     fill: 'white',
+              //   },
+              // }}
               containerComponent={<VictoryVoronoiContainer />}
             >
               <VictoryGroup
@@ -80,11 +108,11 @@ class PvPChart extends React.Component {
                 />
                 <VictoryScatter size={({ active }) => (active ? 5 : 3)} />
               </VictoryGroup>
-              <VictoryAxis label='Games (left is newer)' />
-              <VictoryAxis label='K/D R' dependentAxis />
+              <VictoryAxis style={axisStyle} label='Games (left is newer)' />
+              <VictoryAxis style={axisStyle} label='K/D R' dependentAxis />
               <VictoryLine
                 style={{
-                  data: { stroke: 'var(--gambit-green)', opacity: 0.7 },
+                  data: { stroke: 'var(--bungie-power)', opacity: 1 },
                 }}
                 data={[
                   { x: 1, y: kdrGoal },
@@ -94,7 +122,7 @@ class PvPChart extends React.Component {
               {/* Add a  KDR avg line: */}
               <VictoryLine
                 style={{
-                  data: { stroke: 'var(--vanguard-blue)', opacity: 0.7 },
+                  data: { stroke: 'var(--vanguard-blue)', opacity: 1 },
                 }}
                 data={[
                   { x: 1, y: average },

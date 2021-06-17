@@ -83,6 +83,20 @@ export default function PrecisionWeaponChart(props) {
   const maxPrecisionKills = getMax(WeaponData[0], 'y')
   const maxKills = getMax(WeaponData[1], 'total')
 
+  const axisStyle = {
+    background: {
+      fill: 'var(--vanguard-dark-5)',
+    },
+    tickLabels: {
+      fill: 'white',
+    },
+    axis: {
+      stroke: 'white',
+    },
+    axisLabel: {
+      fill: 'white',
+    },
+  }
   return (
     <>
       <div className='chart-focus-row-wrapper'>
@@ -115,8 +129,8 @@ export default function PrecisionWeaponChart(props) {
             ]}
           /> */}
 
-            <VictoryAxis label={'Kills'} dependentAxis />
-            <VictoryAxis label={'Games (left is newer)'} />
+            <VictoryAxis style={axisStyle} label={'Kills'} dependentAxis />
+            <VictoryAxis style={axisStyle} label={'Games (left is newer)'} />
           </VictoryChart>
         </div>
         <div className='weapon-precision-wrapper'>

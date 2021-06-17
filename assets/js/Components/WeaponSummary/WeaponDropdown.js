@@ -25,7 +25,8 @@ export default function SimpleMenu(props) {
             {Object.keys(weaponObject).map((weapon, index) => (
               <div key={index} className=''>
                 <div
-                  className='weapon-selector-icon weapon-selector-item'
+                  // eslint-disable-next-line max-len
+                  className={`weapon-selector-icon weapon-selector-item ${selectedWeapon === weapon ? 'highlighted-weapon' : ''}`}
                   key={index}
                   onClick={handleClose}
                   value={weapon}

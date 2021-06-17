@@ -5,7 +5,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine } from 'victory'
+import {
+  VictoryAxis, VictoryChart, VictoryBar, VictoryTheme, VictoryLine,
+} from 'victory'
 
 import ChartLegend from '../ChartHelpers/ChartLegend'
 
@@ -23,6 +25,26 @@ export default function PrecisionChart(props) {
   //   ? console.log('PrecisionChart using focus goals')
   //   : console.log('PrecisionChart using default goals')
   // const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
+  const axisStyle = {
+    background: {
+      fill: 'var(--vanguard-dark-5)',
+    },
+    tickLabels: {
+      fill: 'white',
+    },
+    axis: {
+      stroke: 'white',
+    },
+    axisLabel: {
+      fill: 'white',
+    },
+    labels: {
+      fill: 'white',
+    },
+    data: {
+      fill: '#c43a31',
+    },
+  }
 
   if (props.chartName === 'averageLifeTime') {
     var dataType = 'life time (secs)'
@@ -72,9 +94,11 @@ export default function PrecisionChart(props) {
         <span className='ability-detail-title'>Goal: </span>
         <span className='ability-detail-value'>{goal}</span>
       </div>
-
     </div>
   )
+
+  console.log('axisStyle')
+  console.log(axisStyle)
 
   return (
     <div className='summary-chart-wrapper'>
@@ -85,12 +109,16 @@ export default function PrecisionChart(props) {
           /* theme={VictoryTheme.material} */ domainPadding={10}
           height={230}
           width={250}
+          style={axisStyle}
         >
-          <VictoryBar style={{ data: { fill: '#c43a31' } }} data={chartData} />
+          <VictoryAxis style={axisStyle} label='Games (left is newer)' />
+          <VictoryAxis style={axisStyle} dependentAxis />
+          <VictoryBar style={ { ...axisStyle }} data={chartData} />
           <VictoryLine
             name='Goal'
             style={{
-              data: { stroke: 'var(--gambit-green)', opacity: 0.7 },
+              ...axisStyle,
+              data: { stroke: 'var(--bungie-power)', opacity: 1 },
             }}
             data={[
               { x: 0, y: goal },
@@ -100,7 +128,7 @@ export default function PrecisionChart(props) {
           <VictoryLine
             name='Average'
             style={{
-              data: { stroke: 'var(--vanguard-blue)', opacity: 0.7 },
+              data: { stroke: 'var(--vanguard-blue)', opacity: 1 },
             }}
             data={[
               { x: 0, y: average },
