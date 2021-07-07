@@ -115,6 +115,7 @@ function DisplayProgression(props) {
 
   console.log('DisplayProgression')
   console.log(profileStreak)
+  console.log(profileStreak)
 
   /* Streak data: */
   const streakCount = profileStreak.currentProgress
