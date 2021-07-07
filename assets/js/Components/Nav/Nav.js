@@ -103,7 +103,7 @@ export default function NavBar() {
 
   return (
     <>
-      <div className='event-banner' id='pride'></div>
+      {/* <div className='event-banner' id='pride'></div> */}
       <div
         className={profile ? bgClasses.root : classes.root}
         style={
