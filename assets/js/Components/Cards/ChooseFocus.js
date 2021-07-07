@@ -13,6 +13,8 @@ import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import FormDialog from '../../Forms/focusForm'
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 
+import ItemModal from '../Item'
+
 // import { ViewStore } from '../../Utils/ViewStore'
 
 export default function ChooseFocus(props) {

@@ -113,8 +113,11 @@ function DisplayProgression(props) {
     progressionsDefinition, profileProgressions, profileStreak, mode, maxRank,
   } = props
 
+  console.log('DisplayProgression')
+  console.log(profileStreak)
+
   /* Streak data: */
-  const streakCount = profileStreak.stepIndex
+  const streakCount = profileStreak.currentProgress
   const arrSize = 5
   const streakArray = Array(arrSize).fill(true).fill(false, streakCount, arrSize)
 

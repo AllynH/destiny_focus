@@ -19,7 +19,7 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import GetProgresions from '../Profile/GetProgressions'
 
-const UPDATE_TIME = 20
+const UPDATE_TIME = 120
 const fetchPVPData = async () => {
   const {
     membershipType, membershipId, characterId, gameMode,

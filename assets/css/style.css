@@ -11,6 +11,12 @@
   --bungie-power: #DDCB59;
   --bungie-power-dark-1: #D5C034;
 
+  --exotic: #c3a019;
+  --legendary: #513065;
+  --rare: #5076a3;
+  --uncommon: #366e42;
+  --common: #dcdcdc;
+
   --glory: rgba(197, 23, 19, 255);
   --valor: rgba(214, 129, 44, 255);
   --infamy: rgba(65, 192, 160, 255);
@@ -350,6 +356,9 @@ footer .footer-nav {
   text-decoration: none;
 }
 
+.position-relative{
+  position: relative;
+}
 
 
 /* Event banners: */

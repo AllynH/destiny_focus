@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { makeStyles } from '@material-ui/core/styles'
-
 import Shimmer from '../../Utils/Loading/Shimmer'
 import { GetCharactersWithArgs } from '../../Utils/API/API_Requests'
 import CharacterCard from './CharacterCard'
