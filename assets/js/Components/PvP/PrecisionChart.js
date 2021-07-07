@@ -97,9 +97,6 @@ export default function PrecisionChart(props) {
     </div>
   )
 
-  console.log('axisStyle')
-  console.log(axisStyle)
-
   return (
     <div className='summary-chart-wrapper'>
       <h3 className='heading-capitalize'>{dataType}:</h3>
