@@ -13,7 +13,7 @@ export default function SeasonMenu(props) {
   // console.log(props)
   // console.log(props.season)
   // console.log(props)
-  const { season } = props
+  const { season, gameMode } = props
   const seasonList = [...Object.keys(SEASONS)]
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [selectedSeason, setselectedSeason] = React.useState(
@@ -71,6 +71,7 @@ export default function SeasonMenu(props) {
       {selectedSeason ? (
         <AccountStats
           {...props}
+          gameMode={gameMode}
           seasonDescription={`${selectedSeason}: ${SEASONS[selectedSeason].TITLE}`}
           season={selectedSeason}
           subHeading={season.subHeading}

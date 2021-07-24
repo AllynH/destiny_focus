@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import Crucible from '../../../img/icons/Crucible.svg'
 import Raid from '../../../img/icons/Raid.svg'
 import Gambit from '../../../img/icons/Gambit.svg'
@@ -10,6 +11,7 @@ import Dungeon from '../../../img/icons/Dungeon.svg'
 export const FOCUS_DETAILS = {
   Crucible: {
     activityMode: 5,
+    activityName: 'All PvP',
     focusName: 'Crucible',
     focus: 'pvp',
     description: 'Hone your skills and win glory in battle against other Guardians.',
@@ -20,8 +22,22 @@ export const FOCUS_DETAILS = {
       colour_3: 'var(--crucible-dark-2)',
     },
   },
+  CrucibleComp: {
+    activityMode: 37,
+    activityName: 'Competitive PvP',
+    focusName: 'Crucible',
+    focus: 'pvp',
+    description: 'Hone your skills and win glory in battle against other Guardians.',
+    Image: Crucible,
+    colours: {
+      colour_1: 'var(--glory)',
+      colour_2: 'var(--crucible-dark-1)',
+      colour_3: 'var(--crucible-dark-2)',
+    },
+  },
   Gambit: {
     activityMode: 63,
+    activityName: 'Gambit',
     focus: 'gambit',
     focusName: 'Gambit',
     description:
@@ -34,6 +50,7 @@ export const FOCUS_DETAILS = {
     },
   },
   Raid: {
+    activityName: 'Raid',
     activityMode: 4,
     focus: 'raid',
     focusName: 'Raid',
@@ -48,6 +65,7 @@ export const FOCUS_DETAILS = {
   },
   Trials: {
     activityMode: 84,
+    activityName: 'Trials of Osiris',
     focus: 'trials',
     focusName: 'Trials',
     description:
@@ -62,6 +80,7 @@ export const FOCUS_DETAILS = {
   },
   Dungeon: {
     activityMode: 82,
+    activityName: 'Dungeon',
     focus: 'dungeon',
     focusName: 'Dungeon',
     description:
@@ -75,6 +94,7 @@ export const FOCUS_DETAILS = {
   },
   Nightfall: {
     activityMode: 46,
+    activityName: 'Nightfall',
     focus: 'nightfall',
     focusName: 'Nightfall',
     description:

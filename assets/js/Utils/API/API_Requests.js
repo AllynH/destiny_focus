@@ -1,5 +1,4 @@
-/* eslint-disable eol-last */
-/* eslint-disable no-trailing-spaces */
+/* eslint-disable max-len */
 
 // No return await fetch: https://eslint.org/docs/rules/no-return-await
 // Use async await with React: https://www.valentinog.com/blog/await-react/
@@ -27,7 +26,7 @@ export const GetStatsData = async (options) => apiRequest(
 )
 
 export const GetStatsAllTime = async (options) => apiRequest(
-  `/auth/get/historical_stats_alltime/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`,
+  `/auth/get/historical_stats_alltime/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`,
   {
     ...options,
   },

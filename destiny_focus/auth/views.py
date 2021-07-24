@@ -499,10 +499,11 @@ def get_historical_stats(membershipType, membershipId, characterId):
                 return redirect(url_for("public.home"))
 
 
-            found_activities = activity['Response']['allPvP'].get('daily', False)
+            activity_key = list(activity['Response'].keys())[0]
+            found_activities = activity['Response'][activity_key].get('daily', False)
 
             if found_activities:
-                for a in activity['Response']['allPvP']['daily']:
+                for a in activity['Response'][activity_key]['daily']:
                     activity_list.append(a)
 
             day_end = day_start - timedelta(seconds=1)
@@ -529,18 +530,10 @@ def get_historical_stats_alltime(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
-    character_details = get_character_details_json(get_profile_res)
-
-    activity = my_api.get_historical_stats(membershipType, membershipId, characterId, daystart="", dayend="")
-
-
-    # if daystart < new_date:
-    #     print("daystart < new_date")
-    print("Testing time delta:")
+    mode    = int(request.args.get('game_mode', 5))
+    activity = my_api.get_historical_stats(membershipType, membershipId, characterId, modes=mode, daystart="", dayend="")
 
     return jsonify(activity)
-    # return render_template("auth/choose_focus.html")
 
 
 @blueprint.route("/get/gambit/<membershipType>/<membershipId>/<characterId>/")

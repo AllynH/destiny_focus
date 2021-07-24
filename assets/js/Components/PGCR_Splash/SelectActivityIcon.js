@@ -14,24 +14,54 @@ import './style.css'
 
 export default function SelectActivityIcon(props) {
   const { activityMode } = props
-  const { smallIcon } = props || false
+  const { iconStyle } = props || 'smallIconPgcr'
 
-  const iconWidth = smallIcon ? 150 : 300
-  const iconHeight = smallIcon ? 150 : 345
-  const iconColour = smallIcon ? 'white' : null
+  // const iconWidth = iconStyleVars.iconColour ? 150 : 300
+  // const iconHeight = iconStyleVars.iconColour ? 150 : 345
+  // const iconColour = iconStyleVars.iconColour ? 'white' : null
+  // let iconWidth = 150
+  // let iconHeight = 150
+  // let iconColour = 'white'
 
   const ReturnActivityIcon = () => {
     const m = props.activityMode
+    let iconStyleVars = {}
+
+    switch (iconStyle) {
+      case 'smallIconPgcr':
+      default:
+        iconStyleVars = {
+          iconWidth: 150,
+          iconHeight: 150,
+          iconColour: 'white',
+        }
+        break
+      case 'largeIconPgcr':
+        iconStyleVars = {
+          iconWidth: 300,
+          iconHeight: 345,
+          iconColour: null,
+        }
+        break
+      case 'smallIconAccountSelect':
+        iconStyleVars = {
+          iconWidth: 64,
+          iconHeight: 64,
+          iconColour: 'white',
+        }
+        break
+    }
+
     switch (m) {
       case 'Raid':
       default:
         return (
           <Raid
-            width={iconWidth}
-            height={iconHeight}
+            width={iconStyleVars.iconWidth}
+            height={iconStyleVars.iconHeight}
             viewBox={'0 0 30 32'}
             style={{
-              fill: smallIcon ? iconColour : 'var(--grey-light-2)',
+              fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--grey-light-2)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
@@ -46,11 +76,11 @@ export default function SelectActivityIcon(props) {
       case 'Rumble':
         return (
           <Crucible
-            width={iconWidth}
-            height={iconHeight}
+            width={iconStyleVars.iconWidth}
+            height={iconStyleVars.iconHeight}
             viewBox={'0 0 30 32'}
             style={{
-              fill: smallIcon ? iconColour : 'var(--crucible-red)',
+              fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--crucible-red)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
@@ -59,11 +89,11 @@ export default function SelectActivityIcon(props) {
       case 'Gambit':
         return (
           <Gambit
-            width={iconWidth}
-            height={iconHeight}
+            width={iconStyleVars.iconWidth}
+            height={iconStyleVars.iconHeight}
             viewBox={'0 0 30 32'}
             style={{
-              fill: smallIcon ? iconColour : 'var(--gambit-green)',
+              fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--gambit-green)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
@@ -72,12 +102,12 @@ export default function SelectActivityIcon(props) {
       case 'IronBanner':
         return (
           <Ironbanner
-            width={iconWidth}
-            height={iconHeight}
+            width={iconStyleVars.iconWidth}
+            height={iconStyleVars.iconHeight}
             // Values taken from .svg
             viewBox={'0 0 8.4 8.4'}
             style={{
-              fill: smallIcon ? iconColour : 'var(--gambit-green)',
+              fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--gambit-green)',
               // stroke: 'var(--bungie-power)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
@@ -87,12 +117,12 @@ export default function SelectActivityIcon(props) {
       case 'TrialsOfOsiris':
         return (
           <Trials
-            width={iconWidth}
-            height={iconHeight}
+            width={iconStyleVars.iconWidth}
+            height={iconStyleVars.iconHeight}
             // Values taken from .svg
             viewBox={'0 0 8.4 8.4'}
             style={{
-              fill: smallIcon ? iconColour : 'var(--bungie-power)',
+              fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--bungie-power)',
               // stroke: 'var(--bungie-power)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
@@ -102,11 +132,11 @@ export default function SelectActivityIcon(props) {
       case 'Nightfall':
         return (
           <Nightfall
-            width={iconWidth}
-            height={iconHeight}
+            width={iconStyleVars.iconWidth}
+            height={iconStyleVars.iconHeight}
             viewBox={'0 0 25 25'}
             style={{
-              fill: smallIcon ? iconColour : 'var(--grey-light-2)',
+              fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--grey-light-2)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}
@@ -115,11 +145,11 @@ export default function SelectActivityIcon(props) {
       case 'Dungeon':
         return (
           <Dungeon
-            width={iconWidth}
-            height={iconHeight}
+            width={iconStyleVars.iconWidth}
+            height={iconStyleVars.iconHeight}
             viewBox={'0 0 8.4 8.4'}
             style={{
-              fill: smallIcon ? iconColour : 'var(--grey-light-2)',
+              fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--grey-light-2)',
               zIndex: 1,
               filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
             }}

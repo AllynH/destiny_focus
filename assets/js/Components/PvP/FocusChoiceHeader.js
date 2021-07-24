@@ -32,7 +32,7 @@ export default function FocusChoiceHeader() {
   return (
     <div className='focus-header-gamemode-wrapper'>
       <div className='position-absolute z-index-minus-1 opacity-50'>
-        <SelectActivityIcon activityMode={fullGameModeName} />
+        <SelectActivityIcon activityMode={fullGameModeName} iconStyle={'largeIconPgcr'} />
       </div>
       <div className='focus-header-gamemode'>
         <h1 className='focus-header-gamemode-heading'>{fullGameModeName}</h1>

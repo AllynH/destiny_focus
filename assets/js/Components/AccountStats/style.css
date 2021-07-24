@@ -233,3 +233,36 @@ h2.stats-h2 {
   font-weight: 500;
   background-color: black;
 }
+.stats-selector-wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Account stat selector: */
+.account-focus-selector-list{
+  display: flex;
+  flex-direction: row;
+}
+.account-focus-image-wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  width: 120px;
+}
+.account-focus-text{
+  margin-bottom: 4px;
+}
+.focus-selector-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8px;
+}
+
+.selected-activity{
+  box-shadow: 0 0 0 2px var(--bungie-power);
+  transform: scale(1.1) translateZ(0);
+  transition: box-shadow 0.25s, transform 0.25s;
+}

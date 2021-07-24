@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { useParams } from 'react-router-dom'
 
 // import Button from '@material-ui/core/Button'
 // import SaveIcon from '@material-ui/icons/Save'
@@ -28,14 +27,7 @@ export default function PvpSplash({
   setActiveUserId = null,
   pathname = '/',
 }) {
-  const params = useParams()
   const currRef = useRef(null)
-  // console.log('PvpSplash.js')
-  // console.log('pgcr', pgcr)
-  // console.log('activityDef', activityDef)
-  // console.log('referenceDef', referenceDef)
-
-  const { activityId } = params
 
   const backgroundImage = `url(https://www.bungie.net${referenceDef.pgcrImage})`
   const mapStyle = () => ({
@@ -47,8 +39,8 @@ export default function PvpSplash({
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'
   const pgcrCategory = pgcrSplashCategories[activityMode] || pgcrSplashCategories.AllPvP
-  console.log('activityMode')
-  console.log(activityMode)
+  // console.log('activityMode')
+  // console.log(activityMode)
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length} `
 
   return (
@@ -63,7 +55,7 @@ export default function PvpSplash({
               <div className='container-left-game-icon'>
                 <div className='game-icon-bg pvp-icon-bg'></div>
                 <div className='game-icon-diamond pvp-icon-bg'></div>
-                <SelectActivityIcon activityMode={activityMode} />
+                <SelectActivityIcon activityMode={activityMode} iconStyle={'largeIconPgcr'} />
               </div>
               <div className='container-left-rep-icon'>
                 {/* <FactionRep width={300} height={345} viewBox={'0 0 30 30'} /> */}
@@ -108,10 +100,10 @@ export default function PvpSplash({
                       <div className='team-icon-score-pull-left'>
                         <div className='team-score'>
                           <h2>
-                            {pgcr &&
-                              pgcr?.Response?.teams
+                            {pgcr
+                              && pgcr?.Response?.teams
                                 .filter((t) => t.teamId === 19)
-                                .map((t, index) => t.score.basic.value)}
+                                .map((t) => t.score.basic.value)}
                           </h2>
                         </div>
                         <div className='team-icon-wrap'>
@@ -130,8 +122,8 @@ export default function PvpSplash({
                     <div className='alpha-colour-banner'></div>
                   </div>
 
-                  {pgcr &&
-                    pgcr?.Response?.entries
+                  {pgcr
+                    && pgcr?.Response?.entries
                       .filter((entry) => entry.values?.team?.basic?.value === 19)
                       .map((entry, index) => (
                         <Player
@@ -150,10 +142,10 @@ export default function PvpSplash({
                       <div className='team-icon-score-pull-left'>
                         <div className='team-score'>
                           <h2>
-                            {pgcr &&
-                              pgcr?.Response?.teams
+                            {pgcr
+                              && pgcr?.Response?.teams
                                 .filter((t) => t.teamId === 18)
-                                .map((t, index) => t.score.basic.value)}
+                                .map((t) => t.score.basic.value)}
                           </h2>
                         </div>
                         <div className='team-icon-wrap'>
@@ -171,8 +163,8 @@ export default function PvpSplash({
                     </div>
                     <div className='bravo-colour-banner'></div>
                   </div>
-                  {pgcr &&
-                    pgcr?.Response?.entries
+                  {pgcr
+                    && pgcr?.Response?.entries
                       .filter((entry) => entry.values?.team?.basic?.value === 18)
                       .map((entry, index) => (
                         <Player

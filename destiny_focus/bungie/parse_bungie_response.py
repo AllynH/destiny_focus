@@ -200,19 +200,24 @@ def summarize_historical_stats(stats_list):
         summary["totalKillDistance"]["basic"]["displayValue"]              += s["values"]["totalKillDistance"]["basic"]["value"]
         summary["totalMedalsEarned"]["basic"]["displayValue"]              += s["values"]["dailyMedalsEarned"]["basic"]["value"]
         
-        summary["combatRating"]["basic"]["displayValue"]                   += s["values"]["combatRating"]["basic"]["value"]
+        summary["combatRating"]["basic"]["displayValue"]                   += s.get("values", {}).get("combatRating", {}).get("basic", {}).get("value", 0)
         summary["averageDeathDistance"]["basic"]["displayValue"]           += s["values"]["averageDeathDistance"]["basic"]["value"]
         summary["averageKillDistance"]["basic"]["displayValue"]            += s["values"]["averageKillDistance"]["basic"]["value"]
         summary["averageLifespan"]["basic"]["displayValue"]                += s["values"]["averageLifespan"]["basic"]["value"]
-        summary["averageScorePerKill"]["basic"]["displayValue"]            += s["values"]["averageScorePerKill"]["basic"]["value"]
-        summary["averageScorePerLife"]["basic"]["displayValue"]            += s["values"]["averageScorePerLife"]["basic"]["value"]
+        # summary["averageScorePerKill"]["basic"]["displayValue"]            += s["values"]["averageScorePerKill"]["basic"]["value"]
+        # summary["averageScorePerLife"]["basic"]["displayValue"]            += s["values"]["averageScorePerLife"]["basic"]["value"]
+        summary["averageScorePerKill"]["basic"]["displayValue"]             += s.get("values", {}).get("averageScorePerKill", {}).get("basic", {}).get("value", 0)
+        summary["averageScorePerLife"]["basic"]["displayValue"]             += s.get("values", {}).get("averageScorePerLife", {}).get("basic", {}).get("value", 0)
+
         summary["remainingTimeAfterQuitSeconds"]["basic"]["displayValue"]  += s["values"]["remainingTimeAfterQuitSeconds"]["basic"]["value"]
 
         #Useful stats:
 
         # Activities:
         summary["activitiesEntered"]["basic"]["displayValue"]              += s["values"]["activitiesEntered"]["basic"]["value"]
-        summary["activitiesWon"]["basic"]["displayValue"]                  += s["values"]["activitiesWon"]["basic"]["value"]
+        # summary["activitiesWon"]["basic"]["displayValue"]                  += s["values"]["activitiesWon"]["basic"]["value"]
+        summary["activitiesWon"]["basic"]["displayValue"]                   += s.get("values", {}).get("activitiesWon", {}).get("basic", {}).get("value", 0)
+
         summary["allParticipantsCount"]["basic"]["displayValue"]           += s["values"]["allParticipantsCount"]["basic"]["value"]
         summary["allParticipantsScore"]["basic"]["displayValue"]           += s["values"]["allParticipantsScore"]["basic"]["value"]
         summary["allParticipantsTimePlayed"]["basic"]["displayValue"]      += s["values"]["allParticipantsTimePlayed"]["basic"]["value"]
@@ -241,12 +246,16 @@ def summarize_historical_stats(stats_list):
         summary["hs_totalDeathDistance"]["pga"]["displayValue"]         = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_totalDeathDistance"]["pga"]["displayValue"], s["values"]["totalDeathDistance"]["basic"]["value"])
         summary["hs_totalKillDistance"]["pga"]["displayValue"]          = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_totalKillDistance"]["pga"]["displayValue"], s["values"]["totalKillDistance"]["basic"]["value"])
         summary["hs_totalMedalsEarned"]["pga"]["displayValue"]          = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_totalMedalsEarned"]["pga"]["displayValue"], s["values"]["dailyMedalsEarned"]["basic"]["value"])
-        summary["hs_combatRating"]["pga"]["displayValue"]               = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_combatRating"]["pga"]["displayValue"], s["values"]["combatRating"]["basic"]["value"])
+        # summary["hs_combatRating"]["pga"]["displayValue"]               = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_combatRating"]["pga"]["displayValue"], s["values"]["combatRating"]["basic"]["value"])
+        summary["hs_combatRating"]["pga"]["displayValue"]               = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_combatRating"]["pga"]["displayValue"], s["values"].get("combatRating", {}).get("basic", {}).get("value", 0))
         summary["hs_averageDeathDistance"]["pga"]["displayValue"]       = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageDeathDistance"]["pga"]["displayValue"], s["values"]["averageDeathDistance"]["basic"]["value"])
         summary["hs_averageKillDistance"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageKillDistance"]["pga"]["displayValue"], s["values"]["averageKillDistance"]["basic"]["value"])
         summary["hs_averageLifespan"]["pga"]["displayValue"]            = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageLifespan"]["pga"]["displayValue"], s["values"]["averageLifespan"]["basic"]["value"])
-        summary["hs_averageScorePerKill"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerKill"]["pga"]["displayValue"], s["values"]["averageScorePerKill"]["basic"]["value"])
-        summary["hs_averageScorePerLife"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerLife"]["pga"]["displayValue"], s["values"]["averageScorePerLife"]["basic"]["value"])
+        # summary["hs_averageScorePerKill"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerKill"]["pga"]["displayValue"], s["values"]["averageScorePerKill"]["basic"]["value"])
+        # summary["hs_averageScorePerLife"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerLife"]["pga"]["displayValue"], s["values"]["averageScorePerLife"]["basic"]["value"])
+
+        summary["hs_averageScorePerKill"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerKill"]["pga"]["displayValue"], s.get("values", {}).get("averageScorePerKill", {}).get("basic", {}).get("value", 0))
+        summary["hs_averageScorePerLife"]["pga"]["displayValue"]        = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_averageScorePerLife"]["pga"]["displayValue"], s.get("values", {}).get("averageScorePerLife", {}).get("basic", {}).get("value", 0))
         summary["hs_remainingTimeAfterQuitSeconds"]["pga"]["displayValue"] = calculate_per_activity_hs(s["values"]["activitiesEntered"]["basic"]["value"], summary["hs_remainingTimeAfterQuitSeconds"]["pga"]["displayValue"], s["values"]["remainingTimeAfterQuitSeconds"]["basic"]["value"])
 
     # Generate new ratios:
@@ -324,8 +333,6 @@ def calculate_win_loss_ratio(total_wins, total_losses):
     """
     Calculate the average for a list of items.
     """
-
-    print(f"wins: {total_wins} losses: {total_losses}")
 
     if total_wins == 0:
         return 0

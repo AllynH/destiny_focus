@@ -67,7 +67,7 @@ export default function RaidSplash({
               <div className='container-left-game-icon'>
                 <div className='game-icon-bg raid-icon-bg'></div>
                 <div className='game-icon-diamond raid-icon-bg'></div>
-                <SelectActivityIcon activityMode={activityMode} />
+                <SelectActivityIcon activityMode={activityMode} iconStyle={'largeIconPgcr'} />
               </div>
               <div className='container-left-rep-icon'>
                 {/* <FactionRep width={300} height={345} viewBox={'0 0 30 30'} /> */}
