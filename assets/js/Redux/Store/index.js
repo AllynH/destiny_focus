@@ -3,7 +3,7 @@
     https://dev.to/link2twenty/react-redux-and-localstorage-2lih
     no-console disabled - as we want to see output if state fails.
 */
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
 import allReducers from '../Reducers'
@@ -33,12 +33,12 @@ function loadFromLocalStorage() {
 
 // Create our Store from our allReducers and use loadFromLocalStorage
 // to overwrite any values that we already have saved.
+// eslint-disable-next-line no-underscore-dangle
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   allReducers,
   loadFromLocalStorage(),
-  // eslint-disable-next-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk),
+  composeEnhancer(applyMiddleware(thunk)),
 )
 
 store.subscribe(() => saveToLocalStorage(store.getState()))

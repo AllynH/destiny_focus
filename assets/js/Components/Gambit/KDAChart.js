@@ -23,6 +23,7 @@ class PvPChart extends React.Component {
           <VictoryVoronoiContainer
             voronoiDimension="x"
             labels={({ datum }) => `Y: ${datum.y}`}
+            // eslint-disable-next-line max-len
             // labels={({ datum }) => `K: ${datum._kills}\nD: ${datum._deaths}\nA: ${datum._assists}\nKDA: ${datum._kdr}`}
             labelComponent={
               <VictoryTooltip
@@ -41,7 +42,7 @@ class PvPChart extends React.Component {
           style={{
             data: {
               stroke: 'tomato',
-              strokeWidth: ({ active }) => active ? 4 : 2,
+              strokeWidth: ({ active }) => (active ? 4 : 2),
             },
             labels: { fill: 'tomato' },
           }}
@@ -52,7 +53,7 @@ class PvPChart extends React.Component {
           style={{
             data: {
               stroke: 'black',
-              strokeWidth: ({ active }) => active ? 4 : 2,
+              strokeWidth: ({ active }) => (active ? 4 : 2),
             },
             labels: { fill: 'black' },
           }}
