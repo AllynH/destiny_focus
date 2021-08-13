@@ -81,6 +81,18 @@ const fetchPVPData = async () => {
       })
       return response
     }
+    case 'pvpcomp': {
+      const newGameMode = 37
+      const response = await GetRaidData({
+        params: {
+          membershipType,
+          membershipId,
+          characterId,
+          gameMode: newGameMode,
+        },
+      })
+      return response
+    }
     case 'pvp': {
       const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
       return response

@@ -25,8 +25,8 @@ export const FOCUS_DETAILS = {
   CrucibleComp: {
     activityMode: 37,
     activityName: 'Competitive PvP',
-    focusName: 'Crucible',
-    focus: 'pvp',
+    focusName: 'CrucibleComp',
+    focus: 'pvpcomp',
     description: 'Hone your skills and win glory in battle against other Guardians.',
     Image: Crucible,
     colours: {
