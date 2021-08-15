@@ -296,6 +296,22 @@ def pvp(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
+@blueprint.route("/pvpcomp/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def pvpcomp(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+
+        return redirect(url_for("public.home"))
+
+    # character_details = get_character_details_json(get_profile_res)
+
+    return render_template("auth/choose_focus.html")
+
 
 @blueprint.route("/gambit/<membershipType>/<membershipId>/<characterId>")
 @login_required
