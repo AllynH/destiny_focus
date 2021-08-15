@@ -4,7 +4,7 @@ import { parsePgcrData } from './parsePgcrData'
 
 import { calculateKillDeathRatio } from '../../Utils/HelperFunctions/KdrFunctions'
 import { returnSimpleActivity } from '../../Utils/HelperFunctions/getMode'
-import { GetActivityDefinition } from '../../Utils/API/API_Requests'
+import { GetActivityDefinitionUnauth } from '../../Utils/API/API_Requests'
 
 import Melee from '../../../destiny-icons/weapons/melee.svg'
 import Grenade from '../../../destiny-icons/weapons/grenade.svg'
@@ -96,7 +96,7 @@ function DisplayWeapon(props) {
 
   useEffect(() => {
     const fetchWeapon = async (activityId) => {
-      const result = await GetActivityDefinition({
+      const result = await GetActivityDefinitionUnauth({
         params: { definition: 'DestinyInventoryItemDefinition', defHash: weaponHash },
       })
       setWeapon(result)
