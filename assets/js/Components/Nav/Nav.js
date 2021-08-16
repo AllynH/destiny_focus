@@ -86,10 +86,8 @@ export default function NavBar() {
   }
 
   useEffect(() => {
+    // console.log('Nav.js useEffect:')
     // console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
-    if (auth === 'auth') {
-      setAuthFlag(true)
-    }
     const fetchProfile = async () => {
       const result = await GetCharacters({
         params: {},
@@ -98,7 +96,13 @@ export default function NavBar() {
       // console.log('setProfile')
       // console.log(result[characterId])
     }
-    fetchProfile()
+    if (auth === 'auth') {
+      setAuthFlag(true)
+      fetchProfile()
+    } else {
+      setAuthFlag(false)
+      setProfile(null)
+    }
   }, [auth, membershipType, membershipId, characterId, gameMode])
 
   return (
