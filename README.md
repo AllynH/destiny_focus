@@ -49,4 +49,4 @@ Flask template creater.
 [Flask Cookie-Cutter: ](https://github.com/cookiecutter-flask/cookiecutter-flask)
 
 # Git Good:
-![Getting good](assets\img\README\cat_meme.jpg?raw=True)
+![Getting good](assets/img/README/cat_meme.jpg?raw=True)

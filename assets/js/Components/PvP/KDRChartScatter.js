@@ -30,7 +30,7 @@ function ChartBody(props) {
 class PvPChart extends React.Component {
   getAverage = (data) => {
     const avg = []
-    data.map((d, index) => {
+    data.forEach((d) => {
       avg.push(d.y)
     })
 
@@ -41,6 +41,8 @@ class PvPChart extends React.Component {
 
   render() {
     const { focusReducer } = this.props
+    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-unused-expressions
     focusReducer?.payload ? console.log('Using focus goals') : console.log('Using default goals')
     const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer?.payload.killDeathRatio) : 1.2
     const [average, arrLength] = getKdrAverage(this.props.data)
@@ -91,8 +93,8 @@ class PvPChart extends React.Component {
             >
               <VictoryGroup
                 // labels={({ datum }) => `K/D R: ${datum.y}`}
-                labels={({ datum }) =>
-                  `Kills: ${datum.kills}\nDeaths: ${datum.deaths}\nAssists: ${datum.assists}\nKDR: ${datum.y}`
+                // eslint-disable-next-line max-len
+                labels={({ datum }) => `Kills: ${datum.kills}\nDeaths: ${datum.deaths}\nAssists: ${datum.assists}\nKDR: ${datum.y}`
                 }
                 labelComponent={<VictoryTooltip style={{ fontSize: 14 }} />}
                 data={this.props.data}
