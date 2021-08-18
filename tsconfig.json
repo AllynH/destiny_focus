@@ -1,0 +1,62 @@
+/*
+    References: 
+        https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+        https://github.com/DestinyItemManager/DIM/blob/master/tsconfig.json
+
+*/
+{
+  "compilerOptions": {
+    "outDir": "./destiny-focus/static/build/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    // Used to: import React from 'react'
+    "allowSyntheticDefaultImports" : true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "paths": {
+      "app/*": ["./assets/app/*"],
+      // "data/*": ["assets/data/*"],
+      "images/*": ["./assets/images/*"],
+      "destiny-icons/*": ["./assets/destiny-icons/*"]
+      // "*.css": ["config/css-stub.js"]
+    }
+  },
+  "include": ["./assets/**/*"]
+}
+/*
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "outDir": "./destiny-focus/static/build/",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "strictPropertyInitialization": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "paths": {
+      "app/*": ["assets/app/*"],
+      // "data/*": ["assets/data/*"],
+      "images/*": ["assets/images/*"],
+      "destiny-icons/*": ["assets/destiny-icons/*"]
+      // "*.css": ["config/css-stub.js"]
+    }
+  },
+  // "include": ["./assets/**//*"]
+}
+
+*/

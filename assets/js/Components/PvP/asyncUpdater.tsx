@@ -31,10 +31,12 @@ interface TestComponentState {
   data: Object,
   updateCount: number,
 }
-class TestComponent extends React.Component <{}, TestComponentState> {
+
+interface TestProps {}
+class TestComponent extends React.Component <TestProps, TestComponentState> {
   timerId: any;
 
-  constructor(props) {
+  constructor(props: TestProps) {
     super(props);
     this.state = {
       updating: false,

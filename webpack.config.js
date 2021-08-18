@@ -58,7 +58,7 @@ module.exports = {
     publicPath: '/static/build/',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
   },
   devtool: debug ? 'eval-source-map' : false,
   plugins: [
@@ -124,6 +124,11 @@ module.exports = {
           ],
           cacheDirectory: true
         },
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },
