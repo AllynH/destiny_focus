@@ -110,7 +110,7 @@ export const SEASONS = {
   },
   13: {
     TITLE: 'Season of the Chosen',
-    ACTIVE: true,
+    ACTIVE: false,
     EXPANSION: 'Beyond Light',
     YEAR: '4',
     START: '2021-02-09 17:00:01',
@@ -123,5 +123,13 @@ export const SEASONS = {
     YEAR: '4',
     START: '2021-05-11 17:00:01',
     END: '2021-08-24 17:00:00',
+  },
+  15: {
+    TITLE: 'Season of the Lost',
+    ACTIVE: true,
+    EXPANSION: 'Beyond Light',
+    YEAR: '4',
+    START: '2021-08-24 17:00:01',
+    END: '2022-02-22 17:00:00',
   },
 }

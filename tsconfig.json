@@ -24,7 +24,7 @@
       // "*.css": ["config/css-stub.js"]
     }
   },
-  "include": ["./assets/**/*"]
+  "include": ["./assets/**/*", "./assets/Components/custom.d.ts"]
 }
 /*
 {

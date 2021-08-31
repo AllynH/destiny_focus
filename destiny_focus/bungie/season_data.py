@@ -97,7 +97,7 @@ SEASONS = {
     },
     13: {
         "TITLE" 	: "Season of the Chosen",
-        "ACTIVE"    : True,
+        "ACTIVE"    : False,
         "EXPANSION" : "Beyond Light",
         "YEAR"  	: "4",
         "START" 	: '2021-02-09 17:00:01',
@@ -111,8 +111,16 @@ SEASONS = {
         "START"     : '2021-05-11 17:00:01',
         "END"       : '2021-08-24 17:00:00',
     },
+    15: {
+        "TITLE": 'Season of the Lost',
+        "ACTIVE": True,
+        "EXPANSION": 'Beyond Light',
+        "YEAR": '4',
+        "START": '2021-08-24 17:00:01',
+        "END": '2022-02-22 17:00:00',
+    },
 }
 
-CURRENT_SEASON = 13
+CURRENT_SEASON = 15
 # CURRENT_SEASON = list(SEASONS)[-1]
 LAST_SEASON = CURRENT_SEASON - 1

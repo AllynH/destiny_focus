@@ -6,9 +6,11 @@ import Trials from '../../../img/icons/faction_osiris2.svg'
 import Nightfall from '../../../img/icons/Nightfall.svg'
 import Dungeon from '../../../img/icons/Dungeon.svg'
 
+import { FocusDetailTypes } from './types'
+
 // eslint complaining about single (non-default) export but I want to add more data to this file:
 // eslint-disable-next-line import/prefer-default-export
-export const FOCUS_DETAILS = {
+export const FOCUS_DETAILS: FocusDetailTypes = {
   Crucible: {
     activityMode: 5,
     activityName: 'All PvP',
