@@ -54,7 +54,7 @@ export const PROGRESSION_HASHES = {
 
 export const PROGRESSION_DATA = {
   Glory: { hash: 1647151960, maxRank: 5500, streakHash: 2572719399 },
-  Valor: { hash: 2083746873, maxRank: 2000, streakHash: 2203850209 },
+  Valor: { hash: 2083746873, maxRank: 10000, streakHash: 2203850209 },
   Infamy: { hash: 3008065600, maxRank: 15000, streakHash: 2939151659 },
 }
 
