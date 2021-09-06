@@ -1,36 +1,5 @@
 /*
-  Put Types here:
-
-let endpoints: Endpoint = {
-    auth: {
-        login: "http://localhost:8079/auth/login"
-    }
-};
-
-type EndpointAuth = {
-    login: string;
-}
-
-type Endpoint = {
-    auth: EndpointAuth;
-}
-
-export const enum DestinyGender {
-  Male = 0,
-  Female = 1,
-  Unknown = 2
-}
-
-export interface DestinyClassDefinition {
-  readonly classType: DestinyClass;
-  readonly displayProperties: DestinyDisplayPropertiesDefinition;
-  readonly genderedClassNames: { [key in DestinyGender]: string };
-  readonly genderedClassNamesByGenderHash: { [key: number]: string };
-  readonly mentorVendorHash?: number;
-  readonly hash: number;
-  readonly index: number;
-  readonly redacted: boolean;
-}
+  Reusable Types for FOCUS_DETAILS object.
 
 */
 
@@ -44,7 +13,16 @@ export const enum FocusDetailKey {
   Nightfall = 'Nightfall',
 }
 
-interface FocusDetailParams {
+// export type FocusDetailKey =
+//   "Crucible" |
+//   "CrucibleComp" |
+//   "Gambit" |
+//   "Raid" |
+//   "Trials" |
+//   "Dungeon" |
+//   "Nightfall"
+
+export interface FocusDetailParams {
   readonly activityMode: number,
   readonly activityName: string,
   readonly focusName: string,

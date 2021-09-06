@@ -13,38 +13,54 @@ import { BASIC_ACTIVITY_MODES } from '../../Data/destinyEnums'
 
 import GetProgresions from '../Profile/GetProgressions'
 
-class Account extends React.Component {
-  constructor(props) {
+import { RouteComponentProps } from 'react-router'
+import { FocusDetailKey } from '../Focus/types'
+import { CharaterPropsInterface } from '../../Data/CharacterProps'
+
+interface AccountState {
+  error: null | { message: string },
+  gameMode: number,
+  isLoaded: boolean,
+  jsonResponse: {},
+}
+
+class Account extends React.Component<{} & RouteComponentProps, AccountState> {
+  componentRef: React.RefObject<unknown>
+  constructor(props: any) {
     super(props)
     this.componentRef = React.createRef()
     this.state = {
       error: null,
       gameMode: 5,
       isLoaded: true,
-      jsonResponse: [],
+      jsonResponse: {},
       ...this.state,
     }
   }
 
   render() {
-    const { membershipType, membershipId, characterId } = this.props.match.params
+    const { membershipType , membershipId, characterId } = this.props.match.params as CharaterPropsInterface
     const { error, isLoaded } = this.state
 
-    const selectGameMode = (event) => {
-      this.setState({ gameMode: Number(event.currentTarget.getAttribute('value')) })
+    const selectGameMode = (event: { currentTarget: { getAttribute: (arg0: string) => string } }) => {
+      this.setState({ gameMode: Number(event.currentTarget.getAttribute('data-value')) })
     }
 
-    const filteredActivityKeys = Object.keys(FOCUS_DETAILS).filter((key) => FOCUS_DETAILS[key].activityMode === this.state.gameMode)
-    const { activityName } = FOCUS_DETAILS[filteredActivityKeys[0]]
+    // Cast to an Array of FocusDetailKeys[] as .filter returns an arrray - hopefully with only 1 item filteredActivityKeys[0]
+    const filteredActivityKeys: FocusDetailKey[] 
+      = Object.keys(FOCUS_DETAILS)
+      .filter((key: FocusDetailKey) => FOCUS_DETAILS[key].activityMode === this.state.gameMode) as FocusDetailKey[]
+
+      const { activityName } = FOCUS_DETAILS[filteredActivityKeys[0]]
 
     const DisplayFocusChoice = () => (
       <>
       <ul className="account-focus-selector-list">
-        {Object.keys(FOCUS_DETAILS).map((f, index) => <li key={index} className="focus-selector-item list-style-none">
+        {Object.keys(FOCUS_DETAILS).map((f: FocusDetailKey, index) => <li key={index} className="focus-selector-item list-style-none">
         <div
           className={`account-focus-item weapon-selector-item ${FOCUS_DETAILS[f].activityMode === this.state.gameMode ? 'selected-activity' : ''}`}
           onClick={selectGameMode}
-          value={FOCUS_DETAILS[f].activityMode}
+          data-value={FOCUS_DETAILS[f].activityMode}
         >
           <div className="account-focus-image-wrap">
             <div className="account-focus-text">{FOCUS_DETAILS[f].activityName}</div>
@@ -85,7 +101,7 @@ class Account extends React.Component {
                 subHeading={allTime.subHeading}
                 heading={allTime.heading}
                 scope={allTime.scope}
-                apiUrl={allTime.apiUrl}
+                // apiUrl={allTime.apiUrl}
               />
             </div>
             </div>

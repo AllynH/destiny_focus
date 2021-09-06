@@ -1,17 +1,25 @@
-import { WEAPON_TYPES } from '../../Data/destinyEnums'
+import { WEAPON_TYPES, WeaponTypeList } from '../../Data/destinyEnums'
 
-export const filterWeaponDefList = (weapDefObj, filter = 'kinetic') => {
+// TODO: Replace weapDefObj with Destiny Tyes:
+interface WeaponDefinitionInterface {
+  [x: string]: { 
+    inventory: {bucketTypeHash: number},
+    hash: number,
+  }
+}
+
+export const filterWeaponDefList = (weapDefObj: WeaponDefinitionInterface, filter: WeaponTypeList = 'kinetic'): any => {
   /*
       Filters wepDefObj for weapons of a given bucketTypeHash.
       Hashes are:
         kinetic
         energy
         power
-    */
-  const wepHash = WEAPON_TYPES[filter]
+    */   
+  const wepHash: number = WEAPON_TYPES[filter]
   const filtered = Object.keys(weapDefObj)
     .filter((hash) => weapDefObj[hash].inventory.bucketTypeHash === wepHash)
-    .reduce((accumulator, hash) => {
+    .reduce((accumulator: any, hash: string) => {
       accumulator[hash] = weapDefObj[hash]
       return accumulator
     }, {})
@@ -20,10 +28,10 @@ export const filterWeaponDefList = (weapDefObj, filter = 'kinetic') => {
 
 // eslint-disable-next-line no-unused-vars
 export const filterWeaponDefListByHash = (
-  weapDefObj,
-  filter = 'kinetic',
-  selectedHash = 1364093401,
-) => {
+  weapDefObj: WeaponDefinitionInterface,
+  filter: WeaponTypeList = 'kinetic',
+  selectedHash: number = 1364093401,
+): any => {
   /*
       Filters wepDefObj for weapons of a given bucketTypeHash.
       Hashes are:
@@ -35,7 +43,7 @@ export const filterWeaponDefListByHash = (
   const filtered = Object.keys(weapDefObj)
     .filter((hash) => weapDefObj[hash].inventory.bucketTypeHash === wepHash)
     .filter((hash) => weapDefObj[hash].hash === selectedHash)
-    .reduce((accumulator, hash) => {
+    .reduce((accumulator:any, hash) => {
       accumulator[hash] = weapDefObj[hash]
       return accumulator
     }, {})

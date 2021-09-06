@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 
-export function calculateKillDeathRatio(k, d) {
+export function calculateKillDeathRatio(k: string, d:string):string {
   const kills = parseFloat(k)
   const deaths = parseFloat(d)
   if (deaths === 0) {
@@ -9,7 +9,7 @@ export function calculateKillDeathRatio(k, d) {
   return (kills / deaths).toFixed(2)
 }
 
-export function calculateKillDeathAssistsRatio(k, d, a) {
+export function calculateKillDeathAssistsRatio(k:string, d:string, a:string):string {
   const kills = parseFloat(k)
   const deaths = parseFloat(d)
   const assists = parseFloat(a)
@@ -19,7 +19,15 @@ export function calculateKillDeathAssistsRatio(k, d, a) {
   return ((kills + assists) / deaths).toFixed(2)
 }
 
-export const getKdrAverage = (data) => {
+interface kdrData {
+  "x": number,
+  "y": number,
+  "deaths": string,
+  "kills": string,
+  "assists": string,
+
+}
+export const getKdrAverage = (data: kdrData[]): [number, number] => {
   // return a KD/R value and game count, based on the last n games.
   // Data is usually 30 games but some unfinished games are removed.
   //
@@ -40,18 +48,18 @@ export const getKdrAverage = (data) => {
   let deaths = 0
   let count = 0
 
-  data.map((d, index) => {
+  data.map((d: kdrData) => {
     kills += Number(d.kills)
     deaths += Number(d.deaths)
     count += 1
   })
 
-  const kdr = parseFloat(kills / deaths)
+  const kdr = (Number(kills) / Number(deaths))
 
   return [kdr, count]
 }
 
-export const projectKdrAverage = (data, offsetKills = 0, offsetDeaths = 0) => {
+export const projectKdrAverage = (data: kdrData[], offsetKills = 0, offsetDeaths = 0): string => {
   // Project what a users KD/R would look like if the increased kills / decreased deaths:
   // data = [
   // {
@@ -69,18 +77,25 @@ export const projectKdrAverage = (data, offsetKills = 0, offsetDeaths = 0) => {
   let deaths = 0
   let count = 0
 
-  data.map((d, index) => {
+  data.forEach((d) => {
     kills += Number(d.kills) + Number(offsetKills)
     deaths += Number(d.deaths) - Number(offsetDeaths)
     count += 1
   })
 
-  const kdr = parseFloat(kills / deaths)
+  const kdr = (kills / deaths)
 
-  return parseFloat(kdr).toFixed(2)
+  return kdr.toFixed(2)
 }
 
-export const AvgWeaponAbilityKills = (pgcrSummary) => {
+interface AbilityDataInterface {
+  weapons: number,
+  grenades: number,
+  abilities?: number,
+  supers: number,
+  melee: number,
+}
+export const AvgWeaponAbilityKills = (pgcrSummary:any): AbilityDataInterface => {
   // This is used to populate the chart data for the AbilityChart component
   // Takes data from the last 10 PGCR's.
   // Returns an average of the kills for each type:
@@ -93,7 +108,7 @@ export const AvgWeaponAbilityKills = (pgcrSummary) => {
   let melee = 0
   let weapons = 0
 
-  pgcrSummary.Response.map((p, index) => {
+  pgcrSummary.Response.map((p: any) => {
     grenades += p.data.extended.values.weaponKillsGrenade.basic.value
     ability += p.data.extended.values.weaponKillsAbility.basic.value
     supers += p.data.extended.values.weaponKillsSuper.basic.value
@@ -122,22 +137,25 @@ export const AvgWeaponAbilityKills = (pgcrSummary) => {
   return avg
 }
 
-export const getPercentage = (num, denom) => {
+export const getPercentage = (num: number, denom: number): number => {
   return ((num / denom) * 100)
 }
 
-
-export const parsePrecisionData = (props) => {
-  const data = []
+interface PrecisionDataInterface {
+  x: number,
+  y: number,
+}
+export const parsePrecisionData = (props: { Response: any[] }): PrecisionDataInterface[] => {
+  const data: PrecisionDataInterface[] = []
   props.Response.map((p, index) => {
     data.push({ x: index + 1, y: parseInt(p.precisionKills, 10) })
   })
   return data
 }
 
-export const getPrecisionAverage = (data) => {
-  const avg = []
-  data.map((d) => {
+export const getPrecisionAverage = (data: PrecisionDataInterface[]) => {
+  const avg: any[] = []
+  data.forEach((d) => {
     avg.push(d.y)
   })
 

@@ -39,7 +39,7 @@ export default function GoogleAnalytics() {
     const debugFlag = process.env.NODE_ENV === 'development'
     // console.log(process.env.GOOGLE_ANALYTICS_ID)
     // console.log(debugFlag)
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID, { debug: debugFlag })
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID, { debug: false })
   }, [])
 
   useEffect(() => {
