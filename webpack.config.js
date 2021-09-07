@@ -76,7 +76,8 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: debug,
+              // Hot Module Reloader now built in:
+              // hmr: debug,
             },
           },
           'css-loader!less-loader',
@@ -88,7 +89,8 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: debug,
+              // Hot Module Reloader now built in:
+              // hmr: debug,
             },
           },
           'css-loader',
