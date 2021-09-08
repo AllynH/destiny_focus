@@ -2,25 +2,14 @@
   Reusable Types for FOCUS_DETAILS object.
 
 */
-
-export const enum FocusDetailKey {
-  Crucible = 'Crucible',
-  CrucibleComp = 'CrucibleComp',
-  Gambit = 'Gambit',
-  Raid = 'Raid',
-  Trials = 'Trials',
-  Dungeon = 'Dungeon',
-  Nightfall = 'Nightfall',
-}
-
-// export type FocusDetailKey =
-//   "Crucible" |
-//   "CrucibleComp" |
-//   "Gambit" |
-//   "Raid" |
-//   "Trials" |
-//   "Dungeon" |
-//   "Nightfall"
+export type FocusDetailKey =
+  "Crucible" |
+  "CrucibleComp" |
+  "Gambit" |
+  "Raid" |
+  "Trials" |
+  "Dungeon" |
+  "Nightfall"
 
 export interface FocusDetailParams {
   readonly activityMode: number,

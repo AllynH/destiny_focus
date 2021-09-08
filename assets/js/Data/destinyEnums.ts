@@ -2,8 +2,6 @@
 // Don't want to export default as I plan on adding to this file.
 // export default BASIC_ACTIVITY_MODES
 
-import { Validator } from "react"
-
 interface ActivityModeInterface {
   [key: number]: string,
 }
@@ -52,17 +50,12 @@ export const BASIC_ACTIVITY_MODES: ActivityModeInterface = {
   84: 'TrialsOfOsiris',
 }
 
-export const PROGRESSION_HASHES: ProgressionNames = {
-  Glory: 1647151960, // 5500
-  Valor: 2083746873, // 2000
-  Infamy: 3008065600, // 15000
-}
-
-interface ProgressionNames {
-  readonly Glory: number,
-  readonly Valor: number,
-  readonly Infamy: number,
-}
+export type ProgressionNameKey =
+  "Glory" |
+  "Valor" |
+  "Infamy" |
+  "Trials" |
+  "Vanguard"
 
 interface SingleProgressionInterface {
   hash: number,
@@ -70,16 +63,16 @@ interface SingleProgressionInterface {
   streakHash: number,
 }
 
-type progressionNameList = keyof ProgressionNames
-
 type ProgressionInterface = {
-  [key in progressionNameList]: SingleProgressionInterface
+  [key in ProgressionNameKey]: SingleProgressionInterface
 }
 
 export const PROGRESSION_DATA: ProgressionInterface = {
   Glory: { hash: 1647151960, maxRank: 5500, streakHash: 2572719399 },
   Valor: { hash: 2083746873, maxRank: 10000, streakHash: 2203850209 },
   Infamy: { hash: 3008065600, maxRank: 15000, streakHash: 2939151659 },
+  Trials: { hash: 2755675426, maxRank: 10000, streakHash: 70699614 },
+  Vanguard: { hash: 457612306, maxRank: 10000, streakHash: 600547406 },
 }
 
 interface WeaponTypeInterface {

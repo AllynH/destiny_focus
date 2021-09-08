@@ -4,6 +4,7 @@
 /* eslint-disable no-else-return */
 import React from 'react'
 import { connect } from 'react-redux'
+import { RouteComponentProps } from 'react-router'
 
 import KDRChart from './KDRChartScatter'
 
@@ -19,6 +20,10 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 
 import GetProgresions from '../Profile/GetProgressions'
 import FocusChoiceHeader from './FocusChoiceHeader'
+
+// Custom types:
+import { CharaterPropsInterface } from '../../Data/CharacterProps'
+
 
 const UPDATE_TIME = 20
 const fetchPVPData = async () => {
@@ -104,8 +109,28 @@ const fetchPVPData = async () => {
   }
 }
 
-class PvPChart extends React.Component {
-  constructor(props) {
+interface kdrDetailsInterface {
+  x: number,
+  y: number,
+  deaths: number,
+  kills: number,
+  assists: number,
+}
+
+
+interface PvPChartStateInterface {
+  error: null | { message: string },
+  isLoaded: boolean,
+  timerId: number,
+  updating: boolean,
+  updateCount: number,
+  jsonResponse: {},
+}
+
+class PvPChart extends React.Component<{ focusReducer: {} } & RouteComponentProps, PvPChartStateInterface>  {
+    countdown: number
+    timerId: NodeJS.Timer
+  constructor(props: any) {
     super(props)
     this.countdown = 0
 
@@ -115,7 +140,8 @@ class PvPChart extends React.Component {
       isLoaded: false,
       timerId: null,
       updateCount: 0,
-      jsonResponse: [],
+      updating: false,
+      jsonResponse: {},
       ...this.state,
     }
   }
@@ -167,10 +193,10 @@ class PvPChart extends React.Component {
     }
   }
 
-  getKdr(jsonResponse) {
-    const kdrList = []
+  getKdr(jsonResponse: { Response?: any }) {  
+    const kdrList: kdrDetailsInterface[] = []
     const myArray = jsonResponse.Response.activities
-    myArray.forEach((element, index) => {
+    myArray.forEach((element: { values: { killsDeathsRatio: { basic: { displayValue: any } }; deaths: { basic: { displayValue: any } }; kills: { basic: { displayValue: any } }; assists: { basic: { displayValue: any } } } }, index: number) => {
       const kdr = element.values.killsDeathsRatio.basic.displayValue
       const deaths = element.values.deaths.basic.displayValue
       const kills = element.values.kills.basic.displayValue
@@ -191,10 +217,10 @@ class PvPChart extends React.Component {
     return kdrList
   }
 
-  getPrecision(jsonResponse) {
-    const precisionList = []
+  getPrecision(jsonResponse: { Response: { activities: any } }) {
+    const precisionList: kdrDetailsInterface[] = []
     const myArray = jsonResponse.Response.activities
-    myArray.forEach((element, index) => {
+    myArray.forEach((element: { values: { killsDeathsRatio: { basic: { displayValue: any } }; deaths: { basic: { displayValue: any } }; kills: { basic: { displayValue: any } }; assists: { basic: { displayValue: any } } } }, index: number) => {
       const precision = element.values.killsDeathsRatio.basic.displayValue
       const deaths = element.values.deaths.basic.displayValue
       const kills = element.values.kills.basic.displayValue
@@ -239,7 +265,7 @@ class PvPChart extends React.Component {
       const kdr = this.getKdr(jsonResponse)
       const {
         membershipType, membershipId, characterId,
-      } = this.props.match.params
+      } = this.props.match.params as CharaterPropsInterface
 
       return (
         <>
@@ -250,7 +276,7 @@ class PvPChart extends React.Component {
                 <SpinnerDualRing />
               </div>
             ) : (
-              <div className='round-time-bar' data-style='smooth' style={{ '--duration': UPDATE_TIME } } >
+              <div className='round-time-bar' data-style='smooth' style={{ '--duration': UPDATE_TIME } as React.CSSProperties } >
                 <div></div>
               </div>
             )}
@@ -293,7 +319,7 @@ class PvPChart extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: { focus: any; killDeathRatio: any; winLossRatio: any; precisionKillsCount: any; avgLifeTime: any; focusReducer: any }) => ({
   focus: state.focus,
   killDeathRatio: state.killDeathRatio,
   winLossRatio: state.winLossRatio,

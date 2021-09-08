@@ -46,7 +46,7 @@ class Account extends React.Component<{} & RouteComponentProps, AccountState> {
       this.setState({ gameMode: Number(event.currentTarget.getAttribute('data-value')) })
     }
 
-    // Cast to an Array of FocusDetailKeys[] as .filter returns an arrray - hopefully with only 1 item filteredActivityKeys[0]
+    // Cast to an Array of FocusDetailKeys[] as .filter returns an array - hopefully with only 1 item filteredActivityKeys[0]
     const filteredActivityKeys: FocusDetailKey[] 
       = Object.keys(FOCUS_DETAILS)
       .filter((key: FocusDetailKey) => FOCUS_DETAILS[key].activityMode === this.state.gameMode) as FocusDetailKey[]
