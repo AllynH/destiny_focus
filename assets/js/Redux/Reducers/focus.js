@@ -1,10 +1,12 @@
+import { GAFocusSetEvent } from "../../Components/Analytics/Events"
+
 const focusReducer = (state = '', action) => {
   switch (action.type) {
     case 'gambit':
     case 'raid':
-    case 'pvp':
-      console.log('Setting focus state')
-      state = {
+    case 'pvp': {
+      // console.log('Setting focus state')
+      const newState = {
         ...state,
         focus: action.type,
         focusGoals: action.payload,
@@ -12,8 +14,9 @@ const focusReducer = (state = '', action) => {
       }
       // console.log(state)
       // console.log('Returned state')
-      console.log(state)
-      return state
+      GAFocusSetEvent('Focus State', action.type, action.payload)
+      return newState
+    }
     default:
       return state
   }

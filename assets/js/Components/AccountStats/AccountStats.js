@@ -3,7 +3,6 @@ import React from 'react'
 
 // import { useFetch } from '../../Utils/useFetch'
 
-import { exportComponentAsJPEG } from 'react-component-export-image'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
 
@@ -12,7 +11,7 @@ import './style.css'
 import DisplayStats from './DisplayStats'
 import Shimmer from '../../Utils/Loading/Shimmer'
 import { GetStatsData, GetStatsAllTime } from '../../Utils/API/API_Requests'
-import { iOS } from '../../Utils/HelperFunctions'
+import { takePictureEvent } from '../../Utils/HelperFunctions/CaptureImage'
 
 class AccountStats extends React.Component {
   constructor(props) {
@@ -98,13 +97,15 @@ class AccountStats extends React.Component {
     }
   }
 
+  // TODO: Probably a good idea to refactor but it's not first on the list.
+  // eslint-disable-next-line radar/cognitive-complexity
   createDataStructure(stats) {
     const { scope } = this.props
     const { props } = this
     const { season, activityName } = this.props
 
     if (scope === 'allTime') {
-      const structure = {
+      return {
         ChartType: scope,
         allTime: {
           headerData: {
@@ -156,11 +157,8 @@ class AccountStats extends React.Component {
           },
         },
       }
-      // console.log('structure')
-      // console.log(structure)
-      return structure
     }
-    const structure = {
+    return {
       ChartType: scope,
       allTime: {
         headerData: {
@@ -212,16 +210,14 @@ class AccountStats extends React.Component {
         },
       },
     }
-    // console.log('structure')
-    // console.log(structure)
-    return structure
   }
 
   render() {
     const { error, isLoaded } = this.state
     if (error) {
       return <div>Error: {error.message}</div>
-    } if (!isLoaded) {
+    }
+    if (!isLoaded) {
       return <Shimmer />
     }
     const dataStruct = this.state.dataStructure
@@ -276,18 +272,6 @@ class AccountStats extends React.Component {
           </div>
         </div>
     )
-    const takePicture = () => {
-      if (iOS()) {
-        window.scrollTo(0, 0)
-      }
-      window.scrollTo(0, 0)
-      const html2CanvasOpts = {
-        fileName: 'Destiny-Focus',
-        html2CanvasOptions: { scrollX: 0, scrollY: -0 },
-        // html2CanvasOptions: { scrollX: 0, scrollY: -window.scrollY },
-      }
-      exportComponentAsJPEG(this.componentRef, { ...html2CanvasOpts })
-    }
 
     return (
         <div className='button-wrapper'>
@@ -313,7 +297,7 @@ class AccountStats extends React.Component {
             size='small'
             // className={classes.button}
             startIcon={<SaveIcon />}
-            onClick={() => takePicture()}
+            onClick={() => takePictureEvent(this.componentRef, `Destiny-Focus: Account ${this.props.scope}`, `AccountStats: ${this.props.scope}`)}
           >
             Share .jpg
           </Button>

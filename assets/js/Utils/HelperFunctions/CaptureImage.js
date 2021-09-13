@@ -1,7 +1,11 @@
-import { exportComponentAsJPEG, exportComponentAsPNG } from 'react-component-export-image'
+import { exportComponentAsPNG } from 'react-component-export-image'
 import { iOS } from '.'
 
-export const takePicture = (currRef, name = 'Destiny-Focus') => {
+import { GAImageCapture } from '../../Components/Analytics/Events'
+
+export const takePictureEvent = (currRef, name = 'Destiny-Focus', component = 'Unknown') => {
+  console.log('component');
+  console.log(component);
   if (iOS()) {
     window.scrollTo(0, 0)
   }
@@ -11,7 +15,8 @@ export const takePicture = (currRef, name = 'Destiny-Focus') => {
     html2CanvasOptions: { scrollX: 0, scrollY: -0 },
     // html2CanvasOptions: { scrollX: 0, scrollY: -window.scrollY },
   }
-  exportComponentAsJPEG(currRef, { ...html2CanvasOpts })
+  exportComponentAsPNG(currRef, { ...html2CanvasOpts })
+  GAImageCapture('Image capture', component)
 }
 
 export const capturePngWithName = (currRef, name = 'Destiny-Focus') => {
