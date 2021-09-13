@@ -1,8 +1,10 @@
 import React, { useRef } from 'react'
 
-// import Button from '@material-ui/core/Button'
-// import SaveIcon from '@material-ui/icons/Save'
-
+/*
+import Button from '@material-ui/core/Button'
+import SaveIcon from '@material-ui/icons/Save'
+import { takePictureEvent } from '../../Utils/HelperFunctions/CaptureImage'
+*/
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { pgcrSplashCategories } from './parsePgcrData'
 
@@ -13,8 +15,6 @@ import ReturnToFocusButton from './ReturnToFocus'
 // import FactionRep from '../../../destiny-icons/factions/faction_crucible_glory.svg'
 import AlphaTeam from '../../../destiny-icons/factions/team_alpha.svg'
 import BravoTeam from '../../../destiny-icons/factions/team_bravo.svg'
-
-// import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
 
 import './style.css'
 
@@ -48,8 +48,8 @@ export default function PvpSplash({
       <div className='return-button-wrapper'>
         {pathname !== '/' ? <ReturnToFocusButton pathname={pathname} /> : ''}
       </div>
-      <div className='pgcr-splash-wrapper' style={mapStyle()}>
-        <div className='pgcr-splash-container' ref={currRef}>
+      <div className='pgcr-splash-wrapper' style={mapStyle()}  ref={currRef}>
+        <div className='pgcr-splash-container'>
           <div className='container-left'>
             <div className='container-left-icons'>
               <div className='container-left-game-icon'>
@@ -180,17 +180,18 @@ export default function PvpSplash({
             </div>
           </div>
         </div>
-        {/* <Button
+      </div>
+      {/* <Button
             variant='contained'
             color='primary'
             size='small'
             // className={classes.button}
             startIcon={<SaveIcon />}
-            onClick={() => capturePngWithName(currRef, 'PGCR')}
+            onClick={() => takePictureEvent(currRef, 'Destiny-Focus_PGCR', `PGCR_PvP_${activityMode}`)}
           >
             Share .jpg
           </Button> */}
-      </div>
+
     </>
   )
 }

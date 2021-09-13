@@ -1,19 +1,17 @@
 import React, { useRef } from 'react'
 // import { useParams } from 'react-router-dom'
 
-// import Button from '@material-ui/core/Button'
-// import SaveIcon from '@material-ui/icons/Save'
-// import {
-//   calculateKillDeathRatio,
-//   calculateKillDeathAssistsRatio,
-// } from '../../Utils/HelperFunctions/KdrFunctions'
+/*
+import Button from '@material-ui/core/Button'
+import SaveIcon from '@material-ui/icons/Save'
+import { takePictureEvent } from '../../Utils/HelperFunctions/CaptureImage'
+*/
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { pgcrSplashCategories } from './parsePgcrData'
 
 import SelectActivityIcon from './SelectActivityIcon'
 import Player from './Player'
 import ReturnToFocusButton from './ReturnToFocus'
-// import { capturePngWithName } from '../../Utils/HelperFunctions/CaptureImage'
 
 import './style.css'
 
@@ -60,8 +58,8 @@ export default function RaidSplash({
       <div className='return-button-wrapper'>
         {pathname !== '/' ? <ReturnToFocusButton pathname={pathname} /> : ''}
       </div>
-      <div className='pgcr-splash-wrapper' style={mapStyle()}>
-        <div className='pgcr-splash-container' ref={currRef}>
+      <div className='pgcr-splash-wrapper' style={mapStyle()} ref={currRef}>
+        <div className='pgcr-splash-container'>
           <div className='container-left'>
             <div className='container-left-icons'>
               <div className='container-left-game-icon'>
@@ -157,17 +155,18 @@ export default function RaidSplash({
             </div>
           </div>
         </div>
-        {/* <Button
-            variant='contained'
-            color='primary'
-            size='small'
-            // className={classes.button}
-            startIcon={<SaveIcon />}
-            onClick={() => capturePngWithName(currRef, 'PGCR')}
-          >
-            Share .jpg
-          </Button> */}
+
       </div>
+      {/* <Button
+        variant='contained'
+        color='primary'
+        size='small'
+        // className={classes.button}
+        startIcon={<SaveIcon />}
+        onClick={() => takePictureEvent(currRef, 'Destiny-Focus_PGCR', `PGCR_PvE_${activityMode}`)}
+      >
+        Share .jpg
+      </Button> */}
     </>
   )
 }
