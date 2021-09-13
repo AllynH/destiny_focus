@@ -1,0 +1,30 @@
+# http://editorconfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+# Python files:
+[*.py]
+indent_style = space
+indent_size = 4
+
+# JS, TS and JSX files:
+[*.{js, json, ts, tsx}]
+indent_style = space
+indent_size = 2
+
+# README.md and other wiki files:
+[*.md]
+trim_trailing_whitespace = false
+
+# Other options:
+    # tab_width
+    # end_of_line
+    # insert_final_newline
+    # trim_trailing_whitespace

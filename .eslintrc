@@ -1,29 +1,44 @@
 {
-  "extends": ["airbnb-base", "plugin:react/recommended"],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:import/typescript",
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:css-modules/recommended",
+    "plugin:radar/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "react-redux",
+    "css-modules",
+    "radar"
+  ],
   "rules": {
+    "max-len": ["error", { "code": 160 }],
+    "import/extensions": 0,
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
-    "@typescript-eslint/no-unused-vars": "off",
+    "no-use-before-define": "off",
     "no-confusing-arrow": ["error", {"allowParens": true}],
-    // No props validation - yet:
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
     "react/prop-types": 0,
-
-    // Missing semicolon - these are too MLG for me:
-    "semi": 0,
-    // Don't care about LF CRLF:
-    "linebreak-style": 0,
-    // Don't name class functions: _internalFunc()
-    // "no-underscore-dangle": 0,
-
-    // Change max line length to 120:
-    "max-len": ["error", { "code": 120 }]
-    
-    // Remove?? :
-    // "no-param-reassign": 0,
-    // "import/no-extraneous-dependencies": 0,
-    // "import/prefer-default-export": 0
-    // "consistent-return": 0,
-    // "no-confusing-arrow": 0,
+    "semi": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   "env": {
     "browser": true,

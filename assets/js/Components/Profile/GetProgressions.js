@@ -12,7 +12,7 @@ import { ProgressBar } from '../Progress/ProgressBar'
 
 import { setProgressions } from '../../Redux/Actions'
 
-export default function GetProgresions(props) {
+export default function GetProgressions(props) {
   const [profile, setProfile] = useState(null)
   const dispatch = useDispatch()
   const { membershipType, membershipId, characterId } = getUrlDetails()

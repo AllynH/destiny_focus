@@ -11,7 +11,7 @@ import SelectActivityIcon from '../PGCR_Splash/SelectActivityIcon'
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 import { BASIC_ACTIVITY_MODES } from '../../Data/destinyEnums'
 
-import GetProgresions from '../Profile/GetProgressions'
+import GetProgressions from '../Profile/GetProgressions'
 
 import { RouteComponentProps } from 'react-router'
 import { FocusDetailKey } from '../Focus/types'
@@ -87,7 +87,7 @@ class Account extends React.Component<{} & RouteComponentProps, AccountState> {
     return (
         <div className='account-stats-wrapper'>
           <div className='stats-background'>
-            <GetProgresions {...this.props} />
+            <GetProgressions {...this.props} />
           </div>
           <h2>{allTime.heading}</h2>
           <div className='stats-background'>

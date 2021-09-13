@@ -18,7 +18,7 @@ import Spinner from '../../Utils/Loading/Spinner'
 import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 
-import GetProgresions from '../Profile/GetProgressions'
+import GetProgressions from '../Profile/GetProgressions'
 import FocusChoiceHeader from './FocusChoiceHeader'
 
 // Custom types:
@@ -281,7 +281,7 @@ class PvPChart extends React.Component<{ focusReducer: {} } & RouteComponentProp
               </div>
             )}
           </div>
-          <GetProgresions />
+          <GetProgressions />
           {/* Put character list on top? */}
           {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
           <div>

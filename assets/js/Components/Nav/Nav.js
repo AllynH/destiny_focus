@@ -14,7 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 
 import { GetCharacters } from '../../Utils/API/API_Requests'
-import GetProgresions from '../Profile/GetProgressions'
+import GetProgressions from '../Profile/GetProgressions'
 
 // import './nav.css';
 const useStyles = makeStyles((theme) => ({
@@ -231,7 +231,7 @@ export default function NavBar() {
             <Typography variant='h6' className={classes.title}>
               Destiny Focus
             </Typography>
-            {/* <GetProgresions {...{}} /> */}
+            {/* <GetProgressions {...{}} /> */}
           </Toolbar>
         </AppBar>
       </div>
