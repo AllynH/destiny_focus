@@ -2,17 +2,19 @@
 import React, { useState, useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
+import { DestinyProgression } from 'bungie-api-ts/destiny2';
 
 import { GetProfileWithArgs, GetActivityDefinition } from '../../Utils/API/API_Requests'
-import { PROGRESSION_DATA } from '../../Data/destinyEnums'
+import { PROGRESSION_DATA, ProgressionInterface, ProgressionNameKey } from '../../Data/destinyEnums'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 import ProgressionCircles from './ProgressionCircle'
 import Checkboxes from './Checkboxes'
 import { ProgressBar } from '../Progress/ProgressBar'
 
 import { setProgressions } from '../../Redux/Actions'
+import { DestinyProgressionDefinitionInterface } from '../../Types/Manifest/ProgressionTypes';
 
-export default function GetProgressions(props) {
+export default function GetProgressions(props: any) {
   const [profile, setProfile] = useState(null)
   const dispatch = useDispatch()
   const { membershipType, membershipId, characterId } = getUrlDetails()
@@ -26,13 +28,18 @@ export default function GetProgressions(props) {
           characterId,
         },
       })
+      console.log('Profile result:')
+      console.log(result)
+      console.log(characterId);
+
+
       setProfile(result)
 
       // Dispatch progressionsReducer:
       const setCharProgressions = () => {
-        const tempList = []
-        Object.keys(PROGRESSION_DATA).forEach((m) => {
-          const curProg = result?.Response?.characterProgressions?.data[characterId]?.progressions[
+        const tempList:  {[x: number]: ProgressionInterface}[]  = []
+        Object.keys(PROGRESSION_DATA).forEach((m: ProgressionNameKey) => {
+          const curProg: ProgressionInterface = result?.Response?.characterProgressions?.data[characterId]?.progressions[
             PROGRESSION_DATA[m].hash
           ]
           const tempData = { [PROGRESSION_DATA[m].hash]: curProg }
@@ -50,7 +57,7 @@ export default function GetProgressions(props) {
   return (
     <div className='progressions-wrapper'>
       {profile
-        ? Object.keys(PROGRESSION_DATA).map((m, index) => (
+        ? Object.keys(PROGRESSION_DATA).map((m: ProgressionNameKey, index: number) => (
             <CreateSingleProgression
               key={index}
               mode={m}
@@ -75,15 +82,31 @@ export default function GetProgressions(props) {
   )
 }
 
-function CreateSingleProgression(props) {
-  const [prog, setProg] = useState(null)
+// interface ProgressionProps {
+//   progressModeHash: number,
+//   profileProgressions: DestinyProgression,
+//   profileStreak: DestinyProgression,
+//   mode: string,
+//   maxRank: number,
+// }
+interface DisplayProgressionsInterface {
+  progressModeHash?: number,
+  profileProgressions: DestinyProgression,
+  profileStreak: DestinyProgression,
+  mode: string,
+  maxRank: number,
+  progressionsDefinition?: DestinyProgressionDefinitionInterface,
+
+}
+function CreateSingleProgression(props: DisplayProgressionsInterface) {
+  const [prog, setProg] = useState<DestinyProgressionDefinitionInterface>(null)
   const {
     progressModeHash, profileProgressions, profileStreak, mode, maxRank,
   } = props
 
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
-      const result = await GetActivityDefinition({
+      const result: DestinyProgressionDefinitionInterface = await GetActivityDefinition({
         params: { definition: 'DestinyProgressionDefinition', defHash: progressModeHash },
       })
       setProg(result)
@@ -108,7 +131,8 @@ function CreateSingleProgression(props) {
   )
 }
 
-function DisplayProgression(props) {
+
+function DisplayProgression(props: DisplayProgressionsInterface) {
   const {
     progressionsDefinition, profileProgressions, profileStreak, mode, maxRank,
   } = props

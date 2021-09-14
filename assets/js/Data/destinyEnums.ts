@@ -57,13 +57,13 @@ export type ProgressionNameKey =
   "Trials" |
   "Vanguard"
 
-interface SingleProgressionInterface {
+export interface SingleProgressionInterface {
   hash: number,
   maxRank: number,
   streakHash: number,
 }
 
-type ProgressionInterface = {
+export type ProgressionInterface = {
   // eslint-disable-next-line no-unused-vars
   [_key in ProgressionNameKey]: SingleProgressionInterface
 }
