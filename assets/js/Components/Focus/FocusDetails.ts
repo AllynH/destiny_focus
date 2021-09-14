@@ -89,7 +89,6 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
       'Form a fireteam of up to three, and brave the strange and powerful realms of our enemies.',
     Image: Dungeon,
     colours: {
-      // eslint-disable-next-line radar/no-duplicate-string
       colour_1: 'var(--vanguard-dark-5)',
       colour_2: 'black',
       colour_3: 'var(--vanguard-dark-5)',

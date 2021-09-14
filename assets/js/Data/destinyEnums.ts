@@ -64,7 +64,8 @@ interface SingleProgressionInterface {
 }
 
 type ProgressionInterface = {
-  [key in ProgressionNameKey]: SingleProgressionInterface
+  // eslint-disable-next-line no-unused-vars
+  [_key in ProgressionNameKey]: SingleProgressionInterface
 }
 
 export const PROGRESSION_DATA: ProgressionInterface = {

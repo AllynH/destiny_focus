@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-export const ViewStore = () => {
-  console.log('ViewStore')
+const ViewStore = () => {
+  // console.log('ViewStore')
   const state = useSelector((s) => s)
   const { focus } = useSelector((s) => s.focusReducer)
-  const { account } = useSelector((s) => s.accountReducer)
+  // const { account } = useSelector((s) => s.accountReducer)
   const {
     killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
   } = state.focusReducer.payload || {}
@@ -33,3 +33,4 @@ export const ViewStore = () => {
     </div>
   )
 }
+export default ViewStore

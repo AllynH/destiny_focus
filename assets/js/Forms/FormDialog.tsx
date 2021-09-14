@@ -7,11 +7,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function FormDialog(props) {
+export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
-  const {
-    focus, apiUrl, image, colours, description,
-  } = props.focus_details
+  // const {
+  //   focus, apiUrl, image, colours, description,
+  // } = props.focus_details
   // console.log('Inside form:')
   // console.log(apiUrl)
 

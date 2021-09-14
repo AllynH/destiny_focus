@@ -18,7 +18,9 @@ export default function FormDialog(props) {
   const [winLossRatio, setWinLossRatio] = React.useState(0)
   const [precisionKillsCount, setPrecisionKillsCount] = React.useState(0)
   const [avgLifeTime, setAvgLifeTime] = React.useState(0)
-  const [selFocus, setFocus] = React.useState('')
+  // Not read here but loaded into Redux state:
+  // eslint-disable-next-line no-unused-vars
+  const [_selFocus, setFocus] = React.useState('')
   const [helperText, setHelperText] = React.useState('')
   const [error, setError] = React.useState(false)
   const [values, setValues] = React.useState({
@@ -41,16 +43,16 @@ export default function FormDialog(props) {
   }
 
   const handleSubmit = (e) => {
-    console.log('focusForm focus', focus)
+    // console.log('focusForm focus', focus)
 
     e.preventDefault()
     setOpen(false)
-    console.log('Submit')
-    console.log('focus', focus)
-    console.log('killDeathRatio', killDeathRatio)
-    console.log('winLossRatio', winLossRatio)
-    console.log('precisionKillsCount', precisionKillsCount)
-    console.log('avgLifeTime', avgLifeTime)
+    // console.log('Submit')
+    // console.log('focus', focus)
+    // console.log('killDeathRatio', killDeathRatio)
+    // console.log('winLossRatio', winLossRatio)
+    // console.log('precisionKillsCount', precisionKillsCount)
+    // console.log('avgLifeTime', avgLifeTime)
     if (!error) {
       setFocus(focus)
       setKillDeathRatio(killDeathRatio)

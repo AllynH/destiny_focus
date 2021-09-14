@@ -1,7 +1,6 @@
 import { GACharacterSelectEvent } from "../../Components/Analytics/Events"
 
 const accountReducer = (state = {}, action) => {
-  // eslint-disable-next-line radar/no-small-switch
   switch (action.type) {
     case 'select_account': {
       // console.log('Changing character:', action?.account?.membershipType)

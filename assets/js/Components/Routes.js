@@ -1,5 +1,3 @@
-import React from 'react'
-
 import ChooseFocus from './Cards/ChooseFocus'
 import PvPChart from './PvP/PVPCharts'
 import AccountStats from './AccountStats/AccountStats'

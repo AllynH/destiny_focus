@@ -4,7 +4,7 @@ import React from 'react'
 class Error extends React.Component {
   render() {
     return (
-      <h1>Oops, I've experienced an error...</h1>
+      <h1>Oops, I&apos;ve experienced an error...</h1>
     )
   }
 }

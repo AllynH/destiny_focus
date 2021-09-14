@@ -14,7 +14,7 @@
     "webpack-watch:default": "NODE_ENV=debug webpack --mode development --watch",
     "flask-server": "flask run --host=0.0.0.0",
     "flask-static-digest": "flask digest compile",
-    "lint": "eslint --fix \"assets/js/*.js\" --ext .js,.ts,.tsx"
+    "lint": "eslint --fix \"assets/js/*/*\" --ext .js,.ts,.tsx"
   },
   "repository": {
     "type": "git",
