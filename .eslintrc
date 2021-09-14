@@ -37,6 +37,7 @@
     "react/prop-types": 0,
     "radar/no-small-switch": "off",
     "radar/no-duplicate-string": "off",
+    "radar/prefer-immediate-return": "off",
     "semi": 0
   },
   "settings": {

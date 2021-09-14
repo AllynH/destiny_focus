@@ -1,5 +1,14 @@
 import { GAFocusSetEvent } from "../../Components/Analytics/Events"
 
+export interface FocusReducerInterface {
+  focus: string,
+  killDeathRatio: number,
+  winLossRatio: number,
+  precisionKillsCount: number,
+  avgLifeTime: number,
+  focusReducer: any
+}
+
 interface FocusActionInterface {
   type: string,
   payload: {
