@@ -1,8 +1,5 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable camelcase */
 import React from 'react'
-import Route from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
@@ -13,9 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 
 import Light from '../../img/icons/light.svg'
 
-import {
-  increment, setPvp, setGambit, setRaid,
-} from '../Redux/Actions'
+import { setFocusMode } from '../Redux/Actions'
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false)
@@ -33,13 +28,9 @@ export default function FormDialog(props) {
     helperText: '',
   })
 
-  const getFocus = useSelector((state) => state.focus)
-  const counter = useSelector((state) => state.counter)
   const dispatch = useDispatch()
 
-  const {
-    focus, apiUrl, image, colours, description,
-  } = props.focus_details
+  const { focus } = props.focus_details
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -67,24 +58,18 @@ export default function FormDialog(props) {
       setPrecisionKillsCount(precisionKillsCount)
       setAvgLifeTime(avgLifeTime)
       // console.log(store.getState())
-      console.log('Dispatching actions:')
-      dispatch(increment(2))
-      if (focus === 'pvp') {
-        console.log('Setting focus -> ', focus)
-        dispatch(setPvp({
-          killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
-        }))
-      } else if (focus === 'gambit') {
-        console.log('Setting focus -> ', focus)
-        dispatch(setGambit({
-          killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
-        }))
-      } else {
-        console.log('Setting focus -> ', focus)
-        dispatch(setRaid({
-          killDeathRatio, winLossRatio, precisionKillsCount, avgLifeTime,
-        }))
-      }
+      // console.log('Dispatching actions:')
+      // dispatch(increment(2))
+
+      // console.log('Setting focus -> ', focus)
+      dispatch(
+        setFocusMode(focus, {
+          killDeathRatio,
+          winLossRatio,
+          precisionKillsCount,
+          avgLifeTime,
+        })
+      )
     } else {
       // eslint-disable-next-line no-alert
       alert('Please fix the errors.')
@@ -109,9 +94,16 @@ export default function FormDialog(props) {
 
   return (
     <div className='div-shimmer center-vertical-align'>
-
-      <div role='button' variant='outlined' color='primary' className={'focus-button'} onClick={handleClickOpen}>
-        <span className='focus-button-span'>Customize Focus <Light className='icon-focus-light' /></span>
+      <div
+        role='button'
+        variant='outlined'
+        color='primary'
+        className={'focus-button'}
+        onClick={handleClickOpen}
+      >
+        <span className='focus-button-span'>
+          Customize Focus <Light className='icon-focus-light' />
+        </span>
       </div>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
@@ -130,7 +122,7 @@ export default function FormDialog(props) {
             label='Kill Death Ratio'
             type='int'
             fullWidth
-            onInput={(killDeathRatio) => setKillDeathRatio(killDeathRatio.target.value)}
+            onInput={(kdr) => setKillDeathRatio(kdr.target.value)}
             // onInput={(killDeathRatio) => killDeathRatio.target.value}
             onChange={handleInputChange}
           />
@@ -155,7 +147,9 @@ export default function FormDialog(props) {
             label='Precision Kills per game (count)'
             type='int'
             fullWidth
-            onInput={(precisionKillsCount) => setPrecisionKillsCount(precisionKillsCount.target.value)}
+            onInput={(pkc) =>
+              setPrecisionKillsCount(pkc.target.value)
+            }
             onChange={handleInputChange}
           />
           <TextField
@@ -167,7 +161,7 @@ export default function FormDialog(props) {
             label='Average time alive (seconds)'
             type='int'
             fullWidth
-            onInput={(avgLifeTime) => setAvgLifeTime(avgLifeTime.target.value)}
+            onInput={(alt) => setAvgLifeTime(alt.target.value)}
             onChange={handleInputChange}
           />
         </DialogContent>

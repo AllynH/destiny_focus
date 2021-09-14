@@ -15,7 +15,7 @@ import GetProgressions from '../Profile/GetProgressions'
 
 import { RouteComponentProps } from 'react-router'
 import { FocusDetailKey } from '../Focus/types'
-import { CharaterPropsInterface } from '../../Data/CharacterProps'
+import { CharacterPropsInterface } from '../../Data/CharacterProps'
 
 interface AccountState {
   error: null | { message: string },
@@ -26,6 +26,7 @@ interface AccountState {
 
 class Account extends React.Component<{} & RouteComponentProps, AccountState> {
   componentRef: React.RefObject<unknown>
+
   constructor(props: any) {
     super(props)
     this.componentRef = React.createRef()
@@ -39,7 +40,7 @@ class Account extends React.Component<{} & RouteComponentProps, AccountState> {
   }
 
   render() {
-    const { membershipType , membershipId, characterId } = this.props.match.params as CharaterPropsInterface
+    const { membershipType , membershipId, characterId } = this.props.match.params as CharacterPropsInterface
     const { error, isLoaded } = this.state
 
     const selectGameMode = (event: { currentTarget: { getAttribute: (arg0: string) => string } }) => {
@@ -47,7 +48,7 @@ class Account extends React.Component<{} & RouteComponentProps, AccountState> {
     }
 
     // Cast to an Array of FocusDetailKeys[] as .filter returns an array - hopefully with only 1 item filteredActivityKeys[0]
-    const filteredActivityKeys: FocusDetailKey[] 
+    const filteredActivityKeys: FocusDetailKey[]
       = Object.keys(FOCUS_DETAILS)
       .filter((key: FocusDetailKey) => FOCUS_DETAILS[key].activityMode === this.state.gameMode) as FocusDetailKey[]
 

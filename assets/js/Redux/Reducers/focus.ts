@@ -1,11 +1,26 @@
 import { GAFocusSetEvent } from "../../Components/Analytics/Events"
 
-const focusReducer = (state = '', action) => {
+interface FocusActionInterface {
+  type: string,
+  payload: {
+    kdr: number,
+    wlr: number,
+    pkc: number,
+    alt: number,
+  },
+}
+
+const focusReducer = (state: any = {}, action: FocusActionInterface) => {
+  // console.log('focusReducer');
+  // console.log(action);
   switch (action.type) {
     case 'gambit':
+    case 'dungeon':
+    case 'nightfall':
+    case 'pvpcomp':
+    case 'trials':
     case 'raid':
     case 'pvp': {
-      // console.log('Setting focus state')
       const newState = {
         ...state,
         focus: action.type,

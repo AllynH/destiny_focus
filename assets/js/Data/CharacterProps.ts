@@ -1,4 +1,4 @@
-export interface CharaterPropsInterface {
+export interface CharacterPropsInterface {
     membershipType: number,
     membershipId: number,
     characterId: number,

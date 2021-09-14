@@ -22,7 +22,7 @@ import GetProgressions from '../Profile/GetProgressions'
 import FocusChoiceHeader from './FocusChoiceHeader'
 
 // Custom types:
-import { CharaterPropsInterface } from '../../Data/CharacterProps'
+import { CharacterPropsInterface } from '../../Data/CharacterProps'
 
 
 const UPDATE_TIME = 20
@@ -193,7 +193,7 @@ class PvPChart extends React.Component<{ focusReducer: {} } & RouteComponentProp
     }
   }
 
-  getKdr(jsonResponse: { Response?: any }) {  
+  getKdr(jsonResponse: { Response?: any }) {
     const kdrList: kdrDetailsInterface[] = []
     const myArray = jsonResponse.Response.activities
     myArray.forEach((element: { values: { killsDeathsRatio: { basic: { displayValue: any } }; deaths: { basic: { displayValue: any } }; kills: { basic: { displayValue: any } }; assists: { basic: { displayValue: any } } } }, index: number) => {
@@ -265,7 +265,7 @@ class PvPChart extends React.Component<{ focusReducer: {} } & RouteComponentProp
       const kdr = this.getKdr(jsonResponse)
       const {
         membershipType, membershipId, characterId,
-      } = this.props.match.params as CharaterPropsInterface
+      } = this.props.match.params as CharacterPropsInterface
 
       return (
         <>
