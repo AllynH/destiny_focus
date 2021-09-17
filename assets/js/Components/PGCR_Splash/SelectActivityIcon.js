@@ -23,6 +23,8 @@ export default function SelectActivityIcon(props) {
   // let iconHeight = 150
   // let iconColour = 'white'
 
+  // This needs refactor - can now use FOCUS_DETAILS to choose all of these.
+  // eslint-disable-next-line radar/cognitive-complexity
   const ReturnActivityIcon = () => {
     const m = props.activityMode
     let iconStyleVars = {}
@@ -67,7 +69,9 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
+      case 'pvp':
       case 'AllPvP':
+      case 'pvpcomp':
       case 'All PvP':
       case 'Survival':
       case 'Control':
@@ -114,7 +118,10 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
+      case 'trials':
+      case 'Trials':
       case 'TrialsOfOsiris':
+      case 'Trials of Osiris':
         return (
           <Trials
             width={iconStyleVars.iconWidth}
