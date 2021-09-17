@@ -1,0 +1,78 @@
+.win-loss-wrapper {
+  position: relative;
+  /* width: var(--win-loss-container-width); */
+  height: var(--win-loss-container-height);
+  padding: var(--win-loss-container-padding);
+  margin: 0 auto;
+}
+
+.win-loss-title{
+
+}
+
+.win-loss-title-wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.win-loss-container{
+  /* position: absolute; */
+  height: 100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.win-loss-baseline{
+  position: absolute;
+  width: 90%;
+  height: 50%;
+  /* border-bottom: solid 2px rgba(0, 0, 0, 0.8); */
+  border-bottom: dashed 2px rgba(255, 255, 255, 0.2);
+  z-index: -1;
+}
+
+.win-loss-lost-game{
+  background-color: red;
+  margin-top: auto;
+}
+
+.win-loss-won-game{
+  background-color: green;
+  margin-bottom: auto;
+}
+
+.win-loss-circle{
+  height: var(--win-loss-circle-height);
+  width: var(--win-loss-circle-width);
+  margin-left: var(--win-loss-circle-margin);
+  margin-right: var(--win-loss-circle-margin);
+  /* border: dashed 1px rgba(0, 0, 0, 0.8); */
+  border-radius: 50%;
+}
+
+
+@media screen and (min-width: 600px) {
+  :root{
+    --win-loss-circle-width: 20px;
+    --win-loss-circle-height: 20px;
+    --win-loss-circle-margin: 4px;
+    --win-loss-container-width: 100%;
+    --win-loss-container-height: 50px;
+    --win-loss-container-padding: 10px 20px;
+  }
+}
+
+/*
+  Mobile devices:
+*/
+@media screen and (max-width: 600px) {
+  :root{
+    --win-loss-circle-width: 10px;
+    --win-loss-circle-height: 10px;
+    --win-loss-circle-margin: 1px;
+    --win-loss-container-height: 25px;
+    --win-loss-container-width: 360px;
+    --win-loss-container-padding: 0;
+  }
+}

@@ -2,6 +2,7 @@
 import React from 'react'
 
 import './style.css'
+import { RouteComponentProps } from 'react-router'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import AccountStats from './AccountStats'
 import SeasonMenu from './SeasonDropdown'
@@ -13,7 +14,6 @@ import { BASIC_ACTIVITY_MODES } from '../../Data/destinyEnums'
 
 import GetProgressions from '../Profile/GetProgressions'
 
-import { RouteComponentProps } from 'react-router'
 import { FocusDetailKey } from '../Focus/types'
 import { CharacterPropsInterface } from '../../Data/CharacterProps'
 
@@ -21,20 +21,18 @@ interface AccountState {
   error: null | { message: string },
   gameMode: number,
   isLoaded: boolean,
-  jsonResponse: {},
 }
 
-class Account extends React.Component<{} & RouteComponentProps, AccountState> {
+class Account extends React.Component<RouteComponentProps & {updateCount: number}, AccountState> {
   componentRef: React.RefObject<unknown>
 
-  constructor(props: any) {
+  constructor(props: RouteComponentProps & {updateCount: number}) {
     super(props)
     this.componentRef = React.createRef()
     this.state = {
       error: null,
       gameMode: 5,
       isLoaded: true,
-      jsonResponse: {},
       ...this.state,
     }
   }
@@ -43,7 +41,10 @@ class Account extends React.Component<{} & RouteComponentProps, AccountState> {
     const { membershipType , membershipId, characterId } = this.props.match.params as CharacterPropsInterface
     const { error, isLoaded } = this.state
 
-    const selectGameMode = (event: { currentTarget: { getAttribute: (arg0: string) => string } }) => {
+    // Throws an error when declared as React.MouseEventHandler<HTMLDivElement>
+    // const selectGameMode = (event: React.MouseEventHandler<HTMLDivElement> ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const selectGameMode = (event: any ) => {
       this.setState({ gameMode: Number(event.currentTarget.getAttribute('data-value')) })
     }
 
@@ -80,7 +81,8 @@ class Account extends React.Component<{} & RouteComponentProps, AccountState> {
 
     if (error) {
       return <div>Error: {error.message}</div>
-    } if (!isLoaded) {
+    }
+    if (!isLoaded) {
       return <Spinner />
     }
     const { allTime, season } = statsData

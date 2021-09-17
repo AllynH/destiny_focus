@@ -19,6 +19,10 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
+[*.tsx]
+indent_style = space
+indent_size = 2
+
 # README.md and other wiki files:
 [*.md]
 trim_trailing_whitespace = false

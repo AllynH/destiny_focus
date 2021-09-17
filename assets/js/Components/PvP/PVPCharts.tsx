@@ -1,114 +1,61 @@
+/* eslint-disable no-console */
 import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 
+import { DestinyActivityHistoryResults, DestinyHistoricalStatsPeriodGroup } from 'bungie-api-ts/destiny2/interfaces'
+import { ServerResponse } from 'bungie-api-ts/destiny2'
+
 import KDRChart from './KDRChartScatter'
 
-import './style.css'
 import SpinnerDualRing from '../../Utils/Loading/SpinnerDualRing'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import PgcrList from '../PGCR/PgcrList'
 import PgcrSummary from './PgcrSummary'
 // import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
-import { GetPVPData, GetGambitData, GetRaidData } from '../../Utils/API/API_Requests'
+import { GetPVPData } from '../../Utils/API/API_Requests'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
+import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 
 import GetProgressions from '../Profile/GetProgressions'
 import FocusChoiceHeader from './FocusChoiceHeader'
+import WinLossSummary from '../WinLossSummary'
 
 // Custom types:
 import { CharacterPropsInterface } from '../../Data/CharacterProps'
 import { FocusReducerInterface } from '../../Redux/Reducers/focus'
+import { AllowedWinLoss } from '../WinLossSummary/types'
+import { FocusDetailKey } from '../Focus/types'
+
+import './style.css'
 
 
+// Set the update time for refreshing the data:
 const UPDATE_TIME = 20
+
 const fetchPVPData = async () => {
   const {
     membershipType, membershipId, characterId, gameMode,
   } = getUrlDetails()
 
-  switch (gameMode) {
-    case 'gambit': {
-      const response = await GetGambitData({
-        params: { membershipType, membershipId, characterId },
-      })
-      return response
-    }
-    case 'raid': {
-      const newGameMode = 4
-      const response = await GetRaidData({
-        params: {
-          membershipType,
-          membershipId,
-          characterId,
-          gameMode: newGameMode,
-        },
-      })
-      return response
-    }
-    case 'trials': {
-      const newGameMode = 84
-      const response = await GetRaidData({
-        params: {
-          membershipType,
-          membershipId,
-          characterId,
-          gameMode: newGameMode,
-        },
-      })
-      return response
-    }
-    case 'dungeon': {
-      const newGameMode = 82
-      const response = await GetRaidData({
-        params: {
-          membershipType,
-          membershipId,
-          characterId,
-          gameMode: newGameMode,
-        },
-      })
-      return response
-    }
-    case 'nightfall': {
-      const newGameMode = 46
-      const response = await GetRaidData({
-        params: {
-          membershipType,
-          membershipId,
-          characterId,
-          gameMode: newGameMode,
-        },
-      })
-      return response
-    }
-    case 'pvpcomp': {
-      const newGameMode = 37
-      const response = await GetRaidData({
-        params: {
-          membershipType,
-          membershipId,
-          characterId,
-          gameMode: newGameMode,
-        },
-      })
-      return response
-    }
-    default:
-    case 'pvp': {
-      const response = await GetPVPData({ params: { membershipType, membershipId, characterId } })
-      return response
-    }
-  }
-}
-interface GetActivityResponseInterface {
-  values : {
-    killsDeathsRatio: { basic: { displayValue: string } },
-    deaths: { basic: { displayValue: string } },
-    kills: { basic: { displayValue: string } },
-    assists: { basic: { displayValue: string } }
-  }
+    // Cast to an Array of FocusDetailKeys[] as .filter returns an array - hopefully with only 1 item filteredActivityKeys[0]
+    const filteredActivityKeys: FocusDetailKey[]
+      = Object.keys(FOCUS_DETAILS)
+      .filter((key: FocusDetailKey) => FOCUS_DETAILS[key].focus === gameMode) as FocusDetailKey[]
+
+      const { activityMode } = FOCUS_DETAILS[filteredActivityKeys[0]]
+
+  const response: ServerResponse<DestinyActivityHistoryResults> = await GetPVPData({
+    params: {
+      membershipType,
+      membershipId,
+      characterId,
+      gameMode: activityMode,
+    },
+  })
+
+  return response
 }
 
 interface kdrDetailsInterface {
@@ -127,20 +74,22 @@ interface PvPChartStateInterface {
   timerId: number,
   updating: boolean,
   updateCount: number,
-  jsonResponse: Record<string, unknown>,
+  jsonResponse: ServerResponse<DestinyActivityHistoryResults>,
 }
 
-class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } & RouteComponentProps, PvPChartStateInterface>  {
+class PvPChart extends React.Component<RouteComponentProps & { focusReducer: FocusReducerInterface } & RouteComponentProps, PvPChartStateInterface>  {
     countdown: number
 
     timerId: NodeJS.Timer
 
-  constructor(props: any) {
+  constructor(props: RouteComponentProps & { focusReducer: FocusReducerInterface }) {
     super(props)
     this.countdown = 0
 
     this.checkError = this.checkError.bind(this)
     this.getKdr = this.getKdr.bind(this)
+    this.getWinLoss = this.getWinLoss.bind(this)
+    this.getWinLossPercent = this.getWinLossPercent.bind(this)
     this.Headings = this.Headings.bind(this)
     this.state = {
       error: null,
@@ -183,7 +132,7 @@ class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } &
 
   async update() {
     try {
-      const data = await fetchPVPData()
+      const data: ServerResponse<DestinyActivityHistoryResults> = await fetchPVPData()
       this.checkError(data)
       this.setState({
         ...this.state,
@@ -197,12 +146,18 @@ class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } &
       this.setState({
         ...this.state,
         updateCount: this.state.updateCount + 1,
-        jsonResponse: data,
+        error: true,
+        errorMessage: data.error,
       })
     }
   }
 
-  checkError = (jsonResponse: {Response?: any}) => {
+  /**
+   * TODO: Add more data to this error.
+   * @param jsonResponse
+   * @returns Returns a HTML div - should return a component:
+   */
+  checkError = (jsonResponse: ServerResponse<DestinyActivityHistoryResults>) => {
     const { Response } = jsonResponse
     if (Response && Object.keys(Response).length === 0 && Response.constructor === Object) {
       const errorMessage = 'No activities found on this character!'
@@ -212,10 +167,10 @@ class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } &
     return true
   }
 
-  getKdr = (jsonResponse: { Response?: any }) => {
+  getKdr = (jsonResponse: ServerResponse<DestinyActivityHistoryResults>) => {
     const kdrList: kdrDetailsInterface[] = []
     const myArray = jsonResponse.Response.activities
-    myArray.forEach((element: GetActivityResponseInterface, index: number) => {
+    myArray.forEach((element: DestinyHistoricalStatsPeriodGroup, index: number) => {
       const kdr = Number(element.values.killsDeathsRatio.basic.displayValue)
       const deaths = Number(element.values.deaths.basic.displayValue)
       const kills = Number(element.values.kills.basic.displayValue)
@@ -236,10 +191,42 @@ class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } &
     return kdrList
   }
 
-  getPrecision = (jsonResponse: { Response: { activities: any } }) => {
+  /**
+   * This function calculated the standing
+   * @param jsonResponse
+   * @returns Returns an Array of either 1 or 0. Where: 0 = win, 1 = loss.
+   */
+  getWinLoss = (jsonResponse: ServerResponse<DestinyActivityHistoryResults>): AllowedWinLoss[] => {
+    if (jsonResponse.Response.activities[0].values.standing) {
+      const myArray = jsonResponse.Response.activities
+      const winLossValues = myArray.map((element: DestinyHistoricalStatsPeriodGroup) => (element.values.standing.basic.value as AllowedWinLoss))
+      return winLossValues
+    }
+    return undefined
+  }
+
+  /**
+   *
+   * @param jsonResponse
+   * @returns A string saying: '60%'
+   */
+  getWinLossPercent = (jsonResponse: ServerResponse<DestinyActivityHistoryResults>): string => {
+    if (jsonResponse.Response.activities[0].values.standing) {
+      const myArray = jsonResponse.Response.activities
+      const winLossValues = myArray.map((element: DestinyHistoricalStatsPeriodGroup) => (element.values.standing.basic.value))
+      const winLossCount = winLossValues.reduce((acc, curr) => acc + curr)
+      // In this case a loss = 1, so we need to account for this:
+      const winCount = (winLossValues.length - winLossCount)
+      const winLossPercent = `${((winCount / winLossValues.length) * 100).toFixed(2)  }%`
+      return winLossPercent
+    }
+    return undefined
+  }
+
+  getPrecision = (jsonResponse: ServerResponse<DestinyActivityHistoryResults>): kdrDetailsInterface[] => {
     const precisionList: kdrDetailsInterface[] = []
     const myArray = jsonResponse.Response.activities
-    myArray.forEach((element: GetActivityResponseInterface, index: number) => {
+    myArray.forEach((element: DestinyHistoricalStatsPeriodGroup, index: number) => {
       const precision = Number(element.values.killsDeathsRatio.basic.displayValue)
       const deaths = Number(element.values.deaths.basic.displayValue)
       const kills = Number(element.values.kills.basic.displayValue)
@@ -283,6 +270,10 @@ class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } &
       return <Spinner />
     }
       const kdr = this.getKdr(jsonResponse)
+      const getStanding = !!jsonResponse.Response.activities[0].values.standing
+      const winLossArray: AllowedWinLoss[] = this.getWinLoss(jsonResponse)
+      const winLossPercent: string = this.getWinLossPercent(jsonResponse)
+
       const {
         membershipType, membershipId, characterId,
       } = this.props.match.params as CharacterPropsInterface
@@ -301,7 +292,8 @@ class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } &
               </div>
             )}
           </div>
-          <GetProgressions />
+          <GetProgressions updateCount={this.state.updateCount} />
+          {getStanding && < WinLossSummary winLossArray={winLossArray} winLossPercent={winLossPercent} />}
           {/* Put character list on top? */}
           {/* <ClickableCharacterList memberships={{ membershipId, membershipType }} /> */}
           <div>
@@ -341,10 +333,10 @@ class PvPChart extends React.Component<{ focusReducer: FocusReducerInterface } &
 
 const mapStateToProps = (state: FocusReducerInterface) => ({
   focus: state.focus,
-  killDeathRatio: state.killDeathRatio,
-  winLossRatio: state.winLossRatio,
-  precisionKillsCount: state.precisionKillsCount,
-  avgLifeTime: state.avgLifeTime,
+  // killDeathRatio: state.killDeathRatio,
+  // winLossRatio: state.winLossRatio,
+  // precisionKillsCount: state.precisionKillsCount,
+  // avgLifeTime: state.avgLifeTime,
   focusReducer: state.focusReducer,
 })
 

@@ -1,8 +1,7 @@
-/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { DestinyProgression } from 'bungie-api-ts/destiny2';
+import { DestinyProgression, DestinyProgressionDefinition } from 'bungie-api-ts/destiny2';
 
 import { GetProfileWithArgs, GetActivityDefinition } from '../../Utils/API/API_Requests'
 import { PROGRESSION_DATA, ProgressionInterface, ProgressionNameKey } from '../../Data/destinyEnums'
@@ -12,9 +11,8 @@ import Checkboxes from './Checkboxes'
 import { ProgressBar } from '../Progress/ProgressBar'
 
 import { setProgressions } from '../../Redux/Actions'
-import { DestinyProgressionDefinitionInterface } from '../../Types/Manifest/ProgressionTypes';
 
-export default function GetProgressions(props: any) {
+export default function GetProgressions(props: { updateCount: number }) {
   const [profile, setProfile] = useState(null)
   const dispatch = useDispatch()
   const { membershipType, membershipId, characterId } = getUrlDetails()
@@ -28,10 +26,9 @@ export default function GetProgressions(props: any) {
           characterId,
         },
       })
-      console.log('Profile result:')
-      console.log(result)
-      console.log(characterId);
-
+      // console.log('Profile result:')
+      // console.log(result)
+      // console.log(characterId);
 
       setProfile(result)
 
@@ -52,7 +49,7 @@ export default function GetProgressions(props: any) {
       setCharProgressions()
     }
     fetchUserProfile()
-  }, [props])
+  }, [props.updateCount])
 
   return (
     <div className='progressions-wrapper'>
@@ -74,7 +71,7 @@ export default function GetProgressions(props: any) {
                 ]
               }
               {...profile}
-              {...props}
+              // {...props}
             />
         ))
         : ''}
@@ -95,18 +92,18 @@ interface DisplayProgressionsInterface {
   profileStreak: DestinyProgression,
   mode: string,
   maxRank: number,
-  progressionsDefinition?: DestinyProgressionDefinitionInterface,
+  progressionsDefinition?: DestinyProgressionDefinition,
 
 }
 function CreateSingleProgression(props: DisplayProgressionsInterface) {
-  const [prog, setProg] = useState<DestinyProgressionDefinitionInterface>(null)
+  const [prog, setProg] = useState<DestinyProgressionDefinition>(null)
   const {
     progressModeHash, profileProgressions, profileStreak, mode, maxRank,
   } = props
 
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
-      const result: DestinyProgressionDefinitionInterface = await GetActivityDefinition({
+      const result: DestinyProgressionDefinition = await GetActivityDefinition({
         params: { definition: 'DestinyProgressionDefinition', defHash: progressModeHash },
       })
       setProg(result)
@@ -148,13 +145,23 @@ function DisplayProgression(props: DisplayProgressionsInterface) {
 
   /* Styling: */
   const overflowFlag = profileProgressions.level === progressionsDefinition.steps.length
-  const modeColour = `rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})`
+  const modeColour =
+    `rgba(${progressionsDefinition.color.red},
+      ${progressionsDefinition.color.green},
+      ${progressionsDefinition.color.blue},
+      ${progressionsDefinition.color.alpha})`
   const overflowBorder = {
-    borderColor: `rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})`,
+    borderColor:
+      `rgba(${progressionsDefinition.color.red},
+        ${progressionsDefinition.color.green},
+        ${progressionsDefinition.color.blue},
+        ${progressionsDefinition.color.alpha})`,
   }
   const borderStyle = overflowFlag ? overflowBorder : {}
   const gradient = {
-    background: `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, 1) 100%)`,
+    background:
+    // eslint-disable-next-line max-len
+    `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, 1) 100%)`,
   }
   const overFlowStyle = { ...gradient, ...borderStyle }
 
