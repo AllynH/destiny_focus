@@ -14,7 +14,7 @@ import PgcrList from '../PGCR/PgcrList'
 import PgcrSummary from './PgcrSummary'
 // import { ViewStore } from '../../Utils/ViewStore'
 import Spinner from '../../Utils/Loading/Spinner'
-import { GetPVPData } from '../../Utils/API/API_Requests'
+import { GetRaidData } from '../../Utils/API/API_Requests'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 
@@ -46,7 +46,7 @@ const fetchPVPData = async () => {
 
       const { activityMode } = FOCUS_DETAILS[filteredActivityKeys[0]]
 
-  const response: ServerResponse<DestinyActivityHistoryResults> = await GetPVPData({
+  const response: ServerResponse<DestinyActivityHistoryResults> = await GetRaidData({
     params: {
       membershipType,
       membershipId,
