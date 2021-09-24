@@ -34,13 +34,13 @@ export default function TrialsCard(props: {
       objectiveHash: 1586211619,
     },
     flawless: {
-      progress: trialsCard[1].progress,
-      completionValue: trialsCard[1].completionValue,
-      flawlessFlag: trialsCard[1].complete,
+      progress: trialsCard[1]?.progress || 0,
+      completionValue: trialsCard[1]?.completionValue || 7,
+      flawlessFlag: trialsCard[1]?.complete || false,
       objectiveHash: 2369244651,
     },
     roundsWon: {
-      progress: trialsCard[3].progress,
+      progress: trialsCard[3]?.progress || 0,
       objectiveHash: 984122744,
     },
   }
