@@ -26,11 +26,11 @@ export default function TrialsCard(props: {
 
   const data = {
     wins: {
-      progress: trialsCard[0].progress,
-      progressPercent: Number(
-        ((trialsCard[0].progress / trialsCard[0].completionValue) * 100).toFixed(2)
-      ),
-      completionValue: trialsCard[0].completionValue,
+      progress: trialsCard[0].progress || 0,
+      progressPercent: trialsCard[0]?.progress ? Number(
+        ((trialsCard[0]?.progress / trialsCard[0]?.completionValue) * 100).toFixed(2))
+        : 0,
+      completionValue: trialsCard[0].completionValue || 7,
       objectiveHash: 1586211619,
     },
     flawless: {
