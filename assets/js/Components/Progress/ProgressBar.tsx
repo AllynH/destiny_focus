@@ -3,7 +3,14 @@ import React from 'react'
 
 import './style.css'
 
-export const ProgressBar = (props = {
+interface ProgressBarInterface {
+  progress: number,
+  theme: string,
+  message: string,
+  steps: string,
+}
+
+export const ProgressBar = (props: ProgressBarInterface = {
   progress: 69, theme: '--var(vanguard-blue)', message: '', steps: '666/666',
 }) => {
   const {
@@ -27,6 +34,9 @@ export const ProgressBar = (props = {
     case ('good'):
       colour = 'var(--vanguard-blue)'
       break
+    case ('trials'):
+      colour = 'var(--bungie-power)'
+      break
     case ('success'):
     default:
       colour = 'var(--gambit-green)'
@@ -36,7 +46,7 @@ export const ProgressBar = (props = {
     <div className='progress-bar'>
       <div className='progress-bar-text-fill-wrapper'>
         <div className='progress-bar-text-wrapper'>
-          <div className='progres-bar-text'>{message}</div>
+          <div className='progress-bar-text'>{message}</div>
           <div className='progress-bar-percent'>{steps}</div>
         </div>
         <div className='progress-bar-fill' style={{ width: pWidth, backgroundColor: colour }}></div>

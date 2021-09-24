@@ -83,6 +83,13 @@ class BungieApi(object):
         """
         https://bungie-net.github.io/multi/operation_get_Destiny2-GetProfile.html#operation_get_Destiny2-GetProfile
         Get associated Destiny profile information.
+        See a full list of components:
+            https://bungie-net.github.io/multi/schema_Destiny-DestinyComponentType.html#schema_Destiny-DestinyComponentType
+        Requested components:
+            100: Profiles
+            200: Characters
+            202: CharacterProgressions
+            204: CharacterActivities
         """
         function_name = "GetProfile"
         auth_session = self.make_session()
@@ -90,7 +97,7 @@ class BungieApi(object):
 
 
         url_params = {
-            'components' : "100,200,202"
+            'components' : "100,200,202,204"
             }
 
         url = self.api_urls['GetProfile']
@@ -234,7 +241,7 @@ class BungieApi(object):
         function_name = "get_activity_history"
         auth_session = self.make_session()
 
-        
+
         # daystart    = datetime.strptime(SEASONS[CURRENT_SEASON]['START'], "%Y-%m-%d %H:%M:%S")
         # dayend      = datetime.strptime(SEASONS[CURRENT_SEASON]['END'], "%Y-%m-%d %H:%M:%S")
 
@@ -261,7 +268,7 @@ class BungieApi(object):
             # if not periodType == "Activity":
             url_params['dayend']    = dayend
             url_params['daystart']  = daystart
-                
+
         # print(url_params)
 
 

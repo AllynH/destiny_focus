@@ -72,8 +72,8 @@ export const PROGRESSION_DATA: ProgressionInterface = {
   Glory: { hash: 1647151960, maxRank: 5500, streakHash: 2572719399 },
   Valor: { hash: 2083746873, maxRank: 10000, streakHash: 2203850209 },
   Infamy: { hash: 3008065600, maxRank: 15000, streakHash: 2939151659 },
-  Trials: { hash: 2755675426, maxRank: 10000, streakHash: 70699614 },
   Vanguard: { hash: 457612306, maxRank: 10000, streakHash: 600547406 },
+  Trials: { hash: 2755675426, maxRank: 10000, streakHash: 70699614 },
 }
 
 interface WeaponTypeInterface {
@@ -88,4 +88,40 @@ export const WEAPON_TYPES: WeaponTypeInterface = {
   kinetic: 1498876634,
   energy: 2465295065,
   power: 953998645,
+}
+
+// export type TrialsPassageKey =
+//   'Passage of Mercy' |
+//   'Passage of Ferocity' |
+//   'Passage of Confidence' |
+//   'Passage of Wisdom' |
+//   'Passage of Wealth'
+export type TrialsPassageKey =
+  'Mercy' |
+  'Ferocity' |
+  'Confidence' |
+  'Wealth' |
+  'Wisdom'
+
+interface SingleTrialsCardInterface {
+  hash: number,
+  name: string,
+}
+
+export type TrialsCardInterface = {
+  // eslint-disable-next-line no-unused-vars
+  [_key in TrialsPassageKey]: SingleTrialsCardInterface
+}
+
+export const TRIALS_CARD_DATA: TrialsCardInterface = {
+  Mercy: { hash: 1600065451, name: 'Passage of Mercy' }, // Duplicate - correct value
+  Ferocity: { hash: 1274359594, name: 'Passage of Ferocity' }, // Duplicate - guessing value.
+  Confidence: { hash: 1181381245, name: 'Passage of Confidence' }, // Duplicate - guessing value.
+  Wealth: { hash: 2994359731, name: 'Passage of Wealth' }, // Duplicate - guessing value.
+  Wisdom: { hash: 2001563200, name: 'Passage of Wisdom' }, // Duplicate - guessing value.
+  // Mercy: { hash: 3125852681, name: 'Passage of Mercy' },
+  // Ferocity: { hash: 7665310, name: 'Passage of Ferocity' },
+  // Confidence: { hash: 2512224275, name: 'Passage of Confidence' },
+  // Wealth: { hash: 2879309661, name: 'Passage of Wealth' },
+  // Wisdom: { hash: 3937592460, name: 'Passage of Wisdom' },
 }

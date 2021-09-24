@@ -12,11 +12,11 @@ export default function WinLossSummary(props: WinLossProps) {
       <div className='win-loss-wrapper progressions-item-wrap'>
         <div className='win-loss-container'>
           <div className='win-loss-baseline'></div>
-          {winLossArray.map((result) =>
+          {winLossArray.map((result, index) =>
             (result ? (
-              <div className='win-loss-circle win-loss-lost-game'></div>
+              <div key={index} className='win-loss-circle win-loss-lost-game'></div>
             ) : (
-              <div className='win-loss-circle win-loss-won-game'></div>
+              <div key={index} className='win-loss-circle win-loss-won-game'></div>
             ))
           )}
         </div>

@@ -1,11 +1,12 @@
 /*
-    References: 
+    References:
         https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
         https://github.com/DestinyItemManager/DIM/blob/master/tsconfig.json
 
 */
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "outDir": "./destiny-focus/static/build/",
     "sourceMap": true,
     "noImplicitAny": true,
@@ -15,6 +16,7 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "paths": {
       "app/*": ["./assets/app/*"],

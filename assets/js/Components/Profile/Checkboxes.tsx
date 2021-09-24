@@ -1,8 +1,13 @@
 import React from 'react'
 
-export default function Checkboxes(props) {
+interface CheckboxesInterface {
+  streakArray: boolean[],
+  modeColour: string,
+}
+
+export default function Checkboxes(props: CheckboxesInterface) {
   /*
-  Creates a series of 5 div'c containing boxes.
+  Creates a series of 5 div's containing boxes.
   This displays the users win streak.
   Wins are denoted by filled check boxes.
 
@@ -13,13 +18,18 @@ export default function Checkboxes(props) {
   return (
     <div className='checkbox-wrapper'>
       {streakArray.map((streak, index) => (
-        <StreakBox key={index} win={streak} modeColour={modeColour} />
+        <SingleCheckBox key={index} win={streak} modeColour={modeColour} />
       ))}
     </div>
   )
 }
 
-function StreakBox(props) {
+interface CheckSingleBoxInterface {
+  win: boolean,
+  modeColour: string,
+}
+
+export function SingleCheckBox(props: CheckSingleBoxInterface) {
   const { win, modeColour } = props
 
   const boxStyle = win ? { backgroundColor: modeColour } : {}

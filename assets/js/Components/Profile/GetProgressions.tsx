@@ -1,22 +1,74 @@
 import React, { useState, useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { DestinyProgression, DestinyProgressionDefinition } from 'bungie-api-ts/destiny2';
+import {
+  DestinyProgression,
+  DestinyProgressionDefinition,
+  DestinyObjectiveProgress,
+} from 'bungie-api-ts/destiny2'
 
 import { GetProfileWithArgs, GetActivityDefinition } from '../../Utils/API/API_Requests'
-import { PROGRESSION_DATA, ProgressionInterface, ProgressionNameKey } from '../../Data/destinyEnums'
+import {
+  PROGRESSION_DATA,
+  ProgressionInterface,
+  ProgressionNameKey,
+  TRIALS_CARD_DATA,
+  TrialsPassageKey,
+} from '../../Data/destinyEnums'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 import ProgressionCircles from './ProgressionCircle'
 import Checkboxes from './Checkboxes'
 import { ProgressBar } from '../Progress/ProgressBar'
 
 import { setProgressions } from '../../Redux/Actions'
+import TrialsCard from '../Trials/TrialsCard'
+
+interface TrialsCardDataAndHash {
+  trialsCardData: DestinyObjectiveProgress[]
+  trialsCardHash: number
+}
 
 export default function GetProgressions(props: { updateCount: number }) {
   const [profile, setProfile] = useState(null)
+  const [trialsCard, setTrialsCard] = useState({ trialsCardData: [], trialsCardHash: undefined })
   const dispatch = useDispatch()
   const { membershipType, membershipId, characterId } = getUrlDetails()
 
+  // const storedTrialsCardData = [
+  //     {
+  //       complete: false,
+  //       completionValue: 7,
+  //       objectiveHash: 1586211619,
+  //       progress: 2,
+  //       visible: true,
+  //     },
+  //     {
+  //       complete: false,
+  //       completionValue: 1,
+  //       objectiveHash: 2369244651,
+  //       progress: 0,
+  //       visible: false,
+  //     },
+  //     {
+  //       complete: true,
+  //       completionValue: 1,
+  //       objectiveHash: 2211480687,
+  //       progress: 1,
+  //       visible: true,
+  //     },
+  //     {
+  //       complete: true,
+  //       completionValue: 1,
+  //       objectiveHash: 984122744,
+  //       progress: 10,
+  //       visible: true,
+  //     },
+  //   ]
+
+  //   const storedTrialsCardDataAndHash: TrialsCardDataAndHash = {
+  //     trialsCardData: storedTrialsCardData,
+  //     trialsCardHash: 1600065451,
+  //   }
   useEffect(() => {
     const fetchUserProfile = async () => {
       const result = await GetProfileWithArgs({
@@ -43,10 +95,40 @@ export default function GetProgressions(props: { updateCount: number }) {
           tempList.push(tempData)
         })
         dispatch(
-          setProgressions({ progressions: { values: tempList, logged: new Date().toISOString() } }),
+          setProgressions({ progressions: { values: tempList, logged: new Date().toISOString() } })
         )
       }
       setCharProgressions()
+
+      // Search for Trials card data:
+      const getTrialsCards = (): TrialsCardDataAndHash => {
+        const trialsCardData: DestinyObjectiveProgress[] = Object.keys(TRIALS_CARD_DATA)
+          .map(
+            (m: TrialsPassageKey) =>
+              result?.Response?.characterProgressions?.data[characterId].uninstancedItemObjectives[
+                TRIALS_CARD_DATA[m].hash
+              ]
+          )
+          .filter((item: DestinyObjectiveProgress) => item !== undefined)
+
+        // Search GetProfile for active Trials card hash:
+        const hashList = Object.keys(TRIALS_CARD_DATA).map((item: TrialsPassageKey) => TRIALS_CARD_DATA[item].hash)
+        const bountyHashList = Object.keys(result.Response.characterProgressions.data[characterId].uninstancedItemObjectives)
+        // Return an array in the form of: [ 1600065451, undefined, undefined, undefined, undefined ]
+        const foundHashArrayMap = hashList.map((hash) => (bountyHashList.includes(String(hash)) ? hash : undefined))
+        // Remove undefined, leave an array with only Numbers
+        const trialsCardHashArray = foundHashArrayMap.filter(Number)
+        // Take 1st value - there will only ever be 1 Trials Card active:
+        const trialsCardHash = trialsCardHashArray[0]
+
+        const returnCardData: TrialsCardDataAndHash = {
+          trialsCardData,
+          trialsCardHash,
+        }
+        return returnCardData
+      }
+      setTrialsCard(getTrialsCards())
+      // setTrialsCard(storedTrialsCardDataAndHash)
     }
     fetchUserProfile()
   }, [props.updateCount])
@@ -73,33 +155,31 @@ export default function GetProgressions(props: { updateCount: number }) {
               {...profile}
               // {...props}
             />
-        ))
+          ))
         : ''}
+      {trialsCard.trialsCardData.length ? (
+        <TrialsCard
+          trialsCard={trialsCard.trialsCardData}
+          definitionHash={trialsCard.trialsCardHash}
+        />
+      ) : (
+        ''
+      )}
     </div>
   )
 }
 
-// interface ProgressionProps {
-//   progressModeHash: number,
-//   profileProgressions: DestinyProgression,
-//   profileStreak: DestinyProgression,
-//   mode: string,
-//   maxRank: number,
-// }
 interface DisplayProgressionsInterface {
-  progressModeHash?: number,
-  profileProgressions: DestinyProgression,
-  profileStreak: DestinyProgression,
-  mode: string,
-  maxRank: number,
-  progressionsDefinition?: DestinyProgressionDefinition,
-
+  progressModeHash?: number
+  profileProgressions: DestinyProgression
+  profileStreak: DestinyProgression
+  mode: string
+  maxRank: number
+  progressionsDefinition?: DestinyProgressionDefinition
 }
 function CreateSingleProgression(props: DisplayProgressionsInterface) {
   const [prog, setProg] = useState<DestinyProgressionDefinition>(null)
-  const {
-    progressModeHash, profileProgressions, profileStreak, mode, maxRank,
-  } = props
+  const { progressModeHash, profileProgressions, profileStreak, mode, maxRank } = props
 
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
@@ -128,11 +208,8 @@ function CreateSingleProgression(props: DisplayProgressionsInterface) {
   )
 }
 
-
 function DisplayProgression(props: DisplayProgressionsInterface) {
-  const {
-    progressionsDefinition, profileProgressions, profileStreak, mode, maxRank,
-  } = props
+  const { progressionsDefinition, profileProgressions, profileStreak, mode, maxRank } = props
 
   /* Streak data: */
   const streakCount = profileStreak.currentProgress
@@ -145,14 +222,12 @@ function DisplayProgression(props: DisplayProgressionsInterface) {
 
   /* Styling: */
   const overflowFlag = profileProgressions.level === progressionsDefinition.steps.length
-  const modeColour =
-    `rgba(${progressionsDefinition.color.red},
+  const modeColour = `rgba(${progressionsDefinition.color.red},
       ${progressionsDefinition.color.green},
       ${progressionsDefinition.color.blue},
       ${progressionsDefinition.color.alpha})`
   const overflowBorder = {
-    borderColor:
-      `rgba(${progressionsDefinition.color.red},
+    borderColor: `rgba(${progressionsDefinition.color.red},
         ${progressionsDefinition.color.green},
         ${progressionsDefinition.color.blue},
         ${progressionsDefinition.color.alpha})`,
@@ -160,8 +235,8 @@ function DisplayProgression(props: DisplayProgressionsInterface) {
   const borderStyle = overflowFlag ? overflowBorder : {}
   const gradient = {
     background:
-    // eslint-disable-next-line max-len
-    `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, 1) 100%)`,
+      // eslint-disable-next-line max-len
+      `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, 1) 100%)`,
   }
   const overFlowStyle = { ...gradient, ...borderStyle }
 

@@ -43,6 +43,7 @@ module.exports = {
       path.join(__dirname, 'assets', 'js', 'Components', 'PGCR_Splash', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Profile', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Progress', 'style.css'),
+      path.join(__dirname, 'assets', 'js', 'Components', 'Trials', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'WeaponSummary', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Welcome', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'WinLossSummary', 'style.css'),
@@ -104,7 +105,7 @@ module.exports = {
         options: { limit: 10000, mimetype: 'application/font-woff' },
       },
       {
-        test: /\.(ttf|eot|png|jpe?g|gif|ico|json|xml|webmanifest)(\?.*)?$/i,
+        test: /\.(ttf|eot|png|jpe?g|gif|ico|xml|webmanifest)(\?.*)?$/i,
         use: [
           {
             loader: `file-loader?context=${rootAssetPath}&name=[path][name].[ext]`,
