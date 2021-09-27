@@ -23,14 +23,18 @@ import { ProgressBar } from '../Progress/ProgressBar'
 import { setProgressions } from '../../Redux/Actions'
 import TrialsCard from '../Trials/TrialsCard'
 
+type uninstancedItemObjectives = {
+  [key: number]: DestinyObjectiveProgress[];
+}
+
 interface TrialsCardDataAndHash {
-  trialsCardData: DestinyObjectiveProgress[]
-  trialsCardHash: number
+  trialsCardData: uninstancedItemObjectives,
+  trialsCardHash: number,
 }
 
 export default function GetProgressions(props: { updateCount: number }) {
   const [profile, setProfile] = useState(null)
-  const [trialsCard, setTrialsCard] = useState({ trialsCardData: [], trialsCardHash: undefined })
+  const [trialsCard, setTrialsCard] = useState({ trialsCardData: undefined, trialsCardHash: undefined })
   const dispatch = useDispatch()
   const { membershipType, membershipId, characterId } = getUrlDetails()
 
@@ -102,14 +106,15 @@ export default function GetProgressions(props: { updateCount: number }) {
 
       // Search for Trials card data:
       const getTrialsCards = (): TrialsCardDataAndHash => {
-        const trialsCardData: DestinyObjectiveProgress[] = Object.keys(TRIALS_CARD_DATA)
+        const trialsCardDataArray: uninstancedItemObjectives[] = Object.keys(TRIALS_CARD_DATA)
           .map(
             (m: TrialsPassageKey) =>
               result?.Response?.characterProgressions?.data[characterId].uninstancedItemObjectives[
                 TRIALS_CARD_DATA[m].hash
               ]
           )
-          .filter((item: DestinyObjectiveProgress) => item !== undefined)
+          .filter((item: uninstancedItemObjectives) => item !== undefined)
+        const trialsCardData = trialsCardDataArray[0]
 
         // Search GetProfile for active Trials card hash:
         const hashList = Object.keys(TRIALS_CARD_DATA).map((item: TrialsPassageKey) => TRIALS_CARD_DATA[item].hash)
@@ -157,7 +162,7 @@ export default function GetProgressions(props: { updateCount: number }) {
             />
           ))
         : ''}
-      {trialsCard.trialsCardData.length ? (
+      {trialsCard.trialsCardData ? (
         <TrialsCard
           trialsCard={trialsCard.trialsCardData}
           definitionHash={trialsCard.trialsCardHash}

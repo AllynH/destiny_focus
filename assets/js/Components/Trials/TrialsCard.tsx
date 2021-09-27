@@ -36,7 +36,7 @@ export default function TrialsCard(props: {
     flawless: {
       progress: trialsCard[1]?.progress || 0,
       completionValue: trialsCard[1]?.completionValue || 7,
-      flawlessFlag: trialsCard[1]?.complete || false,
+      flawlessFlag: ! trialsCard[1]?.complete || false,
       objectiveHash: 2369244651,
     },
     roundsWon: {
