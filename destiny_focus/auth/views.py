@@ -86,7 +86,7 @@ def home():
         flash_errors(form)
 
         return redirect(url_for("auth.character_select", redirect="true"))
-        
+
 
     return render_template("auth/welcome.html", form=form)
 
@@ -353,6 +353,19 @@ def trials(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
+@blueprint.route("/ironbanner/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def ironbanner(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
+
 @blueprint.route("/nightfall/<membershipType>/<membershipId>/<characterId>")
 @login_required
 def nightfall(membershipType, membershipId, characterId):
@@ -603,6 +616,7 @@ def pgcr_list(membershipType, membershipId, characterId):
     game_mode_switch = {
         'pvp'       : 5,
         'pvpcomp'   : 37,
+        'ironbanner': 43,
         'trials'    : 84,
         'gambit'    : 63,
         'raid'      : 4,

@@ -115,13 +115,13 @@ export type TrialsCardInterface = {
 
 export const TRIALS_CARD_DATA: TrialsCardInterface = {
   Mercy: { hash: 1600065451, name: 'Passage of Mercy' }, // Duplicate - correct value
-  Ferocity: { hash: 1274359594, name: 'Passage of Ferocity' }, // Duplicate - guessing value.
   Confidence: { hash: 1181381245, name: 'Passage of Confidence' }, // Duplicate - guessing value.
-  Wealth: { hash: 2994359731, name: 'Passage of Wealth' }, // Duplicate - guessing value.
+  Ferocity: { hash: 7665310, name: 'Passage of Ferocity' },
+  Wealth: { hash: 2879309661, name: 'Passage of Wealth' },
   Wisdom: { hash: 2001563200, name: 'Passage of Wisdom' }, // Duplicate - guessing value.
+  // Ferocity: { hash: 1274359594, name: 'Passage of Ferocity' }, // Duplicate - guessing value.
+  // Wealth: { hash: 2994359731, name: 'Passage of Wealth' }, // Duplicate - guessing value.
   // Mercy: { hash: 3125852681, name: 'Passage of Mercy' },
-  // Ferocity: { hash: 7665310, name: 'Passage of Ferocity' },
   // Confidence: { hash: 2512224275, name: 'Passage of Confidence' },
-  // Wealth: { hash: 2879309661, name: 'Passage of Wealth' },
   // Wisdom: { hash: 3937592460, name: 'Passage of Wisdom' },
 }

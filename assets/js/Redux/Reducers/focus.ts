@@ -28,6 +28,7 @@ const focusReducer = (state: any = {}, action: FocusActionInterface) => {
     case 'nightfall':
     case 'pvpcomp':
     case 'trials':
+    case 'ironbanner':
     case 'raid':
     case 'pvp': {
       const newState = {

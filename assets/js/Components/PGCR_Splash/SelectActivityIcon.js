@@ -26,7 +26,8 @@ export default function SelectActivityIcon(props) {
   // This needs refactor - can now use FOCUS_DETAILS to choose all of these.
   // eslint-disable-next-line radar/cognitive-complexity
   const ReturnActivityIcon = () => {
-    const m = props.activityMode
+    const activities = props.activityMode
+    const m = activities.toLowerCase()
     let iconStyleVars = {}
 
     switch (iconStyle) {
@@ -55,7 +56,7 @@ export default function SelectActivityIcon(props) {
     }
 
     switch (m) {
-      case 'Raid':
+      case 'raid':
       default:
         return (
           <Raid
@@ -70,14 +71,14 @@ export default function SelectActivityIcon(props) {
           />
         )
       case 'pvp':
-      case 'AllPvP':
+      case 'allpvp':
       case 'pvpcomp':
-      case 'All PvP':
-      case 'Survival':
-      case 'Control':
-      case 'Elimination':
-      case 'Clash':
-      case 'Rumble':
+      case 'all pvp':
+      case 'survival':
+      case 'control':
+      case 'elimination':
+      case 'clash':
+      case 'rumble':
         return (
           <Crucible
             width={iconStyleVars.iconWidth}
@@ -90,7 +91,7 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
-      case 'Gambit':
+      case 'gambit':
         return (
           <Gambit
             width={iconStyleVars.iconWidth}
@@ -103,13 +104,14 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
+      case 'ironbanner':
       case 'IronBanner':
         return (
           <Ironbanner
             width={iconStyleVars.iconWidth}
             height={iconStyleVars.iconHeight}
             // Values taken from .svg
-            viewBox={'0 0 8.4 8.4'}
+            viewBox={'0 0 25.4 25.4'}
             style={{
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--gambit-green)',
               // stroke: 'var(--bungie-power)',
@@ -120,8 +122,8 @@ export default function SelectActivityIcon(props) {
         )
       case 'trials':
       case 'Trials':
-      case 'TrialsOfOsiris':
-      case 'Trials of Osiris':
+      case 'trialsofosiris':
+      case 'trials of osiris':
         return (
           <Trials
             width={iconStyleVars.iconWidth}
@@ -136,7 +138,7 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
-      case 'Nightfall':
+      case 'nightfall':
         return (
           <Nightfall
             width={iconStyleVars.iconWidth}
@@ -149,7 +151,7 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
-      case 'Dungeon':
+      case 'dungeon':
         return (
           <Dungeon
             width={iconStyleVars.iconWidth}
@@ -162,7 +164,7 @@ export default function SelectActivityIcon(props) {
             }}
           />
         )
-      case 'Unknown':
+      case 'unknown':
         return (
           <div
             style={{

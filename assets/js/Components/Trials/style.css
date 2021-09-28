@@ -22,6 +22,7 @@
   grid-gap: 4px;
   margin: 2px 0;
   align-items: center;
+  max-width: 150px;
 }
 
 .trials-card-item-text {

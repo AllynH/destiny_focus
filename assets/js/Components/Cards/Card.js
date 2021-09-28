@@ -52,7 +52,7 @@ export default function MediaCard(props) {
       <CardActionArea>
         <Link to={apiUrl} style={{ textDecoration: 'none' }}>
           {/* <CardMedia
-            style={{ backgroundColor: colours.colour_1 }}
+            style={{ backgroundColor: colours.colour1 }}
             className={classes.media}
             src={Image}
             component='img'
@@ -60,11 +60,11 @@ export default function MediaCard(props) {
           /> */}
           <div
             className={`card-media-svg ${classes.media}`}
-            style={{ backgroundColor: colours.colour_1 }}
+            style={{ backgroundColor: colours.colour1 }}
           >
             <Image style={{ fill: 'white'}} height={280} width={280} />
           </div>
-          <CardContent className='focus-card-action-area' style={{ backgroundColor: colours.colour_2 }}>
+          <CardContent className='focus-card-action-area' style={{ backgroundColor: colours.colour2 }}>
             <div className='blank-area'></div>
             <h2 className='h2-focus-card'>{focusName}</h2>
             <p className='focus-card-description'>{description}</p>
@@ -72,7 +72,7 @@ export default function MediaCard(props) {
         </Link>
       </CardActionArea>
 
-      <CardActions style={{ backgroundColor: colours.colour_1 }}>
+      <CardActions style={{ backgroundColor: colours.colour1 }}>
         {/* <Link to={apiUrl} style={{ textDecoration: 'none', color: 'black' }}>
           <Typography gutterBottom variant='h5' component='h2'>
             {focus}

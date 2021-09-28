@@ -3,6 +3,7 @@ import Crucible from '../../../img/icons/Crucible.svg'
 import Raid from '../../../img/icons/Raid.svg'
 import Gambit from '../../../img/icons/Gambit.svg'
 import Trials from '../../../img/icons/faction_osiris2.svg'
+import IronBanner from '../../../img/icons/faction_ironbanner2.svg'
 import Nightfall from '../../../img/icons/Nightfall.svg'
 import Dungeon from '../../../img/icons/Dungeon.svg'
 
@@ -19,9 +20,9 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
     description: 'Hone your skills and win glory in battle against other Guardians.',
     Image: Crucible,
     colours: {
-      colour_1: 'var(--crucible-red)',
-      colour_2: 'var(--crucible-dark-1)',
-      colour_3: 'var(--crucible-dark-2)',
+      colour1: 'var(--crucible-red)',
+      colour2: 'var(--crucible-dark-1)',
+      colour3: 'var(--crucible-dark-2)',
     },
   },
   CrucibleComp: {
@@ -32,9 +33,9 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
     description: 'Hone your skills and win glory in battle against other Guardians.',
     Image: Crucible,
     colours: {
-      colour_1: 'var(--glory)',
-      colour_2: 'var(--crucible-dark-1)',
-      colour_3: 'var(--crucible-dark-2)',
+      colour1: 'var(--glory)',
+      colour2: 'var(--crucible-dark-1)',
+      colour3: 'var(--crucible-dark-2)',
     },
   },
   Gambit: {
@@ -46,9 +47,9 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
       'Defeat the enemies of humanity, collect their Motes, and bank them to summon a Primeval. First team to destroy their Primeval wins.',
     Image: Gambit,
     colours: {
-      colour_1: 'var(--gambit-green)',
-      colour_2: 'var(--gambit-green-dark-1)',
-      colour_3: 'var(--gambit-green)',
+      colour1: 'var(--gambit-green)',
+      colour2: 'var(--gambit-green-dark-1)',
+      colour3: 'var(--gambit-green)',
     },
   },
   Raid: {
@@ -60,9 +61,9 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
       'Form a fireteam of six and brave the strange and powerful realms of our enemies.',
     Image: Raid,
     colours: {
-      colour_1: 'var(--vanguard-blue)',
-      colour_2: 'var(--vanguard-dark-1)',
-      colour_3: 'var(--vanguard-dark-2)',
+      colour1: 'var(--vanguard-blue)',
+      colour2: 'var(--vanguard-dark-1)',
+      colour3: 'var(--vanguard-dark-2)',
     },
   },
   Trials: {
@@ -74,9 +75,24 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
       'Compete in a fireteam-required event version of Elimination. Earn as many wins on a ticket as you can. Three losses and you\'re out.',
     Image: Trials,
     colours: {
-      colour_1: 'var(--bungie-power)',
-      colour_2: 'var(--bungie-power-dark-1)',
-      colour_3: 'var(--bungie-power)',
+      colour1: 'var(--bungie-power)',
+      colour2: 'var(--bungie-power-dark-1)',
+      colour3: 'var(--bungie-power)',
+    },
+
+  },
+  IronBanner: {
+    activityMode: 43,
+    activityName: 'Iron Banner: Control',
+    focus: 'ironbanner',
+    focusName: 'IronBanner',
+    description:
+      'Capture zones to increase points for each opponent defeated. Capture all three to lock the zones and hunt your opponents.',
+    Image: IronBanner,
+    colours: {
+      colour1: 'var(--gambit-green-dark-1)',
+      colour2: 'var(--gambit-green)',
+      colour3: 'var(--gambit-green-dark-1)',
     },
 
   },
@@ -89,9 +105,9 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
       'Form a fireteam of up to three, and brave the strange and powerful realms of our enemies.',
     Image: Dungeon,
     colours: {
-      colour_1: 'var(--vanguard-dark-5)',
-      colour_2: 'black',
-      colour_3: 'var(--vanguard-dark-5)',
+      colour1: 'var(--vanguard-dark-5)',
+      colour2: 'black',
+      colour3: 'var(--vanguard-dark-5)',
     },
   },
   Nightfall: {
@@ -103,9 +119,9 @@ export const FOCUS_DETAILS: FocusDetailTypes = {
       'Join a fireteam of three and face the most feared minions of the Darkness.',
     Image: Nightfall,
     colours: {
-      colour_1: 'var(--vanguard-dark-3)',
-      colour_2: 'var(--vanguard-dark-4)',
-      colour_3: 'var(--vanguard-dark-5)',
+      colour1: 'var(--vanguard-dark-3)',
+      colour2: 'var(--vanguard-dark-4)',
+      colour3: 'var(--vanguard-dark-5)',
     },
   },
 }

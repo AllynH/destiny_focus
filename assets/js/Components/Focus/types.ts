@@ -3,13 +3,14 @@
 
 */
 export type FocusDetailKey =
-  "Crucible" |
-  "CrucibleComp" |
-  "Gambit" |
-  "Raid" |
-  "Trials" |
-  "Dungeon" |
-  "Nightfall"
+  'Crucible' |
+  'CrucibleComp' |
+  'Gambit' |
+  'Raid' |
+  'Trials' |
+  'IronBanner' |
+  'Dungeon' |
+  'Nightfall'
 
 export interface FocusDetailParams {
   readonly activityMode: number,
@@ -19,9 +20,9 @@ export interface FocusDetailParams {
   readonly description: string,
   readonly Image: Object,
   readonly colours: {
-    readonly colour_1: string,
-    readonly colour_2: string,
-    readonly colour_3: string,
+    readonly colour1: string,
+    readonly colour2: string,
+    readonly colour3: string,
   }
 }
 
