@@ -47,22 +47,25 @@ export default function TrialsCard(props: {
 
   const iconStyle = {
     backgroundImage: `url(https://www.bungie.net${definition?.displayProperties?.icon})`,
-    width: 60,
-    height: 60,
+    width: 110,
+    height: 110,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
+    borderRadius: '50%',
   }
 
   return (
-    <div className='trials-card-wrapper progressions-item-wrap'>
+    <div className='progressions-item-wrap'>
       <div className='trials-card-heading'>
         <h3 className='progressions-mode-title'>
           {definition ? definition?.displayProperties?.name : 'Trials Passage'}
         </h3>
       </div>
-      <div className='trials-card-image-wrapper'>
-        {definition ? <div className='trials-card-image' style={iconStyle}></div> : <div></div>}
-        <div className='trials-card-content-wrapper'>
+      <div className='progressions-chart-text-wrap'>
+        <div className="trials-card-image-container">
+          {definition ? <div className='trials-card-image' style={iconStyle}></div> : <div></div>}
+        </div>
+        <div className='progressions-text-wrap trials-card-content-wrapper'>
           <div className='trials-card-item-wrapper'>
             <SingleCheckBox win={data.flawless.flawlessFlag} modeColour={'var(--bungie-power)'} />
             <div className='trials-card-item-text'> Flawless</div>

@@ -1,19 +1,17 @@
-.trials-card-wrapper{
+.trials-card-wrapper {
   display: flex;
   flex-direction: column;
   width: 220px;
 }
 
-.trials-card-heading{
+.trials-card-heading {
   text-align: center;
   /* background-color: var(--bungie-power-dark-1); */
   width: 100%;
 }
 
-.trials-card-content-wrapper{
-  display: flex;
-  flex-direction: column;
-  width: 90%;
+.trials-card-content-wrapper {
+  width: 100%;
   height: 100%;
   justify-content: center;
 }
@@ -26,14 +24,36 @@
   align-items: center;
 }
 
-.trials-card-item-text{
+.trials-card-item-text {
   padding-left: 4px;
 }
 
-.trials-card-image-wrapper{
+.trials-card-image-container {
+  /* height: var(--image-container-height);
+  width: var(--image-container-width); */
+  margin-right: 4px;
+}
+
+.trials-card-image-wrapper {
   display: grid;
   grid-template-columns: 1fr 2fr;
   width: 100%;
   height: 100%;
   align-items: center;
+}
+
+@media screen and (min-width: 600px) {
+  :root{
+    --image-container-height: 120px;
+    --image-container-width: 120px;
+  }
+}
+/*
+  Mobile devices:
+*/
+@media screen and (max-width: 600px) {
+  :root {
+    --image-container-height: 120px;
+    --image-container-width: 120px;
+  }
 }
