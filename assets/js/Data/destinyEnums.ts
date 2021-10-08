@@ -14,6 +14,7 @@ export const BASIC_ACTIVITY_MODES: ActivityModeInterface = {
   6: 'Patrol',
   7: 'AllPvE',
   10: 'Control',
+  73: 'Control: Quickplay',
   12: 'Clash',
   46: 'Nightfall',
 

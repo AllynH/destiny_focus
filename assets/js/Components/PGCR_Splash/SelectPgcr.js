@@ -52,7 +52,7 @@ export default function SelectPgcr(props) {
       setActivityDef(activityDefinitionResult)
       setReferenceDef(activityReferenceId)
     }
-    fetchPgcr(activityId)
+    fetchPgcr()
   }, [props])
 
   const returnActivityMode = () => BASIC_ACTIVITY_MODES[pgcr.Response?.activityDetails?.mode]
@@ -81,19 +81,6 @@ export default function SelectPgcr(props) {
 
       case 'AllPvP':
       case 'Gambit':
-        return (
-          <PvpSplash
-            {...{
-              pgcr,
-              activityDef,
-              referenceDef,
-              modeIsRaid,
-              activityMode,
-              activeUserId,
-              pathname,
-            }}
-          />
-        )
       default:
         return (
           <PvpSplash
