@@ -1,13 +1,22 @@
+import { DestinyPostGameCarnageReportEntry } from 'bungie-api-ts/destiny2'
 import { calculateKillDeathRatio } from '../../Utils/HelperFunctions/KdrFunctions'
 import { returnSimpleActivity } from '../../Utils/HelperFunctions/getMode'
+import { PgcrTypes } from '../../Data/destinyEnums'
 
-export function parsePgcrData(entry, mode, activeUserId) {
-  const completedDiv = (s) => {
+export function parsePgcrData(
+  entry: DestinyPostGameCarnageReportEntry,
+  mode: PgcrTypes,
+  activeUserId: string
+) {
+  const completedDiv = (s: boolean) => {
     if (s) {
       return 'pgcr_splash-completed'
     }
     return 'pgcr_splash-failed'
   }
+
+  console.log('parsePgcrData.js:')
+  console.log(entry)
 
   const membershipId = entry.player?.destinyUserInfo?.membershipId
 
@@ -19,8 +28,8 @@ export function parsePgcrData(entry, mode, activeUserId) {
   const deaths = entry.values?.deaths?.basic?.value
   const assists = entry.values?.assists?.basic?.value
   const score = entry.score?.basic?.value
-  const kdr = Number(calculateKillDeathRatio(kills, deaths)).toFixed(1)
-  const standing = entry.values?.completed?.basic?.displayValue === 'Yes'
+  const kdr = Number(calculateKillDeathRatio(kills.toString(), deaths.toString())).toFixed(1)
+  const standing: boolean = entry.values?.completed?.basic?.displayValue === 'Yes'
   const completed = completedDiv(standing)
   const playerIcon = entry.player?.destinyUserInfo?.iconPath
 
@@ -46,7 +55,7 @@ export function parsePgcrData(entry, mode, activeUserId) {
     width: 30,
     backgroundSize: 'contain',
   }
-  const returnActivityData = (m) => {
+  const returnActivityData = (m: string) => {
     const genericData = {
       username,
       iconStyle,
@@ -107,7 +116,12 @@ export function parsePgcrData(entry, mode, activeUserId) {
   return returnActivityData(mode)
 }
 
-export const pgcrSplashCategories = {
+export type PgcrSplashInterface = {
+  // eslint-disable-next-line no-unused-vars
+  [_key in PgcrTypes]: string[]
+}
+
+export const pgcrSplashCategories: PgcrSplashInterface = {
   /* PvE Modes */
   Raid: ['K', 'D', 'K/D R', 'S. K', 'D'],
   Strike: ['K', 'D', 'K/D R', 'S. K', 'D'],

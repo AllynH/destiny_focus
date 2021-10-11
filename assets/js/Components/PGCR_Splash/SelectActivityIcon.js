@@ -28,6 +28,8 @@ export default function SelectActivityIcon(props) {
   const ReturnActivityIcon = () => {
     const activities = props.activityMode
     const m = activities.toLowerCase()
+    console.log('Activity Icon:')
+    console.log(m)
     let iconStyleVars = {}
 
     switch (iconStyle) {
@@ -76,6 +78,7 @@ export default function SelectActivityIcon(props) {
       case 'all pvp':
       case 'survival':
       case 'control':
+      case 'control: quickplay':
       case 'elimination':
       case 'clash':
       case 'rumble':

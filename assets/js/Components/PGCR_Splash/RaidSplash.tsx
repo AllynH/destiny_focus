@@ -14,24 +14,20 @@ import Player from './Player'
 import ReturnToFocusButton from './ReturnToFocus'
 
 import './style.css'
+import { PvPPropsInterface } from './PvpSplash'
 
-export default function RaidSplash({
-  pgcr = {},
-  activityDef = {},
-  referenceDef = {},
-  modeIsRaid = true,
-  activityMode = 4,
-  setActiveUserId = null,
-  pathname = '/',
-}) {
-  // const params = useParams()
+export default function RaidSplash(props: PvPPropsInterface) {
+  const {
+    pgcr,
+    activityDef,
+    referenceDef,
+    modeIsRaid,
+    activityMode,
+    setActiveUserId,
+    pathname,
+  } = props
   const currRef = useRef(null)
-  // console.log('PvpSplash.js')
-  // console.log('pgcr', pgcr)
-  // console.log('activityDef', activityDef)
-  // console.log('referenceDef', referenceDef)
 
-  // const { activityId } = params
   const backgroundImage = `url(https://www.bungie.net${referenceDef.pgcrImage})`
   const mapStyle = () => ({
     '--bgImage': backgroundImage,
@@ -58,7 +54,7 @@ export default function RaidSplash({
       <div className='return-button-wrapper'>
         {pathname !== '/' ? <ReturnToFocusButton pathname={pathname} /> : ''}
       </div>
-      <div className='pgcr-splash-wrapper' style={mapStyle()} ref={currRef}>
+      <div className='pgcr-splash-wrapper' style={mapStyle() as React.CSSProperties}  ref={currRef}>
         <div className='pgcr-splash-container'>
           <div className='container-left'>
             <div className='container-left-icons'>

@@ -38,13 +38,7 @@ export default function Activity(
   const [pgcrsFull, setPgcrsFull] = useState(false)
   const params = useParams()
   const location = useLocation()
-  // const history = useHistory()
 
-  // console.log('activity.js')
-  // console.log(props)
-  // console.log('activityMode', activityMode)
-  // console.log(params)
-  // console.log(location)
   const { pathname } = location
   const { membershipId, membershipType } = params
 
@@ -91,9 +85,9 @@ export default function Activity(
   })
 
   // Store a PGCR in the users DB:
-  const savePgcr = async (activityId) => {
+  const savePgcr = async (actId) => {
     const result = await PutPGCR({
-      params: { activityId },
+      params: { activityId: actId },
     })
     console.log('PutPGCR')
     console.log(result)
@@ -109,9 +103,9 @@ export default function Activity(
   }
 
   // Store a PGCR in the users DB:
-  const deletePgcr = async (activityId) => {
+  const deletePgcr = async (actId) => {
     const result = await DeletePGCR({
-      params: { activityId },
+      params: { activityId: actId },
     })
     console.log('DeletePGCR')
     console.log(result)
@@ -244,22 +238,18 @@ export default function Activity(
   )
 
   // Fetch the Activity definition - control and icon:
-  const fetchDirectorActivityDefinition = async (activityId) => {
+  const fetchDirectorActivityDefinition = async (actId) => {
     const result = await GetActivityDefinition({
-      params: { definition: 'DestinyActivityDefinition', defHash: activityId },
+      params: { definition: 'DestinyActivityDefinition', defHash: actId },
     })
-    // console.log('fetchDirectorActivityDefinition')
-    // console.log(result)
     setActivityDef(result)
   }
 
   // Fetch the Activity definition - Map icon, name :
-  const fetchReferenceId = async (activityId) => {
+  const fetchReferenceId = async (actId) => {
     const result = await GetActivityDefinition({
-      params: { definition: 'DestinyActivityDefinition', defHash: activityId },
+      params: { definition: 'DestinyActivityDefinition', defHash: actId },
     })
-    // console.log('fetchReferenceId')
-    // console.log(result)
     setReferenceDef(result)
   }
 

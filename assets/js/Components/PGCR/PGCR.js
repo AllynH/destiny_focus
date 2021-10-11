@@ -238,7 +238,7 @@ export function PgcrDetailsRaid({ pgcr }) {
 
       {entriesList.map((element, index) => {
         const pgcr_standing = element.values.completed.basic.displayValue === 'Yes'
-        const pgcr_time_started = getDatePlayedFromTimestamp(pgcr.Response.period)
+        // const pgcr_time_started = getDatePlayedFromTimestamp(pgcr.Response.period)
         const pcgr_standing_icon = completionIcon(pgcr_standing)
         const pgcr_icon = element.player.destinyUserInfo.iconPath
         const pgcr_userName = element.player.destinyUserInfo.displayName
@@ -246,7 +246,7 @@ export function PgcrDetailsRaid({ pgcr }) {
         const pgcr_kills = element.values.kills.basic.displayValue
         const pgcr_assists = element.values.assists.basic.displayValue
         const pgcr_kdr = calculateKillDeathRatio(pgcr_kills, pgcr_deaths)
-        const pgcr_kda = calculateKillDeathAssistsRatio(pgcr_kills, pgcr_deaths, pgcr_assists)
+        // const pgcr_kda = calculateKillDeathAssistsRatio(pgcr_kills, pgcr_deaths, pgcr_assists)
         const pgcr_completion_time = element.values.timePlayedSeconds.basic.displayValue
         const pgcr_super_kills = element.extended.values.weaponKillsSuper.basic.value
         const iconStyle = {

@@ -1,13 +1,10 @@
 import React, { useRef } from 'react'
 
-/*
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
-import { takePictureEvent } from '../../Utils/HelperFunctions/CaptureImage'
-*/
+import { DestinyActivityDefinition, DestinyPostGameCarnageReportData } from 'bungie-api-ts/destiny2/interfaces'
+import { ServerResponse } from 'bungie-api-ts/destiny2'
+
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { pgcrSplashCategories } from './parsePgcrData'
-
 import SelectActivityIcon from './SelectActivityIcon'
 import Player from './Player'
 import ReturnToFocusButton from './ReturnToFocus'
@@ -17,16 +14,28 @@ import AlphaTeam from '../../../destiny-icons/factions/team_alpha.svg'
 import BravoTeam from '../../../destiny-icons/factions/team_bravo.svg'
 
 import './style.css'
+import { PgcrTypes } from '../../Data/destinyEnums'
 
-export default function PvpSplash({
-  pgcr = {},
-  activityDef = {},
-  referenceDef = {},
-  modeIsRaid = true,
-  activityMode = 4,
-  setActiveUserId = null,
-  pathname = '/',
-}) {
+export interface PvPPropsInterface {
+  pgcr: ServerResponse<DestinyPostGameCarnageReportData>,
+  activityDef: DestinyActivityDefinition,
+  referenceDef: DestinyActivityDefinition,
+  modeIsRaid: boolean,
+  activityMode: PgcrTypes,
+  setActiveUserId: number,
+  pathname: string,
+}
+
+export default function PvpSplash(props: PvPPropsInterface) {
+  const {
+    pgcr,
+    activityDef,
+    referenceDef,
+    modeIsRaid,
+    activityMode,
+    setActiveUserId,
+    pathname,
+  } = props
   const currRef = useRef(null)
 
   const backgroundImage = `url(https://www.bungie.net${referenceDef.pgcrImage})`
@@ -39,8 +48,6 @@ export default function PvpSplash({
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'
   const pgcrCategory = pgcrSplashCategories[activityMode] || pgcrSplashCategories.AllPvP
-  // console.log('activityMode')
-  // console.log(activityMode)
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length} `
 
   return (
@@ -48,7 +55,7 @@ export default function PvpSplash({
       <div className='return-button-wrapper'>
         {pathname !== '/' ? <ReturnToFocusButton pathname={pathname} /> : ''}
       </div>
-      <div className='pgcr-splash-wrapper' style={mapStyle()}  ref={currRef}>
+      <div className='pgcr-splash-wrapper' style={mapStyle() as React.CSSProperties}  ref={currRef}>
         <div className='pgcr-splash-container'>
           <div className='container-left'>
             <div className='container-left-icons'>

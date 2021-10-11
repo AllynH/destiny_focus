@@ -126,3 +126,21 @@ export const TRIALS_CARD_DATA: TrialsCardInterface = {
   // Confidence: { hash: 2512224275, name: 'Passage of Confidence' },
   // Wisdom: { hash: 3937592460, name: 'Passage of Wisdom' },
 }
+
+export type PgcrTypes =
+  /* PvE Modes */
+  "Raid" |
+  "Strike" |
+  "Nightfall" |
+  /* Gambit" */
+  "Gambit" |
+  /* PvP modes */
+  "AllPvP" |
+  "Survival" |
+  "AllMayhem" |
+  "Mayhem" |
+  "Control" |
+  "Clash" |
+  "IronBanner" |
+  "Countdown" |
+  "TrialsOfOsiris"
