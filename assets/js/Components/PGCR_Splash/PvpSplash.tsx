@@ -49,7 +49,7 @@ export default function PvpSplash(props: PvPPropsInterface) {
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'
   const pgcrCategory = pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.AllPvP.heading
-  const gridColCount = `pgcr_splash_grid_${pgcrCategory.length} `
+  const gridColCount = `pgcr_splash_grid_${pgcrCategory.length + 1} `
 
   return (
     <>
@@ -95,6 +95,7 @@ export default function PvpSplash(props: PvPPropsInterface) {
                 <div className={`pgcr-splash-categories raid_details ${gridColCount}`}>
                   <div></div> {/* icon */}
                   <div></div> {/* username */}
+                  <div></div> {/* DNF */}
                   {pgcrCategory.map((cats, index) => (
                     <div key={index} className='pgcr-category'>
                       {cats}

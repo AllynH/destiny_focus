@@ -24,7 +24,8 @@ interface PlayerPropsInterface {
 export default function Player(props: PlayerPropsInterface) {
   const { activeUserId, entry, activityMode } = props
   const pgcrData = parsePgcrData(entry, activityMode, activeUserId)
-  const gridLen = `pgcr_splash_grid_${pgcrData.values.length}`
+  const gridLen = `pgcr_splash_grid_${pgcrData.values.length + 1}`
+  const dnf = entry.values.completed.basic.displayValue !== 'Yes'
 
   const [open, setOpen] = useState(false)
   const toggleOpen = () => {
@@ -41,6 +42,7 @@ export default function Player(props: PlayerPropsInterface) {
         <div className={`pgcr-splash-character-details ${gridLen}`}>
           <div className='pgcr-splash-icon' style={pgcrData.iconStyle}></div>
           <div className='align-left padding-left'>{pgcrData.username}</div>
+          <div className={`${dnf ? 'pgcr-dnf' : ''}`}>{dnf ? 'DNF' : ''}</div>
           {pgcrData.values.map((value, index) => (
             <div key={index}>{value}</div>
           ))}

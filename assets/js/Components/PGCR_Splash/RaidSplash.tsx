@@ -48,7 +48,7 @@ export default function RaidSplash(props: PvPPropsInterface) {
     .map((el) => el.values.teamScore.basic.value)
     .reduce((acc, curr) => (acc > curr ? acc : curr), 0)
   const pgcrCategory = pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.Raid.heading
-  const gridColCount = `pgcr_splash_grid_${pgcrCategory.length}`
+  const gridColCount = `pgcr_splash_grid_${pgcrCategory.length + 1}`
   return (
     <>
       <div className='return-button-wrapper'>
@@ -91,6 +91,7 @@ export default function RaidSplash(props: PvPPropsInterface) {
                 <div className={`pgcr-splash-categories raid_details ${gridColCount}`}>
                   <div></div> {/* icon */}
                   <div></div> {/* username */}
+                  <div></div> {/* DNF */}
                   {pgcrCategory.map((cats, index) => (
                     <div key={index} className='pgcr-category'>
                       {cats}
