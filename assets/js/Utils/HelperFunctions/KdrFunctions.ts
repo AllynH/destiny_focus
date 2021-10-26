@@ -1,18 +1,11 @@
-/* eslint-disable linebreak-style */
-
-export function calculateKillDeathRatio(k: string, d:string):string {
-  const kills = parseFloat(k)
-  const deaths = parseFloat(d)
+export function calculateKillDeathRatio(kills: number, deaths:number):string {
   if (deaths === 0) {
     return (kills).toFixed(2)
   }
   return (kills / deaths).toFixed(2)
 }
 
-export function calculateKillDeathAssistsRatio(k:string, d:string, a:string):string {
-  const kills = parseFloat(k)
-  const deaths = parseFloat(d)
-  const assists = parseFloat(a)
+export function calculateKillDeathAssistsRatio(kills:number, deaths:number, assists:number):string {
   if (deaths === 0) {
     return (kills + assists).toFixed(2)
   }

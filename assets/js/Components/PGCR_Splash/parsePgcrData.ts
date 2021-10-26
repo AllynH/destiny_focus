@@ -3,7 +3,7 @@ import { calculateKillDeathRatio } from '../../Utils/HelperFunctions/KdrFunction
 import { returnSimpleActivity } from '../../Utils/HelperFunctions/getMode'
 import { PgcrTypes } from '../../Data/destinyEnums'
 
-export function parsePgcrData(
+export default function parsePgcrData(
   entry: DestinyPostGameCarnageReportEntry,
   mode: PgcrTypes,
   activeUserId: string
@@ -15,11 +15,10 @@ export function parsePgcrData(
     return 'pgcr_splash-failed'
   }
 
-  console.log('parsePgcrData.js:')
-  console.log(entry)
+  // TODO: Remove the manual assigns below and use:
+  // const data = getPgcrData(props)
 
   const membershipId = entry.player?.destinyUserInfo?.membershipId
-
   const setActive = Boolean(membershipId === activeUserId)
   const activeUser = setActive ? 'active' : ''
 
@@ -28,7 +27,7 @@ export function parsePgcrData(
   const deaths = entry.values?.deaths?.basic?.value
   const assists = entry.values?.assists?.basic?.value
   const score = entry.score?.basic?.value
-  const kdr = Number(calculateKillDeathRatio(kills.toString(), deaths.toString())).toFixed(1)
+  const kdr = Number(calculateKillDeathRatio(kills, deaths)).toFixed(1)
   const standing: boolean = entry.values?.completed?.basic?.displayValue === 'Yes'
   const completed = completedDiv(standing)
   const playerIcon = entry.player?.destinyUserInfo?.iconPath
@@ -114,30 +113,4 @@ export function parsePgcrData(
   }
 
   return returnActivityData(mode)
-}
-
-export type PgcrSplashInterface = {
-  // eslint-disable-next-line no-unused-vars
-  [_key in PgcrTypes]: string[]
-}
-
-export const pgcrSplashCategories: PgcrSplashInterface = {
-  /* PvE Modes */
-  Raid: ['K', 'D', 'K/D R', 'S. K', 'D'],
-  Strike: ['K', 'D', 'K/D R', 'S. K', 'D'],
-  Nightfall: ['K', 'D', 'A', 'Score'],
-
-  /* Gambit: */
-  Gambit: ['K', 'G. K', 'D', 'G. D', 'MB', 'ML', 'MD', 'Dam'],
-
-  /* PvP modes: */
-  AllPvP: ['K', 'D', 'A', 'K/D R'],
-  Survival: ['K', 'D', 'A', 'K/D R'],
-  AllMayhem: ['K', 'D', 'S. K', 'G. K', 'K/D R'],
-  Mayhem: ['K', 'D', 'S. K', 'G. K', 'K/D R'],
-  Control: ['K', 'D', 'A', 'K/D R'],
-  Clash: ['K', 'D', 'A', 'K/D R'],
-  IronBanner: ['K', 'D', 'A', 'K/D R'],
-  Countdown: ['K', 'D', 'A', 'K/D R'],
-  TrialsOfOsiris: ['K', 'D', 'A', 'K/D R'],
 }

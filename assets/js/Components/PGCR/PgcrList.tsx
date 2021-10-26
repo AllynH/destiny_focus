@@ -2,17 +2,23 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react'
 
+import { ServerResponse , DestinyActivityHistoryResults } from 'bungie-api-ts/destiny2'
 import PGCR from './PGCR'
 import { GetUserPGCRList } from '../../Utils/API/API_Requests'
 
-export default function PgcrList(props) {
+interface PgcrListInterface {
+  activityList: ServerResponse<DestinyActivityHistoryResults>,
+}
+
+export default function PgcrList(props: PgcrListInterface) {
   const { activityList } = props
   const [savedPgcrs, setSavedPgcrs] = useState(null)
 
-  const pgcrList = []
   const myArray = activityList?.Response?.activities
 
-  // console.log(myArray)
+  console.log('PgcrList.js')
+  console.log(props)
+  console.log(myArray)
 
   // Fetch the users saved PGCR list:
   useEffect(() => {
@@ -42,7 +48,10 @@ export default function PgcrList(props) {
       {savedPgcrs
         && myArray.map((p, index) => (
           <li className={'pgcr pgcr-item'} key={index}>
-            <PGCR {...p} favourite={savedPgcrs.includes(Number(p.activityDetails.instanceId))} />
+            <PGCR
+              historicalStatsGroup={p}
+              favourite={savedPgcrs.includes(Number(p.activityDetails.instanceId))}
+            />
           </li>
         ))}
     </div>

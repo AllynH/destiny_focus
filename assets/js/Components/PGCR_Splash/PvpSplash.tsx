@@ -4,7 +4,8 @@ import { DestinyActivityDefinition, DestinyPostGameCarnageReportData } from 'bun
 import { ServerResponse } from 'bungie-api-ts/destiny2'
 
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
-import { pgcrSplashCategories } from './parsePgcrData'
+import { pgcrSplashCategoryValues } from './types'
+
 import SelectActivityIcon from './SelectActivityIcon'
 import Player from './Player'
 import ReturnToFocusButton from './ReturnToFocus'
@@ -47,7 +48,7 @@ export default function PvpSplash(props: PvPPropsInterface) {
   const completionTime = pgcr
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'
-  const pgcrCategory = pgcrSplashCategories[activityMode] || pgcrSplashCategories.AllPvP
+  const pgcrCategory = pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.AllPvP.heading
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length} `
 
   return (

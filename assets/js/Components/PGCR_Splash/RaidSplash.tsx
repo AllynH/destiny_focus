@@ -7,7 +7,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import { takePictureEvent } from '../../Utils/HelperFunctions/CaptureImage'
 */
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
-import { pgcrSplashCategories } from './parsePgcrData'
+import { pgcrSplashCategoryValues } from './types'
 
 import SelectActivityIcon from './SelectActivityIcon'
 import Player from './Player'
@@ -47,7 +47,7 @@ export default function RaidSplash(props: PvPPropsInterface) {
   const nfScore = pgcr?.Response?.entries
     .map((el) => el.values.teamScore.basic.value)
     .reduce((acc, curr) => (acc > curr ? acc : curr), 0)
-  const pgcrCategory = pgcrSplashCategories[activityMode] || pgcrSplashCategories.Raid
+  const pgcrCategory = pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.Raid.heading
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length}`
   return (
     <>

@@ -140,7 +140,10 @@ export type PgcrTypes =
   "AllMayhem" |
   "Mayhem" |
   "Control" |
+  "Control: Quickplay" |
   "Clash" |
   "IronBanner" |
   "Countdown" |
   "TrialsOfOsiris"
+
+  export type StandingType = "Victory" | "Defeat" | ""

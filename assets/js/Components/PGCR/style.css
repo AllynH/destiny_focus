@@ -40,8 +40,6 @@
     height: 3em;
 }
 
-
-
 .pgcr-game-wrapper-expanded{
     /* width: 600px; */
     display: grid;
@@ -52,14 +50,11 @@
 
 .pgcr-char-wrap{
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
-    grid-column-gap: 15px;
-    /* border-bottom: 1px solid var(--vanguard-light-2); */
+    grid-column-gap: 4px;
     background: var(--grey-dark-2);
-    text-align: left;
+    align-items: center;
+    text-align: center;
     margin: 2px;
-    padding: 2px;
-    align-items: flex-end;
     cursor: default;
 }
 
@@ -69,10 +64,9 @@
 }
 
 .player-icon{
-    min-height: 25px;
-    min-width: 25px;
+    height: 30px;
+    width: 30px;
     margin-right: 10px;
-    display: inline-block;
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -104,10 +98,6 @@
 .pgcr{
     font-size: 14px;
     cursor: default;
-}
-
-.pgcr-pointer{
-    /* cursor: pointer; */
 }
 
 .pgcr-ul{
@@ -159,7 +149,7 @@
 .activity-list{
     list-style: none;
     padding: 0;
-    margin: 0;    
+    margin: 0;
 }
 
 .activity-icon{
@@ -256,4 +246,8 @@ h2.activity-map-name{
 .team-bravo{
     background-color: var(--vanguard-dark-1);
     color: white;
+}
+
+.pgcr-dnf-player{
+  opacity: 50%;
 }

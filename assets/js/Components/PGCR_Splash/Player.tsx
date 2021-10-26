@@ -5,7 +5,7 @@ import {
   DestinyInventoryItemDefinition,
   DestinyPostGameCarnageReportEntry,
 } from 'bungie-api-ts/destiny2'
-import { parsePgcrData } from './parsePgcrData'
+import parsePgcrData from './parsePgcrData'
 
 import { GetActivityDefinitionUnauth } from '../../Utils/API/API_Requests'
 
