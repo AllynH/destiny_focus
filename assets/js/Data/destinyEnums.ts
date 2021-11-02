@@ -3,7 +3,7 @@
 // export default BASIC_ACTIVITY_MODES
 
 interface ActivityModeInterface {
-  [key: number]: string,
+  [key: number]: string
 }
 
 export const BASIC_ACTIVITY_MODES: ActivityModeInterface = {
@@ -51,17 +51,12 @@ export const BASIC_ACTIVITY_MODES: ActivityModeInterface = {
   84: 'TrialsOfOsiris',
 }
 
-export type ProgressionNameKey =
-  "Glory" |
-  "Valor" |
-  "Infamy" |
-  "Trials" |
-  "Vanguard"
+export type ProgressionNameKey = 'Glory' | 'Valor' | 'Infamy' | 'Trials' | 'Vanguard'
 
 export interface SingleProgressionInterface {
-  hash: number,
-  maxRank: number,
-  streakHash: number,
+  hash: number
+  maxRank: number
+  streakHash: number
 }
 
 export type ProgressionInterface = {
@@ -78,9 +73,9 @@ export const PROGRESSION_DATA: ProgressionInterface = {
 }
 
 interface WeaponTypeInterface {
-  readonly kinetic: number,
-  readonly energy: number,
-  readonly power: number,
+  readonly kinetic: number
+  readonly energy: number
+  readonly power: number
 }
 
 export type WeaponTypeList = keyof WeaponTypeInterface
@@ -97,16 +92,11 @@ export const WEAPON_TYPES: WeaponTypeInterface = {
 //   'Passage of Confidence' |
 //   'Passage of Wisdom' |
 //   'Passage of Wealth'
-export type TrialsPassageKey =
-  'Mercy' |
-  'Ferocity' |
-  'Confidence' |
-  'Wealth' |
-  'Wisdom'
+export type TrialsPassageKey = 'Mercy' | 'Ferocity' | 'Confidence' | 'Wealth' | 'Wisdom'
 
 interface SingleTrialsCardInterface {
-  hash: number,
-  name: string,
+  hash: number
+  name: string
 }
 
 export type TrialsCardInterface = {
@@ -129,21 +119,57 @@ export const TRIALS_CARD_DATA: TrialsCardInterface = {
 
 export type PgcrTypes =
   /* PvE Modes */
-  "Raid" |
-  "Strike" |
-  "Nightfall" |
+  | 'Raid'
+  | 'Strike'
+  | 'Nightfall'
   /* Gambit" */
-  "Gambit" |
+  | 'Gambit'
   /* PvP modes */
-  "AllPvP" |
-  "Survival" |
-  "AllMayhem" |
-  "Mayhem" |
-  "Control" |
-  "Control: Quickplay" |
-  "Clash" |
-  "IronBanner" |
-  "Countdown" |
-  "TrialsOfOsiris"
+  | 'AllPvP'
+  | 'Survival'
+  | 'AllMayhem'
+  | 'Mayhem'
+  | 'Control'
+  | 'Control: Quickplay'
+  | 'Clash'
+  | 'IronBanner'
+  | 'Countdown'
+  | 'TrialsOfOsiris'
 
-  export type StandingType = "Victory" | "Defeat" | ""
+export type StandingType = 'Victory' | 'Defeat' | ''
+
+export type ExtendedDataTypes =
+  | 'bankOverage'
+  | 'blockerKills'
+  | 'highValueKills'
+  | 'invaderDeaths'
+  | 'invaderKills'
+  | 'invasionDeaths'
+  | 'invasionKills'
+  | 'invasions'
+  | 'largeBlockersSent'
+  // "medals_pvecomp_medal_denied" |
+  | 'mediumBlockersSent'
+  | 'mobKills'
+  | 'motesDenied'
+  | 'motesDeposited'
+  | 'motesLost'
+  | 'motesPickedUp'
+  | 'precisionKills'
+  | 'primevalDamage'
+  | 'primevalHealing'
+  | 'primevalKills'
+  | 'smallBlockersSent'
+  | 'weaponKillsAbility'
+  | 'weaponKillsGrenade'
+  | 'weaponKillsMelee'
+  | 'weaponKillsSuper'
+
+export const RemovedStats = [
+  'completed',
+  "completionReason",
+  'fireteamId',
+  'medals_pvecomp_medal_denied',
+  'allMedalsEarned',
+  'medalUnknown',
+]

@@ -1,20 +1,16 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable semi */
-/* eslint-disable no-else-return */
 import React from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 
-import {
-  VictoryAxis, VictoryChart, VictoryBar, VictoryTheme, VictoryLine,
-} from 'victory'
+import { VictoryAxis, VictoryChart, VictoryBar, VictoryLine } from 'victory'
 
 import ChartLegend from '../ChartHelpers/ChartLegend'
 
 import './style.css'
 
 export default function PrecisionChart(props) {
-  const getFocus = useSelector((state) => state.focus)
+  let dataType
+  let goal
+  // const getFocus = useSelector((state) => state.focus)
   // console.log('getFocus')
   // console.log(getFocus)
   // console.log('PrecisionChart')
@@ -25,6 +21,14 @@ export default function PrecisionChart(props) {
   //   ? console.log('PrecisionChart using focus goals')
   //   : console.log('PrecisionChart using default goals')
   // const kdrGoal = focusReducer?.payload ? parseFloat(focusReducer.payload.killDeathRatio) : 1.2
+  if (props.chartName === 'averageLifeTime') {
+    dataType = 'life time (secs)'
+    goal = focusReducer?.payload ? parseFloat(focusReducer.payload.avgLifeTime) : 100
+  } else {
+    dataType = 'precision kills'
+    goal = focusReducer?.payload ? parseFloat(focusReducer.payload.precisionKillsCount) : 5
+  }
+
   const axisStyle = {
     background: {
       fill: 'var(--vanguard-dark-5)',
@@ -46,31 +50,20 @@ export default function PrecisionChart(props) {
     },
   }
 
-  if (props.chartName === 'averageLifeTime') {
-    var dataType = 'life time (secs)'
-    var goal = focusReducer?.payload ? parseFloat(focusReducer.payload.avgLifeTime) : 100
-  } else {
-    var dataType = 'precision kills'
-    var goal = focusReducer?.payload ? parseFloat(focusReducer.payload.precisionKillsCount) : 5
-  }
-
-  const parseData = (props) => {
+  const parseData = (jsonResponse) => {
     const data = []
-    props.Response.map((p, index) => {
-      if (props.chartName === 'averageLifeTime') {
-        data.push({ x: index + 1, y: parseInt(p.averageLifeTime, 10) })
-      } else {
-        data.push({ x: index + 1, y: parseInt(p.precisionKills, 10) })
+    jsonResponse.Response.map((p, index) => {
+      if (jsonResponse.chartName === 'averageLifeTime') {
+        return data.push({ x: index + 1, y: parseInt(p.averageLifeTime, 10) })
       }
+      return data.push({ x: index + 1, y: parseInt(p.precisionKills, 10) })
     })
     return data
   }
 
   const getAverage = (data) => {
     const avg = []
-    data.map((d, index) => {
-      avg.push(d.y)
-    })
+    data.map((d) => avg.push(d.y))
 
     const sum = avg.reduce((a, b) => a + b, 0)
     const average = sum / avg.length || 0
@@ -82,17 +75,17 @@ export default function PrecisionChart(props) {
   // console.log('average')
   // console.log(average)
 
-  const Summary = (dataType, average, goal) => (
+  const Summary = (dType, avg, gl) => (
     <div className='weapon-precision-wrapper'>
-      <p>Average {dataType} per game:</p>
+      <p>Average {dType} per game:</p>
       <div className='focus-kdr-grid'>
         <span className='ability-detail-title'>Avg.: </span>
-        <span className='ability-detail-value'>{average.toFixed(1)}</span>
+        <span className='ability-detail-value'>{avg.toFixed(1)}</span>
       </div>
 
       <div className='focus-kdr-grid'>
         <span className='ability-detail-title'>Goal: </span>
-        <span className='ability-detail-value'>{goal}</span>
+        <span className='ability-detail-value'>{gl}</span>
       </div>
     </div>
   )
@@ -110,7 +103,7 @@ export default function PrecisionChart(props) {
         >
           <VictoryAxis style={axisStyle} label='Games (left is newer)' />
           <VictoryAxis style={axisStyle} dependentAxis />
-          <VictoryBar style={ { ...axisStyle }} data={chartData} />
+          <VictoryBar style={{ ...axisStyle }} data={chartData} />
           <VictoryLine
             name='Goal'
             style={{

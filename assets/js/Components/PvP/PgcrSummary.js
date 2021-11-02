@@ -11,6 +11,7 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 import { AvgWeaponAbilityKills } from '../../Utils/HelperFunctions/KdrFunctions'
 
 import './style.css'
+import ChartDropdown from './ChartDropdown'
 
 export function PcgrStats(props) {
   return (
@@ -46,7 +47,10 @@ export default function PgcrSummary(props) {
     const fetchPgcrSummary = async () => {
       const result = await GetPGCRList({
         params: {
-          membershipType, membershipId, characterId, gameMode,
+          membershipType,
+          membershipId,
+          characterId,
+          gameMode,
         },
       })
       setPgcrSummary(result)
@@ -64,6 +68,10 @@ export default function PgcrSummary(props) {
         <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} {...props} />
         <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} {...props} />
       </div>
+      <h2 className='heading-capitalize'>CUSTOM PLAYSTYLE:</h2>
+      <div className='small-chart-wrapper flex-direction'>
+        <ChartDropdown activityList={props.activityList} pgcrSummary={pgcrSummary} />
+      </div>
       <PrecisionFocus {...pgcrSummary} chartData={avgKillSummary} {...props} />
       <h2 className='heading-capitalize'>WEAPON DATA:</h2>
       <div className='small-chart-wrapper'>
@@ -71,7 +79,9 @@ export default function PgcrSummary(props) {
       </div>
       <h2 className='heading-capitalize'>KILLS BREAKDOWN:</h2>
       <div className='small-chart-wrapper'>
-        { pgcrSummary && avgKillSummary && <AbilityChart {...pgcrSummary} chartData={avgKillSummary} />}
+        {pgcrSummary && avgKillSummary && (
+          <AbilityChart {...pgcrSummary} chartData={avgKillSummary} />
+        )}
       </div>
     </>
   )

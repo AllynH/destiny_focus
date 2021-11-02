@@ -177,7 +177,7 @@
   color: var(--grey-light-2);
 }
 
-/* 
+/*
   Wide screen:
 */
 @media screen and (min-width: 600px) {
@@ -255,7 +255,7 @@
   align-items: center;
 }
 
-/* 
+/*
   Mobile devices:
 */
 @media screen and (max-width: 600px) {
@@ -298,4 +298,12 @@
 }
 .VictoryContainer {
   overflow: visible;
+}
+
+.chart-dropdown-wrapper{
+  width: 100%;
+}
+
+.chart-dropdown-button-spacer{
+  margin:10px 0px;
 }
