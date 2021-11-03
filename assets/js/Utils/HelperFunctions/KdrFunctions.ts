@@ -1,3 +1,5 @@
+import { pgcrSummaryInterface } from "../../Components/PvP/types"
+
 export function calculateKillDeathRatio(kills: number, deaths:number):string {
   if (deaths === 0) {
     return (kills).toFixed(2)
@@ -88,7 +90,7 @@ interface AbilityDataInterface {
   supers: number,
   melee: number,
 }
-export const AvgWeaponAbilityKills = (pgcrSummary:any): AbilityDataInterface => {
+export const AvgWeaponAbilityKills = (pgcrSummary: pgcrSummaryInterface): AbilityDataInterface => {
   // This is used to populate the chart data for the AbilityChart component
   // Takes data from the last 10 PGCR's.
   // Returns an average of the kills for each type:
@@ -130,9 +132,7 @@ export const AvgWeaponAbilityKills = (pgcrSummary:any): AbilityDataInterface => 
   return avg
 }
 
-export const getPercentage = (num: number, denom: number): number => {
-  return ((num / denom) * 100)
-}
+export const getPercentage = (num: number, denom: number): number => ((num / denom) * 100)
 
 interface PrecisionDataInterface {
   x: number,

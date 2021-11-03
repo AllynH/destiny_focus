@@ -20,3 +20,10 @@ export interface ChartDropdownInterface {
   activityList: ServerResponse<DestinyActivityHistoryResults>
   pgcrSummary: pgcrSummaryInterface
 }
+
+
+export interface PgcrSummaryPropsInterface {
+  activityList: ServerResponse<DestinyActivityHistoryResults>,
+
+
+}
