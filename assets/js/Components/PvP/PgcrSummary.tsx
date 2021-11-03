@@ -22,11 +22,11 @@ export function Loading() {
   return (
     <>
       <h2 className='heading-capitalize'>PLAYSTYLE:</h2>
-        <Shimmer />
+      <Shimmer />
       <h2 className='heading-capitalize'>CUSTOM PLAYSTYLE:</h2>
-        <Shimmer />
+      <Shimmer />
       <h2 className='heading-capitalize'>WEAPON DATA:</h2>
-        <Shimmer />
+      <Shimmer />
       <h2 className='heading-capitalize'>KILLS BREAKDOWN:</h2>
       <div className='flex-direction'>
         <Shimmer />
@@ -38,7 +38,8 @@ export function Loading() {
 export default function PgcrSummary(props: PgcrSummaryPropsInterface & RouteComponentProps) {
   const [pgcrSummary, setPgcrSummary] = useState(null)
   const [avgKillSummary, setAvgKillSummary] = useState(null)
-  const { membershipType, membershipId, characterId } = props.match.params as CharacterPropsInterface
+  const { membershipType, membershipId, characterId } = props.match
+    .params as CharacterPropsInterface
   const { gameMode } = getUrlDetails()
   const myArray = props.activityList?.Response?.activities
 
@@ -66,15 +67,17 @@ export default function PgcrSummary(props: PgcrSummaryPropsInterface & RouteComp
       {pgcrSummary ? (
         <>
           <h2 className='heading-capitalize'>PLAYSTYLE:</h2>
-          <div className='small-chart-wrapper flex-direction'>
-            <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} {...props} />
-            <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} {...props} />
+          <div>
+            <div className='small-chart-wrapper flex-direction'>
+              <PrecisionChart chartName={'precisionKills'} {...pgcrSummary} {...props} />
+              <PrecisionChart chartName={'averageLifeTime'} {...pgcrSummary} {...props} />
+            </div>
+            <PrecisionFocus {...pgcrSummary} chartData={avgKillSummary} {...props} />
           </div>
           <h2 className='heading-capitalize'>CUSTOM PLAYSTYLE:</h2>
           <div className='small-chart-wrapper flex-direction'>
             <ChartDropdown activityList={props.activityList} pgcrSummary={pgcrSummary} />
           </div>
-          <PrecisionFocus {...pgcrSummary} chartData={avgKillSummary} {...props} />
           <h2 className='heading-capitalize'>WEAPON DATA:</h2>
           <div className='small-chart-wrapper'>
             <PrecisionWeaponKills {...pgcrSummary} />
