@@ -67,7 +67,8 @@ module.exports = {
     new MiniCssExtractPlugin({ filename: '[name].bundle.css' }),
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
     new webpack.DefinePlugin({
-      'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID || '')
+      'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID || ''),
+      'process.env.DF_UPDATE_TIME': JSON.stringify(process.env.DF_UPDATE_TIME || '')
     }),
   ].concat(debug ? [] : ProductionPlugins),
   module: {

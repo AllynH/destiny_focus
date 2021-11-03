@@ -32,7 +32,7 @@ import './style.css'
 
 
 // Set the update time for refreshing the data:
-const UPDATE_TIME = 20
+const UPDATE_TIME = Number(process.env.DF_UPDATE_TIME) || 20
 
 const fetchPVPData = async () => {
   const {

@@ -165,6 +165,10 @@ export type ExtendedDataTypes =
   | 'weaponKillsMelee'
   | 'weaponKillsSuper'
 
+/*
+  These stats are removed from the ChartDropDown Component.
+  Most of these don't hold data, or don't contain integer data sets.
+*/
 export const RemovedStats = [
   'completed',
   "completionReason",
