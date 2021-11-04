@@ -6,6 +6,7 @@ import { Button, makeStyles, Menu, MenuItem } from '@material-ui/core'
 import { getAverageFromArray, getStatsFromPgcrEntry } from '../../Utils/HelperFunctions/FilterStats'
 import { ChartDropdownInterface } from './types'
 import LargeBarChart from '../Charts/LargeBarChart'
+// import SmallBarChart from '../Charts/SmallBarChart'
 import { RemovedStats } from '../../Data/destinyEnums'
 
 export default function ChartDropdown(props: ChartDropdownInterface) {
@@ -18,10 +19,7 @@ export default function ChartDropdown(props: ChartDropdownInterface) {
   const availableActivities = Object.keys(pgcrSummary.Response[0]?.data?.values)
   const extendedActivities = Object.keys(pgcrSummary.Response[0]?.data?.extended?.values)
   const allStats = [...availableActivities, ...extendedActivities]
-
   const filteredStats = allStats.filter((item) => !RemovedStats.includes(item))
-  // console.log('ChartDropDown.tsx')
-  // console.log(allStats)
 
   const toggleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { VictoryChart, VictoryAxis, VictoryBar, VictoryLine } from 'victory'
+import { VictoryChart, VictoryAxis, VictoryBar, VictoryLine, VictoryStack } from 'victory'
 import ChartLegend from '../ChartHelpers/ChartLegend'
 import axisStyle from './StyleConsts'
 
@@ -15,6 +15,16 @@ export default function SmallBarChart(props: SmallChartInterface) {
   const checkForError = chartData.some((items) => items === undefined)
   const axisTicks = Array.from({ length: chartData.length }, (_, i) => i + 1)
 
+    /*
+    Manually set the x: min & max, and y: min & max values.
+    This is to prevent display issues where some charts contain all zeros.
+  */
+    const checkForAllZero = chartData.every((items) => items === 0)
+    const maxY = checkForAllZero ? 1 : chartData.reduce((a, b) => Math.max(a, b))
+    const lowestY = chartData.reduce((a, b) => Math.min(a, b))
+    const minY = lowestY > 0 ? 0 : lowestY
+    const dataSetLength = chartData.length
+
   const Summary = (dType: string, avg: number, gl: number) => (
     <div className='weapon-precision-wrapper'>
       <p>Average {dType} per game:</p>
@@ -23,10 +33,14 @@ export default function SmallBarChart(props: SmallChartInterface) {
         <span className='ability-detail-value'>{avg.toFixed(1)}</span>
       </div>
 
-      <div className='focus-kdr-grid'>
-        <span className='ability-detail-title'>Goal: </span>
-        <span className='ability-detail-value'>{gl}</span>
-      </div>
+      {gl ? (
+        <div className='focus-kdr-grid'>
+          <span className='ability-detail-title'>Goal: </span>
+          <span className='ability-detail-value'>{gl}</span>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 
@@ -41,10 +55,20 @@ export default function SmallBarChart(props: SmallChartInterface) {
       ) : (
         <div className='chart precision-chart'>
           <ChartLegend />
-          <VictoryChart domainPadding={10} height={230} width={250} style={axisStyle}>
+          <VictoryChart
+            height={230}
+            width={250}
+            domainPadding={10}
+            style={axisStyle}
+            domain={{ x: [0, dataSetLength], y: [minY, maxY] }}
+          >
             <VictoryAxis style={axisStyle} label={'Games (left is newer)'} tickValues={axisTicks} />
             <VictoryAxis style={axisStyle} dependentAxis />
-            <VictoryBar style={{ ...axisStyle }} data={chartData} />
+
+            <VictoryStack colorScale={['var(--vanguard-blue)', 'var(--crucible-red)']} xOffset={1}>
+              <VictoryBar data={chartData} />
+            </VictoryStack>
+
             {goal && (
               <VictoryLine
                 name='Goal'

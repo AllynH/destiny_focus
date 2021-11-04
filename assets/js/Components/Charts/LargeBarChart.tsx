@@ -15,6 +15,16 @@ export default function LargeBarChart(props: SmallChartInterface) {
   const checkForError = chartData.some((items) => items === undefined)
   const axisTicks = Array.from({ length: chartData.length }, (_, i) => i + 1)
 
+  /*
+    Manually set the x: min & max, and y: min & max values.
+    This is to prevent display issues where some charts contain all zeros.
+  */
+  const checkForAllZero = chartData.every((items) => items === 0)
+  const maxY = checkForAllZero ? 1 : chartData.reduce((a, b) => Math.max(a, b))
+  const lowestY = chartData.reduce((a, b) => Math.min(a, b))
+  const minY = lowestY > 0 ? 0 : lowestY
+  const dataSetLength = chartData.length
+
   const Summary = (dType: string, avg: number, gl: number) => (
     <div className='weapon-precision-wrapper'>
       <p>Average {dType} per game:</p>
@@ -45,7 +55,13 @@ export default function LargeBarChart(props: SmallChartInterface) {
       ) : (
         <div className='chart kdr-chart'>
           <ChartLegend />
-          <VictoryChart height={300} width={450} domainPadding={{ x: 30, y: 20 }}>
+          <VictoryChart
+            height={300}
+            width={450}
+            domainPadding={{ x: 30, y: 20 }}
+            domain={{ x: [0, dataSetLength], y: [minY, maxY] }}
+            // domain={domainZero}
+          >
             <VictoryStack colorScale={['var(--vanguard-blue)', 'var(--crucible-red)']} xOffset={1}>
               <VictoryBar data={chartData} />
             </VictoryStack>
