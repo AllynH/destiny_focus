@@ -1,5 +1,12 @@
 import React from 'react'
-import { VictoryChart, VictoryAxis, VictoryBar, VictoryStack, VictoryLine } from 'victory'
+import {
+  VictoryChart,
+  VictoryAxis,
+  VictoryBar,
+  VictoryStack,
+  VictoryLine,
+  VictoryTooltip,
+} from 'victory'
 import ChartLegend from '../ChartHelpers/ChartLegend'
 import axisStyle from './StyleConsts'
 
@@ -24,6 +31,8 @@ export default function LargeBarChart(props: SmallChartInterface) {
   const lowestY = chartData.reduce((a, b) => Math.min(a, b))
   const minY = lowestY > 0 ? 0 : lowestY
   const dataSetLength = chartData.length
+
+  const dataObject = chartData.map((y, index) => ({x: index, y}))
 
   const Summary = (dType: string, avg: number, gl: number) => (
     <div className='weapon-precision-wrapper'>
@@ -50,7 +59,9 @@ export default function LargeBarChart(props: SmallChartInterface) {
       {checkForError ? (
         <div>
           <p>There was an error in that data, try again...</p>
-          <p>This chart displays raw API data, sometimes the data Bungie returns is just dummy data.</p>
+          <p>
+            This chart displays raw API data, sometimes the data Bungie returns is just dummy data.
+          </p>
         </div>
       ) : (
         <div className='chart kdr-chart'>
@@ -60,10 +71,17 @@ export default function LargeBarChart(props: SmallChartInterface) {
             width={450}
             domainPadding={{ x: 30, y: 20 }}
             domain={{ x: [0, dataSetLength], y: [minY, maxY] }}
-            // domain={domainZero}
           >
             <VictoryStack colorScale={['var(--vanguard-blue)', 'var(--crucible-red)']} xOffset={1}>
-              <VictoryBar data={chartData} />
+              <VictoryBar
+                data={dataObject}
+                labels={({ datum }) => datum.y}
+                labelComponent={
+                  <VictoryTooltip
+                    // flyoutStyle={{ stroke: 'tomato', strokeWidth: 2 }}
+                  />
+                }
+              />
             </VictoryStack>
 
             <VictoryAxis style={axisStyle} label={'Kills'} dependentAxis />

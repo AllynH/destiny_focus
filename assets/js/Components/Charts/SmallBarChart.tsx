@@ -1,5 +1,12 @@
 import React from 'react'
-import { VictoryChart, VictoryAxis, VictoryBar, VictoryLine, VictoryStack } from 'victory'
+import {
+  VictoryChart,
+  VictoryAxis,
+  VictoryBar,
+  VictoryStack,
+  VictoryLine,
+  VictoryTooltip,
+} from 'victory'
 import ChartLegend from '../ChartHelpers/ChartLegend'
 import axisStyle from './StyleConsts'
 
@@ -15,15 +22,17 @@ export default function SmallBarChart(props: SmallChartInterface) {
   const checkForError = chartData.some((items) => items === undefined)
   const axisTicks = Array.from({ length: chartData.length }, (_, i) => i + 1)
 
-    /*
+  /*
     Manually set the x: min & max, and y: min & max values.
     This is to prevent display issues where some charts contain all zeros.
   */
-    const checkForAllZero = chartData.every((items) => items === 0)
-    const maxY = checkForAllZero ? 1 : chartData.reduce((a, b) => Math.max(a, b))
-    const lowestY = chartData.reduce((a, b) => Math.min(a, b))
-    const minY = lowestY > 0 ? 0 : lowestY
-    const dataSetLength = chartData.length
+  const checkForAllZero = chartData.every((items) => items === 0)
+  const maxY = checkForAllZero ? 1 : chartData.reduce((a, b) => Math.max(a, b))
+  const lowestY = chartData.reduce((a, b) => Math.min(a, b))
+  const minY = lowestY > 0 ? 0 : lowestY
+  const dataSetLength = chartData.length
+
+  const dataObject = chartData.map((y, index) => ({x: index, y}))
 
   const Summary = (dType: string, avg: number, gl: number) => (
     <div className='weapon-precision-wrapper'>
@@ -66,7 +75,15 @@ export default function SmallBarChart(props: SmallChartInterface) {
             <VictoryAxis style={axisStyle} dependentAxis />
 
             <VictoryStack colorScale={['var(--vanguard-blue)', 'var(--crucible-red)']} xOffset={1}>
-              <VictoryBar data={chartData} />
+            <VictoryBar
+                data={dataObject}
+                labels={({ datum }) => datum.y}
+                labelComponent={
+                  <VictoryTooltip
+                    // flyoutStyle={{ stroke: 'tomato', strokeWidth: 2 }}
+                  />
+                }
+              />
             </VictoryStack>
 
             {goal && (
