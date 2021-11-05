@@ -214,10 +214,11 @@
   .ability-chart-description {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 200px;
+    height: 100%;
     text-align: left;
-    align-self: flex-start;
+    align-self: center;
   }
 }
 
@@ -286,8 +287,9 @@
   .ability-chart-description {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 200px;
+    height: 100%;
     text-align: left;
     align-self: center;
   }

@@ -49,8 +49,8 @@ export default function Pgcr(props: PgcrPropsInterface) {
   return (
     <>
       <div className='pgcr-wrapper'>
-        <div
-          className='pgcr pgcr-pointer'
+        <ul
+          className='pgcr pgcr-pointer list-style-none'
           role='button'
           onClick={() => {
             handleClick(instanceId)
@@ -68,7 +68,7 @@ export default function Pgcr(props: PgcrPropsInterface) {
             <CreateTeams entriesList={pgcr.Response.entries} activityMode={activityMode} />
           </>
           }
-        </div>
+        </ul>
       </div>
     </>
   )

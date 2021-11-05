@@ -16,20 +16,13 @@ export default function SelectActivityIcon(props) {
   const { activityMode } = props
   const { iconStyle } = props || 'smallIconPgcr'
 
-  // const iconWidth = iconStyleVars.iconColour ? 150 : 300
-  // const iconHeight = iconStyleVars.iconColour ? 150 : 345
-  // const iconColour = iconStyleVars.iconColour ? 'white' : null
-  // let iconWidth = 150
-  // let iconHeight = 150
-  // let iconColour = 'white'
-
   // This needs refactor - can now use FOCUS_DETAILS to choose all of these.
   // eslint-disable-next-line radar/cognitive-complexity
   const ReturnActivityIcon = () => {
     const activities = props.activityMode
     const m = activities.toLowerCase()
-    console.log('Activity Icon:')
-    console.log(m)
+    // console.log('Activity Icon:')
+    // console.log(m)
     let iconStyleVars = {}
 
     switch (iconStyle) {

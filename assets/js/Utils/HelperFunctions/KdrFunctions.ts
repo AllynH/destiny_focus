@@ -83,7 +83,7 @@ export const projectKdrAverage = (data: kdrData[], offsetKills = 0, offsetDeaths
   return kdr.toFixed(2)
 }
 
-interface AbilityDataInterface {
+export interface AbilityDataInterface {
   weapons: number,
   grenades: number,
   abilities?: number,
@@ -98,14 +98,14 @@ export const AvgWeaponAbilityKills = (pgcrSummary: pgcrSummaryInterface): Abilit
   //    Ability kills are so infrequent they've been removed.
 
   let grenades = 0
-  let ability = 0
+  let abilities = 0
   let supers = 0
   let melee = 0
   let weapons = 0
 
   pgcrSummary.Response.map((p: any) => {
     grenades += p.data.extended.values.weaponKillsGrenade.basic.value
-    ability += p.data.extended.values.weaponKillsAbility.basic.value
+    abilities += p.data.extended.values.weaponKillsAbility.basic.value
     supers += p.data.extended.values.weaponKillsSuper.basic.value
     melee += p.data.extended.values.weaponKillsGrenade.basic.value
     weapons += p.data.values.kills.basic.value
@@ -113,7 +113,7 @@ export const AvgWeaponAbilityKills = (pgcrSummary: pgcrSummaryInterface): Abilit
   })
   const data = {
     grenades,
-    ability,
+    abilities,
     supers,
     melee,
     weapons,
@@ -125,7 +125,7 @@ export const AvgWeaponAbilityKills = (pgcrSummary: pgcrSummaryInterface): Abilit
   const avg = {
     weapons: data.weapons > 0 ? data.weapons / 10 : 0,
     grenades: data.grenades > 0 ? data.grenades / 10 : 0,
-    // abilities: data.abilities > 0 ? data.abilities / 10 : 0,
+    abilities: data.abilities > 0 ? data.abilities / 10 : 0,
     supers: data.supers > 0 ? data.supers / 10 : 0,
     melee: data.melee > 0 ? data.melee / 10 : 0,
   }

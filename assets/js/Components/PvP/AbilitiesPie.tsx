@@ -1,71 +1,55 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable max-classes-per-file */
-
 import React, { useState, useEffect } from 'react'
 
 import { VictoryPie, VictoryTooltip } from 'victory'
+import { AbilityDataInterface } from '../../Utils/HelperFunctions/KdrFunctions'
+import Spinner from '../../Utils/Loading/Spinner'
 
 import './style.css'
 
-import Spinner from '../../Utils/Loading/Spinner'
+interface AbilitiesPiePropsInterface {
+  data: AbilityDataInterface,
+}
 
-export default function AbilitiesPie(props) {
+interface chartDataInterface {
+  x: number,
+  y: number,
+  label: string,
+  stroke: string,
+  filter: string,
+}
+
+export default function AbilitiesPie(props: AbilitiesPiePropsInterface) {
   // console.log('AbilitiesPie')
   // console.log(props)
   const { data } = props
-
-  const [formattedData, setFormattedData] = useState(false)
-
-  /* Legacy debug items: */
-  // const orange = { base: 'gold', highlight: 'darkOrange' }
-
-  // const red = { base: 'tomato', highlight: 'orangeRed' }
-
-  // const innerRadius = 30
-
-  // const style = {
-  //   fontSize: 18,
-  //   fontWeight: 'bold',
-  // }
-
-  // const testData = [
-  //   { x: 1, y: 2, label: 'one' },
-  //   { x: 2, y: 3, label: 'two' },
-  //   { x: 3, y: 5, label: 'three' },
-  // ]
+  const [formattedData, setFormattedData] = useState(null)
 
   useEffect(() => {
-    // console.log('Inside useEffect: AbilitiesPie')
-    // console.log(data)
     const makeChartData = () => {
+      /*
+        Format the data first.
+        As often there is a lot of 0's in the values - set lowest value to 0.1 - to still display a small wedge.
+      */
       const count = 0
-
-      const formatted = []
-
-      for (const [key, value] of Object.entries(data)) {
-        const accountForZero = value > 0 ? value : 0.1
-        const vals = {
+      const formatted: chartDataInterface[] = []
+      Object.keys(data).forEach((key: keyof AbilityDataInterface) => {
+        const accountForZero = data[key] > 0 ? data[key] : 0.1
+        const values: chartDataInterface = {
           x: count,
           y: accountForZero,
-          label: `${key}: ${value}`,
+          label: `${key}: ${data[key]}`,
           stroke: 'var(--crucible-red)',
           filter: 'drop-shadow( 3px 3px 7px rgba(255, 255, 255, .5))',
         }
-        formatted.push(vals)
-      }
+        formatted.push(values)
+      })
 
-      // console.log(formatted)
       setFormattedData(formatted)
       return formatted
     }
     makeChartData()
   }, [data])
 
-  // console.log('Checking state:')
-  // console.log(formattedData)
   return (
     <>
       {formattedData ? (
@@ -82,12 +66,16 @@ export default function AbilitiesPie(props) {
                 <stop offset='100%' stopColor='var(--vanguard-dark-2)' />
               </linearGradient>
               <linearGradient id='gradient3' x1='0%' y1='0%' x2='0%' y2='100%'>
-                <stop offset='0%' stopColor='var(--gambit-green)' />
+                <stop offset='0%' stopColor='var(--vanguard-dark-1)' />
                 <stop offset='100%' stopColor='var(--gambit-green-dark-1)' />
               </linearGradient>
               <linearGradient id='gradient4' x1='0%' y1='0%' x2='0%' y2='100%'>
                 <stop offset='0%' stopColor='var(--bungie-power-light-1)' />
                 <stop offset='100%' stopColor='var(--bungie-power-dark-1)' />
+              </linearGradient>
+              <linearGradient id='gradient5' x1='0%' y1='0%' x2='0%' y2='100%'>
+                <stop offset='0%' stopColor='var(--gambit-green)' />
+                <stop offset='100%' stopColor='var(--gambit-green-dark-1)' />
               </linearGradient>
             </defs>
           </svg>
@@ -112,6 +100,7 @@ export default function AbilitiesPie(props) {
               'url(#gradient2)',
               'url(#gradient3)',
               'url(#gradient4)',
+              'url(#gradient5)',
             ]}
           />
         </>
