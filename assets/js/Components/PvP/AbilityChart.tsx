@@ -11,6 +11,7 @@ import Super from '../../../destiny-icons/supers/arc_titan.svg'
 
 import './style.css'
 import { AbilityDataInterface } from '../../Utils/HelperFunctions/KdrFunctions'
+// import AbilityKillFocus from '../Focus/AbilityKillFocus'
 
 interface AbilitiesChartPropsInterface {
   chartData: AbilityDataInterface,
@@ -25,11 +26,11 @@ export default function AbilitiesChart(props: AbilitiesChartPropsInterface) {
         <div className='ability-chart-description'>
         <h3 className='sub-heading'>Avg. kills per game.</h3>
           <ul className='ability-list'>
-            <li className='ability-list-li'><div className='icon weapon_icon'><Grenade width={32} /></div><div className='ability-detail-title'>GRENADE: </div><div className='ability-detail-value'>{chartData.grenades}</div></li>
-            <li className='ability-list-li'><div className='icon weapon_icon'><Super width={32} viewBox={'0 -10 50 50'} /></div><div className='ability-detail-title'>SUPER: </div><div className='ability-detail-value'>{chartData.supers}</div></li>
-            <li className='ability-list-li'><div className='icon weapon_icon'><Melee width={32} viewBox={'0 0 32 32'} /></div><div className='ability-detail-title'>MELEE: </div><div className='ability-detail-value'>{chartData.melee}</div></li>
-            <li className='ability-list-li'><div className='icon weapon_icon'><Abilities width={32} viewBox={'0 0 32 32'} /></div><div className='ability-detail-title'>Abilities: </div><div className='ability-detail-value'>{chartData.abilities}</div></li>
-            <li className='ability-list-li'><div className='icon weapon_icon'><Weapons width={32} viewBox={'0 -10 50 50'} /></div><div className='ability-detail-title'>WEAPONS: </div><div className='ability-detail-value'>{chartData.weapons}</div></li>
+            <li className='ability-list-li'><div className='icon weapon_icon icon-shadow'><Weapons width={32} viewBox={'0 -10 50 50'} /></div><div className='ability-detail-title'>WEAPONS: </div><div className='ability-detail-value'>{chartData.weapons}</div></li>
+            <li className='ability-list-li'><div className='icon weapon_icon icon-shadow'><Melee width={32} viewBox={'0 0 32 32'} /></div><div className='ability-detail-title'>MELEE: </div><div className='ability-detail-value'>{chartData.melee}</div></li>
+            <li className='ability-list-li'><div className='icon weapon_icon icon-shadow'><Grenade width={32} /></div><div className='ability-detail-title'>GRENADE: </div><div className='ability-detail-value'>{chartData.grenades}</div></li>
+            <li className='ability-list-li'><div className='icon weapon_icon icon-shadow'><Abilities width={32} viewBox={'0 0 32 32'} /></div><div className='ability-detail-title'>Abilities: </div><div className='ability-detail-value'>{chartData.abilities}</div></li>
+            <li className='ability-list-li'><div className='icon weapon_icon icon-shadow'><Super width={32} viewBox={'0 -10 50 50'} /></div><div className='ability-detail-title'>SUPER: </div><div className='ability-detail-value'>{chartData.supers}</div></li>
           </ul>
         </div>
         <div className='summary-chart-wrapper wider-chart'>
