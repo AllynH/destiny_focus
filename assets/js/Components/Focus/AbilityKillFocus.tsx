@@ -2,19 +2,23 @@ import React from 'react'
 import { AbilityDataInterface, getPercentage } from '../../Utils/HelperFunctions/KdrFunctions'
 import { ProgressBar } from '../Progress/ProgressBar'
 
+import Grenade from '../../../destiny-icons/weapons/grenade.svg'
+import Intellect from '../../../destiny-icons/general/intellect.svg'
+
 interface SuperKillsRecommendationProps {
   progress: number
   theme: string
   progressBarMessage: string
-  focusMessage: string
+  focusMessage?: string
   quoteMessage?: string
+  allWarn?: boolean
 }
 const SuperKillsRecommendation = (p: SuperKillsRecommendationProps) => {
   const { progress, theme, progressBarMessage, focusMessage, quoteMessage } = p
   const steps = `${progress.toFixed(1)}% / 100%`
   return (
     <>
-      <h2 className='focus-heading-h2'>{progressBarMessage}</h2>
+      <h2 className='focus-heading-h2 no-margin'>{progressBarMessage}</h2>
       <p className='focus-kdr-recommendation-description'>{focusMessage}</p>
       {quoteMessage && (
         <blockquote className='focus-kdr-recommendation-subtitle'>
@@ -35,6 +39,7 @@ const SuperKillRatio = (props: { superKillsRatio: number }) => {
   switch (true) {
     case superKillsRatio > 50:
     default:
+      quoteMessage = "The darkness may as well come in and take the place if that's all we've got."
       focusMessage =
         'Focus on improving your weapon skills, greater than 50% of your kills are coming from your super ability.'
       progressBarMessage = 'Stop using super ability as a crutch!'
@@ -44,6 +49,7 @@ const SuperKillRatio = (props: { superKillsRatio: number }) => {
           theme='warn'
           progressBarMessage={progressBarMessage}
           focusMessage={focusMessage}
+          quoteMessage={quoteMessage}
         />
       )
     case superKillsRatio > 20 && superKillsRatio < 50:
@@ -60,8 +66,8 @@ const SuperKillRatio = (props: { superKillsRatio: number }) => {
       )
     case superKillsRatio < 20:
       quoteMessage = 'Your weapon defines you.'
-      focusMessage = 'Less than 20% of your kills were with your super ability.'
-      progressBarMessage = 'Weapon to super kills ratio is very good.'
+      focusMessage = "Greater than 80% of your kills were with a weapon - you're not crutching on your super."
+      progressBarMessage = 'Ratio of weapons Vs. super kills.'
       return (
         <SuperKillsRecommendation
           progress={100 - superKillsRatio}
@@ -69,43 +75,6 @@ const SuperKillRatio = (props: { superKillsRatio: number }) => {
           progressBarMessage={progressBarMessage}
           focusMessage={focusMessage}
           quoteMessage={quoteMessage}
-        />
-      )
-  }
-}
-
-const GrenadeKillRatio = (props: { grenadeKillsRatio: number }) => {
-  const { grenadeKillsRatio } = props
-  let quoteMessage = ''
-  let focusMessage = ''
-  let progressBarMessage = ''
-
-  switch (true) {
-    case grenadeKillsRatio === 0:
-    default:
-      quoteMessage="Did you see that grenade toss? He's a danger only to himself!"
-      focusMessage = "You haven't gotten any grenade kills in the last 10 games."
-      progressBarMessage = 'No grenade kills!'
-      return (
-        <SuperKillsRecommendation
-          progress={grenadeKillsRatio}
-          theme='warn'
-          progressBarMessage={progressBarMessage}
-          focusMessage={focusMessage}
-          quoteMessage={quoteMessage}
-        />
-      )
-    case grenadeKillsRatio > 10:
-      // quoteMessage = 'Your weapon defines you.'
-      focusMessage = `${grenadeKillsRatio} of your kills are with grenades.`
-      progressBarMessage = 'Weapon to grenade kills ratio is very good.'
-      return (
-        <SuperKillsRecommendation
-          progress={100 - grenadeKillsRatio}
-          theme='success'
-          progressBarMessage={progressBarMessage}
-          focusMessage={focusMessage}
-          // quoteMessage={quoteMessage}
         />
       )
   }
@@ -123,7 +92,7 @@ interface AbilityKillFocusPropsInterface {
   choices?: ChoicesPropInterface
 }
 
-function AbilityRecommendation(props: AbilityKillFocusPropsInterface){
+function AbilityRecommendation(props: AbilityKillFocusPropsInterface) {
   const { chartData, choices } = props
 
   const totalKills = Object.keys(chartData).reduce(
@@ -133,36 +102,88 @@ function AbilityRecommendation(props: AbilityKillFocusPropsInterface){
   const superKillsPercent = getPercentage(chartData.supers, totalKills)
   const grenadeKillsPercent = getPercentage(chartData.grenades, totalKills)
 
+  let quoteMessage = ''
+  let focusMessage = ''
+  let progressBarMessage = ''
+
   switch (true) {
-    default:
-    case choices.superKillsPercent > 20:
-      return <SuperKillRatio superKillsRatio={superKillsPercent} />
-    case choices.noGrenadeMeleeAbilityKills === false:
-      return <GrenadeKillRatio grenadeKillsRatio={grenadeKillsPercent} />
+    case choices.noGrenadeMeleeAbilityKills === true:
+      quoteMessage = 'Let them burn in your light!'
+      focusMessage = 'Tip: Try switching up your sub-class or exotic armour piece.'
+      progressBarMessage = 'No grenade, melee or ability kills in the last 10 games!'
+      return (
+        <NoGrenadesMeleeAbility
+          allWarn={true}
+          progress={grenadeKillsPercent}
+          theme='warn'
+          progressBarMessage={progressBarMessage}
+          focusMessage={focusMessage}
+          quoteMessage={quoteMessage}
+        />
+      )
     case choices.grenadeKillsPercent === 0:
-      return <GrenadeKillRatio grenadeKillsRatio={grenadeKillsPercent} />
+      quoteMessage = "Did you see that grenade toss? He's a danger only to himself!"
+      progressBarMessage = 'No grenade kills in the last 10 games!'
+      return (
+        <NoGrenadesMeleeAbility
+          allWarn={false}
+          progress={grenadeKillsPercent}
+          theme='warn'
+          progressBarMessage={progressBarMessage}
+          quoteMessage={quoteMessage}
+        />
+      )
+    default:
+      return <SuperKillRatio superKillsRatio={superKillsPercent} />
   }
+}
+
+function NoGrenadesMeleeAbility(p: SuperKillsRecommendationProps) {
+  // const { progress, theme } = p
+  const { progressBarMessage, quoteMessage, focusMessage, allWarn } = p
+
+  return (
+    <>
+      <h2 className='focus-heading-h2 no-margin'>{progressBarMessage}</h2>
+      <div className='focus-recommendation-wrapper'>
+        {allWarn ? (
+          <Intellect className={'icon-warn icon-shadow'} width={64} height={64} />
+        ) : (
+          <Grenade
+            className={'icon-warn icon-shadow'}
+            width={64}
+            height={64}
+            viewBox={'0 0 32 32'}
+          />
+        )}
+        <div className='focus-recommendation-quote-wrapper'>
+          {focusMessage && <p className='focus-kdr-recommendation-description'>{focusMessage}</p>}
+          {quoteMessage && (
+            <blockquote className='focus-kdr-recommendation-subtitle'>
+              <cite>{quoteMessage}</cite> - Lord Shaxx
+            </blockquote>
+          )}
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default function AbilityKillFocus(props: AbilityKillFocusPropsInterface) {
   const { chartData } = props
 
-  const totalKills = Object.keys(chartData).reduce(
-    (prev, curr: keyof AbilityDataInterface) => chartData[curr] + prev,
-    0
-  ) || 0
+  const totalKills =
+    Object.keys(chartData).reduce(
+      (prev, curr: keyof AbilityDataInterface) => chartData[curr] + prev,
+      0
+    ) || 0
 
   const weaponKills = chartData.weapons
   const grenadeKills = chartData.grenades
   const meleeKills = chartData.melee
   const abilityKills = chartData.abilities
-
   const noGrenadeMeleeAbilityKills = grenadeKills === 0 && meleeKills === 0 && abilityKills === 0
-  // const superKillsPercent = getPercentage(chartData.supers, totalKills)
-  // const grenadeKillsPercent = getPercentage(chartData.grenades, totalKills)
-
-
-  const superKillsPercent = 21
+  const superKillsPercent = getPercentage(chartData.supers, totalKills)
   const grenadeKillsPercent = getPercentage(chartData.grenades, totalKills)
 
   const choices = {
@@ -171,21 +192,11 @@ export default function AbilityKillFocus(props: AbilityKillFocusPropsInterface) 
     superKillsPercent,
     grenadeKillsPercent,
   }
-  // const superKillsPercent = 50
-  // const grenadeKillsPercent = 20
-
-  // console.log('AbilityKillFocus')
-  // console.log(props)
-  // console.log(grenadeKillsPercent)
-  // console.log(totalKills)
-
 
   return (
     <div className='ability-chart-wrap flex-direction width-100'>
       <div className='focus-kdr-wrapper'>
-        {
-          AbilityRecommendation({chartData, choices})
-        }
+        {AbilityRecommendation({ chartData, choices })}
       </div>
     </div>
   )
