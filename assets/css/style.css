@@ -45,7 +45,7 @@
   --gambit-green: #42856E;
   --gambit-green-light-1: green;
   /*  */
-  
+
   /* Vanguard Blue and highlights: */
   --vanguard-light-5: #E1EBF6;
   --vanguard-light-4: #C2D8EE;
@@ -328,6 +328,14 @@ footer .footer-nav {
 
 .margin-top-bottom{
   margin: 4px 0px;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.width-inherit{
+  width: inherit;
 }
 
 .no-margin{

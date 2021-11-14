@@ -17,6 +17,7 @@ import ChartDropdown from './ChartDropdown'
 import { CharacterPropsInterface } from '../../Data/CharacterProps'
 
 import './style.css'
+import AbilityKillFocus from '../Focus/AbilityKillFocus'
 
 export function Loading() {
   return (
@@ -86,6 +87,11 @@ export default function PgcrSummary(props: PgcrSummaryPropsInterface & RouteComp
           <div className='small-chart-wrapper'>
             {pgcrSummary && avgKillSummary && (
               <AbilityChart {...pgcrSummary} chartData={avgKillSummary} />
+            )}
+          </div>
+          <div className='small-chart-wrapper'>
+            {pgcrSummary && avgKillSummary && (
+              <AbilityKillFocus chartData={avgKillSummary} />
             )}
           </div>
         </>
