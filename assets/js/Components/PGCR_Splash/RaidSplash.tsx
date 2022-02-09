@@ -47,7 +47,7 @@ export default function RaidSplash(props: PvPPropsInterface) {
   const nfScore = pgcr?.Response?.entries
     .map((el) => el.values.teamScore.basic.value)
     .reduce((acc, curr) => (acc > curr ? acc : curr), 0)
-  const pgcrCategory = pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.Raid.heading
+  const pgcrCategory = pgcrSplashCategoryValues[activityMode]?.heading || pgcrSplashCategoryValues.Raid.heading
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length + 1}`
   return (
     <>
