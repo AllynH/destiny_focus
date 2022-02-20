@@ -1,3 +1,5 @@
+import { FocusGoalTypes } from '../../Components/Focus/types'
+
 // export const increment = (nr) => ({
 //   type: 'INCREMENT',
 //   payload: nr,
@@ -18,7 +20,25 @@
 //   type: 'raid',
 //   payload: data,
 // })
-export const setFocusMode = (mode: string, data: any) => ({
+
+// TODO: Make this focus goals specific.
+// This would allow individual goals per focus.
+/*
+  goal: {
+    killDeathRatio: number,
+    precisionKillsCount: number,
+    avgLifeTime: number
+    winLossRatio?: 0,
+}
+*/
+
+interface FocusReducerInterface {
+  killDeathRatio: number
+  precisionKillsCount: number
+  avgLifeTime: number
+  winLossRatio?: 0
+}
+export const setFocusMode = (mode: FocusGoalTypes, data: FocusReducerInterface) => ({
   type: mode,
   payload: data,
 })
@@ -37,6 +57,7 @@ export const setAccount = (data: AccountReducerInterface) => ({
   },
 })
 
+// TODO: Revisit this interface type.
 interface ProgressionsInterface {
   progressions: any
 }

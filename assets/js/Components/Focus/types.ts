@@ -13,8 +13,8 @@ export type FocusDetailKey =
   'Nightfall'
 
   export type FocusGoalTypes =
-  'crucible' |
-  'cruciblecomp' |
+  'pvp' |
+  'pvpcomp' |
   'gambit' |
   'raid' |
   'trials' |
@@ -26,7 +26,7 @@ export interface FocusDetailParams {
   readonly activityMode: number,
   readonly activityName: string,
   readonly focusName: string,
-  readonly focus: string,
+  readonly focus: FocusGoalTypes,
   readonly description: string,
   // eslint-disable-next-line @typescript-eslint/ban-types
   readonly Image: Object,
