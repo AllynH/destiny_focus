@@ -41,7 +41,21 @@ export default function SelectActivityIcon(props) {
           iconColour: null,
         }
         break
-      case 'smallIconAccountSelect':
+        case 'cardIcon':
+          iconStyleVars = {
+            iconWidth: 300,
+            iconHeight: 345,
+            iconColour: 'white',
+          }
+          break
+      case 'cardSmallIcon':
+        iconStyleVars = {
+          iconWidth: 110,
+          iconHeight: 110,
+          iconColour: 'rgba(255, 255, 255, 0.2)',
+        }
+        break
+        case 'smallIconAccountSelect':
         iconStyleVars = {
           iconWidth: 64,
           iconHeight: 64,
