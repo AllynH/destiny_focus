@@ -18,11 +18,11 @@ import { CreateTeams, PgcrHeader } from './PgcrPreview'
 
 interface PgcrPropsInterface {
   historicalStatsGroup: DestinyHistoricalStatsPeriodGroup
-  favourite?: boolean
+  favourite: boolean
 }
 
 export default function Pgcr(props: PgcrPropsInterface) {
-  const { historicalStatsGroup } = props
+  const { historicalStatsGroup, favourite } = props
   const { instanceId } = props.historicalStatsGroup.activityDetails
   const [pgcr, setPgcr] = useState(null)
   const [activityMode, setActivityMode] = useState<PgcrTypes>('AllPvP')
@@ -61,6 +61,7 @@ export default function Pgcr(props: PgcrPropsInterface) {
             activityMode={activityMode}
             isExpanded={isExpanded}
             currentGameMode={currentGameMode}
+            favourite={favourite}
           />
           {pgcr &&
           <>
