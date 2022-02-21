@@ -1,6 +1,9 @@
 import React, { useRef } from 'react'
 
-import { DestinyActivityDefinition, DestinyPostGameCarnageReportData } from 'bungie-api-ts/destiny2/interfaces'
+import {
+  DestinyActivityDefinition,
+  DestinyPostGameCarnageReportData,
+} from 'bungie-api-ts/destiny2/interfaces'
 import { ServerResponse } from 'bungie-api-ts/destiny2'
 
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
@@ -18,25 +21,18 @@ import './style.css'
 import { PgcrTypes } from '../../Data/destinyEnums'
 
 export interface PvPPropsInterface {
-  pgcr: ServerResponse<DestinyPostGameCarnageReportData>,
-  activityDef: DestinyActivityDefinition,
-  referenceDef: DestinyActivityDefinition,
-  modeIsRaid: boolean,
-  activityMode: PgcrTypes,
-  setActiveUserId: number,
-  pathname: string,
+  pgcr: ServerResponse<DestinyPostGameCarnageReportData>
+  activityDef: DestinyActivityDefinition
+  referenceDef: DestinyActivityDefinition
+  modeIsRaid: boolean
+  activityMode: PgcrTypes
+  setActiveUserId: number
+  pathname: string
 }
 
 export default function PvpSplash(props: PvPPropsInterface) {
-  const {
-    pgcr,
-    activityDef,
-    referenceDef,
-    modeIsRaid,
-    activityMode,
-    setActiveUserId,
-    pathname,
-  } = props
+  const { pgcr, activityDef, referenceDef, modeIsRaid, activityMode, setActiveUserId, pathname } =
+    props
   const currRef = useRef(null)
 
   const backgroundImage = `url(https://www.bungie.net${referenceDef.pgcrImage})`
@@ -48,15 +44,19 @@ export default function PvpSplash(props: PvPPropsInterface) {
   const completionTime = pgcr
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'
-  const pgcrCategory = pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.AllPvP.heading
+  const pgcrCategory =
+    pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.AllPvP.heading
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length + 1} `
+
+  /* Some older matches use a strange mix of Alpha, Bravo, 16, 17, 8 & 19 to denote team names: */
+  const teamsArray: Array<string | number> = pgcr.Response.teams.map((t) => t.teamId)
 
   return (
     <>
       <div className='return-button-wrapper'>
         {pathname !== '/' ? <ReturnToFocusButton pathname={pathname} /> : ''}
       </div>
-      <div className='pgcr-splash-wrapper' style={mapStyle() as React.CSSProperties}  ref={currRef}>
+      <div className='pgcr-splash-wrapper' style={mapStyle() as React.CSSProperties} ref={currRef}>
         <div className='pgcr-splash-container'>
           <div className='container-left'>
             <div className='container-left-icons'>
@@ -103,88 +103,13 @@ export default function PvpSplash(props: PvPPropsInterface) {
                   ))}
                 </div>
 
-                <div className='pgcr-splash-team-wrap'>
-                  <div className='pgcr-splash-alpha'>
-                    <div className='team-icon-score-wrap'>
-                      <div className='team-icon-score-pull-left'>
-                        <div className='team-score'>
-                          <h2>
-                            {pgcr
-                              && pgcr?.Response?.teams
-                                .filter((t) => t.teamId === 19)
-                                .map((t) => t.score.basic.value)}
-                          </h2>
-                        </div>
-                        <div className='team-icon-wrap'>
-                          <div className='alpha-icon-bg z-index-2'></div>
-                          <AlphaTeam
-                            className='z-index-2'
-                            width={50}
-                            height={50}
-                            viewBox={'0 0 32 32'}
-                            style={{ fill: 'var(--crucible-red)' }}
-                          />
-                        </div>
-                      </div>
-                      <h2>ALPHA</h2>
-                    </div>
-                    <div className='alpha-colour-banner'></div>
-                  </div>
-
-                  {pgcr
-                    && pgcr?.Response?.entries
-                      .filter((entry) => entry.values?.team?.basic?.value === 19)
-                      .map((entry, index) => (
-                        <Player
-                          {...setActiveUserId}
-                          entry={entry}
-                          key={index}
-                          {...modeIsRaid}
-                          activityMode={activityMode}
-                        />
-                      ))}
-                </div>
-
-                <div className='pgcr-splash-team-wrap'>
-                  <div className='pgcr-splash-alpha'>
-                    <div className='team-icon-score-wrap'>
-                      <div className='team-icon-score-pull-left'>
-                        <div className='team-score'>
-                          <h2>
-                            {pgcr
-                              && pgcr?.Response?.teams
-                                .filter((t) => t.teamId === 18)
-                                .map((t) => t.score.basic.value)}
-                          </h2>
-                        </div>
-                        <div className='team-icon-wrap'>
-                          <div className='bravo-icon-bg'></div>
-                          <BravoTeam
-                            className='z-index-2'
-                            width={50}
-                            height={50}
-                            viewBox={'0 0 32 32'}
-                            style={{ fill: 'var(--vanguard-blue)' }}
-                          />
-                        </div>
-                      </div>
-                      <h2>BRAVO</h2>
-                    </div>
-                    <div className='bravo-colour-banner'></div>
-                  </div>
-                  {pgcr
-                    && pgcr?.Response?.entries
-                      .filter((entry) => entry.values?.team?.basic?.value === 18)
-                      .map((entry, index) => (
-                        <Player
-                          {...setActiveUserId}
-                          entry={entry}
-                          key={index}
-                          {...modeIsRaid}
-                          activityMode={activityMode}
-                        />
-                      ))}
-                </div>
+                <TeamsDisplay
+                  pgcr={pgcr}
+                  setActiveUserId={setActiveUserId}
+                  modeIsRaid={modeIsRaid}
+                  teamArray={teamsArray}
+                  activityMode={activityMode}
+                />
               </div>
             </div>
           </div>
@@ -200,7 +125,76 @@ export default function PvpSplash(props: PvPPropsInterface) {
           >
             Share .jpg
           </Button> */}
+    </>
+  )
+}
 
+export interface PvPTeamsInterface {
+  pgcr: ServerResponse<DestinyPostGameCarnageReportData>
+  teamArray: Array<string | number>
+  modeIsRaid: boolean
+  activityMode: PgcrTypes
+  setActiveUserId: number
+}
+
+function TeamsDisplay(props: PvPTeamsInterface) {
+  const { pgcr, teamArray, modeIsRaid, setActiveUserId, activityMode } = props
+
+  return (
+    <>
+      {teamArray.map((currTeam, index) => (
+        <div key={index} className='pgcr-splash-team-wrap'>
+          <div className='pgcr-splash-alpha'>
+            <div className='team-icon-score-wrap'>
+              <div className='team-icon-score-pull-left'>
+                <div className='team-score'>
+                  <h2>
+                    {pgcr &&
+                      pgcr?.Response?.teams
+                        .filter((t) => t.teamId === currTeam)
+                        .map((t) => t.score.basic.value)}
+                  </h2>
+                </div>
+                <div className='team-icon-wrap'>
+                  <div className='alpha-icon-bg z-index-2'></div>
+                  {index === 0 ? (
+                    <AlphaTeam
+                      className='z-index-2'
+                      width={50}
+                      height={50}
+                      viewBox={'0 0 32 32'}
+                      style={{ fill: 'var(--crucible-red)' }}
+                    />
+                  ) : (
+                    <BravoTeam
+                      className='z-index-2'
+                      width={50}
+                      height={50}
+                      viewBox={'0 0 32 32'}
+                      style={{ fill: 'var(--vanguard-blue)' }}
+                    />
+                  )}
+                </div>
+              </div>
+              <h2>{index === 0 ? 'ALPHA' : 'BRAVO'}</h2>
+            </div>
+            <div className='alpha-colour-banner'></div>
+          </div>
+
+          {pgcr &&
+            pgcr?.Response?.entries
+              .filter((entry) => entry.values?.team?.basic?.value === currTeam)
+              .map((entry, indexPlayer) => (
+                <Player
+                  key={indexPlayer}
+                  entry={entry}
+                  {...setActiveUserId}
+                  {...modeIsRaid}
+                  activityMode={activityMode}
+                />
+              ))}
+        </div>
+      ))}
     </>
   )
 }

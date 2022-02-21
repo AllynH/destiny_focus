@@ -69,7 +69,8 @@ module.exports = {
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
     new webpack.DefinePlugin({
       'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID || ''),
-      'process.env.DF_UPDATE_TIME': JSON.stringify(process.env.DF_UPDATE_TIME || '')
+      'process.env.DF_UPDATE_TIME': JSON.stringify(process.env.DF_UPDATE_TIME || ''),
+      'process.env.DF_APP_VERSION': JSON.stringify(process.env.DF_APP_VERSION || ''),
     }),
   ].concat(debug ? [] : ProductionPlugins),
   module: {
