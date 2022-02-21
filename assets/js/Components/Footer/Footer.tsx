@@ -1,7 +1,7 @@
 import React from 'react'
 // import ReactDOM from 'react-dom';
 
-const APP_VERSION = Number(process.env.DF_APP_VERSION) || 'Unknown build...'
+const APP_VERSION = process.env.DF_APP_VERSION
 
 
 export default function Footer() {
