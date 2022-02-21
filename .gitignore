@@ -11,6 +11,17 @@ dump.rdb
 split_json/*
 destiny_focus/static/
 
+# gunicorn:
+error.log
+gunicorn.log
+
+# Manifest:
+manifest.json
+manifest_version.json
+
+# DF System:
+update.log
+
 # C extensions
 *.so
 
