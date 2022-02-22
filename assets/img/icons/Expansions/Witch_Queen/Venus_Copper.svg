@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666665 8.4666669"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="Venus_Copper.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     units="px"
+     showborder="true"
+     inkscape:zoom="15.17875"
+     inkscape:cx="29.185539"
+     inkscape:cy="19.006835"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-bbox="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-global="true" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path3721"
+       style="opacity:1;fill:#000000;stroke-width:10.5833;stroke-linecap:square"
+       d="M 4.2258552,1.1439682 A 1.970736,1.970736 0 0 0 2.2551304,3.1146933 1.970736,1.970736 0 0 0 3.0321585,4.6771318 H 2.0126564 A 1.970736,1.970736 0 0 0 0.04645421,2.793255 v 0.3423309 a 1.6283936,1.6283936 0 0 1 1.62839449,1.6283943 1.6283936,1.6283936 0 0 1 -0.020769,0.254777 h 0.3069152 v 0.00281 H 4.0611206 V 5.8054215 H 2.3252136 V 6.14985 h 1.735907 V 7.3226985 H 4.4055465 V 6.1498531 h 1.735907 V 5.8054269 H 4.4055465 V 5.0215726 h 2.1001258 v -0.00281 H 6.8125875 A 1.6283936,1.6283936 0 0 1 6.791818,4.7639802 1.6283936,1.6283936 0 0 1 8.4202125,3.1355859 V 2.793255 A 1.970736,1.970736 0 0 0 6.4540103,4.6771318 H 5.4345081 A 1.970736,1.970736 0 0 0 6.2115367,3.1146933 1.970736,1.970736 0 0 0 4.2408114,1.1439682 a 1.970736,1.970736 0 0 0 -0.00747,3.392e-4 1.970736,1.970736 0 0 0 -0.00749,-3.392e-4 z m 0.011204,0.3425175 A 1.6283936,1.6283936 0 0 1 5.8542501,3.1146933 1.6283936,1.6283936 0 0 1 4.2370592,4.7429009 1.6283936,1.6283936 0 0 1 2.61242,3.1146933 1.6283936,1.6283936 0 0 1 4.2370592,1.4864857 Z" />
+  </g>
+</svg>

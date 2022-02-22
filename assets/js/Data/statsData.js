@@ -126,10 +126,18 @@ export const SEASONS = {
   },
   15: {
     TITLE: 'Season of the Lost',
-    ACTIVE: true,
+    ACTIVE: false,
     EXPANSION: 'Beyond Light',
     YEAR: '4',
     START: '2021-08-24 17:00:01',
     END: '2022-02-22 17:00:00',
+  },
+  16: {
+    TITLE: 'Season of the Risen',
+    ACTIVE: true,
+    EXPANSION: 'Witch Queen',
+    YEAR: '5',
+    START: '2022-02-22 17:00:01',
+    END: '2022-05-21 17:00:00',
   },
 }

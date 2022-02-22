@@ -112,12 +112,20 @@ SEASONS = {
         "END"       : '2021-08-24 17:00:00',
     },
     15: {
-        "TITLE": 'Season of the Lost',
-        "ACTIVE": True,
-        "EXPANSION": 'Beyond Light',
-        "YEAR": '4',
-        "START": '2021-08-24 17:00:01',
-        "END": '2022-02-22 17:00:00',
+        "TITLE"     : 'Season of the Lost',
+        "ACTIVE"    : False,
+        "EXPANSION" : 'Beyond Light',
+        "YEAR"      : '4',
+        "START"     : '2021-08-24 17:00:01',
+        "END"       : '2022-02-22 17:00:00',
+    },
+    16: {
+        "TITLE"     : 'Season of the Risen',
+        "ACTIVE"    : True,
+        "EXPANSION" : 'Witch Queen',
+        "YEAR"      : '5',
+        "START"     : '2022-02-22 17:00:01',
+        "END"       : '2022-05-21 17:00:00',
     },
 }
 
