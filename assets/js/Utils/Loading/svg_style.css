@@ -1,0 +1,37 @@
+.svg-group-wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.svg-group-item{
+  animation: kaboom 1s ease alternate infinite;
+}
+
+.svg-group-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.svg-group-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.svg-group-item:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.svg-group-item:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.svg-group-item:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.svg-group-item:nth-child(7) {
+  animation-delay: 0.6s;
+}
+
+@keyframes kaboom {
+  90% {
+    transform: scale(1.0);
+  }
+  100%{
+    transform: scale(1.2);
+  }
+}

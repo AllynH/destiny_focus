@@ -1,6 +1,7 @@
 import React from 'react'
 
-import Crucible from '../../../img/icons/Crucible.svg'
+// import Crucible from '../../../img/icons/Crucible.svg'
+import WitchQueen from '../../../img/icons/Expansions/Witch_Queen/WitchQueen.svg'
 
 import './style.css'
 
@@ -28,9 +29,9 @@ export default function Welcome() {
           </a>
         </div>
         <div className='welcome-image-placement'>
-          <Crucible
+          <WitchQueen
             className='welcome-image'
-            viewBox={'0 0 25 25'}
+            viewBox={'0 0 8.4 8.4'}
           />
         </div>
       </div>

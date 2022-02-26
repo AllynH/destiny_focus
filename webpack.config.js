@@ -1,5 +1,3 @@
-/* eslint-disable semi */
-/* eslint-disable comma-dangle */
 const path = require('path')
 const webpack = require('webpack')
 
@@ -33,8 +31,8 @@ module.exports = {
     main_css: [
       path.join(__dirname, 'node_modules', 'font-awesome', 'css', 'font-awesome.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'AccountStats', 'style.css'),
-      path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'cards.css'),
-      path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'card.css'),
+      path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'cards.css'), // Delete?
+      path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'card.css'),  // Delete?
       path.join(__dirname, 'assets', 'js', 'Components', 'CharacterPlate', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'CharacterSelect', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'FlipCard', 'style.css'),
@@ -49,6 +47,7 @@ module.exports = {
       path.join(__dirname, 'assets', 'js', 'Components', 'Welcome', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'WinLossSummary', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Utils', 'Loading', 'style.css'),
+      path.join(__dirname, 'assets', 'js', 'Utils', 'Loading', 'svg_style.css'),
       path.join(__dirname, 'assets', 'css', 'icons.css'),
       path.join(__dirname, 'assets', 'css', 'style.css'),
     ],

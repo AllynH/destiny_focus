@@ -13,7 +13,8 @@ import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 import PgcrList from '../PGCR/PgcrList'
 import PgcrSummary from './PgcrSummary'
 // import { ViewStore } from '../../Utils/ViewStore'
-import Spinner from '../../Utils/Loading/Spinner'
+// import Spinner from '../../Utils/Loading/Spinner'
+import SvgLoading from '../../Utils/Loading/SvgLoading'
 import { GetRaidData } from '../../Utils/API/API_Requests'
 import { getUrlDetails } from '../../Utils/HelperFunctions'
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
@@ -267,7 +268,7 @@ class PvPChart extends React.Component<RouteComponentProps & { focusReducer: Foc
       return <div>Error: {this.state.errorMessage}</div>
     }
     if (!isLoaded) {
-      return <Spinner />
+      return <SvgLoading />
     }
       const kdr = this.getKdr(jsonResponse)
       const getStanding = !!jsonResponse.Response.activities[0].values.standing
