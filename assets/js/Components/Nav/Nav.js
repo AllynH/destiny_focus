@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import React, { useEffect, useState } from 'react'
 
 import { MenuList } from '@material-ui/core'
@@ -14,7 +13,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 
 import { GetCharacters } from '../../Utils/API/API_Requests'
-import GetProgressions from '../Profile/GetProgressions'
 
 // import './nav.css';
 const useStyles = makeStyles((theme) => ({
@@ -107,7 +105,10 @@ export default function NavBar() {
 
   return (
     <>
-      {/* <div className='event-banner' id='pride'></div> */}
+      <div className='event-banner' id='ukraine'>
+        <div className='ukraine-top'></div>
+        <div className='ukraine-bottom'></div>
+      </div>
       <div
         className={profile ? bgClasses.root : classes.root}
         style={
