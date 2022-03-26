@@ -25,6 +25,12 @@ export default function ViewLikes() {
     fetchLikes()
   }, [])
 
+  if(likes){
+    console.log('ViewLikes.tsx')
+    console.log(likes)
+  }
+
+
   return (
     <div className='liked-activity-wrapper'>
       <h1 >Liked activity</h1>
@@ -33,12 +39,12 @@ export default function ViewLikes() {
         Object.keys(likes.mode_data).map((mode: string, index: number) => (
           <div key={index} className='liked-activity-single-wrapper'>
             <h2 key={index} className='liked-activity-heading'>
-              {returnFocusDetailsFromActivityId(mode).activityName}
+              {returnFocusDetailsFromActivityId(mode)?.activityName || 'Unknown activity!'}
             </h2>
             <div className='liked-activity-single-activity'>
               <div className='liked-activity-sidebar'>
                 <SelectActivityIcon
-                activityMode={returnFocusFromActivityId(mode)}
+                activityMode={returnFocusFromActivityId(mode) || 'pvp'}
                 iconStyle={'smallIconPgcr'}
                 />
               </div>
