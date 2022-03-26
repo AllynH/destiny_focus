@@ -186,6 +186,13 @@ export default function NavBar() {
                   >
                     Choose Focus
                   </MenuItem>
+                  {/* <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/auth/likes/${membershipType}/${membershipId}/${characterId}`}
+                  >
+                    Likes
+                  </MenuItem> */}
                 </MenuList>
                 <hr />
                 <MenuList>

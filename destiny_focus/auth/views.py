@@ -403,6 +403,18 @@ def account(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
+@blueprint.route("/likes/<membershipType>/<membershipId>/<characterId>")
+@login_required
+def likes(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
 
 # @blueprint.route("/character_select/")
 # @login_required
@@ -865,14 +877,27 @@ def get_pgcr_list():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
     pgcr_list = []
+    mode_dict = {}
 
     pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
+
+    # Return a list of PGCR's:
     for e in pgcr_entries:
         pgcr_list.append(e.activityId)
+
+    # Return a dict with key as a string:
+    for e in pgcr_entries:
+        my_mode = str(e.mode)
+        mode_exists = mode_dict.get(my_mode, False)
+        if not mode_exists:
+            mode_dict[my_mode] = [e.activityId]
+        else:
+            mode_dict[my_mode].append(e.activityId)
 
     response = {
         "errorStatus"   : "Success",
         "user_pgcrs"    : pgcr_list,
+        "mode_data"      : mode_dict,
     }
 
     return jsonify(response)

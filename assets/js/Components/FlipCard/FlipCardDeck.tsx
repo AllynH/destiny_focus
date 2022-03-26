@@ -1,10 +1,16 @@
 import React from 'react'
+import { RouteComponentProps } from 'react-router'
+import { CharacterPropsInterface } from '../../Data/CharacterProps'
+import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 import { FocusDetailKey } from '../Focus/types'
 import FlipCard from './FlipCard'
 
-export default function FlipCardDeck() {
+export default function FlipCardDeck(props: RouteComponentProps) {
+  const { membershipType, membershipId, characterId } = props.match
+    .params as CharacterPropsInterface
+
   return (
     <div>
       <div className='focus-header'>
@@ -18,7 +24,10 @@ export default function FlipCardDeck() {
           </div>
         ))}
       </div>
-
+      <h2>Choose a character:</h2>
+      <div className='character-select-wrapper'>
+        <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
+      </div>
     </div>
   )
 }

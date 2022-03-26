@@ -17,7 +17,7 @@ def get_character_details_json(GetProfile_res):
         charId_list.append(key)
 
     # Populate Tuple for form choices and test which character has been selected:
-    for x in range(len(charId_list)):            
+    for x in range(len(charId_list)):
         i = GetProfile_res['Response']['profile']['data']['characterIds'][x]
         # Populate drop down menu:
         race_name       = get_definition('DestinyRaceDefinition', (GetProfile_res['Response']['characters']['data'][i]['raceHash']))
@@ -65,12 +65,12 @@ def get_emblem(emblem_hash):
     # print(emblem_full)
 
     emblem_data ={
-        "icon": emblem_full['secondaryOverlay'],
-        "background": emblem_full['secondarySpecial'],
-        "secondaryIcon": emblem_full['secondaryIcon'],
-        "description": emblem_full['displayProperties']['description']
+        "icon": emblem_full.get('secondaryOverlay', ''),
+        "background": emblem_full.get('secondarySpecial', ''),
+        "secondaryIcon": emblem_full.get('secondaryIcon', ''),
+        "description": emblem_full.get('displayProperties', {}).get('description', 'Icon not found...')
     }
-    
+
     return emblem_data
 
 
@@ -88,7 +88,7 @@ def get_title(title_hash):
         "description": title_full['displayProperties']['description'],
         "title" : title_full['titleInfo']['titlesByGender']['Female'],
     }
-    
+
     return title_data
 
 
@@ -199,7 +199,7 @@ def summarize_historical_stats(stats_list):
         summary["totalDeathDistance"]["basic"]["displayValue"]             += s["values"]["totalDeathDistance"]["basic"]["value"]
         summary["totalKillDistance"]["basic"]["displayValue"]              += s["values"]["totalKillDistance"]["basic"]["value"]
         summary["totalMedalsEarned"]["basic"]["displayValue"]              += s["values"]["dailyMedalsEarned"]["basic"]["value"]
-        
+
         summary["combatRating"]["basic"]["displayValue"]                   += s.get("values", {}).get("combatRating", {}).get("basic", {}).get("value", 0)
         summary["averageDeathDistance"]["basic"]["displayValue"]           += s["values"]["averageDeathDistance"]["basic"]["value"]
         summary["averageKillDistance"]["basic"]["displayValue"]            += s["values"]["averageKillDistance"]["basic"]["value"]
@@ -288,7 +288,7 @@ def summarize_historical_stats(stats_list):
     summary["averageScorePerKill"]["pga"]["displayValue"]            = calculate_per_activity_average(summary["averageScorePerKill"]["basic"]["displayValue"], summary["activitiesEntered"]["basic"]["displayValue"])
     summary["averageScorePerLife"]["pga"]["displayValue"]            = calculate_per_activity_average(summary["averageScorePerLife"]["basic"]["displayValue"], summary["activitiesEntered"]["basic"]["displayValue"])
     summary["remainingTimeAfterQuitSeconds"]["pga"]["displayValue"]  = calculate_per_activity_average(summary["remainingTimeAfterQuitSeconds"]["basic"]["displayValue"], summary["activitiesEntered"]["basic"]["displayValue"])
-    
+
     # print(summary)
 
     return summary
