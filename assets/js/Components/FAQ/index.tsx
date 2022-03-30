@@ -9,7 +9,7 @@ export default function FaqContent() {
         <h1>Got some questions?</h1>
         <p>See here for frequently asked questions.</p>
         <p>
-          Don't see your question: You can contact me via GitHub or Twitter links in the footer.
+          Don{"'"}t see your question: You can contact me via GitHub or Twitter links in the footer.
         </p>
         <p>
           Found a bug: Please log a GitHub issue or send me a message on Twitter.
@@ -49,8 +49,9 @@ export default function FaqContent() {
                   }}
                 ></div>}
               </div>
+              <hr />
             </li>
-          ))}
+        ))}
         </ul>
       </div>
     </>

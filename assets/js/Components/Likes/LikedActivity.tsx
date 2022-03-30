@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useParams, useLocation } from 'react-router-dom'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
@@ -6,62 +6,40 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
 import DiscFullIcon from '@material-ui/icons/DiscFull'
 import PublishIcon from '@material-ui/icons/Publish'
 
-import { DestinyHistoricalStatsPeriodGroup, DestinyActivityDefinition, DestinyPostGameCarnageReportData } from 'bungie-api-ts/destiny2'
+import {
+  DestinyHistoricalStatsPeriodGroup,
+  DestinyActivityDefinition,
+  DestinyPostGameCarnageReportData,
+} from 'bungie-api-ts/destiny2'
 import { getDatePlayedFromTimestamp } from '../../Utils/HelperFunctions/getDateTime'
 import { GetActivityDefinition, PutPGCR, DeletePGCR } from '../../Utils/API/API_Requests'
 import SelectActivityIcon from '../PGCR_Splash/SelectActivityIcon'
 
 import { CharacterPropsInterface } from '../../Data/CharacterProps'
-import { PgcrTypes, StandingType } from '../../Data/destinyEnums'
+import { PgcrTypes } from '../../Data/destinyEnums'
 import { FocusGoalTypes } from '../Focus/types'
 
 // import './style.css'
 
-
 interface ActivityPropsInterface {
-  activityMode: PgcrTypes | string,
-  isExpanded: boolean,
-  currentGameMode: FocusGoalTypes,
-  isPgcr: boolean,
-  characterId: number,
-  favourite?: boolean,
-  historicalStatsGroup?: DestinyHistoricalStatsPeriodGroup,
-  postGameCarnageReportData?: DestinyPostGameCarnageReportData,
-}
-
-const returnStanding = (standingNumber: number) =>{
-  if (standingNumber === 0) {
-    return 'Victory'
-  }
-  return 'Defeat'
+  activityMode: PgcrTypes | string
+  isExpanded: boolean
+  currentGameMode: FocusGoalTypes
+  isPgcr: boolean
+  characterId: number
+  favourite?: boolean
+  historicalStatsGroup?: DestinyHistoricalStatsPeriodGroup
+  postGameCarnageReportData?: DestinyPostGameCarnageReportData
 }
 
 // eslint-disable-next-line radar/cognitive-complexity
 export default function LikedActivity(props: ActivityPropsInterface) {
-  console.log('LikedActivity.js')
-  console.log(props)
-  const { isExpanded, currentGameMode, isPgcr, characterId } = props
+  const { isExpanded, currentGameMode, isPgcr} = props
   const scope = isPgcr ? 'postGameCarnageReportData' : 'historicalStatsGroup'
-  const currChar = props?.postGameCarnageReportData?.entries?.filter(e => e.characterId === String(characterId))[0]
-  console.log('values')
-  console.log(currChar)
-  const standing = isPgcr ? returnStanding(currChar.standing) : props.historicalStatsGroup.values.standing?.basic?.displayValue as StandingType
-  const {values} = isPgcr ? currChar : props.historicalStatsGroup
 
   const { activityDetails, period } = props[scope]
   const activityMode = props.activityMode || ''
-    // team = '',
-    // activityIcon = '',
-    // player = '',
-    // clan = '',
-  // const standing: StandingType = values.standing?.basic?.displayValue as StandingType || '' as StandingType
-  const kills = values.kills?.basic?.displayValue || 0
-    // deaths = props.values?.deaths?.basic?.displayValue || 0,
-    // assists = props.values?.assists?.basic?.displayValue || 0,
-    // kda = props.values?.killsDeathsAssists?.basic?.displayValue || 0,
-  const kdr = values.killsDeathsRatio?.basic?.displayValue || 0
   const completionDate = getDatePlayedFromTimestamp(period)
-  const completionTime = values?.activityDurationSeconds?.basic?.displayValue || '666 hours'
 
   const [activityDef, setActivityDef] = useState<DestinyActivityDefinition>(null)
   const [referenceDef, setReferenceDef] = useState<DestinyActivityDefinition>(null)
@@ -77,40 +55,46 @@ export default function LikedActivity(props: ActivityPropsInterface) {
 
   const activityId = activityDetails.instanceId
 
-  const standingClassName = (s: StandingType) => {
-    // eslint-disable-next-line no-nested-ternary
-    const style = s === '' ? '' : s === 'Victory' ? 'standing-victory' : 'standing-defeat'
-    return style
-  }
-
-  const standingTitle = (s: StandingType, mode: FocusGoalTypes) => {
-    switch (mode) {
-      case 'raid':
-        return 'Raid'
-      case 'nightfall':
-        return 'Nightfall'
-      case 'dungeon':
-        return 'Dungeon'
-      default:
-        return s === '' ? 'No win loss data' : s
+  useEffect(() => {
+    // Fetch the Activity definition - control and icon:
+    const fetchDirectorActivityDefinition = async (actId: string) => {
+      const result = await GetActivityDefinition({
+        params: { definition: 'DestinyActivityDefinition', defHash: actId },
+      })
+      setActivityDef(result)
     }
-  }
+
+    // Fetch the Activity definition - Map icon, name :
+    const fetchReferenceId = async (actId: string) => {
+      const result = await GetActivityDefinition({
+        params: { definition: 'DestinyActivityDefinition', defHash: actId },
+      })
+      setReferenceDef(result)
+    }
+    fetchDirectorActivityDefinition(activityDetails.directorActivityHash.toString())
+    fetchReferenceId(activityDetails.referenceId.toString())
+  }, [])
+
 
   const HeaderCollapsed = () => (
-    <li className={`pgcr-char-wrap pgcr-game-wrapper ${standingClassName(standing)}`}>
-      <div>{standingTitle(standing, currentGameMode) || 'Raid'}</div>
-      <div>Kills:&nbsp;{kills}</div>
-      <div>KDR:&nbsp;{kdr}</div>
+    <li className={`pgcr-char-wrap pgcr-game-wrapper`}>
+      <div>{activityDef?.displayProperties.name || 'Raid'}</div>
+      <div></div>
+      <div>{referenceDef?.displayProperties.name}</div>
       <div>{completionDate}</div>
     </li>
   )
 
   const mapStyle = () => ({
-    background: `${referenceDef ? `linear-gradient(
+    background: `${
+      referenceDef
+        ? `linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0.6)
-    ),url(https://www.bungie.net${referenceDef.pgcrImage})` : ''}
+    ),url(https://www.bungie.net${referenceDef.pgcrImage})`
+        : ''
+    }
 
   `,
     backgroundRepeat: 'no-repeat',
@@ -168,18 +152,18 @@ export default function LikedActivity(props: ActivityPropsInterface) {
         // eslint-disable-next-line no-nested-ternary
         isSaved ? (
           <FavoriteIcon style={{ color: 'var(--gambit-green)' }} />
-        ) // eslint-disable-next-line no-nested-ternary
-          : !saveError ? (
+        ) : // eslint-disable-next-line no-nested-ternary
+        !saveError ? (
           <FavoriteBorderIcon />
-          ) : pgcrsFull ? (
+        ) : pgcrsFull ? (
           <>
             <DiscFullIcon style={{ color: 'var(--crucible-red)' }} />
           </>
-          ) : (
+        ) : (
           <>
             <ErrorOutlineIcon style={{ color: 'var(--crucible-red)' }} />
           </>
-          )
+        )
       }
     </>
   )
@@ -214,14 +198,14 @@ export default function LikedActivity(props: ActivityPropsInterface) {
         isSaved ? (
           // <p>Saved!</p>
           ''
-        ) // eslint-disable-next-line no-nested-ternary
-          : !saveError ? (
+        ) : // eslint-disable-next-line no-nested-ternary
+        !saveError ? (
           <p></p>
-          ) : pgcrsFull ? (
+        ) : pgcrsFull ? (
           <p>No more room</p>
-          ) : (
+        ) : (
           <p>Error saving</p>
-          )
+        )
       }
     </div>
   )
@@ -257,41 +241,21 @@ export default function LikedActivity(props: ActivityPropsInterface) {
         </h2>
         <div className='stats header-completion-time'>
           <p className='stats completion-time-value'>{completionDate}</p>
-          <p className='stats completion-time-value'>{completionTime}</p>
-          <p className='stats completion-time-value standing'>{standing}</p>
+          <p className='stats completion-time-value'></p>
+          <p className='stats completion-time-value standing'></p>
         </div>
         <div className='pgcr activity-results'>
-          {/* <span>{standing}</span> */}
-          {/* <span>K:&nbsp;{kills}</span>
-          <span>D:&nbsp;{deaths}</span>
-          <span>A:&nbsp;{assists}</span>
-          <span>KDR:&nbsp;{kdr}</span> */}
         </div>
       </div>
     </li>
   )
 
-  // Fetch the Activity definition - control and icon:
-  const fetchDirectorActivityDefinition = async (actId:  string) => {
-    const result = await GetActivityDefinition({
-      params: { definition: 'DestinyActivityDefinition', defHash: actId },
-    })
-    setActivityDef(result)
-  }
-
-  // Fetch the Activity definition - Map icon, name :
-  const fetchReferenceId = async (actId: string) => {
-    const result = await GetActivityDefinition({
-      params: { definition: 'DestinyActivityDefinition', defHash: actId },
-    })
-    setReferenceDef(result)
-  }
-
   if (isExpanded && !isLoaded) {
-    fetchDirectorActivityDefinition(activityDetails.directorActivityHash.toString())
-    fetchReferenceId(activityDetails.referenceId.toString())
     setLoaded(true)
   }
 
-  return <>{(activityDef && isExpanded) ? <HeaderExpanded /> : <HeaderCollapsed />}</>
+  return (
+  <div className='pgcr-viewer-wrapper'>
+    {activityDef && isExpanded ? <HeaderExpanded /> : <HeaderCollapsed />}
+  </div>)
 }

@@ -1,7 +1,9 @@
 import OpenPgcrImage from '../../../img/FAQ/Destiny-Focus_open_PGCR.png'
 import SharePgcrImage from '../../../img/FAQ/Destiny-Focus_PGCR_share.png'
 import ViewPgcrImage from '../../../img/FAQ/Destiny-Focus_PGCR_view.png'
+import likePgcrImage from '../../../img/FAQ/Destiny-Focus_add_favourite.png'
 
+// eslint-disable-next-line import/prefer-default-export
 export const FAQ_DATA = [
   {
     Ref: 'Open-PGCR',
@@ -16,6 +18,14 @@ export const FAQ_DATA = [
     Body:
       'You can see a full breakdown of your kills and interesting stats from the PGCR view.',
     Image: `url(${ViewPgcrImage})`,
+  },
+  {
+    Ref: 'Like-PGCR',
+    Heading: 'How can I store my favourite match results?',
+    Body:
+      'Click on the heart icon, when viewing a Post Game Carnage Report, to store this match to your favourites.'
+      + ' Note: You can\'t store PGCRs when using a sharing link - as you can only store PGCRs when you\'re logged in.',
+    Image: `url(${likePgcrImage})`,
   },
   {
     Ref: 'Share-PGCR',

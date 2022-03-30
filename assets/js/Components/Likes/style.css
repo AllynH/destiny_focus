@@ -7,6 +7,11 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.liked-activity-description{
+  padding: 4px;
+  margin: 4px;
+}
+
 .liked-activity-single-wrapper{
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;

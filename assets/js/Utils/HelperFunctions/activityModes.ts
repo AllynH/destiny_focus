@@ -7,7 +7,8 @@ export function returnFocusFromActivityId(activityId: string | number): FocusGoa
     .map((f: FocusDetailKey) => (f))
     .filter((f: FocusDetailKey) => (FOCUS_DETAILS[f].activityMode === Number(activityId)))[0]
 
-  return FOCUS_DETAILS[focusList].focus
+  /* Default to Crucible, as not every activity has a focus type. */
+  return FOCUS_DETAILS[focusList]?.focus || 'pvp'
 }
 
 export function returnFocusDetailsFromActivityId(activityId: string | number): FocusDetailParams {
@@ -15,5 +16,9 @@ export function returnFocusDetailsFromActivityId(activityId: string | number): F
     .map((f: FocusDetailKey) => (f))
     .filter((f: FocusDetailKey) => (FOCUS_DETAILS[f].activityMode === Number(activityId)))[0]
 
-  return FOCUS_DETAILS[focusList]
+  if(FOCUS_DETAILS[focusList] !== undefined){
+    return FOCUS_DETAILS[focusList]
+  }
+  /* Default to Crucible, as not every activity has a focus type. */
+  return FOCUS_DETAILS.Crucible
 }

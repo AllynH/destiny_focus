@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { GetUserPGCRList } from '../../Utils/API/API_Requests'
-import { returnFocusDetailsFromActivityId, returnFocusFromActivityId } from '../../Utils/HelperFunctions/activityModes'
+import {
+  returnFocusDetailsFromActivityId,
+  returnFocusFromActivityId,
+} from '../../Utils/HelperFunctions/activityModes'
 import SelectActivityIcon from '../PGCR_Splash/SelectActivityIcon'
 import SinglePgcr from './SinglePgcr'
+
+import likePgcrImage from '../../../img/FAQ/Destiny-Focus_add_favourite.png'
 
 import './style.css'
 
@@ -25,17 +30,11 @@ export default function ViewLikes() {
     fetchLikes()
   }, [])
 
-  if(likes){
-    console.log('ViewLikes.tsx')
-    console.log(likes)
-  }
-
-
   return (
     <div className='liked-activity-wrapper'>
-      <h1 >Liked activity</h1>
+      <h1>Liked activity</h1>
 
-      {likes &&
+      {likes?.user_pgcrs.length > 0 ? (
         Object.keys(likes.mode_data).map((mode: string, index: number) => (
           <div key={index} className='liked-activity-single-wrapper'>
             <h2 key={index} className='liked-activity-heading'>
@@ -44,8 +43,8 @@ export default function ViewLikes() {
             <div className='liked-activity-single-activity'>
               <div className='liked-activity-sidebar'>
                 <SelectActivityIcon
-                activityMode={returnFocusFromActivityId(mode) || 'pvp'}
-                iconStyle={'smallIconPgcr'}
+                  activityMode={returnFocusFromActivityId(mode) || 'pvp'}
+                  iconStyle={'smallIconPgcr'}
                 />
               </div>
               <div className='liked-activity-list'>
@@ -59,7 +58,28 @@ export default function ViewLikes() {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className='liked-activity-single-wrapper'>
+          <h2 className='liked-activity-heading'>Add some activities!</h2>
+          <div className='liked-activity-single-activity'>
+            <p className='liked-activity-description'>Click on the heart icon when viewing a game, to save it to your favourites!</p>
+            <div
+              className='faq-image-container'
+              style={{
+                background: `url(${likePgcrImage})`,
+                height: 300,
+                maxWidth: 600,
+                backgroundPosition: 'center',
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                boxShadow: '3px 3px 15px black',
+                borderRadius: 5,
+              }}
+            ></div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
