@@ -166,3 +166,48 @@
 #card-submit-button{
   cursor: pointer;
 }
+
+.card-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 20px;
+  row-gap: 20px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  justify-self: center;
+}
+
+.card-media-svg{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 10px 0px;
+}
+
+@media screen and (max-width: 600px) {
+  .card-wrapper {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .card-wrapper {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+}
+
+.h2-focus-card{
+  color: white;
+  font-size: 24px;
+  margin: 0px;
+}
+.focus-card-description{
+  color: white;
+  font-size: 14px;
+}
