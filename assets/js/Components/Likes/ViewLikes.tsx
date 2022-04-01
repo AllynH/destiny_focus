@@ -31,7 +31,9 @@ export default function ViewLikes() {
     const fetchLikes = async () => {
       const result: likesResponseInterface = await GetUserPGCRList()
       setLikes(result)
-    }
+      console.log("viewLikes")
+      console.log(result)
+      }
     fetchLikes()
   }, [])
 
