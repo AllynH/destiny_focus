@@ -14,7 +14,7 @@ interface PgcrHeaderInterface {
 
 export function PgcrHeader(props: PgcrHeaderInterface) {
   const { activityMode } = props
-  const pgcrCategory = pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.AllPvP.heading
+  const pgcrCategory = pgcrSplashCategoryValues[activityMode]?.heading || pgcrSplashCategoryValues.AllPvP.heading
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length + 1} `
   // console.log('CreateTeams:', props)
 
@@ -105,7 +105,7 @@ function PgcrPlayer(props: PgcrPlayerInterface) {
   // console.log('PgcrPlayer', props)
 
   const pgcrValues =
-    pgcrSplashCategoryValues[activityMode].values || pgcrSplashCategoryValues.AllPvP.values
+    pgcrSplashCategoryValues[activityMode]?.values || pgcrSplashCategoryValues.AllPvP.values
 
   const dnf = entry.values.completed.basic.displayValue !== 'Yes'
   const icon = entry.player.destinyUserInfo.iconPath

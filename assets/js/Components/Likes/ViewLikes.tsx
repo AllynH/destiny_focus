@@ -13,11 +13,11 @@ import './style.css'
 import PgcrStorageView from './PgcrStorage'
 
 export interface likesResponseInterface {
-  errorStatus: ''
+  errorStatus: string
   // eslint-disable-next-line camelcase
   user_pgcrs: Array<number>
   // eslint-disable-next-line camelcase
-  mode_data: { [key: string]: [number] }
+  mode_data: { [key: string]: Array<number> }
   // eslint-disable-next-line camelcase
   pgcr_allocation: number
   // eslint-disable-next-line camelcase
@@ -31,8 +31,6 @@ export default function ViewLikes() {
     const fetchLikes = async () => {
       const result: likesResponseInterface = await GetUserPGCRList()
       setLikes(result)
-      console.log("viewLikes")
-      console.log(result)
       }
     fetchLikes()
   }, [])
