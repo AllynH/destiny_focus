@@ -788,9 +788,10 @@ def put_pgcr(activityId):
                 duration        = duration,
                 period          = period,
             )
-            user.pgcr_count += 1
-            user.pgcrs.append(pgcr)
+
             db.session.add(pgcr)
+            user.pgcrs.append(pgcr)
+            user.pgcr_count = len(pgcr_entries) + 1
             db.session.commit()
 
             response = {
@@ -833,8 +834,12 @@ def delete_pgcr(activityId):
 
     exists = False
 
+    # User data:
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
+    # PGCR entries - for the user:
+    pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
+    # PGCR being deleted:
     pgcr_entry = PGCRs.query.filter(PGCRs.user_id == User.id, PGCRs.activityId==activityId).first()
 
     if pgcr_entry:
@@ -842,7 +847,7 @@ def delete_pgcr(activityId):
 
     if exists:
         print(f"Deleting PGCR: {activityId} for user: {user.unique_name}")
-        user.pgcr_count = user.pgcr_count - 1 if user.pgcr_count > 0 else 0
+        user.pgcr_count = len(pgcr_entries) - 1 if len(pgcr_entries) > 0 else 0
 
         db.session.delete(pgcr_entry)
         db.session.commit()
@@ -895,9 +900,11 @@ def get_pgcr_list():
             mode_dict[my_mode].append(e.activityId)
 
     response = {
-        "errorStatus"   : "Success",
-        "user_pgcrs"    : pgcr_list,
-        "mode_data"      : mode_dict,
+        "errorStatus"       : "Success",
+        "user_pgcrs"        : pgcr_list,
+        "mode_data"         : mode_dict,
+        "pgcr_allocation"   : user.pgcr_allocation,
+        "pgcr_count"        : user.pgcr_count,
     }
 
     return jsonify(response)

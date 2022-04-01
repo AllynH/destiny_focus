@@ -1,10 +1,11 @@
-.liked-activity-wrapper{
+/* .liked-activity-wrapper{
 
-}
+} */
 
 .liked-activity-heading{
   padding: 10px 100px;
   background-color: rgba(0, 0, 0, 0.6);
+  margin: 0;
 }
 
 .liked-activity-description{
@@ -56,11 +57,24 @@
   .liked-activity-sidebar{
       position: absolute;
       z-index: -1;
+      left: 0;
+      right: 0;
   }
 
   .liked-activity-single-activity{
+    position: relative;
     display: flex;
     flex-direction: column;
   }
 
+}
+
+.pgcr-storage-progress-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.pgcr-storage-wrap{
+  margin: 10px;
+  padding: 10px;
 }

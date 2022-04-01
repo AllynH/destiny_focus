@@ -78,7 +78,7 @@ export default function LikedActivity(props: ActivityPropsInterface) {
 
   const HeaderCollapsed = () => (
     <li className={`pgcr-char-wrap pgcr-game-wrapper`}>
-      <div>{activityDef?.displayProperties.name || 'Raid'}</div>
+      <div>{activityDef?.displayProperties.name || 'loading...'}</div>
       <div></div>
       <div>{referenceDef?.displayProperties.name}</div>
       <div>{completionDate}</div>
