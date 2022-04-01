@@ -31,12 +31,11 @@ module.exports = {
     main_css: [
       path.join(__dirname, 'node_modules', 'font-awesome', 'css', 'font-awesome.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'AccountStats', 'style.css'),
-      path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'cards.css'), // Delete?
-      path.join(__dirname, 'assets', 'js', 'Components', 'Cards', 'card.css'),  // Delete?
       path.join(__dirname, 'assets', 'js', 'Components', 'CharacterPlate', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'CharacterSelect', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'FlipCard', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Focus', 'style.css'),
+      path.join(__dirname, 'assets', 'js', 'Components', 'Likes', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'PvP', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'PGCR', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'PGCR_Splash', 'style.css'),
