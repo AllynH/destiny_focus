@@ -30,6 +30,7 @@
 .progressions-text {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  min-width: 150px;
 }
 .progressions-title {
   padding-right: 4px;
