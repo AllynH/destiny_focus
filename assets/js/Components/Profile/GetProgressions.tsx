@@ -24,17 +24,20 @@ import { setProgressions } from '../../Redux/Actions'
 import TrialsCard from '../Trials/TrialsCard'
 
 type uninstancedItemObjectives = {
-  [key: number]: DestinyObjectiveProgress[];
+  [key: number]: DestinyObjectiveProgress[]
 }
 
 interface TrialsCardDataAndHash {
-  trialsCardData: uninstancedItemObjectives,
-  trialsCardHash: number,
+  trialsCardData: uninstancedItemObjectives
+  trialsCardHash: number
 }
 
 export default function GetProgressions(props: { updateCount: number }) {
   const [profile, setProfile] = useState(null)
-  const [trialsCard, setTrialsCard] = useState({ trialsCardData: undefined, trialsCardHash: undefined })
+  const [trialsCard, setTrialsCard] = useState({
+    trialsCardData: undefined,
+    trialsCardHash: undefined,
+  })
   const dispatch = useDispatch()
   const { membershipType, membershipId, characterId } = getUrlDetails()
 
@@ -90,11 +93,12 @@ export default function GetProgressions(props: { updateCount: number }) {
 
       // Dispatch progressionsReducer:
       const setCharProgressions = () => {
-        const tempList:  {[x: number]: ProgressionInterface}[]  = []
+        const tempList: { [x: number]: ProgressionInterface }[] = []
         Object.keys(PROGRESSION_DATA).forEach((m: ProgressionNameKey) => {
-          const curProg: ProgressionInterface = result?.Response?.characterProgressions?.data[characterId]?.progressions[
-            PROGRESSION_DATA[m].hash
-          ]
+          const curProg: ProgressionInterface =
+            result?.Response?.characterProgressions?.data[characterId]?.progressions[
+              PROGRESSION_DATA[m].hash
+            ]
           const tempData = { [PROGRESSION_DATA[m].hash]: curProg }
           tempList.push(tempData)
         })
@@ -117,10 +121,16 @@ export default function GetProgressions(props: { updateCount: number }) {
         const trialsCardData = trialsCardDataArray[0]
 
         // Search GetProfile for active Trials card hash:
-        const hashList = Object.keys(TRIALS_CARD_DATA).map((item: TrialsPassageKey) => TRIALS_CARD_DATA[item].hash)
-        const bountyHashList = Object.keys(result.Response.characterProgressions.data[characterId].uninstancedItemObjectives)
+        const hashList = Object.keys(TRIALS_CARD_DATA).map(
+          (item: TrialsPassageKey) => TRIALS_CARD_DATA[item].hash
+        )
+        const bountyHashList = Object.keys(
+          result.Response.characterProgressions.data[characterId].uninstancedItemObjectives
+        )
         // Return an array in the form of: [ 1600065451, undefined, undefined, undefined, undefined ]
-        const foundHashArrayMap = hashList.map((hash) => (bountyHashList.includes(String(hash)) ? hash : undefined))
+        const foundHashArrayMap = hashList.map((hash) =>
+          (bountyHashList.includes(String(hash)) ? hash : undefined)
+        )
         // Remove undefined, leave an array with only Numbers
         const trialsCardHashArray = foundHashArrayMap.filter(Number)
         // Take 1st value - there will only ever be 1 Trials Card active:
@@ -154,7 +164,7 @@ export default function GetProgressions(props: { updateCount: number }) {
               }
               profileStreak={
                 profile.Response.characterProgressions.data[characterId].progressions[
-                  PROGRESSION_DATA[m].streakHash
+                  PROGRESSION_DATA[m]?.streakHash
                 ]
               }
               {...profile}
@@ -217,7 +227,7 @@ function DisplayProgression(props: DisplayProgressionsInterface) {
   const { progressionsDefinition, profileProgressions, profileStreak, mode, maxRank } = props
 
   /* Streak data: */
-  const streakCount = profileStreak.currentProgress
+  const streakCount = profileStreak?.currentProgress
   const arrSize = 5
   const streakArray = Array(arrSize).fill(true).fill(false, streakCount, arrSize)
 
@@ -279,10 +289,10 @@ function DisplayProgression(props: DisplayProgressionsInterface) {
           <div className='progressions-text'>
             <div className='progressions-title'>Resets: </div>
             <div className='progressions-value'>
-              {profileProgressions.currentResetCount ? profileProgressions.currentResetCount : 0}
+              {profileProgressions.currentResetCount ? profileProgressions.currentResetCount : 0 }
             </div>
           </div>
-          <Checkboxes streakArray={streakArray} modeColour={modeColour} />
+          {streakCount && <Checkboxes streakArray={streakArray} modeColour={modeColour} />}
         </div>
       </div>
       <div className='progress-bar-wrap'>

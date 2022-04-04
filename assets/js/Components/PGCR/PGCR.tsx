@@ -42,15 +42,15 @@ export default function Pgcr(props: PgcrPropsInterface) {
     if (!isExpanded) {
       // console.log('Clicked', instanceId)
       fetchPgcr(id)
-      setIsExpanded(true)
     }
+    setIsExpanded(!isExpanded)
   }
 
   return (
     <>
       <div className='pgcr-wrapper'>
         <ul
-          className='pgcr pgcr-pointer list-style-none'
+          className='pgcr pgcr-pointer list-style-none pgcr-collapsible-header'
           role='button'
           onClick={() => {
             handleClick(instanceId)
@@ -63,7 +63,7 @@ export default function Pgcr(props: PgcrPropsInterface) {
             currentGameMode={currentGameMode}
             favourite={favourite}
           />
-          {pgcr &&
+          {(pgcr && isExpanded) &&
           <>
             <PgcrHeader activityMode={activityMode} />
             <CreateTeams entriesList={pgcr.Response.entries} activityMode={activityMode} />

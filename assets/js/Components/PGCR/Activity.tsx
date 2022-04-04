@@ -277,5 +277,5 @@ export default function Activity(props: ActivityPropsInterface) {
     setLoaded(true)
   }
 
-  return <>{activityDef ? <HeaderExpanded /> : <HeaderCollapsed />}</>
+  return <>{(activityDef && isExpanded) ? <HeaderExpanded /> : <HeaderCollapsed />}</>
 }
