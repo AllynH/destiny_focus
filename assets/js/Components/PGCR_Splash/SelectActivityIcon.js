@@ -32,6 +32,7 @@ export default function SelectActivityIcon(props) {
           iconWidth: 150,
           iconHeight: 150,
           iconColour: 'white',
+          filterValue: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
         }
         break
       case 'largeIconPgcr':
@@ -39,6 +40,7 @@ export default function SelectActivityIcon(props) {
           iconWidth: 300,
           iconHeight: 345,
           iconColour: null,
+          filterValue: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
         }
         break
         case 'cardIcon':
@@ -46,6 +48,7 @@ export default function SelectActivityIcon(props) {
             iconWidth: 300,
             iconHeight: 345,
             iconColour: 'white',
+            filterValue: 'drop-shadow( 5px 5px 5px rgba(0, 0, 0, .8))',
           }
           break
       case 'cardSmallIcon':
@@ -53,6 +56,7 @@ export default function SelectActivityIcon(props) {
           iconWidth: 110,
           iconHeight: 110,
           iconColour: 'rgba(255, 255, 255, 0.2)',
+          filterValue: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
         }
         break
         case 'smallIconAccountSelect':
@@ -60,6 +64,7 @@ export default function SelectActivityIcon(props) {
           iconWidth: 64,
           iconHeight: 64,
           iconColour: 'white',
+          filterValue: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
         }
         break
     }
@@ -75,7 +80,7 @@ export default function SelectActivityIcon(props) {
             style={{
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--grey-light-2)',
               zIndex: 1,
-              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+              filter: iconStyleVars.filterValue,
             }}
           />
         )
@@ -97,7 +102,7 @@ export default function SelectActivityIcon(props) {
             style={{
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--crucible-red)',
               zIndex: 1,
-              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+              filter: iconStyleVars.filterValue,
             }}
           />
         )
@@ -110,7 +115,7 @@ export default function SelectActivityIcon(props) {
             style={{
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--gambit-green)',
               zIndex: 1,
-              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+              filter: iconStyleVars.filterValue,
             }}
           />
         )
@@ -126,7 +131,7 @@ export default function SelectActivityIcon(props) {
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--gambit-green)',
               // stroke: 'var(--bungie-power)',
               zIndex: 1,
-              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+              filter: iconStyleVars.filterValue,
             }}
           />
         )
@@ -144,7 +149,7 @@ export default function SelectActivityIcon(props) {
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--bungie-power)',
               // stroke: 'var(--bungie-power)',
               zIndex: 1,
-              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+              filter: iconStyleVars.filterValue,
             }}
           />
         )
@@ -157,7 +162,7 @@ export default function SelectActivityIcon(props) {
             style={{
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--grey-light-2)',
               zIndex: 1,
-              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+              filter: iconStyleVars.filterValue,
             }}
           />
         )
@@ -170,7 +175,7 @@ export default function SelectActivityIcon(props) {
             style={{
               fill: iconStyleVars.iconColour ? iconStyleVars.iconColour : 'var(--grey-light-2)',
               zIndex: 1,
-              filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))',
+              filter: iconStyleVars.filterValue,
             }}
           />
         )
