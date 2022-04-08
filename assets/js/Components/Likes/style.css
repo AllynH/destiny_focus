@@ -18,6 +18,7 @@
   border-radius: 10px;
   padding: 0 0 20px 0;
   margin: 10px 0;
+  min-height: 200px;
 }
 
 .liked-activity-sidebar{
