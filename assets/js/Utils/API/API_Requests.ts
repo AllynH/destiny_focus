@@ -4,8 +4,8 @@
 const BUNGIE_API_KEY = process.env.DF_BUNGIE_API_KEY
 const ORIGIN_HEADER = process.env.DF_ORIGIN_HEADER
 
-export const bungieBaseUrl = 'https://www.bungie.net/Platform/Destiny2/'
-export const bungieBaseStatsUrl = 'https://stats.bungie.net/Platform/Destiny2/'
+export const bungieBaseUrl = 'https://www.bungie.net/Platform/Destiny2'
+export const bungieBaseStatsUrl = 'https://stats.bungie.net/Platform/Destiny2'
 
 
 // No return await fetch: https://eslint.org/docs/rules/no-return-await
@@ -24,8 +24,6 @@ async function apiRequestWithHeaders(url: string, options: RequestInit = {}) {
 
   const updatedOptions = {...options, ...fetchHeaders}
 
-  console.log(url, updatedOptions)
-  console.log(BUNGIE_API_KEY)
   return fetch(url, updatedOptions).then((res) => res.json())
 
 }
@@ -45,6 +43,7 @@ export const GetRaidData = async (options: BungieRequestInit) => apiRequest(`/au
 interface BungieRequestInit extends RequestInit {
   params: {
     activityId?: string,
+    activityName?: string,
     definition?: string,
     defHash?: string;
     characterId?: string,
@@ -93,7 +92,7 @@ export const GetActivityDefinitionUnauth = async (options: BungieRequestInit) =>
 })
 
 export const GetPGCRList = async (options: BungieRequestInit) => apiRequest(
-  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`,
+  `/auth/get/pgcr_list/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.activityName}`,
   {
     ...options,
   },

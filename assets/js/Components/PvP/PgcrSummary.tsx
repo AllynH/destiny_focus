@@ -18,6 +18,7 @@ import { CharacterPropsInterface } from '../../Data/CharacterProps'
 
 import './style.css'
 import AbilityKillFocus from '../Focus/AbilityKillFocus'
+import { returnFocusDetailsFromActivityId } from '../../Utils/HelperFunctions/activityModes'
 
 export function Loading() {
   return (
@@ -42,6 +43,7 @@ export default function PgcrSummary(props: PgcrSummaryPropsInterface & RouteComp
   const { membershipType, membershipId, characterId } = props.match
     .params as CharacterPropsInterface
   const { gameMode } = getUrlDetails()
+  const activityName = returnFocusDetailsFromActivityId(gameMode)?.focus
   const myArray = props.activityList?.Response?.activities
 
   // Fetch the Activity definition - Map icon, name :
@@ -52,7 +54,7 @@ export default function PgcrSummary(props: PgcrSummaryPropsInterface & RouteComp
           membershipType: String(membershipType),
           membershipId: String(membershipId),
           characterId: String(characterId),
-          gameMode: Number(gameMode),
+          activityName: String(activityName),
         },
       })
       setPgcrSummary(result)
