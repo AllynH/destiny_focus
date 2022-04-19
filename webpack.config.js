@@ -69,6 +69,8 @@ module.exports = {
       'process.env.GOOGLE_ANALYTICS_ID': JSON.stringify(process.env.GOOGLE_ANALYTICS_ID || ''),
       'process.env.DF_UPDATE_TIME': JSON.stringify(process.env.DF_UPDATE_TIME || ''),
       'process.env.DF_APP_VERSION': JSON.stringify(process.env.DF_APP_VERSION || ''),
+      'process.env.DF_BUNGIE_API_KEY': JSON.stringify(process.env.DF_BUNGIE_API_KEY || ''),
+      'process.env.DF_ORIGIN_HEADER': JSON.stringify(process.env.DF_ORIGIN_HEADER || ''),
     }),
   ].concat(debug ? [] : ProductionPlugins),
   module: {

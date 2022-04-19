@@ -35,6 +35,8 @@ export default function SelectPgcr(props) {
           activityId,
         },
       })
+      console.log('SelectPGCR:')
+      console.log(result)
       const activityDefinitionResult = await GetActivityDefinitionUnauth({
         params: {
           definition: 'DestinyActivityDefinition',

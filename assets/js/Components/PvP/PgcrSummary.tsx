@@ -49,10 +49,10 @@ export default function PgcrSummary(props: PgcrSummaryPropsInterface & RouteComp
     const fetchPgcrSummary = async () => {
       const result = await GetPGCRList({
         params: {
-          membershipType,
-          membershipId,
-          characterId,
-          gameMode,
+          membershipType: String(membershipType),
+          membershipId: String(membershipId),
+          characterId: String(characterId),
+          gameMode: Number(gameMode),
         },
       })
       setPgcrSummary(result)

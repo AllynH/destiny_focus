@@ -199,7 +199,7 @@ function CreateSingleProgression(props: DisplayProgressionsInterface) {
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
       const result: DestinyProgressionDefinition = await GetActivityDefinition({
-        params: { definition: 'DestinyProgressionDefinition', defHash: progressModeHash },
+        params: { definition: 'DestinyProgressionDefinition', defHash: String(progressModeHash) },
       })
       setProg(result)
     }

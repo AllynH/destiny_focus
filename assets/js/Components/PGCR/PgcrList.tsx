@@ -21,7 +21,7 @@ export default function PgcrList(props: PgcrListInterface) {
   // Fetch the users saved PGCR list:
   useEffect(() => {
     const fetchUserPgcrList = async () => {
-      const result = await GetUserPGCRList({})
+      const result = await GetUserPGCRList()
       setSavedPgcrs(result.user_pgcrs)
       // console.log('fetchUserPgcrList')
       // console.log(result)

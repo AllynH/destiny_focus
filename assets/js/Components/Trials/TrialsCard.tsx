@@ -17,7 +17,7 @@ export default function TrialsCard(props: {
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
       const result: DestinyInventoryItemDefinition = await GetActivityDefinition({
-        params: { definition: 'DestinyInventoryItemDefinition', defHash: definitionHash },
+        params: { definition: 'DestinyInventoryItemDefinition', defHash: String(definitionHash) },
       })
       setDefinition(result)
     }

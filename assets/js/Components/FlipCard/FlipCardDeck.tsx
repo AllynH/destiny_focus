@@ -5,6 +5,7 @@ import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
 import { FocusDetailKey } from '../Focus/types'
+import PaypalButton from '../Support/Paypal'
 import FlipCard from './FlipCard'
 
 export default function FlipCardDeck(props: RouteComponentProps) {
@@ -28,6 +29,7 @@ export default function FlipCardDeck(props: RouteComponentProps) {
       <div className='character-select-wrapper'>
         <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
       </div>
+      <PaypalButton />
     </div>
   )
 }

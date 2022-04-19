@@ -11,7 +11,7 @@ export default function TrialsCard(props: { definitionHash: number }) {
   useEffect(() => {
     const fetchProgressionsDefinition = async () => {
       const result: DestinySandboxPerkDefinition = await GetActivityDefinition({
-        params: { definition: 'DestinySandboxPerkDefinition', defHash: definitionHash },
+        params: { definition: 'DestinySandboxPerkDefinition', defHash: String(definitionHash) },
       })
       setDefinition(result)
     }
