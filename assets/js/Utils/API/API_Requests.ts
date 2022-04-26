@@ -128,3 +128,9 @@ export const PutPGCR = async (options: BungieRequestInit) => apiRequest(`/auth/p
 export const DeletePGCR = async (options: BungieRequestInit) => apiRequest(`/auth/delete/pgcr/${options.params.activityId}`, {
   ...options,
 })
+
+export const ViewUserData = async () => apiRequest(`/auth/get/user_count/`, {
+})
+
+export const ViewManifestData = async () => apiRequest(`/auth/get/manifest_data/`, {
+})

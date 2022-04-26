@@ -1,0 +1,33 @@
+.admin-panel-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-data-wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  background-color: var(--grey-dark-4);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 8px;
+  overflow: visible;
+}
+
+.admin-user-grid{
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 3fr;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.admin-manifest-grid{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.admin-item-title{
+  font-weight: bolder;
+  font-size: 16px;
+}

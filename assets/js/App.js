@@ -13,6 +13,7 @@ import PvpSplash from './Components/PGCR_Splash/SelectPgcr'
 import GoogleAnalytics from './Components/Analytics/GoogleAnalytics'
 import FlipCardDeck from './Components/FlipCard/FlipCardDeck'
 import ViewLikes from './Components/Likes/ViewLikes'
+import AdminPanel from './Components/Admin/AdminPanel'
 
 class App extends React.Component {
   render() {
@@ -39,6 +40,7 @@ class App extends React.Component {
           <Route path='/about/' exact={true} />
           <Route path='/faq/' exact={true} component={FaqContent} />
           <Route path='/' exact={true} component={Welcome} />
+          <Route path='/auth/admin/' exact={true} component={AdminPanel} />
           <Route component={Error} />
         </Switch>
       </>

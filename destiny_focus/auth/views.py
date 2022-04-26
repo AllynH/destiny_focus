@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Auth section, authorized views. User is logged in."""
 from flask import (
+    abort,
     Blueprint,
     current_app,
     g,
@@ -18,7 +19,7 @@ from flask_login import login_required, login_user, logout_user, current_user
 from destiny_focus.extensions import login_manager
 from destiny_focus.auth.forms import LoginForm
 from destiny_focus.user.forms import RegisterForm
-from destiny_focus.user.models import PGCRs, User, Manifest, PGCRs
+from destiny_focus.user.models import Manifest_Version, PGCRs, User, Manifest, PGCRs
 from destiny_focus.extensions import db
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
@@ -30,6 +31,7 @@ from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON, LAST_SEASO
 from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS, ACTIVITY_MODES
 
 import requests
+import os
 from datetime import datetime, timedelta
 
 blueprint = Blueprint("auth", __name__, url_prefix="/auth", static_folder="../static")
@@ -918,4 +920,93 @@ def pgcr(activityId):
 
     # get_account_res = my_api.GetCurrentBungieAccount()
     return render_template("auth/pgcr.html")
+
+####################################################################################################
+# A list of routes for viewing DF meta data:
+####################################################################################################
+@blueprint.route("/admin/")
+@login_required
+def admin():
+    """
+    Route for admin panel.
+    """
+    return render_template("auth/choose_focus.html")
+
+
+@blueprint.route("/get/user_count/")
+@login_required
+def user_count():
+    """
+    Get the user count and some meta data to populate the admin table.
+    """
+    current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+
+    if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
+        return abort(403)
+
+    user = User.query.all()
+
+    user_meta_list = []
+    user_meta_data = {}
+    for u in user:
+        user_meta_data["unique_name"]       = u.unique_name
+        user_meta_data["last_seen"]         = u.last_seen
+        user_meta_data["pgcr_allocation"]   = u.pgcr_allocation
+        user_meta_data["pgcr_count"]        = u.pgcr_count
+        user_meta_list.append(user_meta_data)
+
+    pgcr_entries = PGCRs.query.all()
+
+    response = {
+        "errorStatus"   : "Success",
+        "message"       : "Destiny-Focus.me user meta data",
+        "userCount"     : len(user),
+        "pgcrCount"     : len(pgcr_entries),
+        "Response"       : user_meta_list
+    }
+    return jsonify(response)
+
+
+@blueprint.route("/get/manifest_data/")
+@login_required
+def manifest_data():
+    """
+    Get the Manifest version, item and category count and some meta data to populate the admin table.
+    """
+    current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+
+    if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
+        return abort(403)
+
+    version = Manifest_Version.query.first()
+
+    manifest_version_meta_data = {}
+    manifest_version_meta_data["current_revision"]  = version.current_revision
+    manifest_version_meta_data["current_version"]   = version.current_version
+    manifest_version_meta_data["update_date"]       = version.update_date
+    manifest_version_meta_data["update_type"]       = version.update_type
+    manifest_version_meta_data["update_successful"] = version.update_successful
+
+    manifest = Manifest.query.all()
+
+    manifest_cat_list = []
+    for m in manifest:
+        if m.definition_name not in manifest_cat_list:
+            manifest_cat_list.append(m.definition_name)
+
+
+    manifest_data = {}
+    manifest_data["items"]              = len(manifest)
+    manifest_data["categoriesCount"]    = len(manifest_cat_list)
+    manifest_data["categories"]         = manifest_cat_list
+
+    response = {
+        "errorStatus"   : "Success",
+        "message"       : "Destiny-Focus.me manifest version meta data",
+        "Response"       : {
+            "manifestVersion"   : manifest_version_meta_data,
+            "manifestData"      : manifest_data
+        }
+    }
+    return jsonify(response)
 
