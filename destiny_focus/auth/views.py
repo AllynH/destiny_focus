@@ -930,6 +930,8 @@ def admin():
     """
     Route for admin panel.
     """
+    if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
+        return redirect(url_for("auth.home", redirect="access_denied"))
     return render_template("auth/choose_focus.html")
 
 
@@ -942,7 +944,7 @@ def user_count():
     current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
     if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
-        return abort(403)
+        return redirect(url_for("auth.home", redirect="access_denied"))
 
     user = User.query.all()
 
@@ -976,7 +978,8 @@ def manifest_data():
     current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
     if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
-        return abort(403)
+        return redirect(url_for("auth.home", redirect="access_denied"))
+
 
     version = Manifest_Version.query.first()
 
