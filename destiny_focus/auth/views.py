@@ -932,7 +932,6 @@ def admin():
     """
     current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
-        print("User:", g.user, "access denied!")
         return redirect(url_for("auth.home", redirect="access_denied"))
     return render_template("auth/choose_focus.html")
 
@@ -946,14 +945,13 @@ def user_count():
     current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
     if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
-        print("User:", g.user, "access denied!")
-        return redirect(url_for("auth.home", redirect="access_denied"))
+        return abort(403)
 
     user = User.query.all()
 
     user_meta_list = []
-    user_meta_data = {}
     for u in user:
+        user_meta_data = {}
         user_meta_data["unique_name"]       = u.unique_name
         user_meta_data["last_seen"]         = u.last_seen
         user_meta_data["pgcr_allocation"]   = u.pgcr_allocation
@@ -981,9 +979,7 @@ def manifest_data():
     current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
     if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
-        print("User:", g.user, "access denied!")
-        return redirect(url_for("auth.home", redirect="access_denied"))
-
+        return abort(403)
 
     version = Manifest_Version.query.first()
 
