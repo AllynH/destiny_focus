@@ -202,9 +202,12 @@ export default function NavBar() {
                   <MenuItem onClick={handleClose} component={Link} to={'/support/'}>
                     Support Destiny-Focus
                   </MenuItem>
-                  <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
-                    About
+                  <MenuItem onClick={handleClose} component={Link} to={'/changelog/'}>
+                    What{"'"}s new
                   </MenuItem>
+                  {/* <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
+                    About
+                  </MenuItem> */}
                   <MenuItem onClick={handleClose} component={Link} to={'/faq/'}>
                     FAQ
                   </MenuItem>
@@ -239,8 +242,11 @@ export default function NavBar() {
                   <MenuItem onClick={handleClose} component={Link} to={'/support/'}>
                     Support Destiny-Focus
                   </MenuItem>
-                  <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
+                  {/* <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
                     About
+                  </MenuItem> */}
+                  <MenuItem onClick={handleClose} component={Link} to={'/changelog/'}>
+                    What{"'"}s new
                   </MenuItem>
                   <MenuItem onClick={handleClose} component={Link} to={'/faq/'}>
                     FAQ

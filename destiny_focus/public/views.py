@@ -34,7 +34,7 @@ def before_request():
     Refresh user credentials here.
     """
     # print("\n\nUnauth redirect")
-    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about", "public.support"]
+    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about", "public.support", "public.changelog"]
     error = request.args.get('redirect', None)
     error_flag = True if error == 'bungie_error' else False
     print(error, error_flag)
@@ -118,6 +118,11 @@ def support():
     """Support page."""
     print("In Support route!!!")
     return render_template("public/support.html")
+
+@blueprint.route("/changelog/")
+def changelog():
+    """changelog page."""
+    return render_template("public/faq.html")
 
 @blueprint.route("/faq/")
 def faq():

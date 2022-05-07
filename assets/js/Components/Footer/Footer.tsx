@@ -13,8 +13,8 @@ export default function Footer() {
       </ul>
 
       <ul className='footer-nav'>
-      <li>
-          <a href="/about/">About</a>
+        <li>
+          <a href="/changelog/">What{"'"}s new</a>
         </li>
         <li>
           <a href="/faq/">FAQ</a>
