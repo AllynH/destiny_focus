@@ -20,9 +20,7 @@ export default function Footer() {
           <a href="/faq/">FAQ</a>
         </li>
         <li>
-          <a href='https://github.com/sponsors/AllynH' target='_blank' rel='noopener noreferrer'>
-            Donate
-          </a>
+          <a href="/support/">Donate</a>
         </li>
         <li>
           <a
