@@ -13,8 +13,11 @@ export default function Footer() {
       </ul>
 
       <ul className='footer-nav'>
+      <li>
+          <a href="/about/">About</a>
+        </li>
         <li>
-          <a href="{{ url_for('public.about') }}">About</a>
+          <a href="/faq/">FAQ</a>
         </li>
         <li>
           <a href='https://github.com/sponsors/AllynH' target='_blank' rel='noopener noreferrer'>

@@ -193,11 +193,14 @@ export default function NavBar() {
                   >
                     Likes
                   </MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
+                    Change platform
+                  </MenuItem>
                 </MenuList>
                 <hr />
                 <MenuList>
-                  <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
-                    Change platform
+                  <MenuItem onClick={handleClose} component={Link} to={'/support/'}>
+                    Support Destiny-Focus
                   </MenuItem>
                   <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
                     About
@@ -231,6 +234,16 @@ export default function NavBar() {
                     <a className='link-nav-home' href='/'>
                       Destiny Focus
                     </a>
+                  </MenuItem>
+                  <hr />
+                  <MenuItem onClick={handleClose} component={Link} to={'/support/'}>
+                    Support Destiny-Focus
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to={'/about/'}>
+                    About
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to={'/faq/'}>
+                    FAQ
                   </MenuItem>
                 </MenuList>
               </Menu>

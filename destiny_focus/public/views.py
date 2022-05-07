@@ -34,7 +34,7 @@ def before_request():
     Refresh user credentials here.
     """
     # print("\n\nUnauth redirect")
-    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about"]
+    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about", "public.support"]
     error = request.args.get('redirect', None)
     error_flag = True if error == 'bungie_error' else False
     print(error, error_flag)
@@ -42,8 +42,8 @@ def before_request():
     if not request.endpoint in pgcr_list and not error_flag:
         g.user = current_user
         if g.user.is_authenticated:
-            print(g.user)
-            print(g.user.refresh_ready)
+            print(f"User: {g.user}")
+            print(f"Refresh ready: {g.user.refresh_ready}")
             return redirect(url_for('auth.home'))
 
 @login_manager.user_loader
@@ -113,6 +113,12 @@ def about():
     form = LoginForm(request.form)
     return render_template("public/about.html", form=form)
 
+@blueprint.route("/support/")
+def support():
+    """Support page."""
+    print("In Support route!!!")
+    return render_template("public/support.html")
+
 @blueprint.route("/faq/")
 def faq():
     """FAQ page."""
@@ -123,7 +129,7 @@ def get_pgcr(activityId):
     """
     Get an unauthorised PGCR.
     """
-    
+
     my_api = BungieApiUnauth()
 
     activity = my_api.get_pgcr(activityId)

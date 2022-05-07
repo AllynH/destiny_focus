@@ -14,6 +14,8 @@ import GoogleAnalytics from './Components/Analytics/GoogleAnalytics'
 import FlipCardDeck from './Components/FlipCard/FlipCardDeck'
 import ViewLikes from './Components/Likes/ViewLikes'
 import AdminPanel from './Components/Admin/AdminPanel'
+import About from './Components/About/index'
+import Support from './Components/Support/Support'
 
 class App extends React.Component {
   render() {
@@ -36,8 +38,9 @@ class App extends React.Component {
           <Route path='/auth/account/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={Account} />
           <Route path='/auth/pgcr/:activityId([0-9]+)/'component={PvpSplash} />
           <Route path='/pgcr/:activityId([0-9]+)/'component={PvpSplash} />
-          <Route path='/logout' exact={true} component={Welcome} />
-          <Route path='/about/' exact={true} />
+          <Route path='/logout/' exact={true} component={Welcome} />
+          <Route path='/about/' exact={true}  component={About} />
+          <Route path='/support/' exact={true} component={Support} />
           <Route path='/faq/' exact={true} component={FaqContent} />
           <Route path='/' exact={true} component={Welcome} />
           <Route path='/auth/admin/' exact={true} component={AdminPanel} />

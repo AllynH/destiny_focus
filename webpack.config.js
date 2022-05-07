@@ -42,6 +42,7 @@ module.exports = {
       path.join(__dirname, 'assets', 'js', 'Components', 'PGCR_Splash', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Profile', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Progress', 'style.css'),
+      path.join(__dirname, 'assets', 'js', 'Components', 'Support', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Trials', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'WeaponSummary', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Welcome', 'style.css'),
