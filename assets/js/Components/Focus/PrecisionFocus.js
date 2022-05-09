@@ -118,7 +118,7 @@ export default function DisplayPrecisionFocus(props) {
     }
     return (
       <>
-        {CompareResults(average, focusGoals.killDeathRatio)}
+        {CompareResults(average, focusGoals.precisionKillsCount)}
         <div className='focus-mismatch-warn'>
           Warning - Focus goals set for: {focusReducer.focus}
         </div>

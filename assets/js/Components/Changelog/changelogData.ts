@@ -10,6 +10,15 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.14.9',
+    Ref: 'Bug-fixes',
+    Heading: 'v1.14.7',
+    Date: '9 May, 2022',
+    Body: [
+      'Bug-fix: Precision focus goal returning K/D R goal value.',
+    ]
+  },
+  {
     Release: 'v1.14.8',
     Ref: 'Support-route',
     Heading: 'v1.14.7',
