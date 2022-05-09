@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.14.11',
+    Ref: 'Bug-fixes',
+    Heading: 'v1.14.7',
+    Date: '9 May, 2022',
+    Body: [
+      'Bungie Maintenance mode returning odd errors - now reroute users to error page.',
+      'Bug-fix: Account view displaying wrong text for stats.',
+    ]
+  },
+  {
     Release: 'v1.14.9',
     Ref: 'Bug-fixes',
     Heading: 'v1.14.7',
