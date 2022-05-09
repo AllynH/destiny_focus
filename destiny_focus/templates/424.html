@@ -1,0 +1,18 @@
+
+{% extends "layout.html" %}
+
+{% block page_title %}Unauthorized{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="text-center">
+        <h1>HTTP Error: 424</h1>
+        <p>Bungie servers are currently returning errors.</a>
+        <p>Error message: {{ description }}</a>.
+        <p>Please try again later:
+            <a href="{{ url_for('public.home')}}">home.</a>.
+        </p>
+    </div>
+</div>
+{% endblock %}
+

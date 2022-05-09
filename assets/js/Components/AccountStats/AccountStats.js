@@ -203,9 +203,9 @@ class AccountStats extends React.Component {
         footerData: {
           title_1: 'Efficiency',
           value_1: stats?.efficiency?.basic?.displayValue || '',
-          title_2: 'Total precision kills',
+          title_2: 'Daily avg precision kills',
           value_2: stats?.precisionKills?.pga?.displayValue || '',
-          title_3: 'Total medals earned',
+          title_3: 'Daily avg medals earned',
           value_3: stats?.hs_totalMedalsEarned?.pga?.displayValue || '',
         },
       },

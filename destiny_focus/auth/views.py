@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Auth section, authorized views. User is logged in."""
+import urllib.parse
 from flask import (
     abort,
     Blueprint,
@@ -15,6 +16,7 @@ from flask import (
 )
 from flask.wrappers import Response
 from flask_login import login_required, login_user, logout_user, current_user
+import urllib3
 
 from destiny_focus.extensions import login_manager
 from destiny_focus.auth.forms import LoginForm
@@ -108,6 +110,14 @@ def oauth_authorize(provider):
 def oauth_callback(provider):
     """ Callback URL for a given provider."""
     # flash("You are in the callback URL.", "info")
+
+    # Need to handle Bungie systems down:
+    # error=invalid_request&error_description=We%E2%80%99ve%20encountered%20an%20error%2C%20please%20try%20again%20later.
+    bungie_maintenance_error                = request.args.get('error', None)
+    decoded_error                           = urllib.parse.unquote(request.args.get('error_description', ""))
+    bungie_maintenance_error_description    = decoded_error
+    if (bungie_maintenance_error):
+        return render_template("424.html", description=bungie_maintenance_error_description)
 
     # Get token from Bungie:
     oauth           = OAuthSignin(provider).get_provider(provider)

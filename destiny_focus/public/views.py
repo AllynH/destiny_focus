@@ -34,7 +34,7 @@ def before_request():
     Refresh user credentials here.
     """
     # print("\n\nUnauth redirect")
-    pgcr_list = ["public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about", "public.support", "public.changelog"]
+    pgcr_list = ["public.logout", "public.get_pgcr", "public.pgcr", "public.get_manifest", "public.faq", "public.about", "public.support", "public.changelog"]
     error = request.args.get('redirect', None)
     error_flag = True if error == 'bungie_error' else False
     print(error, error_flag)
