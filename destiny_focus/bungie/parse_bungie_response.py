@@ -80,13 +80,13 @@ def get_title(title_hash):
     """
     title_full = get_definition('DestinyRecordDefinition', title_hash)
 
-    # print(emblem_full)
+    # print(title_full)
 
     title_data ={
-        "icon"  : title_full['displayProperties']['icon'],
-        "name"  : title_full['displayProperties']['name'],
-        "description": title_full['displayProperties']['description'],
-        "title" : title_full['titleInfo']['titlesByGender']['Female'],
+        "icon"  : title_full['displayProperties'].get('icon', ""),
+        "name"  : title_full['displayProperties'].get('name', ""),
+        "description": title_full['displayProperties'].get('description', ""),
+        "title" : title_full['titleInfo']['titlesByGender'].get('Female', ""),
     }
 
     return title_data
