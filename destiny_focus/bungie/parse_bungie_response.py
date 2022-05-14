@@ -35,6 +35,9 @@ def get_character_details_json(GetProfile_res):
         title  = get_title(titleRecordHash) if titleRecordHash is not None else None
         temp_dict = {
             i: {
+                "displayName"               : GetProfile_res['Response']['profile']['data']["userInfo"]["displayName"],
+                "bungieGlobalDisplayName"   : GetProfile_res['Response']['profile']['data']["userInfo"]["bungieGlobalDisplayName"],
+                "membershipType"            : GetProfile_res['Response']['profile']['data']["userInfo"]["membershipType"],
                 "character_id"  : i,
                 "race_name"     : race_name['displayProperties']['name'],
                 "gender_name"   : gender_name['displayProperties']['name'],

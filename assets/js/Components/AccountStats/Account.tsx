@@ -16,6 +16,7 @@ import GetProgressions from '../Profile/GetProgressions'
 
 import { FocusDetailKey } from '../Focus/types'
 import { CharacterPropsInterface } from '../../Data/CharacterProps'
+import checkLoggedInCharacter from '../../Utils/HelperFunctions/characterSelection'
 
 interface AccountState {
   error: null | { message: string },
@@ -39,6 +40,7 @@ class Account extends React.Component<RouteComponentProps & {updateCount: number
 
   render() {
     const { membershipType , membershipId, characterId } = this.props.match.params as CharacterPropsInterface
+    const updateAccountReducer = checkLoggedInCharacter(String(membershipType) , String(membershipId))
     const { error, isLoaded } = this.state
 
     // Throws an error when declared as React.MouseEventHandler<HTMLDivElement>
@@ -119,7 +121,7 @@ class Account extends React.Component<RouteComponentProps & {updateCount: number
               {...statsData}
             />
           </div>
-          <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
+          <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} updateState={updateAccountReducer} />
         </div>
     )
   }

@@ -1,0 +1,157 @@
+.character-heading-platform-name-wrap{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.character-heading-class, .character-heading-title{
+  padding: 0 8px;
+}
+
+.character-heading-light-wrap{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.character-heading-light{
+  color: #DDCB59;
+}
+
+.character-heading-home-icon{
+  font-size: 2.2rem !important;
+  display: block !important;
+  fill: white !important;
+  z-index: 1;
+  filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .8));
+  padding: 0 8px;
+}
+
+
+.expand-on-hover:hover{
+  box-shadow: 0 0 0 2px var(--vanguard-light-5);
+  transform: scale(1.015) translateZ(0);
+  transition: box-shadow .25s,transform .25s;
+}
+
+/*
+  Desktop devices:
+*/
+@media screen and (min-width: 600px) {
+  .character-heading-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    margin: 0 20px;
+    padding: 4px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 3px 3px 15px black;
+    font-size: 1.5rem;
+  }
+
+  .character-heading-home-button-wrap{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    text-shadow: 3px 3px 7px black;
+  }
+
+  .character-heading-title{
+    font-size: larger;
+  }
+
+  .character-heading-logged-in{
+    text-shadow: 3px 3px 7px black;
+    background-color: var(--witch-queen-green);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .character-heading-home-icon-wrap{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 3px 3px 15px black;
+  }
+
+  /* .character-heading-home-message:before {
+    content: 'Return to logged in character';
+  } */
+  .character-heading-home-message {
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+}
+
+
+/*
+  Mobile devices:
+*/
+@media screen and (max-width: 600px) {
+  .character-heading-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    width: 230px;
+    height: 60px;
+    padding: 10px 8px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 3px 3px 15px black;
+    text-shadow: 3px 3px 7px black;
+    font-size: 1.5rem;
+  }
+
+  .character-heading-home-button-wrap{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    text-shadow: 3px 3px 7px black;
+  }
+
+  .character-heading-title{
+    font-size: 1.2rem;
+  }
+
+  .character-heading-title{
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 180px;
+  }
+
+  .character-heading-logged-in{
+    text-shadow: 3px 3px 7px black;
+    background-color: var(--witch-queen-green);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .character-heading-home-icon-wrap{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+    width: 230px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 3px 3px 15px black;
+  }
+
+  .character-heading-home-message {
+    padding: 0;
+    margin: 0;
+  }
+}
+

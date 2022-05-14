@@ -30,6 +30,7 @@ import { AllowedWinLoss } from '../WinLossSummary/types'
 import { FocusDetailKey } from '../Focus/types'
 
 import './style.css'
+import checkLoggedInCharacter from '../../Utils/HelperFunctions/characterSelection'
 
 
 // Set the update time for refreshing the data:
@@ -278,6 +279,7 @@ class PvPChart extends React.Component<RouteComponentProps & { focusReducer: Foc
       const {
         membershipType, membershipId, characterId,
       } = this.props.match.params as CharacterPropsInterface
+      const updateAccountReducer = checkLoggedInCharacter(String(membershipType) , String(membershipId))
 
       return (
         <>
@@ -325,7 +327,7 @@ class PvPChart extends React.Component<RouteComponentProps & { focusReducer: Foc
               </div>
             </div>
           </div>
-          <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
+          <ClickableCharacterList memberships={{ membershipId, membershipType, characterId}} updateState={updateAccountReducer} />
         </>
       )
 

@@ -6,16 +6,20 @@ import { Link, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
+// import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 
-import { GetCharacters } from '../../Utils/API/API_Requests'
+import { GetCharactersWithArgs } from '../../Utils/API/API_Requests'
+import { SingleCharacterInterface } from '../../Types/DestinyFocus/GetCharacter'
+import CharacterHeading from './CharacterHeading'
+import checkLoggedInCharacter from '../../Utils/HelperFunctions/characterSelection'
+import ReturnToLoggedInUser from './ReturnToLoggedInUser'
 
 // import './nav.css';
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     display: 'inline-block',
@@ -30,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -61,19 +65,27 @@ const useBGStyles = makeStyles((theme) => ({
   },
 }))
 
+interface NavPropsInterface {
+  membershipType: string
+  membershipId: string
+  characterId: string
+  auth: string
+  gameMode: number | string
+}
+
 export default function NavBar() {
-  const {
-    auth, membershipType, membershipId, characterId, gameMode,
-  } = useParams()
+  const { auth, membershipType, membershipId, characterId, gameMode } =
+    useParams() as NavPropsInterface
 
   const [authFlag, setAuthFlag] = useState(false)
   const [anchorElProfile, setAnchorElProfile] = useState(null)
-  const [profile, setProfile] = useState(null)
+  const [profile, setProfile] = useState<SingleCharacterInterface>(null)
   const classes = useStyles()
   const bgClasses = useBGStyles()
   const openProfile = Boolean(anchorElProfile)
+  const userLoggedIn = checkLoggedInCharacter(String(membershipType) , String(membershipId))
 
-  const handleProfile = (event) => {
+  const handleProfile = (event: React.MouseEvent<HTMLElement>) => {
     // console.log('Profile clicked')
     setAnchorElProfile(event.currentTarget)
   }
@@ -84,15 +96,16 @@ export default function NavBar() {
   }
 
   useEffect(() => {
-    // console.log('Nav.js useEffect:')
-    // console.log('getUrlDetails: ', auth, membershipType, membershipId, characterId, gameMode)
     const fetchProfile = async () => {
-      const result = await GetCharacters({
-        params: {},
+      const result = await GetCharactersWithArgs({
+        params: {
+          membershipId,
+          membershipType,
+          characterId,
+        },
       })
       setProfile(result[characterId])
-      // console.log('setProfile')
-      // console.log(result[characterId])
+
     }
     if (auth === 'auth') {
       setAuthFlag(true)
@@ -102,7 +115,20 @@ export default function NavBar() {
       setProfile(null)
     }
   }, [auth, membershipType, membershipId, characterId, gameMode])
-
+  const NavIcon = (props: { profile: SingleCharacterInterface}) => (
+      <div
+        onClick={handleClose}
+        style={{
+          position: 'relative',
+          top: 50,
+          minHeight: 96,
+          minWidth: 96,
+          backgroundImage: `url('https://www.bungie.net/${props.profile.emblem_hash.icon}')`,
+          backgroundColor: 'transparent',
+          backgroundSize: 'contain',
+        }}
+      ></div>
+    )
   return (
     <>
       <div className='event-banner' id='ukraine'>
@@ -114,10 +140,10 @@ export default function NavBar() {
         style={
           profile
             ? {
-              position: 'relative,',
-              backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
-              backgroundColor: 'transparent',
-            }
+                position: 'relative',
+                backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.background}')`,
+                backgroundColor: 'transparent',
+              }
             : {}
         }
       >
@@ -133,27 +159,7 @@ export default function NavBar() {
               aria-haspopup='true'
               onClick={handleProfile}
             >
-              {profile ? (
-                <div
-                  onClose={handleClose}
-                  open={openProfile}
-                  style={
-                    profile
-                      ? {
-                        position: 'relative',
-                        top: 50,
-                        minHeight: 96,
-                        minWidth: 96,
-                        backgroundImage: `url('https://www.bungie.net/${profile.emblem_hash.icon}')`,
-                        backgroundColor: 'transparent',
-                        backgroundSize: 'contain',
-                      }
-                      : {}
-                  }
-                ></div>
-              ) : (
-                <MenuIcon />
-              )}
+              {profile ? <NavIcon profile={profile} /> : <MenuIcon />}
             </IconButton>
             {authFlag ? (
               <Menu
@@ -255,13 +261,12 @@ export default function NavBar() {
               </Menu>
             )}
 
-            <Typography variant='h6' className={classes.title}>
-              Destiny Focus
-            </Typography>
+            {profile ? <CharacterHeading profile={profile} loggedInUser={userLoggedIn} /> : 'Destiny Focus'}
             {/* <GetProgressions {...{}} /> */}
           </Toolbar>
         </AppBar>
       </div>
+      <div className='character-heading-logged-in'>{userLoggedIn ? '' : <ReturnToLoggedInUser />}</div>
       <div className='nav-spacer'></div>
     </>
   )

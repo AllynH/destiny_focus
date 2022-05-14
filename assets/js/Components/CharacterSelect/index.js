@@ -118,7 +118,7 @@ export default function CharacterSelect() {
               <h3>
                 {character && character.displayName} - {ACCOUNTTYPES[membershipType]}:{' '}
               </h3>
-              <ClickableCharacterList memberships={{ membershipId, membershipType }} />
+              <ClickableCharacterList memberships={{ membershipId, membershipType }} updateState={true} />
             </div>
           )}
         </div>
