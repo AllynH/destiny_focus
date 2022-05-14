@@ -6,11 +6,22 @@ import CharacterCard from './CharacterCard'
 
 import './style.css'
 
+// interface CharacterListInterface {
+//   memberships: {
+//     membershipId: string,
+//     membershipType: string,
+//     characterId: string,
+//     platform?: string,
+//   }
+//   updateState: boolean,
+// }
+
 export default function ClickableCharacterList(props) {
   const [profile, setProfile] = useState()
   const {
     platform, membershipId, membershipType, characterId,
   } = props.memberships
+  const { updateState } = props
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -32,6 +43,7 @@ export default function ClickableCharacterList(props) {
               key={index}
               character={profile[p]}
               selected={p === characterId}
+              updateState={updateState}
             />
           </div>
         ))

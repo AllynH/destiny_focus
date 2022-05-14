@@ -10,6 +10,20 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.15.0',
+    Ref: 'Change-Users',
+    Heading: 'v1.15.1',
+    Date: '14 May, 2022',
+    Body: [
+      'This release allows users to view other guardians profiles.',
+      'Updated all API calls to take account details as parameters - for shared routes.',
+      'Updated frontend to prevent pushing character details to Redux-store if viewing other accounts.',
+      'Updated Navbar to display current character details.',
+      'Added a button under the Nav to return the user to their account.',
+      'Server side now sends additional data to support this, getting character details.',
+    ]
+  },
+  {
     Release: 'v1.14.11',
     Ref: 'Bug-fixes',
     Heading: 'v1.14.7',

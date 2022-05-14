@@ -217,18 +217,15 @@ def get_profile():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
+    # Accept account details as args so we can view other peoples account:
+    if request.args.get('membershipId', None) and request.args.get('membershipType', None):
+        membershipId    = str(request.args.get('membershipId', None))
+        membershipType  = str(request.args.get('membershipType', None))
+    else:
+        get_account_res = my_api.GetCurrentBungieAccount()
+        membershipId    = str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])
+        membershipType  = str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])
 
-    # TODO: Hardcoded values:
-    # Take values from here: GetCurrentBungieAccount
-    get_account_res = my_api.GetCurrentBungieAccount()
-
-    membershipId    = int(request.args.get('membershipId', str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])))
-    membershipType  = int(request.args.get('membershipType', str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])))
-
-    # print(type(get_account_res))
-    # print(get_account_res.json())
-    membershipId    = str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])
-    membershipType  = str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])
     get_profile_res = my_api.get_profile(membershipType, membershipId)
 
     return jsonify(get_profile_res)
@@ -277,7 +274,7 @@ def character_select():
     return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/choose_focus/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/choose_focus/<membershipType>/<membershipId>/<characterId>/")
 @login_required
 def choose_focus(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
@@ -298,7 +295,10 @@ def pvp(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    current_membershipType = request.args.get("membershipType", membershipType)
+    current_membershipId = request.args.get("membershipId", membershipId)
+
+    get_profile_res = my_api.get_profile(current_membershipType, current_membershipId)
     if get_profile_res["ErrorStatus"] != "Success":
         flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
 
@@ -345,7 +345,10 @@ def raid(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    current_membershipType = request.args.get("membershipType", membershipType)
+    current_membershipId = request.args.get("membershipId", membershipId)
+
+    get_profile_res = my_api.get_profile(current_membershipType, current_membershipId)
     if get_profile_res["ErrorStatus"] != "Success":
         flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
         return redirect(url_for("public.home"))

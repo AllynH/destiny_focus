@@ -30,17 +30,19 @@ const useStyles = makeStyles({
 export default function CharacterCard(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { character, linkUrl, selected } = props
+  const { character, linkUrl, selected, updateState } = props
 
   // Dispatch accountReducer:
   const setCharAccount = () => {
-    const split = linkUrl.split('/')
-    const data = {
-      membershipType: split[3],
-      membershipId: split[4],
-      characterId: split[5],
+    if(updateState) {
+      const split = linkUrl.split('/')
+      const data = {
+        membershipType: split[3],
+        membershipId: split[4],
+        characterId: split[5],
+      }
+      dispatch(setAccount(data))
     }
-    dispatch(setAccount(data))
   }
 
   const highlighted = selected ? 'selected-character' : ''

@@ -85,10 +85,6 @@ export default function GetProgressions(props: { updateCount: number }) {
           characterId,
         },
       })
-      // console.log('Profile result:')
-      // console.log(result)
-      // console.log(characterId);
-
       setProfile(result)
 
       // Dispatch progressionsReducer:

@@ -1,6 +1,7 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { CharacterPropsInterface } from '../../Data/CharacterProps'
+import checkLoggedInCharacter from '../../Utils/HelperFunctions/characterSelection'
 import ClickableCharacterList from '../CharacterSelect/ClickableCharacterList'
 
 import { FOCUS_DETAILS } from '../Focus/FocusDetails'
@@ -11,6 +12,7 @@ import FlipCard from './FlipCard'
 export default function FlipCardDeck(props: RouteComponentProps) {
   const { membershipType, membershipId, characterId } = props.match
     .params as CharacterPropsInterface
+    const updateAccountReducer = checkLoggedInCharacter(String(membershipType) , String(membershipId))
 
   return (
     <div>
@@ -27,7 +29,7 @@ export default function FlipCardDeck(props: RouteComponentProps) {
       </div>
       <h2>Choose a character:</h2>
       <div className='character-select-wrapper'>
-        <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} />
+        <ClickableCharacterList memberships={{ membershipId, membershipType, characterId }} updateState={updateAccountReducer} />
       </div>
     </div>
   )

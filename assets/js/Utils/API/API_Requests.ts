@@ -28,13 +28,13 @@ async function apiRequestWithHeaders(url: string, options: RequestInit = {}) {
 
 }
 
-export const GetPVPData = async (options: BungieRequestInit) => apiRequest(`/auth/get/pvp/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
-  ...options,
-})
+// export const GetPVPData = async (options: BungieRequestInit) => apiRequest(`/auth/get/pvp/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
+//   ...options,
+// })
 
-export const GetGambitData = async (options: BungieRequestInit) => apiRequest(`/auth/get/gambit/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
-  ...options,
-})
+// export const GetGambitData = async (options: BungieRequestInit) => apiRequest(`/auth/get/gambit/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
+//   ...options,
+// })
 
 export const GetRaidData = async (options: BungieRequestInit) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`, {
   ...options,
@@ -102,9 +102,9 @@ export const GetCharacters = async (options: BungieRequestInit) => apiRequest('/
   ...options,
 })
 
-export const GetProfile = async (options: BungieRequestInit) => apiRequest('/auth/get/get_profile', {
-  ...options,
-})
+// export const GetProfile = async (options: BungieRequestInit) => apiRequest('/auth/get/get_profile', {
+//   ...options,
+// })
 
 export const GetProfileWithArgs = async (options: BungieRequestInit) => apiRequest(`/auth/get/get_profile/?membershipType=${options.params.membershipType}&membershipId=${options.params.membershipId}`, {
   ...options,

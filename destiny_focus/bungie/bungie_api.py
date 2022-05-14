@@ -206,7 +206,7 @@ class BungieApi(object):
         url = self.api_urls['GetPostGameCarnageReport']
         url = re.sub("{activityId}", activityId, url)
 
-        print(url)
+        # print(url)
         response = auth_session.get(url)
 
         if not response.status_code == 200:
@@ -279,8 +279,8 @@ class BungieApi(object):
 
         url = url + '?' + parse.urlencode(url_params)
 
-        print("making request for:")
-        print(url)
+        # print("making request for:")
+        # print(url)
         # print("headers")
         # print(auth_session.headers)
 
