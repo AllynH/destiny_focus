@@ -1,7 +1,6 @@
 import React from "react"
 
 import { Link } from "react-router-dom"
-import HomeIcon from '@material-ui/icons/Home'
 
 import AdventureIcon from '../../../destiny-icons/explore/meditations.svg'
 import { getLoggedInUserUrl } from "../../Utils/HelperFunctions/characterSelection"
