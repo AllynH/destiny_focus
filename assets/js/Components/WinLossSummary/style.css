@@ -7,7 +7,7 @@
 }
 
 .win-loss-title{
-
+  margin-bottom: 0px;
 }
 
 .win-loss-title-wrap{
@@ -26,7 +26,7 @@
 .win-loss-baseline{
   position: absolute;
   width: 90%;
-  height: 50%;
+  height: var(--win-loss-baseline-height);
   /* border-bottom: solid 2px rgba(0, 0, 0, 0.8); */
   border-bottom: dashed 2px rgba(255, 255, 255, 0.2);
   z-index: -1;
@@ -54,6 +54,8 @@
 
 @media screen and (min-width: 600px) {
   :root{
+    --win-loss-baseline-height: 35%;
+    --win-loss-baseline-height: 25px;
     --win-loss-circle-width: 20px;
     --win-loss-circle-height: 20px;
     --win-loss-circle-margin: 4px;
@@ -68,6 +70,7 @@
 */
 @media screen and (max-width: 600px) {
   :root{
+    --win-loss-baseline-height: 50%;
     --win-loss-circle-width: 10px;
     --win-loss-circle-height: 10px;
     --win-loss-circle-margin: 1px;

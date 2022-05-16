@@ -36,7 +36,11 @@ async function apiRequestWithHeaders(url: string, options: RequestInit = {}) {
 //   ...options,
 // })
 
-export const GetRaidData = async (options: BungieRequestInit) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`, {
+// export const GetRaidData = async (options: BungieRequestInit) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`, {
+//   ...options,
+// })
+
+export const GetActivityHistory = async (options: BungieRequestInit) => apiRequest(`/auth/get/get_activity_history/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}&count=${options.params.count}`, {
   ...options,
 })
 
@@ -51,6 +55,7 @@ interface BungieRequestInit extends RequestInit {
     membershipId?: string,
     membershipType?: string,
     season?: string,
+    count?: number,
   }
 }
 

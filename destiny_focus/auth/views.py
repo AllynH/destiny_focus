@@ -503,6 +503,26 @@ def get_raid(membershipType, membershipId, characterId):
 
     return jsonify(activity)
 
+@blueprint.route("/get/get_activity_history/<membershipType>/<membershipId>/<characterId>/")
+@login_required
+def get_activity_history(membershipType, membershipId, characterId):
+    """
+    Endpoint to get raid data from Bungie.net.
+        Modes:
+        Raid: 4
+    """
+
+    mode    = int(request.args.get('game_mode', 4))
+    count   = int(request.args.get('count', 30))
+
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=mode, count=count)
+
+
+    return jsonify(activity)
+
 
 @blueprint.route("/get/historical_stats/<membershipType>/<membershipId>/<characterId>/")
 @login_required

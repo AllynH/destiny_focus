@@ -10,9 +10,22 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
-    Release: 'v1.15.0',
+    Release: 'v1.15.1',
     Ref: 'Change-Users',
     Heading: 'v1.15.1',
+    Date: '16 May, 2022',
+    Body: [
+      'This release allows users to edit the number of activities they wish to view.',
+      'Updated server side logic to take count as a parameter.',
+      'Added a new button set interface to allow users to select their chosen value',
+      'Changed the win-loss graph to only display dots for last 30 games - message is displayed for selected range.',
+      'Fixed some style issues in Accounts - for better mobile support.',
+    ]
+  },
+  {
+    Release: 'v1.15.0',
+    Ref: 'Change-Users',
+    Heading: 'v1.15.0',
     Date: '14 May, 2022',
     Body: [
       'This release allows users to view other guardians profiles.',

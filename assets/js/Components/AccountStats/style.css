@@ -243,7 +243,11 @@ h2.stats-h2 {
 .account-focus-selector-list{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0 10px;
 }
+
 .account-focus-image-wrap{
   display: flex;
   flex-direction: column;
@@ -253,6 +257,7 @@ h2.stats-h2 {
 }
 .account-focus-text{
   margin-bottom: 4px;
+  text-align: center;
 }
 .focus-selector-item{
   display: flex;
