@@ -309,3 +309,54 @@
 .chart-dropdown-button-spacer{
   margin:10px 0px;
 }
+
+/*
+  Activity count button style:
+*/
+.activity-button-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-game-count{
+  display: flex;
+  flex: 1;
+  justify-content: space-evenly;
+  margin: 0 10px;
+}
+
+.activity-count-selector-button{
+  all: unset;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 3px 3px 15px black;
+}
+
+.largest-button{
+  width: 300px;
+  flex: 1;
+}
+
+.small-button{
+  width: 70px;
+  flex: 1;
+}
+
+.activity-count-selector-wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 5px 10px;
+}
+
+.activity-count-message{
+  color:rgba(255, 255, 255, 0.4);
+}
