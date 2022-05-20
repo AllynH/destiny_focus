@@ -268,7 +268,7 @@ export default function NavBar() {
           </Toolbar>
         </AppBar>
       </div>
-      { auth &&
+      { authFlag &&
         <div className='character-heading-logged-in'>
           {checkLoggedInCharacter(String(membershipType) , String(membershipId)) ? '' : <ReturnToLoggedInUser />}
         </div>
