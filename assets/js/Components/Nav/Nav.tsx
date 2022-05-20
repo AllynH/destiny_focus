@@ -199,6 +199,13 @@ export default function NavBar() {
                   >
                     Likes
                   </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/auth/roster/${membershipType}/${membershipId}/${characterId}`}
+                  >
+                    Clan Roster
+                  </MenuItem>
                   <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
                     Change platform
                   </MenuItem>

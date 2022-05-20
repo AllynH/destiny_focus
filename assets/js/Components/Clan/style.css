@@ -1,0 +1,64 @@
+.clan-roster-container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 20px;
+}
+
+.roster-character-row{
+  background-color: rgba( 255, 255, 255, .2);
+  z-index: 4;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 4px 0px;
+}
+.roster-user-grid{
+  display: grid;
+  grid-template-columns: 12px 40px 2fr 1fr 1fr 1fr;
+  overflow: hidden;
+}
+
+.roster-icon{
+  height: 40px;
+  width: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.roster-user-item{
+  display: flex;
+  align-items: center;
+}
+
+.roster-user-online-status{
+  height: 100%;
+  width: 8px;
+}
+
+.online{
+  background-color: var(--gambit-green);
+}
+
+.offline{
+  background-color: var(--crucible-red);
+}
+
+.display-member-wrapper{
+  height: 100%;
+  border: solid 2px red;;
+}
+
+.roster-member-collapsible{
+  /* height: 0px; */
+  flex: 0;
+  transition: all 5s linear;
+  background: #333;
+  border-radius: 0.25rem
+}
+.roster-member-collapsible.active {
+  /* height: 7rem; */
+  flex: 1;
+  overflow: hidden;
+}

@@ -40,7 +40,7 @@ export default function PvpSplash(props: PvPPropsInterface) {
     '--bgImage': backgroundImage,
   })
 
-  const completionDate = pgcr ? getDatePlayedFromTimestamp(pgcr?.Response?.period) : 0
+  const completionDate = pgcr ? getDatePlayedFromTimestamp((pgcr?.Response?.period)) : 0
   const completionTime = pgcr
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'

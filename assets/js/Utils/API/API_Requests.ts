@@ -6,6 +6,7 @@ const ORIGIN_HEADER = process.env.DF_ORIGIN_HEADER
 
 export const bungieBaseUrl = 'https://www.bungie.net/Platform/Destiny2'
 export const bungieBaseStatsUrl = 'https://stats.bungie.net/Platform/Destiny2'
+export const bungieNetUrl = 'https://www.bungie.net/'
 
 
 // No return await fetch: https://eslint.org/docs/rules/no-return-await
@@ -28,18 +29,6 @@ async function apiRequestWithHeaders(url: string, options: RequestInit = {}) {
 
 }
 
-// export const GetPVPData = async (options: BungieRequestInit) => apiRequest(`/auth/get/pvp/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
-//   ...options,
-// })
-
-// export const GetGambitData = async (options: BungieRequestInit) => apiRequest(`/auth/get/gambit/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/`, {
-//   ...options,
-// })
-
-// export const GetRaidData = async (options: BungieRequestInit) => apiRequest(`/auth/get/raid/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}`, {
-//   ...options,
-// })
-
 export const GetActivityHistory = async (options: BungieRequestInit) => apiRequest(`/auth/get/get_activity_history/${options.params.membershipType}/${options.params.membershipId}/${options.params.characterId}/?game_mode=${options.params.gameMode}&count=${options.params.count}`, {
   ...options,
 })
@@ -56,7 +45,9 @@ interface BungieRequestInit extends RequestInit {
     membershipType?: string,
     season?: string,
     count?: number,
-  }
+    groupId?: number,
+    page?: number,
+  },
 }
 
 export const GetStatsData = async (options: BungieRequestInit) => apiRequest(
@@ -84,10 +75,6 @@ export const GetPGCR = async (options: BungieRequestInit) => apiRequest(`/auth/g
 // export const GetPGCRUnauth = async (options) => apiRequest(`/get/pgcr/${options.params.activityId}`, {
 //   ...options,
 // })
-
-export const GetPGCRUnauth = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieBaseStatsUrl}/Stats/PostGameCarnageReport/${options.params.activityId}/`, {
-  ...options,
-})
 
 export const GetActivityDefinition = async (options: BungieRequestInit) => apiRequest(`/auth/get/manifest/${options.params.definition}/${options.params.defHash}/`, {
   ...options,
@@ -139,3 +126,36 @@ export const ViewUserData = async () => apiRequest(`/auth/get/user_count/`, {
 
 export const ViewManifestData = async () => apiRequest(`/auth/get/manifest_data/`, {
 })
+
+
+/*
+  Bungie API requests - bypass Destiny-Focus servers:
+*/
+
+export const GetPGCRUnauth = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieBaseStatsUrl}/Stats/PostGameCarnageReport/${options.params.activityId}/`, {
+  ...options,
+})
+
+export const GetClanAggregateStats = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieBaseStatsUrl}/Stats/AggregateClanStats/${options.params.groupId}/`, {
+  ...options,
+})
+
+export const GetMembersOfGroup = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}/Platform/GroupV2/${options.params.groupId}/members/`, {
+  ...options,
+})
+
+// https://www.bungie.net/Platform/GroupV2/User/2/4611686018436136301/0/1/
+// membershipType /  membershipId / filter / groups
+export const GetGroupsForMember = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}/Platform/GroupV2/User/${options.params.membershipType}/${options.params.membershipId}/0/1`, {
+  ...options,
+})
+
+export const GetGroup = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}/Platform/GroupV2/${options.params.groupId}/`, {
+  ...options,
+})
+
+export const SearchByGlobalNamePost = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}Platform/GroupV2/User/Search/GlobalName/${options.params.page}/`, {
+  ...options,
+})
+
+

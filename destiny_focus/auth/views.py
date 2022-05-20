@@ -418,9 +418,22 @@ def account(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/likes/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/likes/<membershipType>/<membershipId>/<characterId>/")
 @login_required
 def likes(membershipType, membershipId, characterId):
+    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_api = BungieApi(user)
+
+    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    if get_profile_res["ErrorStatus"] != "Success":
+        flash(f"Bungies systems are down: {get_profile_res.get('message', {}).get('Message', {})}", "error")
+        return redirect(url_for("public.home"))
+
+    return render_template("auth/choose_focus.html")
+
+@blueprint.route("/roster/<membershipType>/<membershipId>/<characterId>/")
+@login_required
+def roster(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 

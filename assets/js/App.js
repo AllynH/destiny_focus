@@ -13,6 +13,7 @@ import PvpSplash from './Components/PGCR_Splash/SelectPgcr'
 import GoogleAnalytics from './Components/Analytics/GoogleAnalytics'
 import FlipCardDeck from './Components/FlipCard/FlipCardDeck'
 import ViewLikes from './Components/Likes/ViewLikes'
+import ClanRoster from './Components/Clan/ClanRoster'
 import About from './Components/About/index'
 import AdminPanel from './Components/Admin/AdminPanel'
 import Changelog from './Components/Changelog'
@@ -29,6 +30,7 @@ class App extends React.Component {
           <Route path='/auth/character_select/' exact={true} component={CharacterSelect} />
           <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={FlipCardDeck} />
           <Route path='/auth/likes/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={ViewLikes} />
+          <Route path='/auth/roster/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={ClanRoster} />
           <Route path='/auth/pvp/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
           <Route path='/auth/pvpcomp/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
           <Route path='/auth/gambit/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={PvPChart} />
