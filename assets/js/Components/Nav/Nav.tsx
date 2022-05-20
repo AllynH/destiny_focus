@@ -83,7 +83,6 @@ export default function NavBar() {
   const classes = useStyles()
   const bgClasses = useBGStyles()
   const openProfile = Boolean(anchorElProfile)
-  const userLoggedIn = checkLoggedInCharacter(String(membershipType) , String(membershipId))
 
   const handleProfile = (event: React.MouseEvent<HTMLElement>) => {
     // console.log('Profile clicked')
@@ -268,12 +267,19 @@ export default function NavBar() {
               </Menu>
             )}
 
-            {profile ? <CharacterHeading profile={profile} loggedInUser={userLoggedIn} /> : 'Destiny Focus'}
+            {
+            profile ?
+              <CharacterHeading profile={profile} loggedInUser={checkLoggedInCharacter(String(membershipType) , String(membershipId))} /> : 'Destiny Focus'
+            }
             {/* <GetProgressions {...{}} /> */}
           </Toolbar>
         </AppBar>
       </div>
-      <div className='character-heading-logged-in'>{userLoggedIn ? '' : <ReturnToLoggedInUser />}</div>
+      { authFlag &&
+        <div className='character-heading-logged-in'>
+          {checkLoggedInCharacter(String(membershipType) , String(membershipId)) ? '' : <ReturnToLoggedInUser />}
+        </div>
+      }
       <div className='nav-spacer'></div>
     </>
   )
