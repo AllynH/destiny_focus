@@ -10,6 +10,19 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.0',
+    Ref: 'View-Clan',
+    Heading: 'v1.16.0',
+    Date: '16 May, 2022',
+    Body: [
+      'Feature: Initial commit for Clan view. View your clan details and compare yourself to your fellow guardians.',
+      'Click on the Clan Roster link in the navbar to view info on your clan.',
+      'Clan view shows, each clan members online status, last login date, and platform.',
+      'Clicking on a clan member shows their current characters and lets you switch to viewing their account details.',
+      'This paves the way for a user or clan search feature.',
+    ]
+  },
+  {
     Release: 'v1.15.1',
     Ref: 'Change-Users',
     Heading: 'v1.15.1',
