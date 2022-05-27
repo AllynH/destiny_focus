@@ -30,6 +30,7 @@ def get_character_details_json(GetProfile_res):
         titleRecordHash = GetProfile_res['Response']['characters']['data'][i].get('titleRecordHash', None)
         minutesPlayedThisSession    = GetProfile_res['Response']['characters']['data'][i]['minutesPlayedThisSession']
         minutesPlayedTotal          = GetProfile_res['Response']['characters']['data'][i]['minutesPlayedTotal']
+        emblemBackgroundPath        = GetProfile_res['Response']['characters']['data'][i]['emblemBackgroundPath']
 
         emblem = get_emblem(emblem_hash)
         title  = get_title(titleRecordHash) if titleRecordHash is not None else None
@@ -49,6 +50,7 @@ def get_character_details_json(GetProfile_res):
                 "dateLastPlayed"            : dateLastPlayed,
                 "minutesPlayedThisSession"  : minutesPlayedThisSession,
                 "minutesPlayedTotal"        : minutesPlayedTotal,
+                "emblemBackgroundPath"      : emblemBackgroundPath,
             }
         }
         character_details.update(temp_dict)

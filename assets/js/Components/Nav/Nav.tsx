@@ -103,7 +103,7 @@ export default function NavBar() {
           characterId,
         },
       })
-      setProfile(result[characterId])
+      setProfile(result.Response[characterId])
 
     }
     if (auth === 'auth') {

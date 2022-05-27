@@ -24,11 +24,22 @@ export default function checkLoggedInCharacter(
   return false
 }
 
-
-
 export function getLoggedInUserUrl(focusRoute = 'choose_focus'): string {
   const { accountReducer } = store.getState()
   const { membershipType, membershipId, characterId } = accountReducer.account
 
   return `/auth/${focusRoute}/${membershipType}/${membershipId}/${characterId}/`
+}
+
+interface GetNewUserUrlInterface {
+  membershipType: string,
+  membershipId: string,
+  characterId: string,
+  focusRoute?: string,
+}
+export function getNewUserUrl(props: GetNewUserUrlInterface): string {
+  const { membershipType, membershipId, characterId, focusRoute } = props
+  const newRoute = focusRoute === undefined ? 'choose_focus' : focusRoute
+
+  return `/auth/${newRoute}/${membershipType}/${membershipId}/${characterId}/`
 }

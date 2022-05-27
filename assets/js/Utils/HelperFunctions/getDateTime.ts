@@ -18,8 +18,8 @@ export const makeTimestampHumanReadable = (ts: DurationObjectUnits) =>
     : ts.months > 0   ? `${ts.months} months ago`
     : ts.days > 0     ? `${ts.days} days ago`
     : ts.hours > 0    ? `${ts.hours} hours ago`
-    : ts.minutes > 0  ? `${ts.minutes} minutes ago`
-    : `${ts.seconds} seconds ago`)
+    : ts.minutes > 0  ? `${ts.minutes} mins ago`
+    : `${ts.seconds.toFixed(0)} seconds ago`)
 /* eslint-enable no-nested-ternary */
 
 /**
@@ -48,5 +48,13 @@ export const convertTimestampSecsToHumanReadable = (timestamp: string) => {
   const myDate = new Date(Number(timestamp) * 1000).toISOString()
   const humanReadableTime = getDatePlayedFromTimestamp(myDate)
   return humanReadableTime
+
+}
+
+export const getDayMonthYear = (inputDate: Date) => {
+  const dateToConvert = new Date(inputDate)
+  // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+
+  return dateToConvert.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
 
 }

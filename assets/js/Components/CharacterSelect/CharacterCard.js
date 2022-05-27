@@ -28,6 +28,8 @@ const useStyles = makeStyles({
 })
 
 export default function CharacterCard(props) {
+  console.log('CharacterCard')
+  console.log(props)
   const classes = useStyles()
   const dispatch = useDispatch()
   const { character, linkUrl, selected, updateState } = props

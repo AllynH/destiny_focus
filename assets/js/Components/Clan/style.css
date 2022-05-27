@@ -1,8 +1,18 @@
-.clan-roster-container{
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  padding: 20px;
+.clan-section-wrapper{
+  background-color: rgba(0, 0, 0, .4);
+}
+
+.clan-wrapper{
+  background-color: rgba(0, 0, 0, .4);
+  z-index: 1;
+}
+
+.clan-icon{
+  position: absolute;
+  align-self: center;
+  fill: rgb(103 157 212 / 40%);
+  z-index: -1;
+  filter: drop-shadow( 3px 3px 5px rgba(0, 0, 0, .8));
 }
 
 .roster-character-row{
@@ -16,7 +26,7 @@
 }
 .roster-user-grid{
   display: grid;
-  grid-template-columns: 12px 40px 2fr 1fr 1fr 1fr;
+  grid-template-columns: 12px 40px 30ch 30px 1fr 1fr 2fr;
   overflow: hidden;
 }
 
@@ -32,6 +42,17 @@
   align-items: center;
 }
 
+.roster-user-name-wrap{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+
+.roster-user-bungie-name-code{
+  color: rgba(255, 255, 255, .5)
+}
+
 .roster-user-online-status{
   height: 100%;
   width: 8px;
@@ -45,9 +66,8 @@
   background-color: var(--crucible-red);
 }
 
-.display-member-wrapper{
-  height: 100%;
-  border: solid 2px red;;
+.display-member-link-wrapper{
+  padding: 4px;
 }
 
 .roster-member-collapsible{
@@ -61,4 +81,116 @@
   /* height: 7rem; */
   flex: 1;
   overflow: hidden;
+}
+
+.clan-details-heading{
+
+}
+
+.display-member-loading{
+  min-height: 85px;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.clan-details-title{
+  color:white;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  padding-right: 4px;
+}
+
+.clan-details-title{
+  color: rgba(255, 255, 255, .8);
+}
+
+/*
+  Desktop devices:
+*/
+@media screen and (min-width: 600px) {
+  .clan-roster-container{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+  }
+
+  .roster-user-grid{
+    display: grid;
+    grid-template-columns: 12px 40px 30ch 30px 1fr 1fr 2fr;
+    overflow: hidden;
+  }
+
+  .character-card-wrap{
+    display: flex;
+    flex-direction: row;
+    text-shadow: 3px 3px 7px black;
+  }
+  .display-member-wrapper{
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .clan-details-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    text-shadow: 3px 3px 7px black;
+  }
+  .clan-details-title-value-wrap{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    padding: 4px;
+  }
+
+}
+
+/*
+  Mobile devices:
+*/
+@media screen and (max-width: 600px) {
+  .clan-roster-container{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 0px;
+  }
+  .roster-user-grid{
+    display: grid;
+    grid-template-columns: 6px 40px 12ch 20px 1fr 1fr 3fr;
+    overflow: hidden;
+  }
+
+  .character-card-wrap{
+    display: flex;
+    flex-direction: column;
+    text-shadow: 3px 3px 7px black;
+    height: 100px;
+  }
+  .display-member-wrapper{
+    min-height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .clan-details-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 4px;
+    text-shadow: 3px 3px 7px black;
+  }
+
+  .clan-details-title-value-wrap{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: flex-end;
+    padding: 2px;
+  }
+
 }

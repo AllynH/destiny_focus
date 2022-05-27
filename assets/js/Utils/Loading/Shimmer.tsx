@@ -2,7 +2,7 @@ import React from 'react'
 
 import './style.css'
 
-export default function Shimmer(props) {
+export default function Shimmer() {
   return (
     <div className='shimmer-container'>
       <div className='shimmer-background'></div>

@@ -45,7 +45,7 @@ export default function PvpSplash(props: PvPPropsInterface) {
     ? pgcr?.Response?.entries[0]?.values?.activityDurationSeconds?.basic?.displayValue
     : '666 hours'
   const pgcrCategory =
-    pgcrSplashCategoryValues[activityMode].heading || pgcrSplashCategoryValues.AllPvP.heading
+    pgcrSplashCategoryValues[activityMode]?.heading || pgcrSplashCategoryValues.AllPvP.heading
   const gridColCount = `pgcr_splash_grid_${pgcrCategory.length + 1} `
 
   /* Some older matches use a strange mix of Alpha, Bravo, 16, 17, 8 & 19 to denote team names: */

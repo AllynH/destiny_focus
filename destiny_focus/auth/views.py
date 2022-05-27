@@ -250,7 +250,13 @@ def get_characters():
 
     character_details = get_character_details_json(get_characters_res)
 
-    return jsonify(character_details)
+    character_response = {
+            "Response"      : character_details,
+            "statusCode"    : 200,
+            "ErrorStatus"   : "Success",
+        }
+
+    return jsonify(character_response)
 
 
 @blueprint.route("/character_select/")

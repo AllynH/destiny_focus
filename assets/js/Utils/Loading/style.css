@@ -90,6 +90,11 @@
   padding-top: 70px;
 }
 
+.shimmer-container-no-padding {
+  min-height: 100px;
+  min-width: 100px;
+}
+
 .shimmer-box {
   height: 40px;
   left: 40px;
