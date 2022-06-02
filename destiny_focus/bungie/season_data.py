@@ -121,11 +121,19 @@ SEASONS = {
     },
     16: {
         "TITLE"     : 'Season of the Risen',
-        "ACTIVE"    : True,
+        "ACTIVE"    : False,
         "EXPANSION" : 'Witch Queen',
         "YEAR"      : '5',
         "START"     : '2022-02-22 17:00:01',
-        "END"       : '2022-05-21 17:00:00',
+        "END"       : '2022-05-24 17:00:00',
+    },
+    17: {
+        "TITLE"     : 'Season of the Haunted',
+        "ACTIVE"    : True,
+        "EXPANSION" : 'Witch Queen',
+        "YEAR"      : '5',
+        "START"     : '2022-05-24 17:00:01',
+        "END"       : '2022-08-24 17:00:00',
     },
 }
 

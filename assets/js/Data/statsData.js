@@ -134,10 +134,18 @@ export const SEASONS = {
   },
   16: {
     TITLE: 'Season of the Risen',
-    ACTIVE: true,
+    ACTIVE: false,
     EXPANSION: 'Witch Queen',
     YEAR: '5',
     START: '2022-02-22 17:00:01',
-    END: '2022-05-21 17:00:00',
+    END: '2022-05-24 17:00:00',
+  },
+  17: {
+    TITLE: 'Season of the Haunted',
+    ACTIVE: true,
+    EXPANSION: 'Witch Queen',
+    YEAR: '5',
+    START: '2022-05-24 17:00:01',
+    END: '2022-08-24 17:00:00',
   },
 }
