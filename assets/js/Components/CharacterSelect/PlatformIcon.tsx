@@ -1,8 +1,8 @@
 import React from "react"
 
-import PlatformPC from '../../../destiny-icons/platforms/platform_pc.svg'
-import PlatformPS from '../../../destiny-icons/platforms/platform_playstation.svg'
-import PlatformXb from '../../../destiny-icons/platforms/platform_xbox.svg'
+import PlatformPC from '../../../img/icons/Platforms/platform_pc.svg'
+import PlatformPS from '../../../img/icons/Platforms/platform_playstation.svg'
+import PlatformXb from '../../../img/icons/Platforms/platform_xbox.svg'
 
 
 export default function PlatformIcon(props: { membershipType: string }) {
