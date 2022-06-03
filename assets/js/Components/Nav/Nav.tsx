@@ -130,6 +130,7 @@ export default function NavBar() {
     )
   return (
     <>
+      <div className='event-banner' id='pride'></div>
       <div className='event-banner' id='ukraine'>
         <div className='ukraine-top'></div>
         <div className='ukraine-bottom'></div>
