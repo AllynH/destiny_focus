@@ -10,10 +10,22 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.2',
+    Ref: 'Icon-updates',
+    Heading: 'v1.16.2',
+    Date: '03 June, 2022',
+    Body: [
+      'Updated Destiny-Icons repo.',
+      'Created new Platform icons to replace deleted icons.',
+      'Fixed icon styling.',
+      'Bug-Fix: Fixed an issue where character view icon was defaulting to Xbox platform.'
+    ]
+  },
+  {
     Release: 'v1.16.1',
     Ref: 'Season-of-the-Haunted',
     Heading: 'v1.16.1',
-    Date: '16 May, 2022',
+    Date: '03 June, 2022',
     Body: [
       'Updated data for Season of the Haunted.',
       'Added Iron Banner progression rank.',
