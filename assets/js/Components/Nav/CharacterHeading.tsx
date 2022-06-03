@@ -16,6 +16,8 @@ interface CharacterHeadingInterface {
 
 export default function CharacterHeading(props: CharacterHeadingInterface) {
   const { displayName, light, destiny_class, membershipType } = props.profile
+  console.log('membershipType')
+  console.log(membershipType)
   return (
     <div className='character-heading-home-button-wrap'>
       <div className='character-heading-wrapper'>

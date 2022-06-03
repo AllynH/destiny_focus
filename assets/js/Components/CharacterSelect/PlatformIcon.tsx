@@ -7,14 +7,14 @@ import PlatformXb from '../../../img/icons/Platforms/platform_xbox.svg'
 
 export default function PlatformIcon(props: { membershipType: string }) {
   const { membershipType } = props
-  switch (membershipType) {
+  switch (String(membershipType)) {
     default:
     case '1':
       return (
         <PlatformXb
-          width={22}
-          height={22}
-          viewBox={'0 0 32 32'}
+          width={32}
+          height={32}
+          // viewBox={'0 0 25 25'}
           style={{
             alignSelf: 'center',
             fill: 'white',
@@ -26,9 +26,9 @@ export default function PlatformIcon(props: { membershipType: string }) {
     case '2':
       return (
         <PlatformPS
-          width={22}
-          height={22}
-          viewBox={'0 0 32 32'}
+          width={32}
+          height={32}
+          // viewBox={'0 0 25 25'}
           style={{
             alignSelf: 'center',
             fill: 'white',
@@ -40,9 +40,9 @@ export default function PlatformIcon(props: { membershipType: string }) {
     case '3':
       return (
         <PlatformPC
-          width={22}
-          height={22}
-          viewBox={'0 0 32 32'}
+          width={32}
+          height={32}
+          // viewBox={'0 0 25 25'}
           style={{
             alignSelf: 'center',
             fill: 'white',

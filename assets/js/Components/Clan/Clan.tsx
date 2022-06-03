@@ -34,7 +34,7 @@ export default function Clan() {
           className='clan-icon'
           width={300}
           height={300}
-          viewBox={'0 0 32 32'}
+          // viewBox={'0 0 188 192'}
 />
         </div>
       <div className='clan-wrapper'>

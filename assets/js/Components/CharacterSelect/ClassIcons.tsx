@@ -12,9 +12,9 @@ export default function ClassIcon(props: ClassIconProps){
   if (className.toLowerCase() === 'hunter') {
     return (
       <Hunter
-        width={22}
-        height={22}
-        viewBox={'0 0 32 32'}
+        width={32}
+        height={32}
+        // viewBox={'0 0 32 32'}
         style={{
           fill: 'white',
           zIndex: 1,
@@ -26,9 +26,9 @@ export default function ClassIcon(props: ClassIconProps){
   if (className.toLowerCase() === 'titan') {
     return (
       <Titan
-        width={22}
-        height={22}
-        viewBox={'0 0 32 32'}
+        width={32}
+        height={32}
+        // viewBox={'0 0 32 32'}
         style={{
           fill: 'white',
           zIndex: 1,
@@ -39,9 +39,9 @@ export default function ClassIcon(props: ClassIconProps){
   }
   return (
     <Warlock
-      width={22}
-      height={22}
-      viewBox={'0 0 32 32'}
+      width={32}
+      height={32}
+      // viewBox={'0 0 32 32'}
       style={{
         fill: 'white',
         zIndex: 1,
