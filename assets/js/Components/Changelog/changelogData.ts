@@ -10,6 +10,18 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.1',
+    Ref: 'Season-of-the-Haunted',
+    Heading: 'v1.16.1',
+    Date: '16 May, 2022',
+    Body: [
+      'Updated data for Season of the Haunted.',
+      'Added Iron Banner progression rank.',
+      'Added default colours for progression data - as Iron Banner does not have any colour details.',
+      'Added pride flag banner for June, keeping Ukraine banner.'
+    ]
+  },
+  {
     Release: 'v1.16.0',
     Ref: 'View-Clan',
     Heading: 'v1.16.0',

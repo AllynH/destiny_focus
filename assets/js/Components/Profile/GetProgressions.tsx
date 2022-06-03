@@ -222,6 +222,8 @@ function CreateSingleProgression(props: DisplayProgressionsInterface) {
 function DisplayProgression(props: DisplayProgressionsInterface) {
   const { progressionsDefinition, profileProgressions, profileStreak, mode, maxRank } = props
 
+  console.log(props)
+
   /* Streak data: */
   const streakCount = profileStreak?.currentProgress
   const arrSize = 5
@@ -231,23 +233,33 @@ function DisplayProgression(props: DisplayProgressionsInterface) {
   const currentStep = Math.min(profileProgressions.level, progressionsDefinition.steps.length - 1)
   const progress = Number(((profileProgressions.currentProgress / maxRank) * 100).toFixed(0))
 
+  // Set default colours:
+  const colorFlag = progressionsDefinition?.color?.red !== undefined
+  const colorRed = colorFlag ? progressionsDefinition.color.red : '65'
+  const colorGreen = colorFlag ? progressionsDefinition.color.green : '192'
+  const colorBlue = colorFlag ? progressionsDefinition.color.blue : '160'
+  // const colorAlpha = colorFlag ? progressionsDefinition.color.alpha : '1'
+  const colorAlpha = '1'
+
   /* Styling: */
   const overflowFlag = profileProgressions.level === progressionsDefinition.steps.length
-  const modeColour = `rgba(${progressionsDefinition.color.red},
+  const modeColour = colorFlag ? `rgba(${progressionsDefinition.color.red},
       ${progressionsDefinition.color.green},
       ${progressionsDefinition.color.blue},
-      ${progressionsDefinition.color.alpha})`
-  const overflowBorder = {
+      ${progressionsDefinition.color.alpha})` : 'rgba(0, 0, 0, 0.2)'
+  const overflowBorder = colorFlag ? {
     borderColor: `rgba(${progressionsDefinition.color.red},
         ${progressionsDefinition.color.green},
         ${progressionsDefinition.color.blue},
         ${progressionsDefinition.color.alpha})`,
-  }
+  } :
+    {borderColor: 'rgba(0, 0, 0, 0.2)'}
+
   const borderStyle = overflowFlag ? overflowBorder : {}
   const gradient = {
     background:
       // eslint-disable-next-line max-len
-      `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, 1) 100%)`,
+      `linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(${colorRed}, ${colorGreen}, ${colorBlue}, ${colorAlpha}) 100%)`,
   }
   const overFlowStyle = { ...gradient, ...borderStyle }
 

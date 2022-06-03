@@ -34,6 +34,14 @@ export default function ProgressionCircles(props) {
     progressionsDefinition, profileProgressions, maxRank, currentStep,
   } = props
 
+    // Set default colours:
+    const colorFlag = progressionsDefinition?.color?.red !== undefined
+    const colorRed = colorFlag ? progressionsDefinition.color.red : '65'
+    const colorGreen = colorFlag ? progressionsDefinition.color.green : '192'
+    const colorBlue = colorFlag ? progressionsDefinition.color.blue : '160'
+    // const colorAlpha = colorFlag ? progressionsDefinition.color.alpha : '1'
+    const colorAlpha = '1'
+
   return (
     <svg height={radius1 * 2} width={radius1 * 2}>
       <circle
@@ -43,7 +51,7 @@ export default function ProgressionCircles(props) {
         cy={radius1}
       />
       <circle
-        stroke={`rgba(${progressionsDefinition.color.red}, ${progressionsDefinition.color.green}, ${progressionsDefinition.color.blue}, ${progressionsDefinition.color.alpha})`}
+        stroke={`rgba(${colorRed}, ${colorGreen}, ${colorBlue}, ${colorAlpha})`}
         strokeDasharray={`${(circumference1 * profileProgressions.currentProgress) / maxRank} ${circumference1}`}
         transform={'rotate(-90)'}
         style={{ strokeDashoffset: { circumference1 } }}

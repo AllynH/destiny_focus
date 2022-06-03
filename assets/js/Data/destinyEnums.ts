@@ -51,7 +51,7 @@ export const BASIC_ACTIVITY_MODES: ActivityModeInterface = {
   84: 'TrialsOfOsiris',
 }
 
-export type ProgressionNameKey = 'Glory' | 'Valor' | 'Infamy' | 'Trials' | 'Vanguard' | 'StrangeFavor' | 'Gunsmith'
+export type ProgressionNameKey = 'Glory' | 'Valor' | 'Infamy' | 'Trials' | 'Vanguard' | 'StrangeFavor' | 'Gunsmith' | 'IronBanner'
 
 export interface SingleProgressionInterface {
   hash: number
@@ -72,6 +72,8 @@ export const PROGRESSION_DATA: ProgressionInterface = {
   Trials: { hash: 2755675426, maxRank: 10000, streakHash: 70699614 },
   StrangeFavor: {hash: 527867935, maxRank: 10000, streakHash: 1999336308},
   Gunsmith: {hash: 1471185389, maxRank: 10000, },
+  IronBanner: { hash: 599071390, maxRank: 5500, streakHash: 2572719399 },
+
 }
 
 interface WeaponTypeInterface {
