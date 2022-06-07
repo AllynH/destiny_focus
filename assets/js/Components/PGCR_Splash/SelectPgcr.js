@@ -57,7 +57,13 @@ export default function SelectPgcr(props) {
     fetchPgcr()
   }, [props])
 
-  const returnActivityMode = () => BASIC_ACTIVITY_MODES[pgcr.Response?.activityDetails?.mode]
+  const returnActivityMode = () => {
+    const newMode = BASIC_ACTIVITY_MODES[pgcr.Response?.activityDetails?.mode]
+    if (newMode) {
+      return newMode
+    }
+    return 'AllPvP'
+  }
 
   const RenderPgcr = () => {
     const activityMode = returnActivityMode()

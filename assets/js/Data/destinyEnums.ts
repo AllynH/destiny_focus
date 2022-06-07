@@ -23,6 +23,7 @@ export const BASIC_ACTIVITY_MODES: ActivityModeInterface = {
   16: 'Nightfall',
   19: 'IronBanner',
   43: 'IronBanner', // IB Control:
+  90: 'IronBanner', // IB Rift:
   25: 'AllMayhem',
   31: 'Supremacy',
   37: 'Survival',
@@ -72,7 +73,7 @@ export const PROGRESSION_DATA: ProgressionInterface = {
   Trials: { hash: 2755675426, maxRank: 10000, streakHash: 70699614 },
   StrangeFavor: {hash: 527867935, maxRank: 10000, streakHash: 1999336308},
   Gunsmith: {hash: 1471185389, maxRank: 10000, },
-  IronBanner: { hash: 599071390, maxRank: 5500, streakHash: 2572719399 },
+  IronBanner: { hash: 599071390, maxRank: 10000, streakHash: 2203850209 },
 
 }
 
