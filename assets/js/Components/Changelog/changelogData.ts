@@ -10,6 +10,15 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.3',
+    Ref: 'Bug-fix',
+    Heading: 'v1.16.3',
+    Date: '07 June, 2022',
+    Body: [
+      'Bug-Fix: Fixed an issue where activity mode was not found for Rift.'
+    ]
+  },
+  {
     Release: 'v1.16.2',
     Ref: 'Icon-updates',
     Heading: 'v1.16.2',
