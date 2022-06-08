@@ -44,9 +44,9 @@ export const setFocusMode = (mode: FocusGoalTypes, data: FocusReducerInterface) 
 })
 
 interface AccountReducerInterface {
-  membershipType: number
-  membershipId: number
-  characterId: number
+  membershipType: string
+  membershipId: string
+  characterId: string
 }
 export const setAccount = (data: AccountReducerInterface) => ({
   type: 'select_account',

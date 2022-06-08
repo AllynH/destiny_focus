@@ -77,6 +77,9 @@ export default function NavBar() {
   const { auth, membershipType, membershipId, characterId, gameMode } =
     useParams() as NavPropsInterface
 
+  const routeAuthFlag = ((auth === 'auth' && String(gameMode).toLowerCase() !== 'character_select'))
+  console.log('routeAuthFlag: ', routeAuthFlag)
+
   const [authFlag, setAuthFlag] = useState(false)
   const [anchorElProfile, setAnchorElProfile] = useState(null)
   const [profile, setProfile] = useState<SingleCharacterInterface>(null)
@@ -106,7 +109,7 @@ export default function NavBar() {
       setProfile(result.Response[characterId])
 
     }
-    if (auth === 'auth') {
+    if (routeAuthFlag) {
       setAuthFlag(true)
       fetchProfile()
     } else {

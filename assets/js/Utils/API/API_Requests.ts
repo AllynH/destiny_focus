@@ -90,8 +90,7 @@ export const GetPGCRList = async (options: BungieRequestInit) => apiRequest(
   },
 )
 
-export const GetCharacters = async (options: BungieRequestInit) => apiRequest('/auth/get/get_characters/', {
-  ...options,
+export const GetCharacters = async () => apiRequest('/auth/get/get_characters/', {
 })
 
 // export const GetProfile = async (options: BungieRequestInit) => apiRequest('/auth/get/get_profile', {

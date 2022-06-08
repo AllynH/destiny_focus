@@ -10,6 +10,8 @@ export interface SingleCharacterInterface {
   readonly emblem_hash: {
     icon: string
     background: string
+    secondaryIcon?: string
+    description?: string
   }
   readonly base_level: string
   readonly light: string

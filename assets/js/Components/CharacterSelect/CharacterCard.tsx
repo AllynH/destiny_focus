@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography'
 import { setAccount } from '../../Redux/Actions'
 
 import './style.css'
+import { SingleCharacterInterface } from '../../Types/DestinyFocus/GetCharacter'
 
 const useStyles = makeStyles({
   root: {
@@ -27,8 +28,14 @@ const useStyles = makeStyles({
   },
 })
 
-export default function CharacterCard(props) {
-  console.log('CharacterCard')
+interface CharacterCardInterface{
+  linkUrl: string,
+  character: SingleCharacterInterface,
+  selected: boolean,
+  updateState: boolean,
+}
+export default function CharacterCard(props: CharacterCardInterface) {
+  console.log('CharacterCard, props')
   console.log(props)
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -55,7 +62,7 @@ export default function CharacterCard(props) {
         <Link to={linkUrl} onClick={setCharAccount} style={{ textDecoration: 'none' }}>
           <CardMedia
             className={classes.media}
-            image={`https://bungie.net${character.emblem_hash.secondaryIcon}`}
+            image={`https://bungie.net${character?.emblem_hash?.secondaryIcon}`}
             title='Character Background Icon'
           />
           <CardContent>
