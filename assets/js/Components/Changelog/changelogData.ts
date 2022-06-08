@@ -10,6 +10,15 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.4',
+    Ref: 'Bug-fix',
+    Heading: 'v1.16.4',
+    Date: '08 June, 2022',
+    Body: [
+      'Bug-Fix: Fixed an issue where requests to DF API with undefined parameters were returning errors.'
+    ]
+  },
+  {
     Release: 'v1.16.3',
     Ref: 'Bug-fix',
     Heading: 'v1.16.3',
