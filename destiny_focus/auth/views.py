@@ -238,9 +238,18 @@ def get_characters():
 
     get_account_res = my_api.GetCurrentBungieAccount()
 
-    # Take values from request args- or default to stored values:
-    membershipId    = str(request.args.get('membershipId', str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])))
-    membershipType  = str(request.args.get('membershipType', str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])))
+    membershipIdOrFalse = request.args.get('membershipId', False)
+    membershipTypeOrFalse = request.args.get('membershipType', False)
+
+    if (membershipIdOrFalse == False) or (membershipIdOrFalse == 'undefined'):
+        membershipId    = str(get_account_res["Response"]["destinyMemberships"][0]["membershipId"])
+    else:
+        membershipId    = str(request.args.get('membershipId'))
+
+    if (membershipTypeOrFalse == False) or (membershipIdOrFalse == 'undefined'):
+        membershipType  = str(get_account_res["Response"]["destinyMemberships"][0]["membershipType"])
+    else:
+        membershipType  = str(request.args.get('membershipType'))
 
     get_characters_res = my_api.get_profile(membershipType, membershipId)
 
@@ -262,10 +271,10 @@ def get_characters():
 @blueprint.route("/character_select/")
 @login_required
 def character_select():
-    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
-    my_api = BungieApi(user)
+    # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    # my_api = BungieApi(user)
 
-    get_account_res = my_api.GetCurrentBungieAccount()
+    # get_account_res = my_api.GetCurrentBungieAccount()
     # print(type(get_account_res))
     # print(get_account_res.json())
     # membershipId    = str(get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"])
