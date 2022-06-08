@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.5',
+    Ref: 'Bug-fix',
+    Heading: 'v1.16.5',
+    Date: '08 June, 2022',
+    Body: [
+      'Bug-fix: Removed requests to get_characters with undefined parameters.',
+      'Added TypeScript to CharacterCard and ClickableCharacterList components to support bug fix.'
+    ]
+  },
+  {
     Release: 'v1.16.4',
     Ref: 'Bug-fix',
     Heading: 'v1.16.4',
