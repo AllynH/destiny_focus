@@ -5,12 +5,12 @@ import {
   DestinyProgression,
   DestinyProgressionDefinition,
   DestinyObjectiveProgress,
+  DestinyFactionProgression,
 } from 'bungie-api-ts/destiny2'
 
 import { GetProfileWithArgs, GetActivityDefinition } from '../../Utils/API/API_Requests'
 import {
   PROGRESSION_DATA,
-  ProgressionInterface,
   ProgressionNameKey,
   TRIALS_CARD_DATA,
   TrialsPassageKey,
@@ -89,9 +89,9 @@ export default function GetProgressions(props: { updateCount: number }) {
 
       // Dispatch progressionsReducer:
       const setCharProgressions = () => {
-        const tempList: { [x: number]: ProgressionInterface }[] = []
+        const tempList: { [x: string]: DestinyFactionProgression }[] = []
         Object.keys(PROGRESSION_DATA).forEach((m: ProgressionNameKey) => {
-          const curProg: ProgressionInterface =
+          const curProg: DestinyFactionProgression =
             result?.Response?.characterProgressions?.data[characterId]?.progressions[
               PROGRESSION_DATA[m].hash
             ]
@@ -222,7 +222,7 @@ function CreateSingleProgression(props: DisplayProgressionsInterface) {
 function DisplayProgression(props: DisplayProgressionsInterface) {
   const { progressionsDefinition, profileProgressions, profileStreak, mode, maxRank } = props
 
-  console.log(props)
+  // console.log(props)
 
   /* Streak data: */
   const streakCount = profileStreak?.currentProgress

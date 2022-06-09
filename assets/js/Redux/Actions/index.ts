@@ -1,3 +1,4 @@
+import { DestinyFactionProgression } from 'bungie-api-ts/destiny2'
 import { FocusGoalTypes } from '../../Components/Focus/types'
 
 // export const increment = (nr) => ({
@@ -59,7 +60,10 @@ export const setAccount = (data: AccountReducerInterface) => ({
 
 // TODO: Revisit this interface type.
 interface ProgressionsInterface {
-  progressions: any
+  progressions: {
+    logged: string
+    values: { [x: string]: DestinyFactionProgression }[]
+  }
 }
 export const setProgressions = (data: ProgressionsInterface) => ({
   type: 'SET_PROGRESSIONS',
