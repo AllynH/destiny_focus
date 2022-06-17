@@ -385,6 +385,19 @@ footer .footer-nav {
   flex-grow: 1;
 }
 
+.justify-center{
+  justify-content: center;
+}
+
+.background-dark-container{
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.destiny-icon{
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
 /* Event banners: */
 .event-banner{

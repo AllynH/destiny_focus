@@ -184,30 +184,37 @@ export default function NavBar() {
                   <MenuItem
                     onClick={handleClose}
                     component={Link}
-                    to={`/auth/account/${membershipType}/${membershipId}/${characterId}`}
+                    to={`/auth/account/${membershipType}/${membershipId}/${characterId}/`}
                   >
                     Account stats
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
                     component={Link}
-                    to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}`}
+                    to={`/auth/choose_focus/${membershipType}/${membershipId}/${characterId}/`}
                   >
                     Choose Focus
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
                     component={Link}
-                    to={`/auth/likes/${membershipType}/${membershipId}/${characterId}`}
+                    to={`/auth/likes/${membershipType}/${membershipId}/${characterId}/`}
                   >
                     Likes
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
                     component={Link}
-                    to={`/auth/roster/${membershipType}/${membershipId}/${characterId}`}
+                    to={`/auth/roster/${membershipType}/${membershipId}/${characterId}/`}
                   >
                     Clan Roster
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/auth/search/${membershipType}/${membershipId}/${characterId}/`}
+                  >
+                    Search
                   </MenuItem>
                   <MenuItem onClick={handleClose} component={Link} to={'/auth/character_select/'}>
                     Change platform

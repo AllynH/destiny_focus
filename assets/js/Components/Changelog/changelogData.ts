@@ -10,6 +10,26 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.7',
+    Ref: 'User-search',
+    Heading: 'v1.16.7',
+    Date: '17 June, 2022',
+    Body: [
+      'Added a user search feature.',
+      'Enter a users Bungie name and the app will find the Bungie net user, all of their linked accounts, and display their linked account characters.',
+      'Clicking a users character allows you to view their Destiny-Focus profile.',
+    ]
+  },
+  {
+    Release: 'v1.16.6',
+    Ref: 'Bug-fix',
+    Heading: 'v1.16.6',
+    Date: '08 June, 2022',
+    Body: [
+      'Updating types for Progressions reducer.',
+    ]
+  },
+  {
     Release: 'v1.16.5',
     Ref: 'Bug-fix',
     Heading: 'v1.16.5',

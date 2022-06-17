@@ -459,6 +459,12 @@ def roster(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
+@blueprint.route("/search/<membershipType>/<membershipId>/<characterId>/")
+@login_required
+def search(membershipType, membershipId, characterId):
+
+    return render_template("auth/choose_focus.html")
+
 # @blueprint.route("/character_select/")
 # @login_required
 # def account():

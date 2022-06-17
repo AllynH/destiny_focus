@@ -37,17 +37,20 @@ interface BungieRequestInit extends RequestInit {
   params: {
     activityId?: string,
     activityName?: string,
+    characterId?: string,
+    count?: number,
     definition?: string,
     defHash?: string;
-    characterId?: string,
+    displayName?: string,
     gameMode?: number,
+    groupId?: number,
     membershipId?: string,
     membershipType?: string,
-    season?: string,
-    count?: number,
-    groupId?: number,
     page?: number,
+    season?: string,
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  jsonData?: any,
 }
 
 export const GetStatsData = async (options: BungieRequestInit) => apiRequest(
@@ -153,8 +156,26 @@ export const GetGroup = async (options: BungieRequestInit) => apiRequestWithHead
   ...options,
 })
 
-export const SearchByGlobalNamePost = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}Platform/GroupV2/User/Search/GlobalName/${options.params.page}/`, {
+export const GetLinkedProfiles = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}Platform/Destiny2/${options.params.membershipType}/Profile/${options.params.membershipId}/LinkedProfiles/`, {
   ...options,
 })
+
+export const SearchByGlobalNamePost = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}Platform/User/Search/GlobalName/${options.params.page}/`, {
+  method: 'POST',
+  body: JSON.stringify(options.jsonData),
+  ...options,
+})
+
+export const SearchDestinyPlayerByBungieName = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}Platform/Destiny2/SearchDestinyPlayerByBungieName/${options.params.membershipType}/`, {
+  method: 'POST',
+  body: JSON.stringify(options.jsonData),
+  ...options,
+})
+
+// https://bungie-net.github.io/multi/operation_get_Destiny2-SearchDestinyPlayer.html#operation_get_Destiny2-SearchDestinyPlayer
+export const SearchDestinyPlayer = async (options: BungieRequestInit) => apiRequestWithHeaders(`${bungieNetUrl}Platform/Destiny2/SearchDestinyPlayer/${options.params.membershipType}/${encodeURIComponent(options.params.displayName)}/`, {
+  ...options,
+})
+
 
 

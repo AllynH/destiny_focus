@@ -1,0 +1,97 @@
+.search-box-wrapper{
+  width: 320px;
+}
+
+.search-results-wrapper{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 30px 0;
+  padding: 30px;
+}
+
+.search-results{
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding-left: 10px;
+}
+
+.search-box-input{
+  height: 40px;
+  font-size: 18px;
+  margin: 4px;
+  padding: 0 8px;
+  background-color: var(--grey-light-1);
+  border:none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.search-box-input:hover,
+.search-box-input:focus-visible{
+  background-color: var(--grey-light-4);
+  outline: solid rgba(255, 255, 255, 0.8) 2px;
+  outline-offset: 2px;
+  transition: all ease-in-out .25s;
+
+}
+
+/* View Linked Accounts: */
+.user-profile-wrapper{
+  min-width: 250px;
+  padding: 0 20px;
+}
+
+.profile-name-heading{
+  font-size: 2rem;
+  padding-top: 8px;
+}
+
+.profile-name-heading-code{
+  color: var(--vanguard-light-2);
+}
+
+.profile-sub-heading{
+  color: var(--grey-light-2);
+  font-size: 1.1rem;
+  padding: 8px 0 4px 0;
+  border-bottom: solid 1px;
+  margin: 0 0 8px 0;
+}
+
+.profile-item-heading{
+  color: var(--grey-light-2);
+  padding: 8px 0 4px 0;
+  border-bottom: solid 1px;
+  margin: 0 0 8px 0;
+}
+
+
+
+.profile-item-value{
+  /* font-weight: bolder; */
+  font-size: 1.2rem;
+}
+
+
+/* Character Search:  */
+.character-search-wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+}
+
+.character-search-icon{
+  width: 36px;
+  height: 36px;
+}
+
+.character-search-username{
+  padding-left: 4px;
+  font-size: 1.1rem;
+}

@@ -18,6 +18,7 @@ import AdminPanel from './Components/Admin/AdminPanel'
 import Changelog from './Components/Changelog'
 import Support from './Components/Support/Support'
 import Clan from './Components/Clan/Clan'
+import Search from './Components/Search'
 
 
 class App extends React.Component {
@@ -28,6 +29,7 @@ class App extends React.Component {
         <Route path='/:auth?/:gameMode?/:membershipType([1|2|3|4|5])?/:membershipId([0-9]+)?/:characterId([0-9]+)?/' {...this.props} component={NavBar}/>
         <Switch>
           <Route path='/auth/character_select/' exact={true} component={CharacterSelect} />
+          <Route path='/auth/search/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={Search} />
           <Route path='/auth/choose_focus/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={FlipCardDeck} />
           <Route path='/auth/likes/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={ViewLikes} />
           <Route path='/auth/roster/:membershipType([1|2|3|4|5])/:membershipId([0-9]+)/:characterId([0-9]+)/' component={Clan} />
