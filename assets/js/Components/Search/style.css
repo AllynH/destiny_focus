@@ -70,7 +70,13 @@
   margin: 0 0 8px 0;
 }
 
-
+.profile-warning-label{
+  border: solid 1px var(--crucible-red);
+  padding: 8px;
+  border-radius: 3px;
+  background-color: var(--crucible-dark-4);
+  font-size: 1.2rem;
+}
 
 .profile-item-value{
   /* font-weight: bolder; */

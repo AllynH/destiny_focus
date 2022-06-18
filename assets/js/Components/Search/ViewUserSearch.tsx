@@ -1,14 +1,13 @@
 import React from 'react'
 
-import { ServerResponse } from 'bungie-api-ts/common'
-import { UserInfoCard, UserSearchResponse } from 'bungie-api-ts/user'
+import { UserInfoCard } from 'bungie-api-ts/user'
 
 interface ViewLinkedProfileInterface {
-  searchResponse: ServerResponse<UserSearchResponse>
+  destinyMemberships: UserInfoCard[]
 }
 export default function ViewUserSearch(props: ViewLinkedProfileInterface) {
 
-  const { searchResponse } = props
+  const { destinyMemberships } = props
   return (
     <div className='user-profile-wrapper'>
       <div className='user-profile'>
@@ -17,8 +16,7 @@ export default function ViewUserSearch(props: ViewLinkedProfileInterface) {
       </div>
         <ul className="user-profile-list list-style-none">
           {
-            searchResponse.Response.searchResults.map((s) => (
-              s.destinyMemberships.map((m: UserInfoCard, index2: number) => (
+            destinyMemberships.map((m: UserInfoCard, index2: number) => (
                 <li key={index2} className="list-style-none">
                   <div className="character-search-wrapper">
                     <div className="character-search-icon destiny-icon"
@@ -29,7 +27,8 @@ export default function ViewUserSearch(props: ViewLinkedProfileInterface) {
                   </div>
             </li>
               ))
-            ))}
+            }
+
 
         </ul>
       </div>

@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.8',
+    Ref: 'User-search-improvements',
+    Heading: 'v1.16.8',
+    Date: '18 June, 2022',
+    Body: [
+      'Updated user search features.',
+      'Now defaults to first found user if multiple users found.',
+    ]
+  },
+  {
     Release: 'v1.16.7',
     Ref: 'User-search',
     Heading: 'v1.16.7',
