@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.9',
+    Ref: 'GitHub-actions',
+    Heading: 'v1.16.9',
+    Date: '3 Aug, 2022',
+    Body: [
+      'Added GitHub actions to run npm run build on push and pull_requests.',
+      'Added cloning of submodules as destiny-icons repo is required.',
+    ]
+  },
+  {
     Release: 'v1.16.8',
     Ref: 'User-search-improvements',
     Heading: 'v1.16.8',
