@@ -1,4 +1,4 @@
-name: NodeJS with Webpack and eslint
+name: NodeJS, Webpack and eslint
 
 on:
   push:
