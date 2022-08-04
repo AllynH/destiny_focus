@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Database module, including the SQLAlchemy database object and DB-related utilities."""
 from .compat import basestring
-from .extensions import db, login_manager 
+from .extensions import db, login_manager
 
 # Alias common SQLAlchemy names
 Column = db.Column
@@ -60,7 +60,8 @@ class SurrogatePK(object):
                 isinstance(record_id, (int, float)),
             )
         ):
-            return cls.query.get(int(record_id))
+            # E1101: Class 'SurrogatePK' has no 'query' member (no-member)
+            return cls.query.get(int(record_id))    # pylint: disable=E1101
         return None
 
 

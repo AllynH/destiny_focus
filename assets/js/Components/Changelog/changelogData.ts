@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.11',
+    Ref: 'Pylint-and-Flake8-fixes',
+    Heading: 'v1.16.11',
+    Date: '4 Aug, 2022',
+    Body: [
+      'Fixed all errors in Pylint.',
+      'Created .pylintrc and .flake8 files and waived multiple messages / warnings.',
+    ]
+  },
+  {
     Release: 'v1.16.10',
     Ref: 'NPM-updates',
     Heading: 'v1.16.10',

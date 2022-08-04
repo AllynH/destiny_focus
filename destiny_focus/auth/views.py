@@ -21,7 +21,7 @@ import urllib3
 from destiny_focus.extensions import login_manager
 from destiny_focus.auth.forms import LoginForm
 from destiny_focus.user.forms import RegisterForm
-from destiny_focus.user.models import Manifest_Version, PGCRs, User, Manifest, PGCRs
+from destiny_focus.user.models import Manifest_Version, PGCRs, User, Manifest
 from destiny_focus.extensions import db
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
@@ -61,7 +61,7 @@ def before_request():
                     flash(f"Bungies systems are down: {token_response.json()}", "error")
                     return redirect(url_for("public.home", redirect="bungie_error"))
                 else:
-                    flash(f"Bungies systems are down!")
+                    flash("Bungies systems are down!")
                     return redirect(url_for("auth.home", redirect="bungie_error"))
             print("Welcome back user.")
             user = update_user(user=g.user, token_response=token_response.json(), refresh=True)
@@ -291,7 +291,7 @@ def character_select():
 
 @blueprint.route("/choose_focus/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def choose_focus(membershipType, membershipId, characterId):
+def choose_focus(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -306,7 +306,7 @@ def choose_focus(membershipType, membershipId, characterId):
 
 @blueprint.route("/pvp/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def pvp(membershipType, membershipId, characterId):
+def pvp(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -325,7 +325,7 @@ def pvp(membershipType, membershipId, characterId):
 
 @blueprint.route("/pvpcomp/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def pvpcomp(membershipType, membershipId, characterId):
+def pvpcomp(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -342,7 +342,7 @@ def pvpcomp(membershipType, membershipId, characterId):
 
 @blueprint.route("/gambit/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def gambit(membershipType, membershipId, characterId):
+def gambit(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -356,7 +356,7 @@ def gambit(membershipType, membershipId, characterId):
 
 @blueprint.route("/raid/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def raid(membershipType, membershipId, characterId):
+def raid(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -372,7 +372,7 @@ def raid(membershipType, membershipId, characterId):
 
 @blueprint.route("/trials/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def trials(membershipType, membershipId, characterId):
+def trials(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -385,7 +385,7 @@ def trials(membershipType, membershipId, characterId):
 
 @blueprint.route("/ironbanner/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def ironbanner(membershipType, membershipId, characterId):
+def ironbanner(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -398,7 +398,7 @@ def ironbanner(membershipType, membershipId, characterId):
 
 @blueprint.route("/nightfall/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def nightfall(membershipType, membershipId, characterId):
+def nightfall(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -411,7 +411,7 @@ def nightfall(membershipType, membershipId, characterId):
 
 @blueprint.route("/dungeon/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def dungeon(membershipType, membershipId, characterId):
+def dungeon(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -424,7 +424,7 @@ def dungeon(membershipType, membershipId, characterId):
 
 @blueprint.route("/account/<membershipType>/<membershipId>/<characterId>")
 @login_required
-def account(membershipType, membershipId, characterId):
+def account():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -435,7 +435,7 @@ def account(membershipType, membershipId, characterId):
 
 @blueprint.route("/likes/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def likes(membershipType, membershipId, characterId):
+def likes(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -448,7 +448,7 @@ def likes(membershipType, membershipId, characterId):
 
 @blueprint.route("/roster/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def roster(membershipType, membershipId, characterId):
+def roster(membershipType, membershipId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -461,7 +461,7 @@ def roster(membershipType, membershipId, characterId):
 
 @blueprint.route("/search/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def search(membershipType, membershipId, characterId):
+def search():
 
     return render_template("auth/choose_focus.html")
 
@@ -981,7 +981,7 @@ def get_pgcr_list():
 
 @blueprint.route("/pgcr/<int:activityId>")
 @login_required
-def pgcr(activityId):
+def pgcr():
     # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     # my_api = BungieApi(user)
 

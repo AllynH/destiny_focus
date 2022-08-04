@@ -9,7 +9,7 @@ if PY2:
     binary_type = str
     string_types = (str, unicode)  # noqa
     unicode = unicode  # noqa
-    basestring = basestring  # noqa
+    basestring = basestring  # noqa pylint: disable=E0602
 else:
     text_type = str
     binary_type = bytes

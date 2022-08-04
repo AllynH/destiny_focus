@@ -12,7 +12,6 @@ from destiny_focus.database import (
     reference_col,
     relationship,
 )
-from destiny_focus.extensions import bcrypt
 from destiny_focus.extensions import login_manager
 
 class Role(SurrogatePK, Model):
@@ -120,15 +119,15 @@ class User(UserMixin, SurrogatePK, Model):
     @property
     def is_authenticated(self):
         return True
-    
+
     @property
     def is_active(self):
         return True
-    
+
     @property
     def is_anonymous(self):
         return False
-    
+
     def get_id(self):
         return str(self.id)     # Python 3
 
@@ -143,8 +142,6 @@ class User(UserMixin, SurrogatePK, Model):
                 break
             version += 1
         return new_username
-    def __repr__(self):
-        return '<User %r>' % (self.username)
 
 @login_manager.user_loader
 def load_user(id):

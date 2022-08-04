@@ -9,7 +9,6 @@ from flask import (
     render_template,
     request,
     url_for,
-    session,
     jsonify
 )
 from flask_login import login_required, login_user, logout_user, current_user
@@ -17,13 +16,12 @@ from flask_login import login_required, login_user, logout_user, current_user
 from destiny_focus.extensions import login_manager
 from destiny_focus.public.forms import LoginForm
 from destiny_focus.user.forms import RegisterForm
-from destiny_focus.user.models import User
+from destiny_focus.user.models import Manifest, User
 from destiny_focus.utils import flash_errors
 from destiny_focus.oauth import OAuthSignin
 from destiny_focus.bungie.bungie_api_unauth import BungieApiUnauth
 from destiny_focus.manifest_tools.manifest_functions import get_definition
-from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS, ACTIVITY_MODES
-import requests
+from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 

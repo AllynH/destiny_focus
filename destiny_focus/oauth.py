@@ -77,14 +77,18 @@ class OAuthSignin(object):
         print(self, user)
         pass
 
+
+
     @classmethod
     def get_provider(cls, provider_name):
         if cls.providers is None:
             cls.providers = {}
             for provider_class in cls.__subclasses__():
                 provider = provider_class()
-                cls.providers[provider.provider_name] = provider
-        return cls.providers[provider_name]
+                # E1137: 'cls.providers' does not support item assignment (unsupported-assignment-operation)
+                # Disabled this error as it is based on this example: https://github.com/miguelgrinberg/flask-oauth-example/blob/master/oauth.py#L32
+                cls.providers[provider.provider_name] = provider    # pylint: disable=E1137
+        return cls.providers[provider_name]                         # pylint: disable=E1136
         # if self.providers is None:
         #     self.providers = {}
         #     for provider_class in self.__subclasses__():
