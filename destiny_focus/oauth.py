@@ -1,16 +1,24 @@
+"""
+    This module provides OAuth features for Bungie.net.
+    Created by: GitHub.com/AllynH
+"""
+
 from flask import current_app, url_for, request, redirect, session
 from destiny_focus.user.models import User
 
 import requests
 from urllib import parse
 
-import json
-from datetime import datetime, timedelta
-
 class OAuthSignin(object):
+    """
+        Class definition for the Bungie.net OAuth process.
+    """
     providers = None
 
-    def __init__(self, provider_name, user=None):
+    def __init__(self, provider_name):
+        """
+        Initialise the object.
+        """
         super().__init__()
         self.provider_name = provider_name
         credentials = current_app.config['OAUTH_CREDENTIALS'][provider_name]
@@ -19,24 +27,52 @@ class OAuthSignin(object):
         self.api_key            = credentials['api_key']
 
     def authorize(self):
+        """
+        Redirects the user to the auth URL, with the required URL parameters set.
+        """
         pass
 
     def callback(self):
+        """
+        TODO: Is this used???
+        """
         pass
 
     def save_created_state(self):
+        """
+        Save the state parameter used in CSRF protection.
+        """
         pass
 
     def make_state_parameter(self):
+        """
+        Generate a random string for the state parameter
+        Save it for use later to prevent xsrf attacks
+        """
         pass
 
     def is_valid_state(self):
+        """
+        Checks if the users state is the same as the stored state.
+        Returns True if both states match.
+        """
         pass
 
     def get_callback_url(self):
+        """
+        1) Receive the authorization code from Bungie.
+        2) Request the access token                         - 60 minutes.
+        3) Use the access token to get the refresh token    - 90 days.
+        4) Returns the token response.
+        """
         return url_for('oauth_callback', provider=self.provider_name, _external=True)
 
     def get_refresh_token(self, user):
+        """
+        1) Retrieve the users refresh token.
+        2) Use the refresh token to get the refreshed access token    - 90 days.
+        2) Returns the token response.
+        """
         # return url_for('auth.oauth_callback', provider=self.provider_name, _external=True)
         print(self, user)
         pass
@@ -167,8 +203,10 @@ class BungieSignIn(OAuthSignin):
         pass
 
     def make_state_parameter(self):
-        """ Generate a random string for the state parameter
-        Save it for use later to prevent xsrf attacks """
+        """
+        Generate a random string for the state parameter
+        Save it for use later to prevent xsrf attacks
+        """
         from uuid import uuid4
         state = str(uuid4())
         self.save_created_state(state)

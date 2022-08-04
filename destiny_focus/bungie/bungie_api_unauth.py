@@ -1,18 +1,25 @@
-from flask import current_app, url_for, request, redirect, session, jsonify
+"""
+    This is a separate Class definition used only for unauth requests.
+    Authorised requests are created with bungie_api.py
+"""
+
+from flask import current_app
 import requests
-import json
-from urllib import parse
 import re
-from datetime import datetime
 
-from destiny_focus.user.models import User
 from destiny_focus.bungie.api_urls import bungie_api_urls
-from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON
-
 
 class BungieApiUnauth(object):
+    """
+    Class definition for making unauthorised Bungie requests.
+    """
+
     def __init__(self):
         super().__init__()
+        """
+        Init the Object.
+        """
+
         credentials         = current_app.config['OAUTH_CREDENTIALS']['bungie']
         self.api_key        = credentials['api_key']
         self.api_urls       = bungie_api_urls

@@ -103,10 +103,9 @@ def summarize_historical_stats(stats_list):
     Returns a list of dailyactivities.
     This list needs to be summarised into a single activity.
 
-    Some activites must be added together.
-    Other activies are ratios and will be regenerated.
+    Some activities must be added together.
+    Other activities are ratios and will be regenerated.
     """
-
 
     summary = {
         "period"                        : [],

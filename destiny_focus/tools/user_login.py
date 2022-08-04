@@ -41,7 +41,7 @@ def create_user(get_account_res, token_response):
         refresh_expired         = account['refresh_expired'],
         access_expired          = account['access_expired'],
         last_seen               = account['last_seen'],
-        
+
     )
 
     db.session.add(user)
@@ -62,7 +62,7 @@ def update_user(user, token_response, get_account_res=None, refresh=False):
         membershipId    = get_account_res['Response']['bungieNetUser']['membershipId']
         displayName     = get_account_res['Response']['bungieNetUser']['displayName']
 
-	# refresh_ready 					= datetime.utcnow() + timedelta(seconds=int(response.json()['expires_in']))
+    # refresh_ready                     = datetime.utcnow() + timedelta(seconds=int(response.json()['expires_in']))
 
 
     refresh_ready                   = datetime.utcnow() + timedelta(seconds=int(token_response['expires_in']))
