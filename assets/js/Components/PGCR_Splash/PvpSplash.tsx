@@ -188,8 +188,8 @@ function TeamsDisplay(props: PvPTeamsInterface) {
                 <Player
                   key={indexPlayer}
                   entry={entry}
-                  {...setActiveUserId}
-                  {...modeIsRaid}
+                  activeUserId={String(setActiveUserId)}
+                  modeIsRaid={modeIsRaid}
                   activityMode={activityMode}
                 />
               ))}

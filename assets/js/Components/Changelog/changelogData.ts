@@ -10,6 +10,17 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.10',
+    Ref: 'NPM-updates',
+    Heading: 'v1.16.10',
+    Date: '4 Aug, 2022',
+    Body: [
+      'Updated all NPM packages to wanted versions.',
+      'Fixed a Typing issue in PGCR Raid/PvpSplash.tsx.',
+      'npm run lint passing - updated eslint-plugin-react-redux@latest.',
+    ]
+  },
+  {
     Release: 'v1.16.9',
     Ref: 'GitHub-actions',
     Heading: 'v1.16.9',

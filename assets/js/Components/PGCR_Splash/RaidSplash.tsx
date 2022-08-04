@@ -130,12 +130,13 @@ export default function RaidSplash(props: PvPPropsInterface) {
                   {pgcr
                     && pgcr?.Response?.entries.map((entry, index) => (
                       <Player
-                        {...setActiveUserId}
-                        entry={entry}
-                        key={index}
-                        {...modeIsRaid}
-                        activityMode={activityMode}
-                      />
+                      key={index}
+                      entry={entry}
+                      activeUserId={String(setActiveUserId)}
+                      modeIsRaid={modeIsRaid}
+                      activityMode={activityMode}
+                    />
+
                     ))}
                 </div>
               </div>
