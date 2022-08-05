@@ -24,7 +24,7 @@ class Role(SurrogatePK, Model):
 
     def __init__(self, name, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, name=name, **kwargs)
+        db.Model.__init__(self, name=name, **kwargs)        # pylint:disable=non-parent-init-called
 
     def __repr__(self):
         """Represent instance as a unique string."""
@@ -144,7 +144,7 @@ class User(UserMixin, SurrogatePK, Model):
         return new_username
 
 @login_manager.user_loader
-def load_user(id):
+def load_user(id):  # pylint: disable=redefined-builtin
     return User.query.get(int(id))
 
 
@@ -160,7 +160,7 @@ class Manifest(SurrogatePK, Model):
 
     def __init__(self, definition_name, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, definition_name=definition_name, **kwargs)
+        db.Model.__init__(self, definition_name=definition_name, **kwargs)      # pylint:disable=non-parent-init-called
 
     def __repr__(self):
         """Represent instance as a unique string."""
@@ -182,7 +182,7 @@ class Manifest_Version(SurrogatePK, Model):
 
     def __init__(self, current_revision, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, current_revision=current_revision, **kwargs)
+        db.Model.__init__(self, current_revision=current_revision, **kwargs)    # pylint:disable=non-parent-init-called
 
     def __repr__(self):
         """Represent instance as a unique string."""
@@ -215,7 +215,7 @@ class PGCRs(SurrogatePK, Model):
 
     def __init__(self, activityId, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, activityId=activityId, **kwargs)
+        db.Model.__init__(self, activityId=activityId, **kwargs)                # pylint:disable=non-parent-init-called
 
     def __repr__(self):
         """Represent instance as a unique string."""

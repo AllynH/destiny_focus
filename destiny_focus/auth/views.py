@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=unused-argument
+# All routes need to contain all available parameters, to match with React-Router routes.
 """Auth section, authorized views. User is logged in."""
 import urllib.parse
 from flask import (
@@ -14,9 +16,7 @@ from flask import (
     session,
     jsonify
 )
-from flask.wrappers import Response
 from flask_login import login_required, login_user, logout_user, current_user
-import urllib3
 
 from destiny_focus.extensions import login_manager
 from destiny_focus.auth.forms import LoginForm
@@ -29,7 +29,7 @@ from destiny_focus.tools.user_login import create_user, update_user
 from destiny_focus.bungie.bungie_api import BungieApi
 from destiny_focus.manifest_tools.manifest_functions import get_definition
 from destiny_focus.bungie.parse_bungie_response import get_character_details_json, summarize_historical_stats
-from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON, LAST_SEASON
+from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON
 from destiny_focus.bungie.static_data import MANIFEST_DEFINITIONS, ACTIVITY_MODES
 
 import requests
@@ -64,7 +64,7 @@ def before_request():
                     flash("Bungies systems are down!")
                     return redirect(url_for("auth.home", redirect="bungie_error"))
             print("Welcome back user.")
-            user = update_user(user=g.user, token_response=token_response.json(), refresh=True)
+            _user = update_user(user=g.user, token_response=token_response.json(), refresh=True)
 
 
 @login_manager.user_loader
@@ -95,7 +95,7 @@ def home():
     return render_template("auth/welcome.html", form=form)
 
 
-@blueprint.route("/authorize/<provider>")
+@blueprint.route("/authorize/<provider>/")
 def oauth_authorize(provider):
     """ Authorize URL for a given provider."""
     # flash("You are in the Authorize URL.", "info")
@@ -106,7 +106,7 @@ def oauth_authorize(provider):
     return oauth.authorize()
 
 
-@blueprint.route("/callback/<provider>")
+@blueprint.route("/callback/<provider>/")
 def oauth_callback(provider):
     """ Callback URL for a given provider."""
     # flash("You are in the callback URL.", "info")
@@ -177,10 +177,6 @@ def oauth_callback(provider):
     get_profile_res = my_api.get_profile(str(membershipType), str(membershipId))
     characterId = get_profile_res["Response"]["profile"]["data"]["characterIds"][0]
 
-    # TODO:
-    # Redirect to get_profile - > Get: membershipType destinyMembershipId
-    # Redirect to chose_track/membershipType/destinyMembershipId.
-
     return redirect(url_for("auth.choose_focus", membershipType=membershipType, membershipId=membershipId, characterId=characterId))
     # return redirect(url_for("auth.home"))
 
@@ -202,11 +198,8 @@ def get_current_bungie_account():
 def get_activity():
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
-    # TODO: Hardcoded values:
-    # Take values from here: GetCurrentBungieAccount
+
     activity = my_api.GetCurrentBungieAccount()
-    # get_profile_res = my_api.get_activity_history(membershipType, membershipId)
-    # activity = my_api.get_activity_history("2", "4611686018436136301", "2305843009260647150", mode=5, count=3)
 
     return jsonify(activity)
 
@@ -291,7 +284,7 @@ def character_select():
 
 @blueprint.route("/choose_focus/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def choose_focus(membershipType, membershipId):
+def choose_focus(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -304,9 +297,9 @@ def choose_focus(membershipType, membershipId):
     return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/pvp/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/pvp/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def pvp(membershipType, membershipId):
+def pvp(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -323,9 +316,9 @@ def pvp(membershipType, membershipId):
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/pvpcomp/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/pvpcomp/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def pvpcomp(membershipType, membershipId):
+def pvpcomp(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -340,9 +333,9 @@ def pvpcomp(membershipType, membershipId):
     return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/gambit/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/gambit/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def gambit(membershipType, membershipId):
+def gambit(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -354,9 +347,9 @@ def gambit(membershipType, membershipId):
     return render_template("auth/choose_focus.html")
 
 
-@blueprint.route("/raid/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/raid/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def raid(membershipType, membershipId):
+def raid(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -370,9 +363,9 @@ def raid(membershipType, membershipId):
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/trials/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/trials/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def trials(membershipType, membershipId):
+def trials(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -383,9 +376,9 @@ def trials(membershipType, membershipId):
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/ironbanner/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/ironbanner/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def ironbanner(membershipType, membershipId):
+def ironbanner(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -396,9 +389,9 @@ def ironbanner(membershipType, membershipId):
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/nightfall/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/nightfall/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def nightfall(membershipType, membershipId):
+def nightfall(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -409,9 +402,9 @@ def nightfall(membershipType, membershipId):
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/dungeon/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/dungeon/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def dungeon(membershipType, membershipId):
+def dungeon(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -422,11 +415,11 @@ def dungeon(membershipType, membershipId):
 
     return render_template("auth/choose_focus.html")
 
-@blueprint.route("/account/<membershipType>/<membershipId>/<characterId>")
+@blueprint.route("/account/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def account():
-    user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
-    my_api = BungieApi(user)
+def account(membershipType, membershipId, characterId):
+    # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    # my_api = BungieApi(user)
 
     # get_profile_res = my_api.get_profile(membershipType, membershipId)
     # character_details = get_character_details_json(get_profile_res)
@@ -504,7 +497,7 @@ def get_pvp(membershipType, membershipId, characterId):
     """
 
     mode    = int(request.args.get('gameMode', 5))
-    season  = int(request.args.get('season', CURRENT_SEASON))
+    # season  = int(request.args.get('season', CURRENT_SEASON))
 
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
@@ -567,7 +560,7 @@ def get_historical_stats(membershipType, membershipId, characterId):
     # get_profile_res = my_api.get_profile(membershipType, membershipId)
     # character_details = get_character_details_json(get_profile_res)
 
-    # TODO: Hardcoded AllPvP mode
+    # TODO: Hardcoded AllPvP mode pylint: disable=fixme
     # season = 1
     mode    = int(request.args.get('game_mode', 5))
     season  = int(request.args.get('season', CURRENT_SEASON))
@@ -645,13 +638,13 @@ def get_historical_stats_alltime(membershipType, membershipId, characterId):
 
     return jsonify(activity)
 
-
+# TODO(Do we need this?)
 @blueprint.route("/get/gambit/<membershipType>/<membershipId>/<characterId>/")
 @login_required
 def get_gambit(membershipType, membershipId,characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
-    get_profile_res = my_api.get_profile(membershipType, membershipId)
+    # get_profile_res = my_api.get_profile(membershipType, membershipId)
 
     activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=63, count=30)
 
@@ -713,7 +706,7 @@ def pgcr_list(membershipType, membershipId, characterId):
 
     activity = my_api.get_activity_history(membershipType, membershipId, characterId, mode=game_mode, count=game_count)
 
-    pgcr_list = []
+    pgcr_instanceId_list = []
     stat_list = []
     activities_res = activity["Response"].get("activities", None)
     if not activities_res:
@@ -727,10 +720,10 @@ def pgcr_list(membershipType, membershipId, characterId):
         return jsonify(pgcr_list_res)
 
     for a in activity["Response"]["activities"]:
-        pgcr_list.append(a["activityDetails"]["instanceId"])
+        pgcr_instanceId_list.append(a["activityDetails"]["instanceId"])
     pgcr_res_list = []
 
-    for index, instanceId in enumerate(pgcr_list):
+    for index, instanceId in enumerate(pgcr_instanceId_list):
         pgcr_res = my_api.get_pgcr(instanceId)
         pgcr_res_list.append(pgcr_res["Response"])
 
@@ -754,10 +747,10 @@ def pgcr_list(membershipType, membershipId, characterId):
 
                 # Add weapon definition to responses:
                 try:
-                    for index, weapons in enumerate(entry["extended"].get("weapons")):
+                    for i, weapons in enumerate(entry["extended"].get("weapons")):
                         definition = get_definition("DestinyInventoryItemDefinition", str(weapons["referenceId"]))
-                        stats["data"]["extended"]["weapons"][index]["definition"] = definition
-                except:
+                        stats["data"]["extended"]["weapons"][i]["definition"] = definition
+                except TypeError:
                     continue
                 stat_list.append(stats)
 
@@ -806,7 +799,7 @@ def about():
 ####################################################################################################
 # A list of routes for managing PGCR's:
 ####################################################################################################
-@blueprint.route("/put/pgcr/<int:activityId>")#, methods=["PUT"])
+@blueprint.route("/put/pgcr/<int:activityId>/")#, methods=["PUT"])
 @login_required
 def put_pgcr(activityId):
     """
@@ -817,20 +810,20 @@ def put_pgcr(activityId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
-    pgcr_list = []
-    status  = None
-    space   = None
-    exists  = None
+    pgcr_activityId_list    = []
+    status                  = None
+    space                   = None
+    exists                  = None
 
     pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
     for e in pgcr_entries:
-        pgcr_list.append(e.activityId)
+        pgcr_activityId_list.append(e.activityId)
 
     pgcr_count = user.pgcr_count
     pgcr_allocation = user.pgcr_allocation
 
     space = True if pgcr_count < pgcr_allocation else False
-    exists = True if activityId in pgcr_list else False
+    exists = True if activityId in pgcr_activityId_list else False
 
     # print(f"space: {space} exists: {exists} activityId: {activityId}")
 
@@ -849,7 +842,7 @@ def put_pgcr(activityId):
             players         = len(activity["Response"]["entries"])
             period          = datetime.strptime(activity["Response"]["period"], "%Y-%m-%dT%H:%M:%SZ")
 
-            pgcr = PGCRs.createPGCR(
+            my_pgcr = PGCRs.createPGCR(
                 activityId      = activityId,
                 membershipType  = membershipType,
                 mode            = mode,
@@ -858,8 +851,8 @@ def put_pgcr(activityId):
                 period          = period,
             )
 
-            db.session.add(pgcr)
-            user.pgcrs.append(pgcr)
+            db.session.add(my_pgcr)
+            user.pgcrs.append(my_pgcr)
             user.pgcr_count = len(pgcr_entries) + 1
             db.session.commit()
 
@@ -892,7 +885,7 @@ def put_pgcr(activityId):
     return jsonify(response)
 
 
-@blueprint.route("/delete/pgcr/<int:activityId>")#, methods=["DELETE"])
+@blueprint.route("/delete/pgcr/<int:activityId>/")#, methods=["DELETE"])
 @login_required
 def delete_pgcr(activityId):
     """
@@ -950,14 +943,14 @@ def get_pgcr_list():
 
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
-    pgcr_list = []
+    pgcr_activityId_list = []
     mode_dict = {}
 
     pgcr_entries = PGCRs.query.join(User).filter(User.id == user.id).all()
 
     # Return a list of PGCR's:
     for e in pgcr_entries:
-        pgcr_list.append(e.activityId)
+        pgcr_activityId_list.append(e.activityId)
 
     # Return a dict with key as a string:
     for e in pgcr_entries:
@@ -970,7 +963,7 @@ def get_pgcr_list():
 
     response = {
         "errorStatus"       : "Success",
-        "user_pgcrs"        : pgcr_list,
+        "user_pgcrs"        : pgcr_activityId_list,
         "mode_data"         : mode_dict,
         "pgcr_allocation"   : user.pgcr_allocation,
         "pgcr_count"        : user.pgcr_count,
@@ -979,7 +972,7 @@ def get_pgcr_list():
     return jsonify(response)
 
 
-@blueprint.route("/pgcr/<int:activityId>")
+@blueprint.route("/pgcr/<int:activityId>/")
 @login_required
 def pgcr():
     # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
@@ -997,8 +990,8 @@ def admin():
     """
     Route for admin panel.
     """
-    current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
-    if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
+    my_current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    if not my_current_user.unique_name == os.environ.get("DF_ADMIN", None):
         return redirect(url_for("auth.home", redirect="access_denied"))
     return render_template("auth/choose_focus.html")
 
@@ -1009,9 +1002,9 @@ def user_count():
     """
     Get the user count and some meta data to populate the admin table.
     """
-    current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
-    if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
+    if not my_current_user.unique_name == os.environ.get("DF_ADMIN", None):
         return abort(403)
 
     user = User.query.all()
@@ -1043,9 +1036,9 @@ def manifest_data():
     """
     Get the Manifest version, item and category count and some meta data to populate the admin table.
     """
-    current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
+    my_current_user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
 
-    if not current_user.unique_name == os.environ.get("DF_ADMIN", None):
+    if not my_current_user.unique_name == os.environ.get("DF_ADMIN", None):
         return abort(403)
 
     version = Manifest_Version.query.first()
@@ -1065,17 +1058,17 @@ def manifest_data():
             manifest_cat_list.append(m.definition_name)
 
 
-    manifest_data = {}
-    manifest_data["items"]              = len(manifest)
-    manifest_data["categoriesCount"]    = len(manifest_cat_list)
-    manifest_data["categories"]         = manifest_cat_list
+    my_manifest_data                        = {}
+    my_manifest_data["items"]               = len(manifest)
+    my_manifest_data["categoriesCount"]     = len(manifest_cat_list)
+    my_manifest_data["categories"]          = manifest_cat_list
 
     response = {
         "errorStatus"   : "Success",
         "message"       : "Destiny-Focus.me manifest version meta data",
         "Response"       : {
             "manifestVersion"   : manifest_version_meta_data,
-            "manifestData"      : manifest_data
+            "manifestData"      : my_manifest_data
         }
     }
     return jsonify(response)

@@ -199,7 +199,7 @@ class BungieSignIn(OAuthSignin):
 
 
     # Save state parameter used in CSRF protection:
-    def save_created_state(self, state):
+    def save_created_state(self, state):    # pylint:disable=arguments-differ
         """
         Save the state parameter used in CSRF protection.
         """
@@ -216,7 +216,7 @@ class BungieSignIn(OAuthSignin):
         self.save_created_state(state)
         return state
 
-    def is_valid_state(self, state):
+    def is_valid_state(self, state):        # pylint:disable=arguments-differ
         saved_state = session['state_token']
         if state == saved_state:
             return True

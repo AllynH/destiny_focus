@@ -8,7 +8,7 @@ environment variables.
 """
 from environs import Env
 import os
-from urllib.parse import urlparse
+# from urllib.parse import urlparse # pylint disable=unused-import
 # import redis
 
 basedir = os.path.abspath(os.path.dirname(__file__))

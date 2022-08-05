@@ -8,8 +8,8 @@ if PY2:
     text_type = unicode  # noqa
     binary_type = str
     string_types = (str, unicode)  # noqa
-    unicode = unicode  # noqa
-    basestring = basestring  # noqa pylint: disable=E0602
+    unicode = unicode  # noqa pylint: disable=self-assigning-variable
+    basestring = basestring  # noqa pylint: disable=E0602,self-assigning-variable
 else:
     text_type = str
     binary_type = bytes
