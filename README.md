@@ -1,5 +1,10 @@
 # Destiny Focus
 
+![Flake8](https://github.com/AllynH/destiny_focus/actions/workflows/flake8.yml/badge.svg)
+![Pylint](https://github.com/AllynH/destiny_focus/actions/workflows/pylint.yml/badge.svg)
+![Webpack](https://github.com/AllynH/destiny_focus/actions/workflows/webpack.yml/badge.svg)
+![Webpack & ESLint](https://github.com/AllynH/destiny_focus/actions/workflows/webpack-lint.yml/badge.svg)
+
 Destiny-Focus is an app for Destiny the game, helping you focus on improving particular aspects of your playstyle, for PvP, Gambit or Raiding game modes.
 Destiny-Focus allows you to choose an area you want to focus on improving, such as your PvP Kill / Death Ratio (K/D R) or your accuracy with a particular weapon type, such as tracking headshots with your favourite sniper.
 
