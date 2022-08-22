@@ -4,7 +4,7 @@ User login and other useful functions.
 """
 from destiny_focus.user.models import User
 from destiny_focus.extensions import db
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 def create_user(get_account_res, token_response):
     """

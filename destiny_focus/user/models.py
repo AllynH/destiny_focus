@@ -110,7 +110,7 @@ class User(UserMixin, SurrogatePK, Model):
     @property
     def account_details(self):
         """Full user name."""
-        return f"Account name:{self.user_name} Membership type:{self.membershipType}"
+        return f"Account name:{self.username} Membership type:{self.bungieMembershipId}"
 
     def __repr__(self):
         """Represent instance as a unique string."""
