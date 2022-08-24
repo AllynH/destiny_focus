@@ -10,6 +10,18 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.13',
+    Ref: 'Pytest',
+    Heading: 'v1.16.13',
+    Date: '24 Aug, 2022',
+    Body: [
+      'Updated Python, Flask and a bunch of other libraries to latest version.',
+      'Updated DF servers to match newer versions.',
+      'Updated Ubuntu version on DF servers.',
+      'Fixed some issues with conflicting libraries.',
+    ]
+  },
+  {
     Release: 'v1.16.12',
     Ref: 'Pytest',
     Heading: 'v1.16.12',
