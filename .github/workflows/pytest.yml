@@ -1,4 +1,4 @@
-name: Pytest: unit and functional
+name: Pytest unit and functional
 
 on: [push, pull_request]
 
