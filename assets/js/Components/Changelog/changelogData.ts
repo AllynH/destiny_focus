@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.12',
+    Ref: 'Pytest',
+    Heading: 'v1.16.12',
+    Date: '24 Aug, 2022',
+    Body: [
+      'Added Pytest unit and functional tests.',
+      'Fixed all errors related to Pytest implementation.',
+    ]
+  },
+  {
     Release: 'v1.16.11',
     Ref: 'Pylint-and-Flake8-fixes',
     Heading: 'v1.16.11',
