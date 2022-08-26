@@ -1,5 +1,6 @@
 # Destiny Focus
 
+![Pytest: unit and func](https://github.com/AllynH/destiny_focus/actions/workflows/pytest.yml/badge.svg)
 ![Flake8](https://github.com/AllynH/destiny_focus/actions/workflows/flake8.yml/badge.svg)
 ![Pylint](https://github.com/AllynH/destiny_focus/actions/workflows/pylint.yml/badge.svg)
 ![Webpack](https://github.com/AllynH/destiny_focus/actions/workflows/webpack.yml/badge.svg)
