@@ -1,11 +1,13 @@
 import json
-from ..settings import basedir
+import os
 
 def get_json_from_file():
     """
     Import the season data from a JSON file.
     """
-    with open(f"{basedir}/bungie/season_data.json", "r") as f:
+
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    with open(f"{basedir}/season_data.json", "r") as f:
         data = json.load(f)
 
     return data
