@@ -10,8 +10,18 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.17.0',
+    Ref: 'Season-of-Plunder-2',
+    Heading: 'v1.16.14',
+    Date: '26 Aug, 2022',
+    Body: [
+      'Fixed a strange Python circular import error that was breaking the GitHub Actions flow for Pytest...',
+      'All working again 😎',
+    ]
+  },
+  {
     Release: 'v1.16.14',
-    Ref: 'Pytest',
+    Ref: 'Season-of-Plunder',
     Heading: 'v1.16.14',
     Date: '26 Aug, 2022',
     Body: [
