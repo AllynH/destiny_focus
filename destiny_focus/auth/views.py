@@ -563,7 +563,7 @@ def get_historical_stats(membershipType, membershipId, characterId):
     # TODO: Hardcoded AllPvP mode pylint: disable=fixme
     # season = 1
     mode    = int(request.args.get('game_mode', 5))
-    season  = int(request.args.get('season', CURRENT_SEASON))
+    season  = request.args.get('season', CURRENT_SEASON)
 
     activity_list   = []
     season_start    = datetime.strptime(SEASONS[season]['START'], "%Y-%m-%d %H:%M:%S")

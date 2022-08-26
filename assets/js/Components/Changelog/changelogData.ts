@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.16.14',
+    Ref: 'Pytest',
+    Heading: 'v1.16.14',
+    Date: '26 Aug, 2022',
+    Body: [
+      'Updated season data for Season of Plunder.',
+      'Using same season_data.json file for frontend and backend.',
+    ]
+  },
+  {
     Release: 'v1.16.13',
     Ref: 'Pytest',
     Heading: 'v1.16.13',
