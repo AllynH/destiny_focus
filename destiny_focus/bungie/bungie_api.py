@@ -7,7 +7,6 @@ from datetime import datetime
 
 from destiny_focus.user.models import User
 from destiny_focus.bungie.api_urls import bungie_api_urls
-from destiny_focus.bungie.season_data import SEASONS, CURRENT_SEASON
 
 
 class BungieApi(object):
@@ -240,10 +239,6 @@ class BungieApi(object):
 
         function_name = "get_activity_history"
         auth_session = self.make_session()
-
-
-        # daystart    = datetime.strptime(SEASONS[CURRENT_SEASON]['START'], "%Y-%m-%d %H:%M:%S")
-        # dayend      = datetime.strptime(SEASONS[CURRENT_SEASON]['END'], "%Y-%m-%d %H:%M:%S")
 
         if daystart != "" or not periodType == "AllTime":
             # print("Day start:", daystart)
