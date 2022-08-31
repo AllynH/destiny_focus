@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Factories to help in tests."""
-from factory import PostGenerationMethodCall, Sequence
+from factory import Sequence #, PostGenerationMethodCall
 from factory.alchemy import SQLAlchemyModelFactory
 
 from destiny_focus.database import db
@@ -43,4 +43,4 @@ class UserFactory(BaseFactory):
         """Factory configuration."""
 
         model = User
-        print(f"UserFactory Meta:", model)
+        print(f"UserFactory Meta: {model}")

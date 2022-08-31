@@ -5,13 +5,8 @@ Model unit tests - tests dedicated to:
 2. Test PGCR creation.
 3. Test Manifest item creation.
 """
-from flask import url_for
-import os
-from destiny_focus.bungie.bungie_api import BungieApi
 
-from destiny_focus.user.models import User
-
-from ..factories import UserFactory
+# from ..factories import UserFactory
 
 
 class TestLoggingIn:

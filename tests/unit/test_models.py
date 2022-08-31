@@ -7,7 +7,7 @@ Model unit tests - tests dedicated to:
 """
 
 # import datetime as dt
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
 import pytest
 
@@ -189,13 +189,13 @@ class TestUser:
     def test_factory(self, db):
         """Test user factory."""
         u_name = "username"
-        id = "09876"
-        user = UserFactory(username=u_name, bungieMembershipId=id, unique_name=f"{u_name}_{id}")
+        id_ = "09876"
+        user = UserFactory(username=u_name, bungieMembershipId=id_, unique_name=f"{u_name}_{id_}")
         db.session.commit()
         assert bool(user.username)
         assert bool(user.bungieMembershipId)
         # assert bool(user.unique_name)
-        assert bool(user.last_seen)
+        assert bool(user.last_seen)     # pylint: disable=no-member
         # Pylint does not User class methods, only UserFactory class methods:
         assert user.unique_name == "username_09876"                                     # pylint: disable=no-member
 
@@ -204,10 +204,10 @@ class TestUser:
         User account_details.
         """
         u_name = "username"
-        id = "09876"
-        user = UserFactory(username=u_name, bungieMembershipId=id, unique_name=f"{u_name}_{id}")
+        id_ = "09876"
+        user = UserFactory(username=u_name, bungieMembershipId=id_, unique_name=f"{u_name}_{id_}")
         # Pylint does not User class methods, only UserFactory class methods:
-        assert user.account_details == f"Account name:{u_name} Membership type:{id}"    # pylint: disable=no-member
+        assert user.account_details == f"Account name:{u_name} Membership type:{id_}"    # pylint: disable=no-member
 
 
 @pytest.mark.usefixtures("db")

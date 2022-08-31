@@ -12,8 +12,8 @@ from destiny_focus.database import db as _db
 from .factories import UserFactory
 
 
-@pytest.fixture
-def app():
+@pytest.fixture(name="app")
+def fixture_app():
     """Create application for the tests."""
     _app = create_app("tests.settings")
     _app.logger.setLevel(logging.CRITICAL)
@@ -31,8 +31,8 @@ def testapp(app):
     return TestApp(app)
 
 
-@pytest.fixture
-def db(app):
+@pytest.fixture(name="db")
+def fixture_db(app):
     """Create database for the tests."""
     _db.app = app
     with app.app_context():
@@ -45,8 +45,8 @@ def db(app):
     _db.drop_all()
 
 
-@pytest.fixture
-def user(db):
+@pytest.fixture(name="user")
+def fixture_user(db):
     """Create user for the tests."""
     user = UserFactory(password="myprecious")
     db.session.commit()
