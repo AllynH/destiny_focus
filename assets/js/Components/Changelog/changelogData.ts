@@ -16,6 +16,8 @@ const ChangelogData: Array<ChangelogInterface> = [
     Date: '02 Sept, 2022',
     Body: [
       'Removed pride banner for this year.',
+      'Fixed a bug in some routes where Pylint suggested to remove some parameters, these parameters are used in the URL and React frontend.',
+      'This error caused some users to experience 500 errors when navigating from off site to /pgcrs or when refreshing.',
     ]
   },
   {

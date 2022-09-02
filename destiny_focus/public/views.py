@@ -140,7 +140,7 @@ def get_pgcr(activityId):
     return jsonify(activity)
 
 @blueprint.route("/pgcr/<int:activityId>")
-def pgcr(activityId):
+def pgcr(activityId):                       # pylint: disable=unused-argument
     # print("Public PGCR route:")
     # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     # my_api = BungieApi(user)
