@@ -428,7 +428,7 @@ def account(membershipType, membershipId, characterId):
 
 @blueprint.route("/likes/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def likes(membershipType, membershipId):
+def likes(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -441,7 +441,7 @@ def likes(membershipType, membershipId):
 
 @blueprint.route("/roster/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def roster(membershipType, membershipId):
+def roster(membershipType, membershipId, characterId):
     user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     my_api = BungieApi(user)
 
@@ -454,7 +454,7 @@ def roster(membershipType, membershipId):
 
 @blueprint.route("/search/<membershipType>/<membershipId>/<characterId>/")
 @login_required
-def search():
+def search(membershipType, membershipId, characterId):
 
     return render_template("auth/choose_focus.html")
 
@@ -974,7 +974,7 @@ def get_pgcr_list():
 
 @blueprint.route("/pgcr/<int:activityId>/")
 @login_required
-def pgcr():
+def pgcr(activityId):
     # user = User.query.filter_by(bungieMembershipId=g.user.bungieMembershipId).first()
     # my_api = BungieApi(user)
 
