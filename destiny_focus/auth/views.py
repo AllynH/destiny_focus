@@ -170,12 +170,12 @@ def oauth_callback(provider):
     # Return the raw JSON content:
     # return jsonify(get_account_res.json())
 
-    membershipId    = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"]
-    membershipType  = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"]
-
-    my_api = BungieApi(user)
-    get_profile_res = my_api.get_profile(str(membershipType), str(membershipId))
-    characterId = get_profile_res["Response"]["profile"]["data"]["characterIds"][0]
+    # We no longer use this data - as the user is routed to character_select
+    # membershipId    = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipId"]
+    # membershipType  = get_account_res.json()["Response"]["destinyMemberships"][0]["membershipType"]
+    # my_api = BungieApi(user)
+    # get_profile_res = my_api.get_profile(str(membershipType), str(membershipId))
+    # characterId = get_profile_res["Response"]["profile"]["data"]["characterIds"][0]
 
     # return redirect(url_for("auth.choose_focus", membershipType=membershipType, membershipId=membershipId, characterId=characterId))
     # Returning directly to choose_focus bypasses the flow responsible for setting the Redux accountReducer.
