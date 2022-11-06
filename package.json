@@ -53,7 +53,7 @@
     "react-tooltip": "^4.2.13",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "victory": "^34.3.12",
+    "victory": "^36.6.8",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0"
   },

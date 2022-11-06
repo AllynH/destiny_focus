@@ -10,6 +10,17 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.17.2',
+    Ref: 'Banner',
+    Heading: 'v1.17.2',
+    Date: '06 Nov, 2022',
+    Body: [
+      'Fixed a bug, where setting the Redux accountReducer was bypassed for new users.',
+      'This caused a hard fail for new users :(',
+      'Updated some npm and Python libs.',
+    ]
+  },
+  {
     Release: 'v1.17.1',
     Ref: 'Banner',
     Heading: 'v1.17.1',

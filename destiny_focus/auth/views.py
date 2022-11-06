@@ -177,8 +177,10 @@ def oauth_callback(provider):
     get_profile_res = my_api.get_profile(str(membershipType), str(membershipId))
     characterId = get_profile_res["Response"]["profile"]["data"]["characterIds"][0]
 
-    return redirect(url_for("auth.choose_focus", membershipType=membershipType, membershipId=membershipId, characterId=characterId))
-    # return redirect(url_for("auth.home"))
+    # return redirect(url_for("auth.choose_focus", membershipType=membershipType, membershipId=membershipId, characterId=characterId))
+    # Returning directly to choose_focus bypasses the flow responsible for setting the Redux accountReducer.
+    # It's safer to let the user select their own character.
+    return redirect(url_for("auth.character_select"))
 
 
 @blueprint.route("/get/get_current_bungie_account/")
