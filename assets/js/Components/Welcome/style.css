@@ -2,18 +2,23 @@
 .welcome-content {
   display: flex;
   flex-direction: row;
-  height: 550px;
+  /* height: 550px; */
   }
 .welcome-content-image-wrapper{
   position: relative;
   width: 90%;
-  height: 550px;
+  /* height: 550px; */
 }
 .welcome-image-placement{
   position: absolute;
   top: 50px;
   right: 0px;
 }
+
+.welcome-tour-wrapper{
+  margin-top: 100px;
+}
+
 /* Desktop: */
 @media screen and (min-width: 600px) {
   .welcome-image{
