@@ -137,10 +137,18 @@
   },
   "18": {
     "TITLE": "Season of Plunder",
-    "ACTIVE": true,
+    "ACTIVE": false,
     "EXPANSION": "Witch Queen",
     "YEAR": "5",
     "START": "2022-08-23 17:00:01",
     "END": "2022-12-06 17:00:00"
+  },
+  "19": {
+    "TITLE": "Season of the Seraph",
+    "ACTIVE": true,
+    "EXPANSION": "Witch Queen",
+    "YEAR": "5",
+    "START": "2022-12-06 17:00:01",
+    "END": "2022-02-28 17:00:00"
   }
 }

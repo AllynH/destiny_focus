@@ -10,6 +10,15 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.17.4',
+    Ref: 'Welcome',
+    Heading: 'v1.17.4',
+    Date: '08 Dec, 2022',
+    Body: [
+      'Updating for Season of the Seraph!',
+    ]
+  },
+  {
     Release: 'v1.17.3',
     Ref: 'Welcome',
     Heading: 'v1.17.3',
