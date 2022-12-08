@@ -16,6 +16,7 @@ const ChangelogData: Array<ChangelogInterface> = [
     Date: '08 Dec, 2022',
     Body: [
       'Updating for Season of the Seraph!',
+      'Adding progression data for Competitive Division'
     ]
   },
   {
