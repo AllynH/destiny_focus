@@ -39,6 +39,7 @@ module.exports = {
       path.join(__dirname, 'assets', 'js', 'Components', 'FlipCard', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Focus', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Likes', 'style.css'),
+      path.join(__dirname, 'assets', 'js', 'Components', 'Messages', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'Nav', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'PvP', 'style.css'),
       path.join(__dirname, 'assets', 'js', 'Components', 'PGCR', 'style.css'),

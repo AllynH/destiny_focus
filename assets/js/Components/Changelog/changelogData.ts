@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.17.5',
+    Ref: 'Welcome',
+    Heading: 'v1.17.5',
+    Date: '09 Dec, 2022',
+    Body: [
+      'Filtering out any games & PGCRs with mode = 0, due to a bug in the Bungie API.',
+      'Info: https://github.com/Bungie-net/api/issues/1739'
+    ]
+  },
+  {
     Release: 'v1.17.4',
     Ref: 'Welcome',
     Heading: 'v1.17.4',

@@ -31,6 +31,7 @@ import { FocusDetailKey } from '../Focus/types'
 
 import './style.css'
 import checkLoggedInCharacter from '../../Utils/HelperFunctions/characterSelection'
+import SmallMessage from '../Messages/SmallMessage'
 
 
 // Set the update time for refreshing the data:
@@ -327,9 +328,27 @@ class PvPChart extends React.Component<
       return <SvgLoading />
     }
     const kdr = this.getKdr(jsonResponse)
+
+    // Filtering due to Bungie API bug: 
+    // Details https://github.com/Bungie-net/api/issues/1739
+    // There is an error with the data being returned from the Competitive Division playlist.
+    // I'm filtering out any activities that have mode = 0 (None)
+    // These should use the mode = 69, which is comp Rift.
+    // It's probably a good idea to leave this is anyway.
+    const filteredActivities = jsonResponse.Response.activities.filter( a => a.activityDetails.mode !== 0 )
+    const filteredJson = {...jsonResponse, Response: {activities: filteredActivities} }
+
+    const filteredFlag = filteredActivities.length < jsonResponse.Response.activities.length
+    const filteredCount = jsonResponse.Response.activities.length - filteredActivities.length
+    const filterMessage = `Filtering ${filteredCount} games due to Bungie sending incomplete data.`
+    const filterMessageUrl = 'https://github.com/Bungie-net/api/issues/1739'
+    const filterMessageComment = 'GitHub issue!'
+    // END Filtering due to Bungie API bug: 
+
+
     const getStanding = !!jsonResponse.Response.activities[0].values.standing
-    const winLossArray: AllowedWinLoss[] = this.getWinLoss(jsonResponse)
-    const winLossPercent: string = this.getWinLossPercent(jsonResponse)
+    const winLossArray: AllowedWinLoss[] = this.getWinLoss(filteredJson)
+    const winLossPercent: string = this.getWinLossPercent(filteredJson)
 
     const { membershipType, membershipId, characterId } = this.props.match
       .params as CharacterPropsInterface
@@ -368,7 +387,9 @@ class PvPChart extends React.Component<
             <div className='chart chart-heading-wrap'>
               <div className='chart chart-wrap'>
                 <h1>Recent matches - K/D R data</h1>
-
+                {filteredFlag &&
+                  <SmallMessage message={filterMessage} url={filterMessageUrl} comment={filterMessageComment} />
+                }
                 <h3>View historic data:</h3>
                 <div className='activity-button-container'>
                   <div className='activity-count-selector-wrapper'>
@@ -396,14 +417,14 @@ class PvPChart extends React.Component<
               </div>
               <div className='chart chart-wrap'>
                 <h1>DETAILED STATS FOR LAST 10 GAMES:</h1>
-                <PgcrSummary activityList={jsonResponse} {...this.props} />
+                <PgcrSummary activityList={filteredJson} {...this.props} />
               </div>
             </div>
             <div className='pgcr activity-wrapper'>
               <div className='activity-list-wrapper'>
                 <h1>Recent matches - PGCR{"'"}s</h1>
                 <ul className={'pgcr activity-list'}>
-                  <PgcrList activityList={jsonResponse} />
+                  <PgcrList activityList={filteredJson} />
                 </ul>
               </div>
             </div>
