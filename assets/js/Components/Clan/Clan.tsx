@@ -4,6 +4,7 @@ import { getUrlDetails } from '../../Utils/HelperFunctions'
 import ClanDetails from './ClanDetails'
 import ClanRoster from './ClanRoster'
 import ClanBanner from '../../../destiny-icons/general/clan.svg'
+import BungieError from '../ErrorViews/BungieError'
 
 
 export default function Clan() {
@@ -21,26 +22,27 @@ export default function Clan() {
         },
       })
       setGroups(result)
-      // console.log('groups:')
-      // console.log(result)
+      console.log('groups:')
+      console.log(result)
     }
     fetchLikes()
   }, [membershipType, membershipId])
 
   return (
+
     <section className='clan-section-wrapper'>
       <div className="clan-banner">
         <ClanBanner
           className='clan-icon'
           width={300}
           height={300}
-          // viewBox={'0 0 188 192'}
-/>
-        </div>
+        // viewBox={'0 0 188 192'}
+        />
+      </div>
       <div className='clan-wrapper'>
         {groups?.Response?.results[0]?.group.groupId
-        ? <ClanDetails group={groups?.Response.results[0].group} />
-        : <div>No clan found...</div>
+          ? <ClanDetails group={groups?.Response.results[0].group} />
+          : groups?.ErrorStatus !== 'OK' ? <BungieError message={groups?.Message} errorStatus={groups?.ErrorStatus} /> : <div>No clan found...</div>
         }
       </div>
       <div className='roster-wrapper'>

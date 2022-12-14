@@ -32,6 +32,7 @@ import { FocusDetailKey } from '../Focus/types'
 import './style.css'
 import checkLoggedInCharacter from '../../Utils/HelperFunctions/characterSelection'
 import SmallMessage from '../Messages/SmallMessage'
+import BungieError from '../ErrorViews/BungieError'
 
 
 // Set the update time for refreshing the data:
@@ -177,12 +178,19 @@ class PvPChart extends React.Component<
   }
 
   /**
-   * TODO: Add more data to this error.
    * @param jsonResponse
-   * @returns Returns a HTML div - should return a component:
+   * @returns Returns a false if an error is found.
+   * Updated to check for Bungie API sending error codes.
    */
   checkError = (jsonResponse: ServerResponse<DestinyActivityHistoryResults>) => {
     const { Response } = jsonResponse
+    // Check for Bungie.net errors:
+    if(jsonResponse?.ErrorStatus !== 'Success') {
+      const errorMessage = jsonResponse?.ErrorStatus
+      this.setState({ ...this.state, error: true, errorMessage })
+      return false
+    }
+    // Check if we have any actual activities:
     if (Response && Object.keys(Response).length === 0 && Response.constructor === Object) {
       const errorMessage = 'No activities found on this character!'
       this.setState({ ...this.state, error: true, errorMessage })
@@ -322,11 +330,20 @@ class PvPChart extends React.Component<
     const activitySelectionValues: activityCountInterface[] = [50, 100, 250]
 
     if (error) {
-      return <div>Error: {this.state.errorMessage}</div>
+      return (
+        <div>
+          {
+            jsonResponse.ErrorStatus === 'SystemDisabled'
+              ? <BungieError message={jsonResponse?.Message} errorStatus={jsonResponse.ErrorStatus} />
+              : <BungieError message={this.state.errorMessage} errorStatus={jsonResponse.ErrorStatus} />
+          }
+        </div>
+      )
     }
     if (!isLoaded) {
       return <SvgLoading />
     }
+
     const kdr = this.getKdr(jsonResponse)
 
     // Filtering due to Bungie API bug: 
@@ -340,7 +357,7 @@ class PvPChart extends React.Component<
 
     const filteredFlag = filteredActivities.length < jsonResponse.Response.activities.length
     const filteredCount = jsonResponse.Response.activities.length - filteredActivities.length
-    const filterMessage = `Filtering ${filteredCount} games due to Bungie sending incomplete data.`
+    const filterMessage = `Filtering ${filteredCount} games due to Bungies API sending incomplete data.`
     const filterMessageUrl = 'https://github.com/Bungie-net/api/issues/1739'
     const filterMessageComment = 'GitHub issue!'
     // END Filtering due to Bungie API bug: 

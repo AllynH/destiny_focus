@@ -117,6 +117,7 @@ export default function NavBar() {
       setProfile(null)
     }
   }, [auth, membershipType, membershipId, characterId, gameMode])
+
   const NavIcon = (props: { profile: SingleCharacterInterface}) => (
       <div
         onClick={handleClose}
@@ -125,12 +126,13 @@ export default function NavBar() {
           top: 50,
           minHeight: 96,
           minWidth: 96,
-          backgroundImage: `url('https://www.bungie.net/${props.profile.emblem_hash.icon}')`,
+          backgroundImage: `url('https://www.bungie.net/${props?.profile?.emblem_hash?.icon}')`,
           backgroundColor: 'transparent',
           backgroundSize: 'contain',
         }}
       ></div>
     )
+
   return (
     <>
       {/* <div className='event-banner' id='pride'></div> */}

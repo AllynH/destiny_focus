@@ -1,0 +1,14 @@
+.error-wrapper{
+    padding: 8px;
+    background-color: var(--vanguard-dark-5);
+    border: 1px solid var(--crucible-dark-2);
+    border-radius: 5px; 
+}
+
+.error-title{
+
+}
+
+.error-message{
+
+}

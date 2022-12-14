@@ -10,6 +10,16 @@ type ChangelogInterface = {
 
 const ChangelogData: Array<ChangelogInterface> = [
   {
+    Release: 'v1.17.6',
+    Ref: 'Season of no API',
+    Heading: 'v1.17.6',
+    Date: '14 Dec, 2022',
+    Body: [
+      'Fixed a bunch of issues causing the App to crash when the API went down.',
+      'Added custom error message components.',
+    ]
+  },
+  {
     Release: 'v1.17.5',
     Ref: 'Welcome',
     Heading: 'v1.17.5',
