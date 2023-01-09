@@ -41,7 +41,7 @@
     "bungie-api-ts": "^4.18.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
-    "luxon": "^1.25.0",
+    "luxon": "^2.5.2",
     "popper.js": "^1.15.0",
     "react": "^16.14.0",
     "react-component-export-image": "^1.0.5",
