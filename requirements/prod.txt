@@ -39,4 +39,4 @@ Flask-DebugToolbar==0.13.1
 environs==9.5.0
 
 # API calls:
-requests==2.28.1
+requests==2.31.0
