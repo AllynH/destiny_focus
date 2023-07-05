@@ -30,6 +30,13 @@ Merge requests very welcome.
 
 # How to run:
 
+## Steps to run on your machine:
+
+You need 2 terminals / cmd windows:
+1. venv/Scripts/activate
+2. flask run
+3. npm run webpack-watch
+
 # Included packages:
 
 This application makes use of the following packages:
