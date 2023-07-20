@@ -61,7 +61,7 @@ pycodestyle==2.5.0
 pycparser==2.21
 pydocstyle==6.1.1
 pyflakes==2.1.1
-Pygments==2.13.0
+Pygments==2.15.0
 pylint==2.14.5
 pyparsing==3.0.9
 pyreadline==2.1
