@@ -151,7 +151,7 @@ class BungieSignIn(OAuthSignin):
 
         # Get access token:
         post_data = f'grant_type=authorization_code&code={code}&client_id={self.service["client_id"]}&client_secret={self.service["client_secret"]}'
-        response = requests.post(self.service['access_token_url'], data=post_data, headers=headers)
+        response = requests.post(self.service['access_token_url'], data=post_data, headers=headers, timeout=15)
         # Useful debug print statements:
         # print(response.status_code)
         # print(response.text)
@@ -189,7 +189,7 @@ class BungieSignIn(OAuthSignin):
         # Refresh access token:
         token_json              = current_user.refresh_token
         post_data = f'grant_type=refresh_token&refresh_token={token_json}&client_id={self.service["client_id"]}&client_secret={self.service["client_secret"]}'
-        response = requests.post(self.service['access_token_url'], data=post_data, headers=headers)
+        response = requests.post(self.service['access_token_url'], data=post_data, headers=headers, timeout=15)
         # Useful debug print statements:
         # print(response.status_code)
         # print(response.text)

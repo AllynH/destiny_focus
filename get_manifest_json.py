@@ -48,7 +48,7 @@ HEADERS = {"X-API-Key": OAUTH_CREDENTIALS["bungie"]["api_key"]}
 def get_manifest_version():
     """ Send the request to Bungie for the Manifest version information: """
     print("\t-I- Requesting Manifest.")
-    manifest_info = requests.get(URL_LIST['DESTINY_MANIFEST_URL'], headers=HEADERS)
+    manifest_info = requests.get(URL_LIST['DESTINY_MANIFEST_URL'], headers=HEADERS, timeout=15)
     # print(manifest_info.status_code)
     # print(manifest_info.text)
     # print(manifest_info.encoding)
@@ -92,7 +92,7 @@ def get_json_manifest(def_name, def_url):
     """
     manifest_url = URL_LIST['BUNGIE_BASE_URL'] + def_url
     print("\t-I- Requesting JSON Manifest.")
-    manifest_response = requests.get(manifest_url, headers=HEADERS)
+    manifest_response = requests.get(manifest_url, headers=HEADERS, timeout=15)
 
     # Some useful debug print statements:
     # print(manifest_response.status_code)

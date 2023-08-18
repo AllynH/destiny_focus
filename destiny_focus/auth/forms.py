@@ -18,7 +18,8 @@ class LoginForm(FlaskForm):
         super(LoginForm, self).__init__(*args, **kwargs)
         self.user = None
 
-    def validate(self):
+                            # Added pylint disable, after updating FlaskForm
+    def validate(self):     # pylint: disable=arguments-differ
         """Validate the form."""
         initial_validation = super(LoginForm, self).validate()
         if not initial_validation:

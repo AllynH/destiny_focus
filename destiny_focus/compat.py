@@ -5,7 +5,7 @@ import sys
 PY2 = int(sys.version[0]) == 2
 
 if PY2:
-    text_type = unicode  # noqa
+    text_type = unicode  # noqa pylint: disable=E0601
     binary_type = str
     string_types = (str, unicode)  # noqa
     unicode = unicode  # noqa pylint: disable=self-assigning-variable

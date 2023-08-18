@@ -29,7 +29,7 @@ class RegisterForm(FlaskForm):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.user = None
 
-    def validate(self):
+    def validate(self):     # pylint: disable=arguments-differ
         """Validate the form."""
         initial_validation = super(RegisterForm, self).validate()
         if not initial_validation:
