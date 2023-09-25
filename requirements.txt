@@ -37,7 +37,7 @@ Flask-Migrate==4.0.4
 Flask-SQLAlchemy==3.0.5
 Flask-Static-Digest==0.4.0
 Flask-WTF==1.1.1
-gevent==22.10.2
+gevent==23.9.1
 greenlet==2.0.2
 gunicorn==20.1.0
 idna==3.4
